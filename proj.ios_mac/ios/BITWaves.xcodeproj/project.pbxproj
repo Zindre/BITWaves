@@ -672,6 +672,8 @@
 		FEC4C47BA28247B29E71F00A /* CCPUPlaneCollider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6211109C53E64F74B0778F5F /* CCPUPlaneCollider.cpp */; };
 		FEF6B834528A4FCFA03BAEFF /* Bomb.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = 854292635B404182B99D1E88 /* Bomb.png */; };
 		FF3310F6393E4770B776D84E /* CCComAttribute.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 64F9607844A04174A11DB12F /* CCComAttribute.cpp */; };
+		FFF7A29124FD07F000D02024 /* projectsButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FFF7A29024FD07F000D02024 /* projectsButton@2x.png */; };
+		FFF7A29224FD28B800D02024 /* projectsButton@2x.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = FFF7A29024FD07F000D02024 /* projectsButton@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1031,6 +1033,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 7;
 			files = (
+				FFF7A29224FD28B800D02024 /* projectsButton@2x.png in CopyFiles */,
 				C12124167DF0451EAB862E27 /* .DS_Store in CopyFiles */,
 				FEF6B834528A4FCFA03BAEFF /* Bomb.png in CopyFiles */,
 				875824195EBE4946A4DD5464 /* Bomb1.png in CopyFiles */,
@@ -2358,12 +2361,14 @@
 		FF698ADD262048AFAE5B39EF /* UIAbstractCheckButton.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = UIAbstractCheckButton.h; path = cocos2d/cocos/ui/UIAbstractCheckButton.h; sourceTree = SOURCE_ROOT; };
 		FF922BAD998C4C07AE4739AE /* CCPUBaseForceAffector.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = CCPUBaseForceAffector.cpp; path = cocos2d/extensions/Particle3D/PU/CCPUBaseForceAffector.cpp; sourceTree = SOURCE_ROOT; };
 		FFD8FE7AB5E34C61AC81F73A /* Vec4.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = Vec4.h; path = cocos2d/cocos/math/Vec4.h; sourceTree = SOURCE_ROOT; };
+		FFF7A29024FD07F000D02024 /* projectsButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "projectsButton@2x.png"; path = "Resources/projectsButton@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
 		02E7330CAE3241C5B0AAB6E5 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				FFF7A29024FD07F000D02024 /* projectsButton@2x.png */,
 				6FD438C114584A63B02E2221 /* fonts */,
 				E3A7B0648FCA4BEDB473F203 /* res */,
 				84A8B2349F5F4D91A47465BC /* .DS_Store */,
@@ -4818,6 +4823,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FFF7A29124FD07F000D02024 /* projectsButton@2x.png in Resources */,
 				AC5E5E3FD7D7476096A473E5 /* Images.xcassets in Resources */,
 				8AA3130F86C94CA8A678D03D /* LaunchScreen.storyboard in Resources */,
 				D8AD17CA1A4749EBBE1E9FD0 /* LaunchScreenBackground.png in Resources */,

@@ -166,11 +166,14 @@ void InstrumentScene::onTouchesBegan( const std::vector<Touch*>& touches, Event*
                                     mainMenu->setTouchHasBegun( true, kButtons_ArrayNum_Help );
                                 }
                             
-                    
-                            
                                 if ( mainMenu->buttons_image[kButtons_ArrayNum_Lock]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
                                     mainMenu->buttons_image[kButtons_ArrayNum_Lock]->setScale( kButtons_ScaleValue );
                                     mainMenu->setTouchHasBegun( true, kButtons_ArrayNum_Lock );
+                                }
+                                
+                                if ( mainMenu->buttons_image[kButtons_ArrayNum_Projects]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
+                                    mainMenu->buttons_image[kButtons_ArrayNum_Projects]->setScale( kButtons_ScaleValue );
+                                    mainMenu->setTouchHasBegun( true, kButtons_ArrayNum_Projects );
                                 }
                                 
                             }
@@ -277,6 +280,8 @@ void InstrumentScene::onTouchesEnded( const std::vector<Touch*> &touches, Event*
                                 FMODAudioEngine::recordStart( mainMenu->getActiveSoundObject() );
                                 mainMenu->buttons_image[kButtons_ArrayNum_Seq]->setColor( Color3B( kButtons_GrayedOutValue, kButtons_GrayedOutValue, kButtons_GrayedOutValue ) );
                                 mainMenu->buttons_image[kButtons_ArrayNum_Help]->setColor( Color3B( kButtons_GrayedOutValue, kButtons_GrayedOutValue, kButtons_GrayedOutValue ) );
+                                mainMenu->buttons_image[kButtons_ArrayNum_Projects]->setColor( Color3B( kButtons_GrayedOutValue, kButtons_GrayedOutValue, kButtons_GrayedOutValue ) );
+                                mainMenu->buttons_image[kButtons_ArrayNum_Lock]->setColor( Color3B( kButtons_GrayedOutValue, kButtons_GrayedOutValue, kButtons_GrayedOutValue ) );
                                 mainMenu->buttons_image[kButtons_ArrayNum_Stop]->setVisible( true );
                             }
                         }
@@ -326,6 +331,15 @@ void InstrumentScene::onTouchesEnded( const std::vector<Touch*> &touches, Event*
                                 }
                             }
                         }
+                        
+                        if ( mainMenu->buttons_image[kButtons_ArrayNum_Projects]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
+                            if ( mainMenu->getTouchHasBegun( kButtons_ArrayNum_Projects ) ) {
+                                log( "hei!" );
+                            }
+                        }
+                        
+                        
+                        
                     }
 
                 }
@@ -335,11 +349,13 @@ void InstrumentScene::onTouchesEnded( const std::vector<Touch*> &touches, Event*
                 mainMenu->buttons_image[kButtons_ArrayNum_Seq]->setScale( 1.0f );
                 mainMenu->buttons_image[kButtons_ArrayNum_Help]->setScale( 1.0f );
                 mainMenu->buttons_image[kButtons_ArrayNum_Lock]->setScale( 1.0f );
+                mainMenu->buttons_image[kButtons_ArrayNum_Projects]->setScale( 1.0f );
                 mainMenu->setTouchHasBegun( false, kButtons_ArrayNum_Rec );
                 mainMenu->setTouchHasBegun( false, kButtons_ArrayNum_Stop );
                 mainMenu->setTouchHasBegun( false, kButtons_ArrayNum_Seq );
                 mainMenu->setTouchHasBegun( false, kButtons_ArrayNum_Help );
                 mainMenu->setTouchHasBegun( false, kButtons_ArrayNum_Lock );
+                mainMenu->setTouchHasBegun( false, kButtons_ArrayNum_Projects );
                 
                 for ( int i = 0; i < circleEmitter.size(); i++ ) {
                     if ( circleEmitter[i].getTouchID() == touch->getID() ) {
@@ -380,6 +396,8 @@ void InstrumentScene::stopRecording() {
     mainMenu->buttons_image[kButtons_ArrayNum_Rec]->setColor( Color3B::WHITE );
     mainMenu->buttons_image[kButtons_ArrayNum_Seq]->setColor( Color3B::WHITE );
     mainMenu->buttons_image[kButtons_ArrayNum_Help]->setColor( Color3B::WHITE );
+    mainMenu->buttons_image[kButtons_ArrayNum_Projects]->setColor( Color3B::WHITE );
+    mainMenu->buttons_image[kButtons_ArrayNum_Lock]->setColor( Color3B::WHITE );
     mainMenu->buttons_image[kButtons_ArrayNum_Stop]->setVisible( false );
     mainMenu->buttons_image[kButtons_ArrayNum_Rec]->setScale( 1.0f );
     

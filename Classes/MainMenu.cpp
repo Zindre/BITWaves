@@ -44,6 +44,7 @@ MainMenu::MainMenu( Layer *layer, unsigned int whatScene ) {
         buttons_image[kButtons_ArrayNum_Stop]->setVisible( false );
         buttons_image[kButtons_ArrayNum_Stop]->setTexture( "stopButton@2x.png" );
         buttons_image[kButtons_ArrayNum_Lock]->setTexture( "lockButton@2x.png" );
+        buttons_image[kButtons_ArrayNum_Projects]->setTexture( "projectsButton@2x.png" );
     } else {
         buttons_image[kButtons_ArrayNum_Mic]->setTexture( "micButton@2x.png" );
         buttons_image[kButtons_ArrayNum_Play]->setTexture( "playButton@2x.png" );
@@ -54,9 +55,7 @@ MainMenu::MainMenu( Layer *layer, unsigned int whatScene ) {
     }
     
     buttons_image[kButtons_ArrayNum_Help]->setTexture( "helpButton@2x.png" );
-
-    // TEMP REMOVE BOUNCE BUTTON
-    buttons_image[kButtons_ArrayNum_Bounce]->setVisible( false );
+    
     
     FileUtils *fileUtils = FileUtils::getInstance();
     std::string dirPath = fileUtils->getWritablePath();

@@ -35,6 +35,7 @@
 #define kButtons_ArrayNum_Mic 5
 #define kButtons_ArrayNum_Help 6
 #define kButtons_ArrayNum_Lock 2
+#define kButtons_ArrayNum_Projects 4
 
 #define kSequenceLengthInMS 60000
 

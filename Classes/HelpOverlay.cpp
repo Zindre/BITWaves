@@ -166,9 +166,6 @@ void HelpOverlay::show() {
         helpLabel[i]->setVisible( true );
     }
 
-    // TEMP REMOVE BOUNCE
-    helpLabel[3]->setVisible( false );
-
     if ( whatScene == kScene_Instrument ) {
         helpLabel[1]->setVisible( false );
         helpLabel[3]->setVisible( false );

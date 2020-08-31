@@ -175,11 +175,10 @@ void SequencerScene::onTouchesBegan( const std::vector<Touch*>& touches, Event* 
                             }
                         }
 
-                        // TEMP REMOVE BOUNCE BUTTON
-                        /*if ( mainMenu->buttons_image[kButtons_ArrayNum_Bounce]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
+                        if ( mainMenu->buttons_image[kButtons_ArrayNum_Bounce]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
                             mainMenu->setTouchHasBegun( true, kButtons_ArrayNum_Bounce );
                             mainMenu->buttons_image[kButtons_ArrayNum_Bounce]->setScale( kButtons_ScaleValue );
-                        }*/
+                        }
                 
                     }
             
