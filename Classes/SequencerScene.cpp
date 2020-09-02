@@ -558,7 +558,6 @@ void SequencerScene::saveData() {
             log( "savePos[i].x: %f", savePos[i].x );
         }
         
-        
         data_pos_X.copy((unsigned char*) pos_X.data(), pos_X.size() * sizeof(float));
         UserDefault::getInstance()->setDataForKey( "savePos_X", data_pos_X );
     }
