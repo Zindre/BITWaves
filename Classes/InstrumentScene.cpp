@@ -46,6 +46,7 @@ bool InstrumentScene::init()
 
 
     mainMenu = new MainMenu( this, kScene_Instrument );
+    projectHandling = new ProjectHandling( this );
     recordTimer = 0.0f;
     touchIsDown = false;
     
@@ -114,96 +115,120 @@ void InstrumentScene::onTouchesBegan( const std::vector<Touch*>& touches, Event*
             mainMenu->setStartPos( touch->getLocation() );
             
             if ( ! mainMenu->helpOverlayIsVisible ) {
-            
-                if ( mainMenu->instrumentArea->getBoundingBox().containsPoint( touch->getLocation() ) ) {
+                
+                // PROJECT HANDLING
+                if ( projectHandling->isShowing() ) {
                     
-                    // INSTRUMENT AREA
-                    if ( ! FMODAudioEngine::isRecording() ) {
-                        
-                        if ( circleEmitter.size() < kNumOfChannels ) {
-                            
-                            playingSoundObject[touch->getID()] = mainMenu->getActiveSoundObject();
-                            
-                            if ( FMODAudioEngine::hasRecordWav( playingSoundObject[touch->getID()] ) ) {
-                                circleEmitter.push_back( CircleEmitter( this, touch->getID(), touch->getLocation(), playingSoundObject[touch->getID()] ) );
-                            }
-                            
-                        }
-                        
+                    if ( projectHandling->closeCross->getBoundingBox().containsPoint( touch->getLocation() ) ) {
+                        projectHandling->hide();
+                    }
+                    
+                    if ( projectHandling->textField->getBoundingBox().containsPoint( touch->getLocation() ) ) {
+                        projectHandling->openKeyboard();
+                    }
+                    
+                    if ( projectHandling->label_save->getBoundingBox().containsPoint( touch->getLocation() ) ) {
+                        projectHandling->save();
+                    }
+                    
+                    if ( projectHandling->label_load->getBoundingBox().containsPoint( touch->getLocation() ) ) {
+                        projectHandling->load();
                     }
                     
                 } else {
                     
-                    // MAIN MENU
-                    if ( touch->getID() == 0 ) {
+                    if ( mainMenu->instrumentArea->getBoundingBox().containsPoint( touch->getLocation() ) ) {
                         
+                        // INSTRUMENT AREA
                         if ( ! FMODAudioEngine::isRecording() ) {
                             
-                            if ( ! recIsLocked ) {
-                                if ( mainMenu->buttons_image[kButtons_ArrayNum_Rec]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
-                                    mainMenu->setTouchHasBegun( true, kButtons_ArrayNum_Rec );
-                                    mainMenu->buttons_image[kButtons_ArrayNum_Rec]->setScale( kButtons_ScaleValue );
-                                }
-                            } else {
-                                if ( mainMenu->buttons_image[kButtons_ArrayNum_Rec]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
-                                    auto goYellow = TintTo::create( 0.001f, 255, 255, 0 );
-                                    auto goWhite = TintTo::create( 1.0f, 255, 255, 255 );
-                                    auto seq = Sequence::create( goYellow, goWhite, NULL );
-                                    mainMenu->buttons_image[kButtons_ArrayNum_Lock]->runAction( seq );
-                                }
-                            }
-                            
-                            
-                            if ( ! recIsFinalizing ) {
+                            if ( circleEmitter.size() < kNumOfChannels ) {
                                 
-                                if ( mainMenu->buttons_image[kButtons_ArrayNum_Seq]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
-                                    mainMenu->buttons_image[kButtons_ArrayNum_Seq]->setScale( kButtons_ScaleValue );
-                                    mainMenu->setTouchHasBegun( true, kButtons_ArrayNum_Seq );
-                                }
+                                playingSoundObject[touch->getID()] = mainMenu->getActiveSoundObject();
                                 
-                                if ( mainMenu->buttons_image[kButtons_ArrayNum_Help]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
-                                    mainMenu->buttons_image[kButtons_ArrayNum_Help]->setScale( kButtons_ScaleValue );
-                                    mainMenu->setTouchHasBegun( true, kButtons_ArrayNum_Help );
-                                }
-                            
-                                if ( mainMenu->buttons_image[kButtons_ArrayNum_Lock]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
-                                    mainMenu->buttons_image[kButtons_ArrayNum_Lock]->setScale( kButtons_ScaleValue );
-                                    mainMenu->setTouchHasBegun( true, kButtons_ArrayNum_Lock );
-                                }
-                                
-                                if ( mainMenu->buttons_image[kButtons_ArrayNum_Projects]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
-                                    mainMenu->buttons_image[kButtons_ArrayNum_Projects]->setScale( kButtons_ScaleValue );
-                                    mainMenu->setTouchHasBegun( true, kButtons_ArrayNum_Projects );
+                                if ( FMODAudioEngine::hasRecordWav( playingSoundObject[touch->getID()] ) ) {
+                                    circleEmitter.push_back( CircleEmitter( this, touch->getID(), touch->getLocation(), playingSoundObject[touch->getID()] ) );
                                 }
                                 
                             }
                             
                         }
                         
+                    } else {
                         
-                        if ( FMODAudioEngine::isRecording() ) {
-                            if ( mainMenu->buttons_image[kButtons_ArrayNum_Stop]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
-                                if ( recordTimer > kMinimumRecordTime ) {
-                                    mainMenu->setTouchHasBegun( true, kButtons_ArrayNum_Stop );
-                                    mainMenu->buttons_image[kButtons_ArrayNum_Stop]->setScale( kButtons_ScaleValue );
+                        // MAIN MENU
+                        if ( touch->getID() == 0 ) {
+                            
+                            if ( ! FMODAudioEngine::isRecording() ) {
+                                
+                                if ( ! recIsLocked ) {
+                                    if ( mainMenu->buttons_image[kButtons_ArrayNum_Rec]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
+                                        mainMenu->setTouchHasBegun( true, kButtons_ArrayNum_Rec );
+                                        mainMenu->buttons_image[kButtons_ArrayNum_Rec]->setScale( kButtons_ScaleValue );
+                                    }
+                                } else {
+                                    if ( mainMenu->buttons_image[kButtons_ArrayNum_Rec]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
+                                        auto goYellow = TintTo::create( 0.001f, 255, 255, 0 );
+                                        auto goWhite = TintTo::create( 1.0f, 255, 255, 255 );
+                                        auto seq = Sequence::create( goYellow, goWhite, NULL );
+                                        mainMenu->buttons_image[kButtons_ArrayNum_Lock]->runAction( seq );
+                                    }
+                                }
+                                
+                                
+                                if ( ! recIsFinalizing ) {
+                                    
+                                    if ( mainMenu->buttons_image[kButtons_ArrayNum_Seq]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
+                                        mainMenu->buttons_image[kButtons_ArrayNum_Seq]->setScale( kButtons_ScaleValue );
+                                        mainMenu->setTouchHasBegun( true, kButtons_ArrayNum_Seq );
+                                    }
+                                    
+                                    if ( mainMenu->buttons_image[kButtons_ArrayNum_Help]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
+                                        mainMenu->buttons_image[kButtons_ArrayNum_Help]->setScale( kButtons_ScaleValue );
+                                        mainMenu->setTouchHasBegun( true, kButtons_ArrayNum_Help );
+                                    }
+                                
+                                    if ( mainMenu->buttons_image[kButtons_ArrayNum_Lock]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
+                                        mainMenu->buttons_image[kButtons_ArrayNum_Lock]->setScale( kButtons_ScaleValue );
+                                        mainMenu->setTouchHasBegun( true, kButtons_ArrayNum_Lock );
+                                    }
+                                    
+                                    if ( mainMenu->buttons_image[kButtons_ArrayNum_Projects]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
+                                        mainMenu->buttons_image[kButtons_ArrayNum_Projects]->setScale( kButtons_ScaleValue );
+                                        mainMenu->setTouchHasBegun( true, kButtons_ArrayNum_Projects );
+                                    }
+                                    
+                                }
+                                
+                            }
+                            
+                            
+                            if ( FMODAudioEngine::isRecording() ) {
+                                if ( mainMenu->buttons_image[kButtons_ArrayNum_Stop]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
+                                    if ( recordTimer > kMinimumRecordTime ) {
+                                        mainMenu->setTouchHasBegun( true, kButtons_ArrayNum_Stop );
+                                        mainMenu->buttons_image[kButtons_ArrayNum_Stop]->setScale( kButtons_ScaleValue );
+                                    }
+                                }
+                            }
+                            
+                            
+                        }
+                        
+                        if ( ! FMODAudioEngine::isRecording() ) {
+                            for ( int i = 0; i < kNumOfSoundObjects; i++ ) {
+                                if ( mainMenu->soundSquare[i]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
+                                    mainMenu->setActiveSoundObject( i );
                                 }
                             }
                         }
+                        
                         
                         
                     }
-                    
-                    if ( ! FMODAudioEngine::isRecording() ) {
-                        for ( int i = 0; i < kNumOfSoundObjects; i++ ) {
-                            if ( mainMenu->soundSquare[i]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
-                                mainMenu->setActiveSoundObject( i );
-                            }
-                        }
-                    }
-                    
-                    
-                    
                 }
+            
+                
                 
             }
         }
@@ -334,7 +359,9 @@ void InstrumentScene::onTouchesEnded( const std::vector<Touch*> &touches, Event*
                         
                         if ( mainMenu->buttons_image[kButtons_ArrayNum_Projects]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
                             if ( mainMenu->getTouchHasBegun( kButtons_ArrayNum_Projects ) ) {
-                                log( "hei!" );
+                                if ( ! projectHandling->isShowing() ) {
+                                    projectHandling->show();
+                                }
                             }
                         }
                         

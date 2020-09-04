@@ -672,6 +672,9 @@
 		FEC4C47BA28247B29E71F00A /* CCPUPlaneCollider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6211109C53E64F74B0778F5F /* CCPUPlaneCollider.cpp */; };
 		FEF6B834528A4FCFA03BAEFF /* Bomb.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = 854292635B404182B99D1E88 /* Bomb.png */; };
 		FF3310F6393E4770B776D84E /* CCComAttribute.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 64F9607844A04174A11DB12F /* CCComAttribute.cpp */; };
+		FFB2E21D25024F44002331DA /* ProjectHandling.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FFB2E21B25024F44002331DA /* ProjectHandling.cpp */; };
+		FFB2E222250258AD002331DA /* closeCross@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FFB2E221250258AD002331DA /* closeCross@2x.png */; };
+		FFB2E223250258B5002331DA /* closeCross@2x.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = FFB2E221250258AD002331DA /* closeCross@2x.png */; };
 		FFF7A29124FD07F000D02024 /* projectsButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FFF7A29024FD07F000D02024 /* projectsButton@2x.png */; };
 		FFF7A29224FD28B800D02024 /* projectsButton@2x.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = FFF7A29024FD07F000D02024 /* projectsButton@2x.png */; };
 /* End PBXBuildFile section */
@@ -1033,6 +1036,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 7;
 			files = (
+				FFB2E223250258B5002331DA /* closeCross@2x.png in CopyFiles */,
 				FFF7A29224FD28B800D02024 /* projectsButton@2x.png in CopyFiles */,
 				C12124167DF0451EAB862E27 /* .DS_Store in CopyFiles */,
 				FEF6B834528A4FCFA03BAEFF /* Bomb.png in CopyFiles */,
@@ -2360,6 +2364,9 @@
 		FF675436CA9D4DCB829EF4DB /* CCPUDoAffectorEventHandler.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = CCPUDoAffectorEventHandler.cpp; path = cocos2d/extensions/Particle3D/PU/CCPUDoAffectorEventHandler.cpp; sourceTree = SOURCE_ROOT; };
 		FF698ADD262048AFAE5B39EF /* UIAbstractCheckButton.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = UIAbstractCheckButton.h; path = cocos2d/cocos/ui/UIAbstractCheckButton.h; sourceTree = SOURCE_ROOT; };
 		FF922BAD998C4C07AE4739AE /* CCPUBaseForceAffector.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = CCPUBaseForceAffector.cpp; path = cocos2d/extensions/Particle3D/PU/CCPUBaseForceAffector.cpp; sourceTree = SOURCE_ROOT; };
+		FFB2E21B25024F44002331DA /* ProjectHandling.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = ProjectHandling.cpp; path = Classes/ProjectHandling.cpp; sourceTree = "<group>"; };
+		FFB2E21C25024F44002331DA /* ProjectHandling.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = ProjectHandling.hpp; path = Classes/ProjectHandling.hpp; sourceTree = "<group>"; };
+		FFB2E221250258AD002331DA /* closeCross@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "closeCross@2x.png"; path = "Resources/closeCross@2x.png"; sourceTree = "<group>"; };
 		FFD8FE7AB5E34C61AC81F73A /* Vec4.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = Vec4.h; path = cocos2d/cocos/math/Vec4.h; sourceTree = SOURCE_ROOT; };
 		FFF7A29024FD07F000D02024 /* projectsButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "projectsButton@2x.png"; path = "Resources/projectsButton@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -2368,6 +2375,7 @@
 		02E7330CAE3241C5B0AAB6E5 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				FFB2E221250258AD002331DA /* closeCross@2x.png */,
 				FFF7A29024FD07F000D02024 /* projectsButton@2x.png */,
 				6FD438C114584A63B02E2221 /* fonts */,
 				E3A7B0648FCA4BEDB473F203 /* res */,
@@ -2479,6 +2487,8 @@
 				F1CA5AA4068A4AFAA9336786 /* SeqSoundRect.hpp */,
 				6B3447B5F1A14709B7D3CF85 /* SequencerScene.cpp */,
 				44DCBC405F64482A9F6A5647 /* SequencerScene.h */,
+				FFB2E21B25024F44002331DA /* ProjectHandling.cpp */,
+				FFB2E21C25024F44002331DA /* ProjectHandling.hpp */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -4826,6 +4836,7 @@
 				FFF7A29124FD07F000D02024 /* projectsButton@2x.png in Resources */,
 				AC5E5E3FD7D7476096A473E5 /* Images.xcassets in Resources */,
 				8AA3130F86C94CA8A678D03D /* LaunchScreen.storyboard in Resources */,
+				FFB2E222250258AD002331DA /* closeCross@2x.png in Resources */,
 				D8AD17CA1A4749EBBE1E9FD0 /* LaunchScreenBackground.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -5483,6 +5494,7 @@
 				86881D8B4D404095B7A4816B /* SeqSoundRect.cpp in Sources */,
 				28BCECE312D34035A5E73453 /* SequencerScene.cpp in Sources */,
 				B754570347B641969E8B41F5 /* AppController.mm in Sources */,
+				FFB2E21D25024F44002331DA /* ProjectHandling.cpp in Sources */,
 				61B202D324E1411BA2760D7C /* RootViewController.mm in Sources */,
 				09B70116F988487496E16A71 /* main.m in Sources */,
 			);

@@ -7,6 +7,7 @@
 #include "MainMenu.hpp"
 #include "SequencerScene.h"
 #include "CircleEmitter.hpp"
+#include "ProjectHandling.hpp"
 
 #define kMinimumRecordTime 0.1f
 
@@ -38,6 +39,7 @@ private:
 
     MainMenu *mainMenu;
     std::vector<CircleEmitter> circleEmitter;
+    ProjectHandling *projectHandling;
     
     cocos2d::Size visibleSize;
     cocos2d::Vec2 origin;

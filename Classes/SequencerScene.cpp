@@ -59,10 +59,11 @@ bool SequencerScene::init() {
         FMODAudioEngine::loadSoundFromDisk(i);
     }
 
-
-
-    //UserDefault::getInstance()->deleteValueForKey( "savePos_Y" );
-    //UserDefault::getInstance()->deleteValueForKey( "saveWhatSoundObject" );
+    
+    // ONLY FOR DEBUGGING
+    /*UserDefault::getInstance()->deleteValueForKey( "current_posX" );
+    UserDefault::getInstance()->deleteValueForKey( "current_posY" );
+    UserDefault::getInstance()->deleteValueForKey( "current_whatSound" );*/
     
 
     loadData();
@@ -430,9 +431,9 @@ void SequencerScene::removeSeqSoundRect( unsigned long who ) {
     saveWhatSoundObject.erase( saveWhatSoundObject.begin() + who );
     seqSoundRect.erase( seqSoundRect.begin() + who );
     
-    UserDefault::getInstance()->deleteValueForKey( "savePos_X" );
-    UserDefault::getInstance()->deleteValueForKey( "savePos_Y" );
-    UserDefault::getInstance()->deleteValueForKey( "saveWhatSound" );
+    UserDefault::getInstance()->deleteValueForKey( "current_posX" );
+    UserDefault::getInstance()->deleteValueForKey( "current_posY" );
+    UserDefault::getInstance()->deleteValueForKey( "current_whatSound" );
     
 }
 
@@ -559,7 +560,7 @@ void SequencerScene::saveData() {
         }
         
         data_pos_X.copy((unsigned char*) pos_X.data(), pos_X.size() * sizeof(float));
-        UserDefault::getInstance()->setDataForKey( "savePos_X", data_pos_X );
+        UserDefault::getInstance()->setDataForKey( "current_posX", data_pos_X );
     }
     // ----------------------------------------------------------------------------------
     
@@ -575,7 +576,7 @@ void SequencerScene::saveData() {
         }
         
         data_pos_Y.copy((unsigned char*) pos_Y.data(), pos_Y.size() * sizeof(float));
-        UserDefault::getInstance()->setDataForKey( "savePos_Y", data_pos_Y );
+        UserDefault::getInstance()->setDataForKey( "current_posY", data_pos_Y );
     }
     // ----------------------------------------------------------------------------------
     
@@ -591,7 +592,7 @@ void SequencerScene::saveData() {
         }
         
         data_whatSound.copy((unsigned char*) whatSound.data(), whatSound.size() * sizeof(int));
-        UserDefault::getInstance()->setDataForKey( "saveWhatSound", data_whatSound );
+        UserDefault::getInstance()->setDataForKey( "current_whatSound", data_whatSound );
     }
     // ----------------------------------------------------------------------------------
     
@@ -601,7 +602,7 @@ void SequencerScene::saveData() {
 void SequencerScene::loadData() {
 
     // ----------------------------------------------------------------------------------
-    Data data_pos_X = UserDefault::getInstance()->getDataForKey( "savePos_X" );
+    Data data_pos_X = UserDefault::getInstance()->getDataForKey( "current_posX" );
     float*  buffer_X = (float*) data_pos_X.getBytes();
     ssize_t length_X = data_pos_X.getSize() / sizeof(float);
     
@@ -610,12 +611,12 @@ void SequencerScene::loadData() {
     for (int i = 0; i < length_X; i++) {
         ss_X << buffer_X[i] << " ";
     }
-    CCLOG("load %s is %s", "savePos_X", ss_X.str().c_str());
+    CCLOG("load %s is %s", "current_posX", ss_X.str().c_str());
     // ----------------------------------------------------------------------------------
     
     
     // ----------------------------------------------------------------------------------
-    Data data_pos_Y = UserDefault::getInstance()->getDataForKey( "savePos_Y" );
+    Data data_pos_Y = UserDefault::getInstance()->getDataForKey( "current_posY" );
     float*  buffer_Y = (float*) data_pos_Y.getBytes();
     ssize_t length_Y = data_pos_Y.getSize() / sizeof(float);
     
@@ -624,12 +625,12 @@ void SequencerScene::loadData() {
     for (int i = 0; i < length_Y; i++) {
         ss_Y << buffer_Y[i] << " ";
     }
-    CCLOG("load %s is %s", "savePos_Y", ss_Y.str().c_str());
+    CCLOG("load %s is %s", "current_posY", ss_Y.str().c_str());
     // ----------------------------------------------------------------------------------
     
     
     // ----------------------------------------------------------------------------------
-    Data data_whatSound = UserDefault::getInstance()->getDataForKey( "saveWhatSound" );
+    Data data_whatSound = UserDefault::getInstance()->getDataForKey( "current_whatSound" );
     int* buffer_whatSound = (int*) data_whatSound.getBytes();
     ssize_t length_whatSound = data_whatSound.getSize() / sizeof(int);
     
@@ -638,7 +639,7 @@ void SequencerScene::loadData() {
     for ( int i = 0; i < length_whatSound; i++ ) {
         ss_whatSound << buffer_whatSound[i] << " ";
     }
-    log( "load %s is %s", "saveWhatSound", ss_whatSound.str().c_str() );
+    log( "load %s is %s", "current_whatSound", ss_whatSound.str().c_str() );
     // ----------------------------------------------------------------------------------
     
     for ( int i = 0; i < length_X; i++ ) {

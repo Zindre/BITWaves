@@ -9,8 +9,9 @@
 #define kLayer_BombAnim 8
 #define kLayer_InstrumentArea 9
 #define kLayer_ConfirmRec 10
-#define kLayer_HelpOverlayBorder 11
-#define kLayer_HelpOverlay 12
+#define kLayer_ProjectHandling 11
+#define kLayer_HelpOverlayBorder 12
+#define kLayer_HelpOverlay 13
 
 #define kTouch_NumOfTouchesAllowed 11
 #define kPitchMin 0.1f
