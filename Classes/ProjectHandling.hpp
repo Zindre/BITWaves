@@ -37,6 +37,7 @@ private:
     cocos2d::Sprite *background;
     bool _isShowing;
     std::vector<Vec2> currentPos;
+    std::vector<int> currentWhatSound;
 
     
     

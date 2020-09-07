@@ -81,7 +81,7 @@ void ProjectHandling::loadCurrentData() {
     for (int i = 0; i < length_X; i++) {
         ss_X << buffer_X[i] << " ";
     }
-    CCLOG("load %s is %s", "current_posX", ss_X.str().c_str());
+    CCLOG("PH init load %s is %s", "current_posX", ss_X.str().c_str());
     // ----------------------------------------------------------------------------------
     
     
@@ -95,12 +95,30 @@ void ProjectHandling::loadCurrentData() {
     for (int i = 0; i < length_Y; i++) {
         ss_Y << buffer_Y[i] << " ";
     }
-    CCLOG("load %s is %s", "current_posY", ss_Y.str().c_str());
+    CCLOG("PH init load %s is %s", "current_posY", ss_Y.str().c_str());
+    // ----------------------------------------------------------------------------------
+    
+    
+    // ----------------------------------------------------------------------------------
+    Data data_whatSound = UserDefault::getInstance()->getDataForKey( "current_whatSound" );
+    int* buffer_whatSound = (int*) data_whatSound.getBytes();
+    ssize_t length_whatSound = data_whatSound.getSize() / sizeof(int);
+    
+    std::ostringstream ss_whatSound;
+    ss_whatSound << std::setprecision(2) << std::fixed;
+    for ( int i = 0; i < length_whatSound; i++ ) {
+        ss_whatSound << buffer_whatSound[i] << " ";
+    }
+    log( "PH init load %s is %s", "current_whatSound", ss_whatSound.str().c_str() );
     // ----------------------------------------------------------------------------------
     
     
     for ( int i = 0; i < length_X; i++ ) {
         currentPos.push_back( Vec2( buffer_X[i], buffer_Y[i] ) );
+    }
+    
+    for ( int i = 0; i < length_whatSound; i++ ) {
+        currentWhatSound.push_back( buffer_whatSound[i] );
     }
 
 }
@@ -122,12 +140,13 @@ void ProjectHandling::save() {
         }
         
         for ( int i = 0; i < pos_X.size(); i++ ) {
-            log( "posX[%i]: %f", i, pos_X[i] );
+            log( "PH save posX[%i]: %f", i, pos_X[i] );
         }
         
         data_pos_X.copy((unsigned char*) pos_X.data(), pos_X.size() * sizeof(float));
         std::string projectName_X = textField->getString() + "_" + "pos_X";
-        log( "project name: %s", projectName_X.c_str() );
+        log( "PH save project name X: %s", projectName_X.c_str() );
+        UserDefault::getInstance()->deleteValueForKey( projectName_X.c_str() );
         UserDefault::getInstance()->setDataForKey( projectName_X.c_str(), data_pos_X );
         // ----------------------------------------------------------------------------------
         
@@ -141,13 +160,34 @@ void ProjectHandling::save() {
         }
         
         for ( int i = 0; i < pos_Y.size(); i++ ) {
-            log( "posY[%i]: %f", i, pos_Y[i] );
+            log( "PH save posY[%i]: %f", i, pos_Y[i] );
         }
         
         data_pos_Y.copy((unsigned char*) pos_Y.data(), pos_Y.size() * sizeof(float));
         std::string projectName_Y = textField->getString() + "_" + "pos_Y";
-        log( "project name: %s", projectName_Y.c_str() );
+        log( "PH save project name Y: %s", projectName_Y.c_str() );
+        UserDefault::getInstance()->deleteValueForKey( projectName_Y.c_str() );
         UserDefault::getInstance()->setDataForKey( projectName_Y.c_str(), data_pos_Y );
+        // ----------------------------------------------------------------------------------
+        
+        
+        // ----------------------------------------------------------------------------------
+        Data data_whatSound;
+        std::vector<int> whatSound;
+        
+        for ( int i = 0; i < currentWhatSound.size(); i++ ) {
+            whatSound.push_back( currentWhatSound[i] );
+        }
+        
+        for ( int i = 0; i < currentWhatSound.size(); i++ ) {
+            log( "PH save what sound: %d", currentWhatSound[i] );
+        }
+        
+        data_whatSound.copy((unsigned char*) whatSound.data(), whatSound.size() * sizeof(int));
+        std::string projectName_whatSound = textField->getString() + "_" + "whatSound";
+        log( "PH save project name whatSound: %s", projectName_whatSound.c_str() );
+        UserDefault::getInstance()->deleteValueForKey( projectName_whatSound.c_str() );
+        UserDefault::getInstance()->setDataForKey( projectName_whatSound.c_str(), data_whatSound );
         // ----------------------------------------------------------------------------------
         
     }
@@ -155,6 +195,14 @@ void ProjectHandling::save() {
 }
 
 void ProjectHandling::load() {
+    
+    UserDefault::getInstance()->deleteValueForKey( "current_posX" );
+    UserDefault::getInstance()->deleteValueForKey( "current_posY" );
+    UserDefault::getInstance()->deleteValueForKey( "current_whatSound" );
+    
+    currentPos.clear();
+    currentWhatSound.clear();
+    
     
     // ----------------------------------------------------------------------------------
     std::string projectName_X = textField->getString() + "_" + "pos_X";
@@ -168,9 +216,8 @@ void ProjectHandling::load() {
     for (int i = 0; i < length_X; i++) {
         ss_X << buffer_X[i] << " ";
     }
-    CCLOG("load %s is %s", "pos_X", ss_X.str().c_str());
+    CCLOG("PH load %s is %s", "pos_X", ss_X.str().c_str());
     // ----------------------------------------------------------------------------------
-    
     
     
     // ----------------------------------------------------------------------------------
@@ -185,36 +232,69 @@ void ProjectHandling::load() {
     for (int i = 0; i < length_Y; i++) {
         ss_Y << buffer_Y[i] << " ";
     }
-    CCLOG("load %s is %s", "pos_Y", ss_Y.str().c_str());
+    CCLOG("PH load %s is %s", "pos_Y", ss_Y.str().c_str());
     // ----------------------------------------------------------------------------------
     
-    for ( int i = 0; i < currentPos.size(); i++ ) {
-        currentPos.erase( currentPos.begin() + i );
+    
+    // ----------------------------------------------------------------------------------
+    std::string projectName_whatSound = textField->getString() + "_" + "whatSound";
+    
+    Data data_whatSound = UserDefault::getInstance()->getDataForKey( projectName_whatSound.c_str() );
+    int* buffer_whatSound = (int*) data_whatSound.getBytes();
+    ssize_t length_whatSound = data_whatSound.getSize() / sizeof(int);
+    
+    std::ostringstream ss_whatSound;
+    ss_whatSound << std::setprecision(2) << std::fixed;
+    for ( int i = 0; i < length_whatSound; i++ ) {
+        ss_whatSound << buffer_whatSound[i] << " ";
     }
+    log( "PH load %s is %s", "current_whatSound", ss_whatSound.str().c_str() );
+    // ----------------------------------------------------------------------------------
+    
+
     
     for ( int i = 0; i < length_X; i++ ) {
         currentPos.push_back( Vec2( buffer_X[i], buffer_Y[i] ) );
     }
     
-    for ( int i = 0; i < currentPos.size(); i++ ) {
-        log( "current pos X: %f", currentPos[i].x );
-        log( "current pos Y: %f", currentPos[i].y );
+    for ( int i = 0; i < length_whatSound; i++ ) {
+        currentWhatSound.push_back( buffer_whatSound[i] );
     }
     
-    Data current_pos_X;
+    for ( int i = 0; i < currentPos.size(); i++ ) {
+        log( "PH current pos X: %f", currentPos[i].x );
+        log( "PH current pos Y: %f", currentPos[i].y );
+    }
+    
+    for ( int i = 0; i < currentWhatSound.size(); i++ ) {
+        log( "PH current what sound: %i", currentWhatSound[i] );
+    }
+    
+    
+    Data data_current_pos_X;
     std::vector<float> pos_X;
     for ( int i = 0; i < currentPos.size(); i++ ) {
         pos_X.push_back( currentPos[i].x );
     }
-    current_pos_X.copy((unsigned char*) pos_X.data(), pos_X.size() * sizeof(float));
-    UserDefault::getInstance()->setDataForKey( "current_posX", current_pos_X );
+    data_current_pos_X.copy((unsigned char*) pos_X.data(), pos_X.size() * sizeof(float));
+    UserDefault::getInstance()->setDataForKey( "current_posX", data_current_pos_X );
     
-    Data current_pos_Y;
+    
+    Data data_current_pos_Y;
     std::vector<float> pos_Y;
     for ( int i = 0; i < currentPos.size(); i++ ) {
         pos_Y.push_back( currentPos[i].y );
     }
-    current_pos_Y.copy((unsigned char*) pos_Y.data(), pos_Y.size() * sizeof(float));
-    UserDefault::getInstance()->setDataForKey( "current_posY", current_pos_Y );
+    data_current_pos_Y.copy((unsigned char*) pos_Y.data(), pos_Y.size() * sizeof(float));
+    UserDefault::getInstance()->setDataForKey( "current_posY", data_current_pos_Y );
+    
+    
+    Data data_current_whatSound;
+    std::vector<int> whatSound;
+    for ( int i = 0; i < currentWhatSound.size(); i++ ) {
+        whatSound.push_back( currentWhatSound[i] );
+    }
+    data_current_whatSound.copy((unsigned char*) whatSound.data(), whatSound.size() * sizeof(int));
+    UserDefault::getInstance()->setDataForKey( "current_whatSound", data_current_whatSound );
     
 }

@@ -556,7 +556,10 @@ void SequencerScene::saveData() {
         
         for ( int i = 0; i < savePos.size(); i++ ) {
             pos_X.push_back( savePos[i].x );
-            log( "savePos[i].x: %f", savePos[i].x );
+        }
+        
+        for ( int i = 0; i < pos_X.size(); i++ ) {
+            log( "sequencer save pos X: %f", pos_X[i] );
         }
         
         data_pos_X.copy((unsigned char*) pos_X.data(), pos_X.size() * sizeof(float));
@@ -572,7 +575,10 @@ void SequencerScene::saveData() {
         
         for ( int i = 0; i < savePos.size(); i++ ) {
             pos_Y.push_back( savePos[i].y );
-            log( "savePos[i].y: %f", savePos[i].y );
+        }
+        
+        for ( int i = 0; i < pos_Y.size(); i++ ) {
+            log( "sequencer save pos Y: %f", pos_Y[i] );
         }
         
         data_pos_Y.copy((unsigned char*) pos_Y.data(), pos_Y.size() * sizeof(float));
@@ -588,7 +594,10 @@ void SequencerScene::saveData() {
         
         for ( int i = 0; i < saveWhatSoundObject.size(); i++ ) {
             whatSound.push_back( saveWhatSoundObject[i] );
-            log( "what sound: %d", saveWhatSoundObject[i] );
+        }
+        
+        for ( int i = 0; i < whatSound.size(); i++ ) {
+            log( "sequencer save whatSound: %i", whatSound[i] );
         }
         
         data_whatSound.copy((unsigned char*) whatSound.data(), whatSound.size() * sizeof(int));
@@ -611,7 +620,7 @@ void SequencerScene::loadData() {
     for (int i = 0; i < length_X; i++) {
         ss_X << buffer_X[i] << " ";
     }
-    CCLOG("load %s is %s", "current_posX", ss_X.str().c_str());
+    CCLOG("sequencer load %s is %s", "current_posX", ss_X.str().c_str());
     // ----------------------------------------------------------------------------------
     
     
@@ -625,7 +634,7 @@ void SequencerScene::loadData() {
     for (int i = 0; i < length_Y; i++) {
         ss_Y << buffer_Y[i] << " ";
     }
-    CCLOG("load %s is %s", "current_posY", ss_Y.str().c_str());
+    CCLOG("sequencer load %s is %s", "current_posY", ss_Y.str().c_str());
     // ----------------------------------------------------------------------------------
     
     
@@ -639,7 +648,7 @@ void SequencerScene::loadData() {
     for ( int i = 0; i < length_whatSound; i++ ) {
         ss_whatSound << buffer_whatSound[i] << " ";
     }
-    log( "load %s is %s", "current_whatSound", ss_whatSound.str().c_str() );
+    log( "sequencer load %s is %s", "current_whatSound", ss_whatSound.str().c_str() );
     // ----------------------------------------------------------------------------------
     
     for ( int i = 0; i < length_X; i++ ) {
