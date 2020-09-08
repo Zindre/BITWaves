@@ -1,7 +1,7 @@
 
 #include "SeqSoundRect.hpp"
 
-SeqSoundRect::SeqSoundRect( Layer *layer, Vec2 startPos, unsigned int whatSoundObject, unsigned int soundLengthMS, float instrumentAreaWidth ) {
+SeqSoundRect::SeqSoundRect( Layer *layer, Vec2 startPos, unsigned int whatSoundObject, unsigned int soundLengthMS, float instrumentAreaWidth, std::string currentProjectName ) {
 
     //visibleSize = Director::getInstance()->getVisibleSize();
     visibleSize = Director::getInstance()->getSafeAreaRect().size;
@@ -14,12 +14,13 @@ SeqSoundRect::SeqSoundRect( Layer *layer, Vec2 startPos, unsigned int whatSoundO
 
     FileUtils *fileUtils = FileUtils::getInstance();
     std::string dirPath = fileUtils->getWritablePath();
-    std::string imageString = (dirPath + "waveForm" + to_string( whatSoundObject ) + ".png" );
-    
+    std::string imageFile = currentProjectName + "_" + "waveForm" + to_string( whatSoundObject ) + ".png" ;
+    std::string imageFileFullPath = dirPath + imageFile;
+
     height = visibleSize.height * 0.1f;
     log( "sound length MS: %d", soundLengthMS );
     normalWidth = scaleValue( soundLengthMS, 0, kSequenceLengthInMS, 0, instrumentAreaWidth, true );
-    sprite = Sprite::create( imageString );
+    sprite = Sprite::create( imageFileFullPath );
     sprite->setContentSize( Size( normalWidth, height ) );
     
     sprite->setPosition( startPos );

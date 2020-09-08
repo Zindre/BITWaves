@@ -54,6 +54,7 @@ public:
     bool getTouchHasBegun( unsigned int whatButton );
     void abortWithTouchMove( cocos2d::Vec2 touchPos );
     void setStartPos( cocos2d::Vec2 touchPos );
+    std::string getCurrentProjectName();
     
     //cocos2d::Sprite *helpOverlay;
     bool helpOverlayIsVisible;
@@ -79,8 +80,9 @@ private:
     bool bBounceWavIsOn;
     bool buttons_touchHasBegun[kNumOfButtons];
     cocos2d::Vec2 startPos;
-    
     cocos2d::Sprite *blackBack[kNumOfButtons];
+    std::string currentProjectName;
+    cocos2d::Label *label_currentProjectName;
     
     
     

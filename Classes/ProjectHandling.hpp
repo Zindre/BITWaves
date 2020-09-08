@@ -14,6 +14,8 @@ public:
 
     ProjectHandling( cocos2d::Layer *layer );
     
+    virtual bool onTextFieldDetachWithIME( cocos2d::TextFieldTTF*  sender );
+    
     void show();
     void hide();
     bool isShowing();

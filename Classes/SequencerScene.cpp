@@ -55,8 +55,9 @@ bool SequencerScene::init() {
     this->addChild( playHeadHandle, kLayer_PlayHead );
     playHeadHandleIsPressed = false;
     
+    
     for ( int i = 0; i < kNumOfSoundObjects; i++ ) {
-        FMODAudioEngine::loadSoundFromDisk(i);
+        FMODAudioEngine::loadSoundFromDisk( mainMenu->getCurrentProjectName(), i );
     }
 
     
@@ -199,7 +200,7 @@ void SequencerScene::onTouchesBegan( const std::vector<Touch*>& touches, Event* 
                                 int whatSoundObject = i;
                                 if ( FMODAudioEngine::hasRecordWav( whatSoundObject ) ) {
                                     if ( mainMenu->soundSquare[whatSoundObject]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
-                                        seqSoundRect.push_back( SeqSoundRect( this, touch->getLocation(), whatSoundObject, FMODAudioEngine::getSoundLength( whatSoundObject ), mainMenu->getInstrumentAreaWidth() ) );
+                                        seqSoundRect.push_back( SeqSoundRect( this, touch->getLocation(), whatSoundObject, FMODAudioEngine::getSoundLength( whatSoundObject ), mainMenu->getInstrumentAreaWidth(), mainMenu->getCurrentProjectName() ) );
                                         savePos.push_back( Vec2( 0, 0 ) );
                                         saveWhatSoundObject.push_back( whatSoundObject );
                                     }
@@ -369,6 +370,9 @@ void SequencerScene::onTouchesEnded( const std::vector<Touch*> &touches, Event* 
                                 mainMenu->buttons_image[kButtons_ArrayNum_Bounce]->setColor( Color3B::RED );
                                 FMODAudioEngine::stopSound();
                                 FMODAudioEngine::START_outputToWaveWriter();
+                                for ( int i = 0; i < kNumOfSoundObjects; i++ ) {
+                                    FMODAudioEngine::loadSoundFromDisk( mainMenu->getCurrentProjectName(), i );
+                                }
                                 movePlayHead();
                                 playHeadHandle->setVisible( false );
                                 mainMenu->buttons_image[kButtons_ArrayNum_Play]->setColor( Color3B( kButtons_GrayedOutValue, kButtons_GrayedOutValue, kButtons_GrayedOutValue ) );
@@ -487,6 +491,9 @@ void SequencerScene::stopBounce() {
     playHeadHandle->setVisible( true );
     setPlayHeadHandlePos();
     FMODAudioEngine::STOP_outputToWaveWriter();
+    for ( int i = 0; i < kNumOfSoundObjects; i++ ) {
+        FMODAudioEngine::loadSoundFromDisk( mainMenu->getCurrentProjectName(), i );
+    }
     mainMenu->buttons_image[kButtons_ArrayNum_Play]->setColor( Color3B::WHITE );
     mainMenu->buttons_image[kButtons_ArrayNum_Stop]->setColor( Color3B::WHITE );
     mainMenu->buttons_image[kButtons_ArrayNum_Loop]->setColor( Color3B::WHITE );
@@ -652,7 +659,7 @@ void SequencerScene::loadData() {
     // ----------------------------------------------------------------------------------
     
     for ( int i = 0; i < length_X; i++ ) {
-        seqSoundRect.push_back( SeqSoundRect( this, Vec2( buffer_X[i], buffer_Y[i] ), buffer_whatSound[i], FMODAudioEngine::getSoundLength( buffer_whatSound[i] ), mainMenu->getInstrumentAreaWidth() ) );
+        seqSoundRect.push_back( SeqSoundRect( this, Vec2( buffer_X[i], buffer_Y[i] ), buffer_whatSound[i], FMODAudioEngine::getSoundLength( buffer_whatSound[i] ), mainMenu->getInstrumentAreaWidth(), mainMenu->getCurrentProjectName() ) );
         savePos.push_back( Vec2( buffer_X[i], buffer_Y[i] ) );
         saveWhatSoundObject.push_back( buffer_whatSound[i] );
     }

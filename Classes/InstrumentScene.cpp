@@ -58,8 +58,10 @@ bool InstrumentScene::init()
     hasUpdatedWaveSprite = false;
     recIsLocked = true;
     recIsFinalizing = false;
+    hasLoadedSoundFiles = false;
     
     mainMenu->buttons_image[kButtons_ArrayNum_Rec]->setOpacity( 100 );
+    
     
     this->scheduleUpdate();
     
@@ -98,7 +100,14 @@ void InstrumentScene::update( float dt ) {
     if ( bClearWaveForm ) {
         clearWaveForm( dt );
     }
-
+    
+    
+    if ( ! hasLoadedSoundFiles && FMODAudioEngine::systemIsInitialized() ) {
+        for ( int i = 0; i < kNumOfSoundObjects; i++ ) {
+            FMODAudioEngine::loadSoundFromDisk( mainMenu->getCurrentProjectName(), i );
+        }
+        hasLoadedSoundFiles = true;
+    }
 
 
 }
@@ -302,7 +311,7 @@ void InstrumentScene::onTouchesEnded( const std::vector<Touch*> &touches, Event*
                         if ( ! FMODAudioEngine::isRecording() ) {
                             if ( mainMenu->getTouchHasBegun( kButtons_ArrayNum_Rec ) ) {
                                 mainMenu->buttons_image[kButtons_ArrayNum_Rec]->setColor( Color3B::RED );
-                                FMODAudioEngine::recordStart( mainMenu->getActiveSoundObject() );
+                                FMODAudioEngine::recordStart( mainMenu->getCurrentProjectName(), mainMenu->getActiveSoundObject() );
                                 mainMenu->buttons_image[kButtons_ArrayNum_Seq]->setColor( Color3B( kButtons_GrayedOutValue, kButtons_GrayedOutValue, kButtons_GrayedOutValue ) );
                                 mainMenu->buttons_image[kButtons_ArrayNum_Help]->setColor( Color3B( kButtons_GrayedOutValue, kButtons_GrayedOutValue, kButtons_GrayedOutValue ) );
                                 mainMenu->buttons_image[kButtons_ArrayNum_Projects]->setColor( Color3B( kButtons_GrayedOutValue, kButtons_GrayedOutValue, kButtons_GrayedOutValue ) );
@@ -418,6 +427,11 @@ void InstrumentScene::stopRecording() {
     captureWaveform();
     
     FMODAudioEngine::recordStop( mainMenu->getActiveSoundObject() );
+    
+    for ( int i = 0; i < kNumOfSoundObjects; i++ ) {
+        FMODAudioEngine::loadSoundFromDisk( mainMenu->getCurrentProjectName(), i );
+    }
+    
     recordTimer = 0;
     
     mainMenu->buttons_image[kButtons_ArrayNum_Rec]->setColor( Color3B::WHITE );
@@ -454,9 +468,12 @@ void InstrumentScene::captureWaveform() {
     
     FileUtils *fileUtils = FileUtils::getInstance();
     std::string dirPath = fileUtils->getWritablePath();
-    if ( fileUtils->isFileExist( dirPath + "waveForm" + to_string( mainMenu->getActiveSoundObject() ) + ".png" ) ) {
-        Director::getInstance()->getTextureCache()->removeTexture( Sprite::create( dirPath + "waveForm" + to_string( mainMenu->getActiveSoundObject() ) + ".png" )->getTexture() );
-        fileUtils->removeFile( dirPath + "waveForm" + to_string( mainMenu->getActiveSoundObject() ) + ".png" );
+    std::string imageFile = mainMenu->getCurrentProjectName() + "_" + "waveForm" + to_string( mainMenu->getActiveSoundObject() ) + ".png";
+    std::string imageFileFullPath = dirPath + imageFile;
+    log( "image file full path: %s", imageFileFullPath.c_str() );
+    if ( fileUtils->isFileExist( imageFileFullPath ) ) {
+        Director::getInstance()->getTextureCache()->removeTexture( Sprite::create( imageFileFullPath )->getTexture() );
+        fileUtils->removeFile( imageFileFullPath );
     }
 
     Size designSize = Director::getInstance()->getWinSize();
@@ -474,7 +491,7 @@ void InstrumentScene::captureWaveform() {
     waveFormRect->visit( renderer, this->getNodeToParentTransform(), 0 );
     rend->end();
     
-    rend->saveToFile( "waveForm" + to_string( mainMenu->getActiveSoundObject() ) + ".png" );
+    rend->saveToFile( imageFile );
     
 
     hasUpdatedWaveSprite = false;
@@ -490,9 +507,10 @@ void InstrumentScene::clearWaveForm( float dt ) {
             log( "updating wave sprite" );
             FileUtils *fileUtils = FileUtils::getInstance();
             std::string dirPath = fileUtils->getWritablePath();
-            std::string imageString = (dirPath + "waveForm" + to_string( mainMenu->getActiveSoundObject() ) + ".png" );
+            std::string imageFileFullPath = dirPath + mainMenu->getCurrentProjectName() + "_" + "waveForm" + to_string( mainMenu->getActiveSoundObject() ) + ".png";
+            log( "image file full path: %s", imageFileFullPath.c_str() );
             
-            mainMenu->waveForm[mainMenu->getActiveSoundObject()]->setTexture( imageString );
+            mainMenu->waveForm[mainMenu->getActiveSoundObject()]->setTexture( imageFileFullPath );
             mainMenu->waveForm[mainMenu->getActiveSoundObject()]->setTextureRect( Rect( 0, 0,  mainMenu->waveForm[mainMenu->getActiveSoundObject()]->getContentSize().width,  mainMenu->waveForm[mainMenu->getActiveSoundObject()]->getContentSize().height ) );
             float scaleSize = mainMenu->soundSquare[mainMenu->getActiveSoundObject()]->getBoundingBox().size.width / mainMenu->getInstrumentAreaWidth();
             mainMenu->waveForm[mainMenu->getActiveSoundObject()]->setScale( scaleSize, scaleSize * 4.0f );

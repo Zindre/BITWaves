@@ -70,9 +70,10 @@ namespace FMODAudioEngine {
             }
             
             
-            for ( int i = 0; i < kNumOfSoundObjects; i++ ) {
+            // Moved out to instument and sequencer classes
+            /*for ( int i = 0; i < kNumOfSoundObjects; i++ ) {
                 loadSoundFromDisk( i );
-            }
+            }*/
         
             //result = FMOD::Debug_Initialize( FMOD_DEBUG_LEVEL_LOG );
             //ERRCHECK( result );
@@ -277,22 +278,26 @@ namespace FMODAudioEngine {
         
     }
 
-    void loadSoundFromDisk( unsigned int whatSoundObject ) {
+    void loadSoundFromDisk( std::string currentProjectName, unsigned int whatSoundObject ) {
         
-        auto sharedFileUtils = FileUtils::getInstance();
+        //std::string recFile = Common_MediaPath_Rec( whatSoundObject );
         
-        //NSString *recFile = [NSString stringWithFormat:@"%@/record%d.wav", [NSSearchPathForDirectoriesInDomains( NSDocumentDirectory, NSUserDomainMask, YES ) objectAtIndex:0], whatSoundObject];
-        std::string recFile = Common_MediaPath_Rec( whatSoundObject );
+        FileUtils *fileUtils = FileUtils::getInstance();
+        std::string dirPath = fileUtils->getWritablePath();
+        std::string recFile = currentProjectName + "_" + "record" + to_string( whatSoundObject ) + ".wav";
+        std::string recFileFullPath = dirPath + recFile;
+        log( "rec file full path: %s", recFileFullPath.c_str() );
+        
         
         //if ( ![[NSFileManager defaultManager] fileExistsAtPath:file] ) {
-        if ( ! sharedFileUtils->isFileExist( recFile ) ) {
+        if ( ! fileUtils->isFileExist( recFileFullPath ) ) {
             
             bHasRecordWav[whatSoundObject] = false;
             log( "record%d.wav has content: %d", whatSoundObject, bHasRecordWav[whatSoundObject] );
 
         } else {
             log( "found record%d.wav", whatSoundObject );
-            const char *cString = recFile.c_str();
+            const char *cString = recFileFullPath.c_str();
             
             FMOD_RESULT result = system->createSound( cString, FMOD_DEFAULT | FMOD_LOOP_OFF, 0, &sound[whatSoundObject] );
             ERRCHECK( result );
@@ -303,7 +308,7 @@ namespace FMODAudioEngine {
 
     }
     
-    void recordStart( unsigned int whatSoundObject ) {
+    void recordStart( std::string currentProjectName, unsigned int whatSoundObject ) {
         
         datalength = 0;
         soundlength = 0;
@@ -324,12 +329,12 @@ namespace FMODAudioEngine {
         bIsRecording = true;
         
         
-        //char buffer[200] = {0};
-        //NSString *recFile = [NSString stringWithFormat:@"%@/record%d.wav", [NSSearchPathForDirectoriesInDomains( NSDocumentDirectory, NSUserDomainMask, YES ) objectAtIndex:0], whatSoundObject];
-        //NSLog(@"%@", recFile);
-        //[recFile getCString:buffer maxLength:200 encoding:NSASCIIStringEncoding];
         
-        std::string recFile = Common_MediaPath_Rec( whatSoundObject );
+        //std::string recFile = Common_MediaPath_Rec( whatSoundObject );
+        
+        FileUtils *fileUtils = FileUtils::getInstance();
+        std::string dirPath = fileUtils->getWritablePath();
+        std::string recFile = dirPath + currentProjectName + "_" + "record" + to_string( whatSoundObject ) + ".wav";
 
         log( "recFile: %s", recFile.c_str() );
 
@@ -400,7 +405,8 @@ namespace FMODAudioEngine {
         bIsRecording = false;
         isPlayingWhileRec = false;
         
-        loadSoundFromDisk( whatSoundObject );
+        // Moved out to instument and sequencer classes
+        //loadSoundFromDisk( whatSoundObject );
 
     }
 
@@ -577,9 +583,10 @@ namespace FMODAudioEngine {
 
         delete [] cstr;
         
-        for ( int i = 0; i < kNumOfSoundObjects; i++ ) {
+        // Moved out to sequencer class
+        /*for ( int i = 0; i < kNumOfSoundObjects; i++ ) {
             loadSoundFromDisk( i );
-        }
+        }*/
         
     }
     
@@ -606,9 +613,10 @@ namespace FMODAudioEngine {
             ERRCHECK( result );
         }
         
-        for ( int i = 0; i < kNumOfSoundObjects; i++ ) {
+        // Moved out to sequencer class
+        /*for ( int i = 0; i < kNumOfSoundObjects; i++ ) {
             loadSoundFromDisk( i );
-        }
+        }*/
 
         bIsBouncing = false;
     }
@@ -630,6 +638,14 @@ namespace FMODAudioEngine {
     
     unsigned int getRecPlayChannel() {
         return recPlayChannel;
+    }
+
+    bool systemIsInitialized() {
+        if ( system != nullptr ) {
+            return true;
+        } else {
+            return false;
+        }
     }
     
 }

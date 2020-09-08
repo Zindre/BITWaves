@@ -13,7 +13,7 @@ using namespace cocos2d;
 class SeqSoundRect {
 
 public:
-    SeqSoundRect( cocos2d::Layer *layer, cocos2d::Vec2 startPos, unsigned int whatSoundObject, unsigned int soundLengthMS, float instrumentAreaWidth );
+    SeqSoundRect( cocos2d::Layer *layer, cocos2d::Vec2 startPos, unsigned int whatSoundObject, unsigned int soundLengthMS, float instrumentAreaWidth, std::string currentProjectName );
     
     cocos2d::Sprite *sprite;
     cocos2d::DrawNode *border;

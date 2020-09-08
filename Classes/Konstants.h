@@ -12,6 +12,7 @@
 #define kLayer_ProjectHandling 11
 #define kLayer_HelpOverlayBorder 12
 #define kLayer_HelpOverlay 13
+#define kLayer_CurrentProjectName 14
 
 #define kTouch_NumOfTouchesAllowed 11
 #define kPitchMin 0.1f

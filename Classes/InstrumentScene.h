@@ -53,6 +53,7 @@ private:
     bool hasUpdatedWaveSprite;
     bool recIsLocked;
     bool recIsFinalizing;
+    bool hasLoadedSoundFiles;
 
 
     

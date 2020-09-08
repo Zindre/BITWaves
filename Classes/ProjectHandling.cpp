@@ -69,6 +69,10 @@ bool ProjectHandling::isShowing() {
     return _isShowing;
 }
 
+void ProjectHandling::openKeyboard() {
+    textField->attachWithIME();
+}
+
 void ProjectHandling::loadCurrentData() {
     
     // ----------------------------------------------------------------------------------
@@ -121,10 +125,6 @@ void ProjectHandling::loadCurrentData() {
         currentWhatSound.push_back( buffer_whatSound[i] );
     }
 
-}
-
-void ProjectHandling::openKeyboard() {
-    textField->attachWithIME();
 }
 
 void ProjectHandling::save() {
@@ -298,3 +298,11 @@ void ProjectHandling::load() {
     UserDefault::getInstance()->setDataForKey( "current_whatSound", data_current_whatSound );
     
 }
+
+bool ProjectHandling::onTextFieldDetachWithIME( TextFieldTTF * sender ) {
+    
+    log( "hei" );
+    
+    return false;
+}
+

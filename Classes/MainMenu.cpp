@@ -11,6 +11,23 @@ MainMenu::MainMenu( Layer *layer, unsigned int whatScene ) {
     
     this->whatScene = whatScene;
     
+    
+    std::string tempProjName = UserDefault::getInstance()->getStringForKey( "currentProjectName" );
+    log( "temp proj name: %s", tempProjName.c_str() );
+    if ( tempProjName == "" ) {
+        currentProjectName = "Uten tittel";
+        UserDefault::getInstance()->setStringForKey( "currentProjectName", currentProjectName );
+    } else {
+        currentProjectName = UserDefault::getInstance()->getStringForKey( "currentProjectName" );
+    }
+    log( "current project name: %s", currentProjectName.c_str() );
+    
+    label_currentProjectName = Label::createWithTTF( currentProjectName.c_str(), "fonts/arial.ttf", 12 );
+    label_currentProjectName->setPosition( Vec2( visibleSize.width * 0.5 + origin.x, visibleSize.height * 0.95 + origin.y ) );
+    label_currentProjectName->setColor( Color3B::WHITE );
+    layer->addChild( label_currentProjectName, kLayer_CurrentProjectName );
+    
+    
     padding = visibleSize.height * 0.05;
     
     float soundSquareHeight = visibleSize.height / kNumOfSoundObjects;
@@ -76,11 +93,13 @@ MainMenu::MainMenu( Layer *layer, unsigned int whatScene ) {
         soundSquare[i]->setPosition( Vec2( visibleSize.width + origin.x, (visibleSize.height - (soundSquare[i]->getBoundingBox().size.height ) * i ) + origin.y ) );
         layer->addChild( soundSquare[i], kLayer_MainMenu );
     
-        std::string imageString = (dirPath + "waveForm" + to_string( i ) + ".png" );
+        std::string imageFile = currentProjectName + "_" + "waveForm" + to_string( i ) + ".png";
+        std::string imageFileFullPath = dirPath + imageFile;
+        log( "main menu image file full path: %s", imageFileFullPath.c_str() );
         
-        if ( fileUtils->isFileExist( imageString ) ) {
+        if ( fileUtils->isFileExist( imageFileFullPath ) ) {
             log( "waveForm%d.png exists", i );
-            waveForm[i] = Sprite::create( imageString );
+            waveForm[i] = Sprite::create( imageFileFullPath );
         } else {
             log( "waveForm%d.png does NOT exist. Creating!", i );
 
@@ -92,7 +111,7 @@ MainMenu::MainMenu( Layer *layer, unsigned int whatScene ) {
             layer->visit();
             rend->end();
             
-            rend->saveToFile( "waveForm" + to_string( i ) + ".png" );
+            rend->saveToFile( imageFile );
             
             waveForm[i] = Sprite::create();
         }
@@ -359,4 +378,8 @@ void MainMenu::abortWithTouchMove( Vec2 touchPos ) {
 
 void MainMenu::setStartPos( cocos2d::Vec2 touchPos ) {
     startPos = touchPos;
+}
+
+std::string MainMenu::getCurrentProjectName() {
+    return currentProjectName;
 }
