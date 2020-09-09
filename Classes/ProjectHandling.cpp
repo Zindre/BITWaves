@@ -38,6 +38,11 @@ ProjectHandling::ProjectHandling( Layer *layer ) {
     label_load->setColor( Color3B::BLACK );
     layer->addChild( label_load, kLayer_ProjectHandling );
     
+    label_newProject = Label::createWithTTF( "Nytt prosjekt", "fonts/arial.ttf", 10 );
+    label_newProject->setPosition( Vec2( visibleSize.width * 0.5 + origin.x, visibleSize.height * 0.2 + origin.y ) );
+    label_newProject->setColor( Color3B::BLACK );
+    layer->addChild( label_newProject, kLayer_ProjectHandling );
+    
     _isShowing = false;
     
     hide();
@@ -52,6 +57,7 @@ void ProjectHandling::show() {
     textField->setVisible( true );
     label_save->setVisible( true );
     label_load->setVisible( true );
+    label_newProject->setVisible( true );
     _isShowing = true;
 }
 
@@ -62,6 +68,7 @@ void ProjectHandling::hide() {
     textField->setVisible( false );
     label_save->setVisible( false );
     label_load->setVisible( false );
+    label_newProject->setVisible( false );
     _isShowing = false;
 }
 
@@ -192,6 +199,13 @@ void ProjectHandling::save() {
         
     }
     
+    FileUtils *fileUtils = FileUtils::getInstance();
+    std::string writablePath = fileUtils->getWritablePath();
+    if ( fileUtils->isDirectoryExist( writablePath + "Uten tittel" ) ) {
+        fileUtils->renameFile( writablePath, "Uten tittel", textField->getString() );
+    }
+    
+    
 }
 
 void ProjectHandling::load() {
@@ -299,10 +313,16 @@ void ProjectHandling::load() {
     
 }
 
-bool ProjectHandling::onTextFieldDetachWithIME( TextFieldTTF * sender ) {
-    
-    log( "hei" );
-    
-    return false;
+std::string ProjectHandling::getTextFieldString() {
+    return textField->getString();
 }
 
+void ProjectHandling::createNewProject() {
+    
+    FileUtils *fileUtils = FileUtils::getInstance();
+    std::string writablePath = fileUtils->getWritablePath();
+    if ( ! fileUtils->isDirectoryExist( writablePath + "Uten tittel" ) ) {
+        fileUtils->createDirectory( writablePath + "Uten tittel" );
+    }
+    
+}

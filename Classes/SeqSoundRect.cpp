@@ -13,9 +13,10 @@ SeqSoundRect::SeqSoundRect( Layer *layer, Vec2 startPos, unsigned int whatSoundO
     this->soundLengthMS = soundLengthMS;
 
     FileUtils *fileUtils = FileUtils::getInstance();
-    std::string dirPath = fileUtils->getWritablePath();
-    std::string imageFile = currentProjectName + "_" + "waveForm" + to_string( whatSoundObject ) + ".png" ;
-    std::string imageFileFullPath = dirPath + imageFile;
+    std::string writablePath = fileUtils->getWritablePath();
+    std::string projectFolder = currentProjectName;
+    std::string imageFile = "waveForm" + to_string( whatSoundObject ) + ".png" ;
+    std::string imageFileFullPath = writablePath + projectFolder + "/" + imageFile;
 
     height = visibleSize.height * 0.1f;
     log( "sound length MS: %d", soundLengthMS );

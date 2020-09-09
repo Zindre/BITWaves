@@ -283,13 +283,13 @@ namespace FMODAudioEngine {
         //std::string recFile = Common_MediaPath_Rec( whatSoundObject );
         
         FileUtils *fileUtils = FileUtils::getInstance();
-        std::string dirPath = fileUtils->getWritablePath();
-        std::string recFile = currentProjectName + "_" + "record" + to_string( whatSoundObject ) + ".wav";
-        std::string recFileFullPath = dirPath + recFile;
-        log( "rec file full path: %s", recFileFullPath.c_str() );
+        std::string writablePath = fileUtils->getWritablePath();
+        std::string recFile = "record" + to_string( whatSoundObject ) + ".wav";
+        std::string projectFolder = currentProjectName;
+        std::string recFileFullPath = writablePath + projectFolder + "/" + recFile;
+        log( "load sound from disk - rec file full path: %s", recFileFullPath.c_str() );
         
         
-        //if ( ![[NSFileManager defaultManager] fileExistsAtPath:file] ) {
         if ( ! fileUtils->isFileExist( recFileFullPath ) ) {
             
             bHasRecordWav[whatSoundObject] = false;
@@ -333,12 +333,14 @@ namespace FMODAudioEngine {
         //std::string recFile = Common_MediaPath_Rec( whatSoundObject );
         
         FileUtils *fileUtils = FileUtils::getInstance();
-        std::string dirPath = fileUtils->getWritablePath();
-        std::string recFile = dirPath + currentProjectName + "_" + "record" + to_string( whatSoundObject ) + ".wav";
+        std::string writablePath = fileUtils->getWritablePath();
+        std::string projectFolder = currentProjectName;
+        std::string recFile = "record" + to_string( whatSoundObject ) + ".wav";
+        std::string recFileFullPath = writablePath + projectFolder + "/" + recFile;
 
-        log( "recFile: %s", recFile.c_str() );
+        log( "record start - rec file full path: %s", recFileFullPath.c_str() );
 
-        fileBuffer = fopen( recFile.c_str(), "wb" );
+        fileBuffer = fopen( recFileFullPath.c_str(), "wb" );
         if ( ! fileBuffer ) {
             printf( "ERROR : could not open record.wav for writing.\n" );
         }

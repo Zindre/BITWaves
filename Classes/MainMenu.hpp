@@ -55,6 +55,7 @@ public:
     void abortWithTouchMove( cocos2d::Vec2 touchPos );
     void setStartPos( cocos2d::Vec2 touchPos );
     std::string getCurrentProjectName();
+    void setCurrentProjectName( std::string textFieldString );
     
     //cocos2d::Sprite *helpOverlay;
     bool helpOverlayIsVisible;

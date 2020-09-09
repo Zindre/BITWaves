@@ -27,6 +27,13 @@ MainMenu::MainMenu( Layer *layer, unsigned int whatScene ) {
     label_currentProjectName->setColor( Color3B::WHITE );
     layer->addChild( label_currentProjectName, kLayer_CurrentProjectName );
     
+    FileUtils *fileUtils = FileUtils::getInstance();
+    std::string writablePath = fileUtils->getWritablePath();
+    std::string projectFolder = writablePath + currentProjectName;
+    if ( ! fileUtils->isDirectoryExist( projectFolder ) ) {
+        fileUtils->createDirectory( projectFolder );
+    }
+    
     
     padding = visibleSize.height * 0.05;
     
@@ -74,9 +81,6 @@ MainMenu::MainMenu( Layer *layer, unsigned int whatScene ) {
     buttons_image[kButtons_ArrayNum_Help]->setTexture( "helpButton@2x.png" );
     
     
-    FileUtils *fileUtils = FileUtils::getInstance();
-    std::string dirPath = fileUtils->getWritablePath();
-    
     
     for ( int i = 0; i < kNumOfSoundObjects; i++ ) {
         
@@ -93,9 +97,11 @@ MainMenu::MainMenu( Layer *layer, unsigned int whatScene ) {
         soundSquare[i]->setPosition( Vec2( visibleSize.width + origin.x, (visibleSize.height - (soundSquare[i]->getBoundingBox().size.height ) * i ) + origin.y ) );
         layer->addChild( soundSquare[i], kLayer_MainMenu );
     
-        std::string imageFile = currentProjectName + "_" + "waveForm" + to_string( i ) + ".png";
-        std::string imageFileFullPath = dirPath + imageFile;
-        log( "main menu image file full path: %s", imageFileFullPath.c_str() );
+        std::string imageFile = "waveForm" + to_string( i ) + ".png";
+        std::string projectFolder = currentProjectName;
+        std::string imageFileFullPath = writablePath + projectFolder + "/" + imageFile;
+        std::string imageFileInProjectFolder = projectFolder + "/" + imageFile;
+        log( "MainMenu constructor - image file full path: %s", imageFileFullPath.c_str() );
         
         if ( fileUtils->isFileExist( imageFileFullPath ) ) {
             log( "waveForm%d.png exists", i );
@@ -111,7 +117,7 @@ MainMenu::MainMenu( Layer *layer, unsigned int whatScene ) {
             layer->visit();
             rend->end();
             
-            rend->saveToFile( imageFile );
+            rend->saveToFile( imageFileInProjectFolder );
             
             waveForm[i] = Sprite::create();
         }
@@ -382,4 +388,10 @@ void MainMenu::setStartPos( cocos2d::Vec2 touchPos ) {
 
 std::string MainMenu::getCurrentProjectName() {
     return currentProjectName;
+}
+
+void MainMenu::setCurrentProjectName( std::string textFieldString ) {
+    currentProjectName = textFieldString;
+    label_currentProjectName->setString( currentProjectName );
+    UserDefault::getInstance()->setStringForKey( "currentProjectName", currentProjectName );
 }

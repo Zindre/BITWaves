@@ -138,10 +138,18 @@ void InstrumentScene::onTouchesBegan( const std::vector<Touch*>& touches, Event*
                     
                     if ( projectHandling->label_save->getBoundingBox().containsPoint( touch->getLocation() ) ) {
                         projectHandling->save();
+                        mainMenu->setCurrentProjectName( projectHandling->getTextFieldString() );
                     }
                     
                     if ( projectHandling->label_load->getBoundingBox().containsPoint( touch->getLocation() ) ) {
                         projectHandling->load();
+                    }
+                    
+                    if ( projectHandling->label_newProject->getBoundingBox().containsPoint( touch->getLocation() ) ) {
+                        projectHandling->createNewProject();
+                        mainMenu->setCurrentProjectName( "Uten tittel" );
+                        auto scene = InstrumentScene::createScene();
+                        Director::getInstance()->replaceScene( scene );
                     }
                     
                 } else {
@@ -225,9 +233,11 @@ void InstrumentScene::onTouchesBegan( const std::vector<Touch*>& touches, Event*
                         }
                         
                         if ( ! FMODAudioEngine::isRecording() ) {
-                            for ( int i = 0; i < kNumOfSoundObjects; i++ ) {
-                                if ( mainMenu->soundSquare[i]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
-                                    mainMenu->setActiveSoundObject( i );
+                            if ( ! recIsFinalizing ) {
+                                for ( int i = 0; i < kNumOfSoundObjects; i++ ) {
+                                    if ( mainMenu->soundSquare[i]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
+                                        mainMenu->setActiveSoundObject( i );
+                                    }
                                 }
                             }
                         }
@@ -467,15 +477,18 @@ void InstrumentScene::drawWaveForm() {
 void InstrumentScene::captureWaveform() {
     
     FileUtils *fileUtils = FileUtils::getInstance();
-    std::string dirPath = fileUtils->getWritablePath();
-    std::string imageFile = mainMenu->getCurrentProjectName() + "_" + "waveForm" + to_string( mainMenu->getActiveSoundObject() ) + ".png";
-    std::string imageFileFullPath = dirPath + imageFile;
-    log( "image file full path: %s", imageFileFullPath.c_str() );
+    std::string writablePath = fileUtils->getWritablePath();
+    std::string imageFile = "waveForm" + to_string( mainMenu->getActiveSoundObject() ) + ".png";
+    std::string projectFolder = mainMenu->getCurrentProjectName();
+    std::string imageFileInProjectFolder = projectFolder + "/" + imageFile;
+    std::string imageFileFullPath = writablePath + projectFolder + "/" + imageFile;
+    log( "capture wave form - image file full path: %s", imageFileFullPath.c_str() );
     if ( fileUtils->isFileExist( imageFileFullPath ) ) {
         Director::getInstance()->getTextureCache()->removeTexture( Sprite::create( imageFileFullPath )->getTexture() );
         fileUtils->removeFile( imageFileFullPath );
     }
 
+    
     Size designSize = Director::getInstance()->getWinSize();
     Size winPixelSize = Director::getInstance()->getWinSizeInPixels();
     float startX = mainMenu->getPlayHeadStartPosX();
@@ -491,7 +504,7 @@ void InstrumentScene::captureWaveform() {
     waveFormRect->visit( renderer, this->getNodeToParentTransform(), 0 );
     rend->end();
     
-    rend->saveToFile( imageFile );
+    rend->saveToFile( imageFileInProjectFolder );
     
 
     hasUpdatedWaveSprite = false;
@@ -503,12 +516,13 @@ void InstrumentScene::clearWaveForm( float dt ) {
     
     if ( clearWaveFormTimer > 1.0f ) {
         
-        if ( !hasUpdatedWaveSprite ) {
+        if ( ! hasUpdatedWaveSprite ) {
             log( "updating wave sprite" );
             FileUtils *fileUtils = FileUtils::getInstance();
-            std::string dirPath = fileUtils->getWritablePath();
-            std::string imageFileFullPath = dirPath + mainMenu->getCurrentProjectName() + "_" + "waveForm" + to_string( mainMenu->getActiveSoundObject() ) + ".png";
-            log( "image file full path: %s", imageFileFullPath.c_str() );
+            std::string writablePath = fileUtils->getWritablePath();
+            std::string projectFolder = mainMenu->getCurrentProjectName();
+            std::string imageFileFullPath = writablePath + projectFolder + "/" + "waveForm" + to_string( mainMenu->getActiveSoundObject() ) + ".png";
+            log( "clear wave form - image file full path: %s", imageFileFullPath.c_str() );
             
             mainMenu->waveForm[mainMenu->getActiveSoundObject()]->setTexture( imageFileFullPath );
             mainMenu->waveForm[mainMenu->getActiveSoundObject()]->setTextureRect( Rect( 0, 0,  mainMenu->waveForm[mainMenu->getActiveSoundObject()]->getContentSize().width,  mainMenu->waveForm[mainMenu->getActiveSoundObject()]->getContentSize().height ) );

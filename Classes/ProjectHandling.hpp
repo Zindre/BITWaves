@@ -14,19 +14,20 @@ public:
 
     ProjectHandling( cocos2d::Layer *layer );
     
-    virtual bool onTextFieldDetachWithIME( cocos2d::TextFieldTTF*  sender );
-    
     void show();
     void hide();
     bool isShowing();
     void openKeyboard();
     void save();
     void load();
+    std::string getTextFieldString();
+    void createNewProject();
     
     cocos2d::Sprite *closeCross;
     cocos2d::TextFieldTTF *textField;
     cocos2d::Label *label_save;
     cocos2d::Label *label_load;
+    cocos2d::Label *label_newProject;
     
 private:
     
