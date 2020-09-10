@@ -332,7 +332,7 @@ void SequencerScene::onTouchesEnded( const std::vector<Touch*> &touches, Event* 
                                 FMODAudioEngine::stopSound();
                                 movePlayHead();
                                 playHeadHandle->setVisible( false );
-                                mainMenu->buttons_image[kButtons_ArrayNum_Stop]->setTexture( "stopButton@2x.png" );
+                                mainMenu->buttons_image[kButtons_ArrayNum_Stop]->setTexture( "stopButtonDark.png" );
                             }
                         }
                     }
@@ -511,7 +511,7 @@ void SequencerScene::resetWhenStop() {
         seqSoundRect[i].sprite->setOpacity( kSeqSoundRect_Opacity_Low );
         seqSoundRect[i].border->setOpacity( kSeqSoundRect_Opacity_Low );
     }
-    mainMenu->buttons_image[kButtons_ArrayNum_Stop]->setTexture( "backButton@2x.png" );
+    mainMenu->buttons_image[kButtons_ArrayNum_Stop]->setTexture( "backButton.png" );
     playHeadHandle->setVisible( true );
     setPlayHeadHandlePos();
     stopPlayHead();
@@ -529,7 +529,7 @@ void SequencerScene::resetWhenReachEnd() {
         playHeadHandle->setPositionX( playHead->getPosition().x );
         movePlayHead();
     } else {
-        mainMenu->buttons_image[kButtons_ArrayNum_Stop]->setTexture( "backButton@2x.png" );
+        mainMenu->buttons_image[kButtons_ArrayNum_Stop]->setTexture( "backButton.png" );
         playHeadHandle->setVisible( true );
         setPlayHeadHandlePos();
         stopPlayHead();

@@ -148,6 +148,18 @@ void InstrumentScene::onTouchesBegan( const std::vector<Touch*>& touches, Event*
                     if ( projectHandling->label_newProject->getBoundingBox().containsPoint( touch->getLocation() ) ) {
                         projectHandling->createNewProject();
                         mainMenu->setCurrentProjectName( "Uten tittel" );
+                        for ( int i = 0; i < kNumOfSoundObjects; i++ ) {
+                            FileUtils *fileUtils = FileUtils::getInstance();
+                            std::string writablePath = fileUtils->getWritablePath();
+                            std::string imageFile = "waveForm" + to_string( i ) + ".png";
+                            std::string projectFolder = mainMenu->getCurrentProjectName();
+                            std::string imageFileInProjectFolder = projectFolder + "/" + imageFile;
+                            std::string imageFileFullPath = writablePath + projectFolder + "/" + imageFile;
+                            if ( fileUtils->isFileExist( imageFileFullPath ) ) {
+                                Director::getInstance()->getTextureCache()->removeTexture( Sprite::create( imageFileFullPath )->getTexture() );
+                                fileUtils->removeFile( imageFileFullPath );
+                            }
+                        }
                         auto scene = InstrumentScene::createScene();
                         Director::getInstance()->replaceScene( scene );
                     }
@@ -366,11 +378,11 @@ void InstrumentScene::onTouchesEnded( const std::vector<Touch*> &touches, Event*
                             if ( mainMenu->getTouchHasBegun( kButtons_ArrayNum_Lock ) ) {
                                 if ( ! recIsLocked ) {
                                     recIsLocked = true;
-                                    mainMenu->buttons_image[kButtons_ArrayNum_Lock]->setTexture( "lockButton@2x.png" );
+                                    mainMenu->buttons_image[kButtons_ArrayNum_Lock]->setTexture( "lockButton.png" );
                                     mainMenu->buttons_image[kButtons_ArrayNum_Rec]->setOpacity( 100 );
                                 } else {
                                     recIsLocked = false;
-                                    mainMenu->buttons_image[kButtons_ArrayNum_Lock]->setTexture( "unLockButton@2x.png" );
+                                    mainMenu->buttons_image[kButtons_ArrayNum_Lock]->setTexture( "unLockButton.png" );
                                     mainMenu->buttons_image[kButtons_ArrayNum_Rec]->setOpacity( 255 );
                                 }
                             }
@@ -453,7 +465,7 @@ void InstrumentScene::stopRecording() {
     mainMenu->buttons_image[kButtons_ArrayNum_Rec]->setScale( 1.0f );
     
     recIsLocked = true;
-    mainMenu->buttons_image[kButtons_ArrayNum_Lock]->setTexture( "lockButton@2x.png" );
+    mainMenu->buttons_image[kButtons_ArrayNum_Lock]->setTexture( "lockButton.png" );
     mainMenu->buttons_image[kButtons_ArrayNum_Rec]->setOpacity( 100 );
     
     recIsFinalizing = true;
@@ -512,6 +524,7 @@ void InstrumentScene::captureWaveform() {
 }
 
 void InstrumentScene::clearWaveForm( float dt ) {
+    
     clearWaveFormTimer += dt;
     
     if ( clearWaveFormTimer > 1.0f ) {

@@ -321,8 +321,15 @@ void ProjectHandling::createNewProject() {
     
     FileUtils *fileUtils = FileUtils::getInstance();
     std::string writablePath = fileUtils->getWritablePath();
-    if ( ! fileUtils->isDirectoryExist( writablePath + "Uten tittel" ) ) {
-        fileUtils->createDirectory( writablePath + "Uten tittel" );
+    std::string standardFolder = writablePath + "Uten tittel";
+    
+    if ( fileUtils->isDirectoryExist( standardFolder ) ) {
+        fileUtils->removeDirectory( standardFolder );
+        fileUtils->createDirectory( standardFolder );
     }
+    
+    UserDefault::getInstance()->deleteValueForKey( "current_posX" );
+    UserDefault::getInstance()->deleteValueForKey( "current_posY" );
+    UserDefault::getInstance()->deleteValueForKey( "current_whatSound" );
     
 }

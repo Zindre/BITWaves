@@ -51,7 +51,12 @@ MainMenu::MainMenu( Layer *layer, unsigned int whatScene ) {
         buttons_gray[i] = Sprite::create( "square1px.png" );
         buttons_gray[i]->setTextureRect( Rect( 0, 0, soundSquareHeight - (visibleSize.height * 0.005f), soundSquareHeight - (visibleSize.height * 0.005f) ) );
         buttons_gray[i]->setPosition( Vec2( buttons_black[i]->getPosition().x + (buttons_black[i]->getBoundingBox().size.width/2.0f), buttons_black[i]->getPosition().y - (buttons_black[i]->getBoundingBox().size.height/2.0f) ) );
-        buttons_gray[i]->setColor( Color3B( 20, 20, 20 ) );
+        if ( whatScene == kScene_Instrument ) {
+            buttons_gray[i]->setColor( Color3B( 20, 20, 20 ) );
+        } else {
+            buttons_gray[i]->setColor( Color3B( 100, 100, 100 ) );
+        }
+        
         layer->addChild( buttons_gray[i], kLayer_MainMenu );
         
         buttons_image[i] = Sprite::create();
@@ -63,22 +68,24 @@ MainMenu::MainMenu( Layer *layer, unsigned int whatScene ) {
     
     
     if ( whatScene == kScene_Instrument ) {
-        buttons_image[kButtons_ArrayNum_Rec]->setTexture( "recButton@2x.png" );
-        buttons_image[kButtons_ArrayNum_Seq]->setTexture( "sequencerButton@2x.png" );
+        buttons_image[kButtons_ArrayNum_Rec]->setTexture( "recButton.png" );
+        buttons_image[kButtons_ArrayNum_Seq]->setTexture( "sequencerButton.png" );
         buttons_image[kButtons_ArrayNum_Stop]->setVisible( false );
-        buttons_image[kButtons_ArrayNum_Stop]->setTexture( "stopButton@2x.png" );
-        buttons_image[kButtons_ArrayNum_Lock]->setTexture( "lockButton@2x.png" );
-        buttons_image[kButtons_ArrayNum_Projects]->setTexture( "projectsButton@2x.png" );
+        buttons_image[kButtons_ArrayNum_Stop]->setTexture( "stopButton.png" );
+        buttons_image[kButtons_ArrayNum_Lock]->setTexture( "lockButton.png" );
+        buttons_image[kButtons_ArrayNum_Projects]->setTexture( "projectsButton.png" );
+        buttons_image[kButtons_ArrayNum_Help]->setTexture( "helpButton.png" );
     } else {
-        buttons_image[kButtons_ArrayNum_Mic]->setTexture( "micButton@2x.png" );
-        buttons_image[kButtons_ArrayNum_Play]->setTexture( "playButton@2x.png" );
-        buttons_image[kButtons_ArrayNum_Loop]->setTexture( "loopButton@2x.png" );
-        buttons_image[kButtons_ArrayNum_Bounce]->setTexture( "bounceButton@2x.png" );
-        buttons_image[kButtons_ArrayNum_Bomb]->setTexture( "Bomb.png" );
-        buttons_image[kButtons_ArrayNum_Stop]->setTexture( "backButton@2x.png" );
+        buttons_image[kButtons_ArrayNum_Mic]->setTexture( "micButton.png" );
+        buttons_image[kButtons_ArrayNum_Play]->setTexture( "playButton.png" );
+        buttons_image[kButtons_ArrayNum_Loop]->setTexture( "loopButton.png" );
+        buttons_image[kButtons_ArrayNum_Bounce]->setTexture( "bounceButton.png" );
+        buttons_image[kButtons_ArrayNum_Bomb]->setTexture( "bombButton.png" );
+        buttons_image[kButtons_ArrayNum_Stop]->setTexture( "backButton.png" );
+        buttons_image[kButtons_ArrayNum_Help]->setTexture( "helpButtonDark.png" );
     }
     
-    buttons_image[kButtons_ArrayNum_Help]->setTexture( "helpButton@2x.png" );
+    
     
     
     
@@ -113,7 +120,7 @@ MainMenu::MainMenu( Layer *layer, unsigned int whatScene ) {
             rend->retain();
             rend->setKeepMatrix( true );
             
-            rend->beginWithClear( 0.0f, 0.0f, 0.0f, 1.0f );
+            rend->beginWithClear( 0.0f, 0.0f, 0.0f, 0.0f );
             layer->visit();
             rend->end();
             
