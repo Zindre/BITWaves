@@ -23,27 +23,92 @@ ProjectHandling::ProjectHandling( Layer *layer ) {
     closeCross->setPosition( Vec2( origin.x + closeCross->getBoundingBox().size.width, visibleSize.height - closeCross->getBoundingBox().size.height + origin.y ) );
     layer->addChild( closeCross, kLayer_ProjectHandling );
     
-    textField = cocos2d::TextFieldTTF::textFieldWithPlaceHolder( "Prosjektnavn", "fonts/arial.ttf", 10 );
-    textField->setPosition( Vec2( visibleSize.width * 0.5 + origin.x, visibleSize.height * 0.8 + origin.y ) );
+    float padding = 0.0;
+    
+    for ( int i = 0; i < NUM_OF_BUTTONS_PROJECTSHANDLING; i++ ) {
+        buttonBack[i] = Sprite::create( "buttonBack.png" );
+        padding = buttonBack[i]->getBoundingBox().size.height * 0.5;
+        buttonBack[i]->setPosition( Vec2( origin.x + visibleSize.width * 0.5, origin.y + visibleSize.height * 0.6 - ( (buttonBack[i]->getBoundingBox().size.height + padding) * i) ) );
+        layer->addChild( buttonBack[i], kLayer_ProjectHandling );
+        
+        label_buttons[i] = Label::createWithTTF( "button", "fonts/arial.ttf", 10 );
+        label_buttons[i]->setColor( Color3B::WHITE );
+        label_buttons[i]->setPosition( buttonBack[i]->getPosition() );
+        layer->addChild( label_buttons[i], kLayer_ProjectHandling );
+    }
+    label_buttons[BUTTON_PROJECTSHANDLING_INDEX_SAVE]->setString( "Lagre" );
+    label_buttons[BUTTON_PROJECTSHANDLING_INDEX_LOAD]->setString( "Åpne" );
+    label_buttons[BUTTON_PROJECTSHANDLING_INDEX_NEW]->setString( "Nytt prosjekt" );
+    label_buttons[BUTTON_PROJECTSHANDLING_INDEX_CONFIRMSAVE]->setString( "Bekreft Lagre" );
+    
+    
+    overlaySave = Sprite::create( "square1px.png" );
+    overlaySave->setTextureRect( Rect( 0, 0, background->getBoundingBox().size.width * 0.7, background->getBoundingBox().size.height * 0.4 ) );
+    overlaySave->setPosition( Vec2( origin.x + visibleSize.width * 0.5, origin.y + visibleSize.height * 0.7 ) );
+    overlaySave->setColor( Color3B::GRAY );
+    overlaySave->setVisible( false );
+    layer->addChild( overlaySave, kLayer_ProjectHandling );
+    
+    label_instructTyping = Label::createWithTTF( "Gi prosjektet et navn:", "fonts/arial.ttf", 10 );
+    label_instructTyping->setPosition( Vec2( overlaySave->getPosition().x, overlaySave->getPosition().y + (overlaySave->getBoundingBox().size.height * 0.3) ) );
+    label_instructTyping->setVisible( false );
+    label_instructTyping->setColor( Color3B::BLACK );
+    layer->addChild( label_instructTyping, kLayer_ProjectHandling );
+    
+    textField = cocos2d::TextFieldTTF::textFieldWithPlaceHolder( "", "fonts/arial.ttf", 10 );
+    textField->setPosition( Vec2( label_instructTyping->getPosition().x, label_instructTyping->getPosition().y - (label_instructTyping->getBoundingBox().size.height * 2) ) );
     textField->setColor( Color3B::BLACK );
+    textField->setVisible( false );
     layer->addChild( textField, kLayer_ProjectHandling );
     
-    label_save = Label::createWithTTF( "Lagre", "fonts/arial.ttf", 10 );
-    label_save->setPosition( Vec2( visibleSize.width * 0.5 + origin.x, visibleSize.height * 0.6 + origin.y ) );
-    label_save->setColor( Color3B::BLACK );
-    layer->addChild( label_save, kLayer_ProjectHandling );
+    buttonBack[BUTTON_PROJECTSHANDLING_INDEX_CONFIRMSAVE]->setPosition( Vec2( textField->getPosition().x, textField->getPosition().y - (padding * 2) ) );
+    label_buttons[BUTTON_PROJECTSHANDLING_INDEX_CONFIRMSAVE]->setPosition( buttonBack[BUTTON_PROJECTSHANDLING_INDEX_CONFIRMSAVE]->getPosition() );
+    buttonBack[BUTTON_PROJECTSHANDLING_INDEX_CONFIRMSAVE]->setLocalZOrder( kLayer_ProjectHandling_SaveOverlay );
+    label_buttons[BUTTON_PROJECTSHANDLING_INDEX_CONFIRMSAVE]->setLocalZOrder( kLayer_ProjectHandling_SaveOverlay );
     
-    label_load = Label::createWithTTF( "Åpne", "fonts/arial.ttf", 10 );
-    label_load->setPosition( Vec2( visibleSize.width * 0.5 + origin.x, visibleSize.height * 0.4 + origin.y ) );
-    label_load->setColor( Color3B::BLACK );
-    layer->addChild( label_load, kLayer_ProjectHandling );
     
-    label_newProject = Label::createWithTTF( "Nytt prosjekt", "fonts/arial.ttf", 10 );
-    label_newProject->setPosition( Vec2( visibleSize.width * 0.5 + origin.x, visibleSize.height * 0.2 + origin.y ) );
-    label_newProject->setColor( Color3B::BLACK );
-    layer->addChild( label_newProject, kLayer_ProjectHandling );
+    
+    
+    FileUtils *fileUtils = FileUtils::getInstance();
+    std::string writablePath = fileUtils->getWritablePath();
+    std::vector<std::string> savedProjectNamesFullPaths;
+    savedProjectNamesFullPaths = fileUtils->listFiles( writablePath );
+    
+    for ( int i = 0; i < savedProjectNamesFullPaths.size(); i++ ) {
+        
+        log( "saved projects full paths: %s", savedProjectNamesFullPaths[i].c_str() );
+        
+        char str[1024];
+        strcpy( str, savedProjectNamesFullPaths[i].c_str() );
+        
+        // Returns first token
+        char *token = strtok( str, "/" );
+
+        // Keep printing tokens while one of the
+        // delimiters present in str[].
+        while ( token != NULL ) {
+            printf( "%s\n", token );
+            
+            std::string str( token );
+            savedProjectNames.push_back( str );
+            
+            token = strtok( NULL, "/" );
+            
+            
+        }
+        
+    }
+    
+    for ( int i = 0; i < savedProjectNames.size(); i++ ) {
+        log( "saved project names: %s", savedProjectNames[i].c_str() );
+    }
+    
+    
+    
+    
     
     _isShowing = false;
+    _isSaveOverlayOpen = false;
     
     hide();
     loadCurrentData();
@@ -54,10 +119,12 @@ void ProjectHandling::show() {
     blackLayer->setVisible( true );
     background->setVisible( true );
     closeCross->setVisible( true );
-    textField->setVisible( true );
-    label_save->setVisible( true );
-    label_load->setVisible( true );
-    label_newProject->setVisible( true );
+    for ( int i = 0; i < NUM_OF_BUTTONS_PROJECTSHANDLING; i++ ) {
+        buttonBack[i]->setVisible( true );
+        label_buttons[i]->setVisible( true );
+    }
+    buttonBack[BUTTON_PROJECTSHANDLING_INDEX_CONFIRMSAVE]->setVisible( false );
+    label_buttons[BUTTON_PROJECTSHANDLING_INDEX_CONFIRMSAVE]->setVisible( false );
     _isShowing = true;
 }
 
@@ -65,19 +132,15 @@ void ProjectHandling::hide() {
     blackLayer->setVisible( false );
     background->setVisible( false );
     closeCross->setVisible( false );
-    textField->setVisible( false );
-    label_save->setVisible( false );
-    label_load->setVisible( false );
-    label_newProject->setVisible( false );
+    for ( int i = 0; i < NUM_OF_BUTTONS_PROJECTSHANDLING; i++ ) {
+        buttonBack[i]->setVisible( false );
+        label_buttons[i]->setVisible( false );
+    }
     _isShowing = false;
 }
 
 bool ProjectHandling::isShowing() {
     return _isShowing;
-}
-
-void ProjectHandling::openKeyboard() {
-    textField->attachWithIME();
 }
 
 void ProjectHandling::loadCurrentData() {
@@ -332,4 +395,31 @@ void ProjectHandling::createNewProject() {
     UserDefault::getInstance()->deleteValueForKey( "current_posY" );
     UserDefault::getInstance()->deleteValueForKey( "current_whatSound" );
     
+}
+
+void ProjectHandling::showSaveOverlay() {
+    overlaySave->setVisible( true );
+    textField->setVisible( true );
+    label_instructTyping->setVisible( true );
+    textField->attachWithIME();
+    buttonBack[BUTTON_PROJECTSHANDLING_INDEX_CONFIRMSAVE]->setVisible( true );
+    label_buttons[BUTTON_PROJECTSHANDLING_INDEX_CONFIRMSAVE]->setVisible( true );
+    _isSaveOverlayOpen = true;
+}
+
+bool ProjectHandling::isSaveOverlayOpen() {
+    return _isSaveOverlayOpen;
+}
+
+void ProjectHandling::openKeyboard() {
+    textField->attachWithIME();
+}
+
+void ProjectHandling::closeSaveOverlay() {
+    overlaySave->setVisible( false );
+    textField->setVisible( false );
+    label_instructTyping->setVisible( false );
+    buttonBack[BUTTON_PROJECTSHANDLING_INDEX_CONFIRMSAVE]->setVisible( false );
+    label_buttons[BUTTON_PROJECTSHANDLING_INDEX_CONFIRMSAVE]->setVisible( false );
+    _isSaveOverlayOpen = false;
 }

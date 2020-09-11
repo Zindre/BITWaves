@@ -128,40 +128,43 @@ void InstrumentScene::onTouchesBegan( const std::vector<Touch*>& touches, Event*
                 // PROJECT HANDLING
                 if ( projectHandling->isShowing() ) {
                     
-                    if ( projectHandling->closeCross->getBoundingBox().containsPoint( touch->getLocation() ) ) {
-                        projectHandling->hide();
-                    }
-                    
-                    if ( projectHandling->textField->getBoundingBox().containsPoint( touch->getLocation() ) ) {
-                        projectHandling->openKeyboard();
-                    }
-                    
-                    if ( projectHandling->label_save->getBoundingBox().containsPoint( touch->getLocation() ) ) {
-                        projectHandling->save();
-                        mainMenu->setCurrentProjectName( projectHandling->getTextFieldString() );
-                    }
-                    
-                    if ( projectHandling->label_load->getBoundingBox().containsPoint( touch->getLocation() ) ) {
-                        projectHandling->load();
-                    }
-                    
-                    if ( projectHandling->label_newProject->getBoundingBox().containsPoint( touch->getLocation() ) ) {
-                        projectHandling->createNewProject();
-                        mainMenu->setCurrentProjectName( "Uten tittel" );
-                        for ( int i = 0; i < kNumOfSoundObjects; i++ ) {
-                            FileUtils *fileUtils = FileUtils::getInstance();
-                            std::string writablePath = fileUtils->getWritablePath();
-                            std::string imageFile = "waveForm" + to_string( i ) + ".png";
-                            std::string projectFolder = mainMenu->getCurrentProjectName();
-                            std::string imageFileInProjectFolder = projectFolder + "/" + imageFile;
-                            std::string imageFileFullPath = writablePath + projectFolder + "/" + imageFile;
-                            if ( fileUtils->isFileExist( imageFileFullPath ) ) {
-                                Director::getInstance()->getTextureCache()->removeTexture( Sprite::create( imageFileFullPath )->getTexture() );
-                                fileUtils->removeFile( imageFileFullPath );
-                            }
+                    if ( ! projectHandling->isSaveOverlayOpen() ) {
+                        
+                        if ( projectHandling->closeCross->getBoundingBox().containsPoint( touch->getLocation() ) ) {
+                            projectHandling->hide();
                         }
-                        auto scene = InstrumentScene::createScene();
-                        Director::getInstance()->replaceScene( scene );
+                        
+                        if ( projectHandling->buttonBack[BUTTON_PROJECTSHANDLING_INDEX_SAVE]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
+                            projectHandling->showSaveOverlay();
+                        }
+                        
+                        if ( projectHandling->buttonBack[BUTTON_PROJECTSHANDLING_INDEX_LOAD]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
+                            /*projectHandling->load();
+                            mainMenu->setCurrentProjectName( projectHandling->getTextFieldString() );
+                            auto scene = InstrumentScene::createScene();
+                            Director::getInstance()->replaceScene( scene );*/
+                        }
+                        
+                        if ( projectHandling->buttonBack[BUTTON_PROJECTSHANDLING_INDEX_NEW]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
+                            projectHandling->createNewProject();
+                            mainMenu->setCurrentProjectName( "Uten tittel" );
+                            auto scene = InstrumentScene::createScene();
+                            Director::getInstance()->replaceScene( scene );
+                        }
+                        
+                    } else {
+                        
+                        // SAVE OVERLAY
+                        if ( projectHandling->textField->getBoundingBox().containsPoint( touch->getLocation() ) ) {
+                            projectHandling->openKeyboard();
+                        }
+                        
+                        if ( projectHandling->buttonBack[BUTTON_PROJECTSHANDLING_INDEX_CONFIRMSAVE]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
+                            projectHandling->save();
+                            mainMenu->setCurrentProjectName( projectHandling->getTextFieldString() );
+                            projectHandling->closeSaveOverlay();
+                        }
+                        
                     }
                     
                 } else {

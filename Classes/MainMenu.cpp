@@ -111,6 +111,11 @@ MainMenu::MainMenu( Layer *layer, unsigned int whatScene ) {
         log( "MainMenu constructor - image file full path: %s", imageFileFullPath.c_str() );
         
         if ( fileUtils->isFileExist( imageFileFullPath ) ) {
+            Director::getInstance()->getTextureCache()->removeTexture( Sprite::create( imageFileFullPath )->getTexture() );
+            log( "remove from cache: %s", imageFileFullPath.c_str() );
+        }
+        
+        if ( fileUtils->isFileExist( imageFileFullPath ) ) {
             log( "waveForm%d.png exists", i );
             waveForm[i] = Sprite::create( imageFileFullPath );
         } else {

@@ -17,17 +17,19 @@ public:
     void show();
     void hide();
     bool isShowing();
-    void openKeyboard();
     void save();
     void load();
     std::string getTextFieldString();
     void createNewProject();
+    void showSaveOverlay();
+    bool isSaveOverlayOpen();
+    void openKeyboard();
+    void closeSaveOverlay();
     
     cocos2d::Sprite *closeCross;
     cocos2d::TextFieldTTF *textField;
-    cocos2d::Label *label_save;
-    cocos2d::Label *label_load;
-    cocos2d::Label *label_newProject;
+    cocos2d::Label *label_buttons[NUM_OF_BUTTONS_PROJECTSHANDLING];
+    cocos2d::Sprite *buttonBack[NUM_OF_BUTTONS_PROJECTSHANDLING];
     
 private:
     
@@ -41,6 +43,12 @@ private:
     bool _isShowing;
     std::vector<Vec2> currentPos;
     std::vector<int> currentWhatSound;
+    cocos2d::Sprite *overlaySave;
+    cocos2d::Label *label_instructTyping;
+    bool _isSaveOverlayOpen;
+    std::vector<std::string> savedProjectNames;
+    std::vector<cocos2d::Label> *label_savedProjectNames;
+    
 
     
     

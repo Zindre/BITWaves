@@ -690,6 +690,8 @@
 		FF053A8D250A2DB3000A45C5 /* unLockButton.png in Resources */ = {isa = PBXBuildFile; fileRef = FF053A8C250A2DB3000A45C5 /* unLockButton.png */; };
 		FF053A8E250A2DBE000A45C5 /* unLockButton.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = FF053A8C250A2DB3000A45C5 /* unLockButton.png */; };
 		FF3310F6393E4770B776D84E /* CCComAttribute.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 64F9607844A04174A11DB12F /* CCComAttribute.cpp */; };
+		FF60C325250B6F680064157F /* buttonBack.png in Resources */ = {isa = PBXBuildFile; fileRef = FF60C324250B6F670064157F /* buttonBack.png */; };
+		FF60C326250B6F750064157F /* buttonBack.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = FF60C324250B6F670064157F /* buttonBack.png */; };
 		FFB2E21D25024F44002331DA /* ProjectHandling.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FFB2E21B25024F44002331DA /* ProjectHandling.cpp */; };
 		FFB2E222250258AD002331DA /* closeCross@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FFB2E221250258AD002331DA /* closeCross@2x.png */; };
 		FFB2E223250258B5002331DA /* closeCross@2x.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = FFB2E221250258AD002331DA /* closeCross@2x.png */; };
@@ -1052,6 +1054,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 7;
 			files = (
+				FF60C326250B6F750064157F /* buttonBack.png in CopyFiles */,
 				FF053A8E250A2DBE000A45C5 /* unLockButton.png in CopyFiles */,
 				FF053A70250A2522000A45C5 /* helpButton.png in CopyFiles */,
 				FF053A8B250A2AE4000A45C5 /* stopButtonDark.png in CopyFiles */,
@@ -2381,6 +2384,7 @@
 		FF059C3F30F047519C03E04B /* CCTableViewCell.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = CCTableViewCell.cpp; path = cocos2d/extensions/GUI/CCScrollView/CCTableViewCell.cpp; sourceTree = SOURCE_ROOT; };
 		FF1DAB7A9FD441ACAC5C9EFE /* CCPhysics3DShape.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = CCPhysics3DShape.cpp; path = cocos2d/cocos/physics3d/CCPhysics3DShape.cpp; sourceTree = SOURCE_ROOT; };
 		FF5C3951DAA2416BA59BC29A /* ConvertUTFWrapper.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = ConvertUTFWrapper.cpp; path = cocos2d/external/ConvertUTF/ConvertUTFWrapper.cpp; sourceTree = SOURCE_ROOT; };
+		FF60C324250B6F670064157F /* buttonBack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = buttonBack.png; path = Resources/buttonBack.png; sourceTree = "<group>"; };
 		FF675436CA9D4DCB829EF4DB /* CCPUDoAffectorEventHandler.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = CCPUDoAffectorEventHandler.cpp; path = cocos2d/extensions/Particle3D/PU/CCPUDoAffectorEventHandler.cpp; sourceTree = SOURCE_ROOT; };
 		FF698ADD262048AFAE5B39EF /* UIAbstractCheckButton.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = UIAbstractCheckButton.h; path = cocos2d/cocos/ui/UIAbstractCheckButton.h; sourceTree = SOURCE_ROOT; };
 		FF922BAD998C4C07AE4739AE /* CCPUBaseForceAffector.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = CCPUBaseForceAffector.cpp; path = cocos2d/extensions/Particle3D/PU/CCPUBaseForceAffector.cpp; sourceTree = SOURCE_ROOT; };
@@ -3304,6 +3308,7 @@
 		6FD438C114584A63B02E2221 /* fonts */ = {
 			isa = PBXGroup;
 			children = (
+				FF60C324250B6F670064157F /* buttonBack.png */,
 				2E372E40B9A94E4AA7C0EF83 /* Marker Felt.ttf */,
 				6F47073088AB4879AE6571BD /* arial.ttf */,
 			);
@@ -4863,6 +4868,7 @@
 				AC5E5E3FD7D7476096A473E5 /* Images.xcassets in Resources */,
 				FF053A6B250A2503000A45C5 /* loopButton.png in Resources */,
 				8AA3130F86C94CA8A678D03D /* LaunchScreen.storyboard in Resources */,
+				FF60C325250B6F680064157F /* buttonBack.png in Resources */,
 				FF053A67250A2503000A45C5 /* stopButton.png in Resources */,
 				FFB2E222250258AD002331DA /* closeCross@2x.png in Resources */,
 				FF053A8D250A2DB3000A45C5 /* unLockButton.png in Resources */,
