@@ -49,6 +49,13 @@ ProjectHandling::ProjectHandling( Layer *layer ) {
     overlaySave->setVisible( false );
     layer->addChild( overlaySave, kLayer_ProjectHandling );
     
+    overlayLoad = Sprite::create( "square1px.png" );
+    overlayLoad->setTextureRect( Rect( 0, 0, background->getBoundingBox().size.width * 0.7, background->getBoundingBox().size.height * 0.7 ) );
+    overlayLoad->setPosition( Vec2( origin.x + visibleSize.width * 0.5, origin.y + visibleSize.height * 0.7 ) );
+    overlayLoad->setColor( Color3B::GRAY );
+    overlayLoad->setVisible( false );
+    layer->addChild( overlayLoad, kLayer_ProjectHandling );
+    
     label_instructTyping = Label::createWithTTF( "Gi prosjektet et navn:", "fonts/arial.ttf", 10 );
     label_instructTyping->setPosition( Vec2( overlaySave->getPosition().x, overlaySave->getPosition().y + (overlaySave->getBoundingBox().size.height * 0.3) ) );
     label_instructTyping->setVisible( false );
@@ -74,6 +81,8 @@ ProjectHandling::ProjectHandling( Layer *layer ) {
     std::vector<std::string> savedProjectNamesFullPaths;
     savedProjectNamesFullPaths = fileUtils->listFiles( writablePath );
     
+    std::vector<std::string> tempStr;
+    
     for ( int i = 0; i < savedProjectNamesFullPaths.size(); i++ ) {
         
         log( "saved projects full paths: %s", savedProjectNamesFullPaths[i].c_str() );
@@ -87,28 +96,33 @@ ProjectHandling::ProjectHandling( Layer *layer ) {
         // Keep printing tokens while one of the
         // delimiters present in str[].
         while ( token != NULL ) {
-            printf( "%s\n", token );
-            
-            std::string str( token );
-            savedProjectNames.push_back( str );
-            
+            log( "token: %s", token );
+            tempStr.push_back( token );
             token = strtok( NULL, "/" );
-            
-            
         }
+        
+        // Add last token of string path to vector array
+        savedProjectNames.push_back( tempStr.back() );
         
     }
     
+    // Delete . and ..
+    savedProjectNames.erase( savedProjectNames.begin() );
+    savedProjectNames.erase( savedProjectNames.begin() );
+    
+    
+    
     for ( int i = 0; i < savedProjectNames.size(); i++ ) {
         log( "saved project names: %s", savedProjectNames[i].c_str() );
+        projectNames.push_back( ProjectNames( layer, savedProjectNames[i].c_str(), i ) );
     }
     
-    
-    
-    
+
+ 
     
     _isShowing = false;
     _isSaveOverlayOpen = false;
+    _isLoadOverlayOpen = false;
     
     hide();
     loadCurrentData();
@@ -135,6 +149,9 @@ void ProjectHandling::hide() {
     for ( int i = 0; i < NUM_OF_BUTTONS_PROJECTSHANDLING; i++ ) {
         buttonBack[i]->setVisible( false );
         label_buttons[i]->setVisible( false );
+    }
+    for ( int i = 0; i < projectNames.size(); i++ ) {
+        projectNames[i].hide();
     }
     _isShowing = false;
 }
@@ -407,8 +424,20 @@ void ProjectHandling::showSaveOverlay() {
     _isSaveOverlayOpen = true;
 }
 
+void ProjectHandling::showLoadOverlay() {
+    overlaySave->setVisible( true );
+    for ( int i = 0; i < projectNames.size(); i++ ) {
+        projectNames[i].show();
+    }
+    _isLoadOverlayOpen = true;
+}
+
 bool ProjectHandling::isSaveOverlayOpen() {
     return _isSaveOverlayOpen;
+}
+
+bool ProjectHandling::isLoadOverlayOpen() {
+    return _isLoadOverlayOpen;
 }
 
 void ProjectHandling::openKeyboard() {

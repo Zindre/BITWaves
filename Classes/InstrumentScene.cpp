@@ -143,6 +143,8 @@ void InstrumentScene::onTouchesBegan( const std::vector<Touch*>& touches, Event*
                             mainMenu->setCurrentProjectName( projectHandling->getTextFieldString() );
                             auto scene = InstrumentScene::createScene();
                             Director::getInstance()->replaceScene( scene );*/
+                            
+                            projectHandling->showLoadOverlay();
                         }
                         
                         if ( projectHandling->buttonBack[BUTTON_PROJECTSHANDLING_INDEX_NEW]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
@@ -164,6 +166,8 @@ void InstrumentScene::onTouchesBegan( const std::vector<Touch*>& touches, Event*
                             mainMenu->setCurrentProjectName( projectHandling->getTextFieldString() );
                             projectHandling->closeSaveOverlay();
                         }
+                        
+                        
                         
                     }
                     

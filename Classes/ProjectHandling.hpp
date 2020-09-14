@@ -5,6 +5,7 @@
 #include "Konstants.h"
 #include "Functions.h"
 #include "ui/CocosGUI.h"
+#include "ProjectNames.hpp"
 
 using namespace cocos2d;
 
@@ -22,7 +23,9 @@ public:
     std::string getTextFieldString();
     void createNewProject();
     void showSaveOverlay();
+    void showLoadOverlay();
     bool isSaveOverlayOpen();
+    bool isLoadOverlayOpen();
     void openKeyboard();
     void closeSaveOverlay();
     
@@ -44,11 +47,12 @@ private:
     std::vector<Vec2> currentPos;
     std::vector<int> currentWhatSound;
     cocos2d::Sprite *overlaySave;
+    cocos2d::Sprite *overlayLoad;
     cocos2d::Label *label_instructTyping;
     bool _isSaveOverlayOpen;
+    bool _isLoadOverlayOpen;
     std::vector<std::string> savedProjectNames;
-    std::vector<cocos2d::Label> *label_savedProjectNames;
-    
+    std::vector<ProjectNames> projectNames;
 
     
     
