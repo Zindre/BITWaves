@@ -11,9 +11,10 @@
 #define kLayer_ConfirmRec 10
 #define kLayer_ProjectHandling 11
 #define kLayer_ProjectHandling_SaveOverlay 12
-#define kLayer_HelpOverlayBorder 13
-#define kLayer_HelpOverlay 14
-#define kLayer_CurrentProjectName 15
+#define kLayer_ProjectHandling_LoadOverlay 13
+#define kLayer_HelpOverlayBorder 14
+#define kLayer_HelpOverlay 15
+#define kLayer_CurrentProjectName 16
 
 #define kTouch_NumOfTouchesAllowed 11
 #define kPitchMin 0.1f
@@ -62,9 +63,11 @@
 
 #define kNumOfChannels 32
 
-#define NUM_OF_BUTTONS_PROJECTSHANDLING 4
+#define NUM_OF_BUTTONS_PROJECTSHANDLING 6
 #define BUTTON_PROJECTSHANDLING_INDEX_SAVE 0
 #define BUTTON_PROJECTSHANDLING_INDEX_LOAD 1
 #define BUTTON_PROJECTSHANDLING_INDEX_NEW 2
 #define BUTTON_PROJECTSHANDLING_INDEX_CONFIRMSAVE 3
+#define BUTTON_PROJECTSHANDLING_INDEX_CONFIRMLOAD 4
+#define BUTTON_PROJECTSHANDLING_INDEX_CANCEL 5
 

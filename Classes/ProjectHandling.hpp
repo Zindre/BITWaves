@@ -18,8 +18,8 @@ public:
     void show();
     void hide();
     bool isShowing();
-    void save();
-    void load();
+    void saveNewProject();
+    void loadSavedProject();
     std::string getTextFieldString();
     void createNewProject();
     void showSaveOverlay();
@@ -28,16 +28,23 @@ public:
     bool isLoadOverlayOpen();
     void openKeyboard();
     void closeSaveOverlay();
+    void setSelectedProjectNameForLoading( std::string projectName );
+    std::string getSelectedProjectNameForLoading();
+    bool savingIsPossible();
+    bool aProjectIsSelectedToOpen();
+    void setAprojectIsSelectedToOpen( bool aProjectIsSelectedToOpen );
     
     cocos2d::Sprite *closeCross;
     cocos2d::TextFieldTTF *textField;
     cocos2d::Label *label_buttons[NUM_OF_BUTTONS_PROJECTSHANDLING];
     cocos2d::Sprite *buttonBack[NUM_OF_BUTTONS_PROJECTSHANDLING];
+    std::vector<ProjectNames> projectNames;
     
 private:
     
     
     void loadCurrentData();
+    void saveCurrentToOpenProject();
     
     cocos2d::Size visibleSize;
     cocos2d::Vec2 origin;
@@ -52,9 +59,11 @@ private:
     bool _isSaveOverlayOpen;
     bool _isLoadOverlayOpen;
     std::vector<std::string> savedProjectNames;
-    std::vector<ProjectNames> projectNames;
+    std::string selectedProjectNameForLoading;
+    bool _savingIsPossible;
+    bool _aProjectIsSelectedToOpen;
 
-    
+
     
 
 };

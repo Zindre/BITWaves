@@ -40,19 +40,21 @@ ProjectHandling::ProjectHandling( Layer *layer ) {
     label_buttons[BUTTON_PROJECTSHANDLING_INDEX_LOAD]->setString( "Åpne" );
     label_buttons[BUTTON_PROJECTSHANDLING_INDEX_NEW]->setString( "Nytt prosjekt" );
     label_buttons[BUTTON_PROJECTSHANDLING_INDEX_CONFIRMSAVE]->setString( "Bekreft Lagre" );
+    label_buttons[BUTTON_PROJECTSHANDLING_INDEX_CONFIRMLOAD]->setString( "Bekreft Åpne" );
+    label_buttons[BUTTON_PROJECTSHANDLING_INDEX_CANCEL]->setString( "Avbryt" );
     
     
     overlaySave = Sprite::create( "square1px.png" );
-    overlaySave->setTextureRect( Rect( 0, 0, background->getBoundingBox().size.width * 0.7, background->getBoundingBox().size.height * 0.4 ) );
-    overlaySave->setPosition( Vec2( origin.x + visibleSize.width * 0.5, origin.y + visibleSize.height * 0.7 ) );
-    overlaySave->setColor( Color3B::GRAY );
+    overlaySave->setTextureRect( Rect( 0, 0, background->getBoundingBox().size.width * 0.7, background->getBoundingBox().size.height * 0.7 ) );
+    overlaySave->setPosition( Vec2( origin.x + visibleSize.width * 0.5, origin.y + visibleSize.height * 0.5 ) );
+    overlaySave->setColor( Color3B::RED );
     overlaySave->setVisible( false );
     layer->addChild( overlaySave, kLayer_ProjectHandling );
     
     overlayLoad = Sprite::create( "square1px.png" );
     overlayLoad->setTextureRect( Rect( 0, 0, background->getBoundingBox().size.width * 0.7, background->getBoundingBox().size.height * 0.7 ) );
-    overlayLoad->setPosition( Vec2( origin.x + visibleSize.width * 0.5, origin.y + visibleSize.height * 0.7 ) );
-    overlayLoad->setColor( Color3B::GRAY );
+    overlayLoad->setPosition( Vec2( origin.x + visibleSize.width * 0.5, origin.y + visibleSize.height * 0.5 ) );
+    overlayLoad->setColor( Color3B::GREEN );
     overlayLoad->setVisible( false );
     layer->addChild( overlayLoad, kLayer_ProjectHandling );
     
@@ -72,6 +74,17 @@ ProjectHandling::ProjectHandling( Layer *layer ) {
     label_buttons[BUTTON_PROJECTSHANDLING_INDEX_CONFIRMSAVE]->setPosition( buttonBack[BUTTON_PROJECTSHANDLING_INDEX_CONFIRMSAVE]->getPosition() );
     buttonBack[BUTTON_PROJECTSHANDLING_INDEX_CONFIRMSAVE]->setLocalZOrder( kLayer_ProjectHandling_SaveOverlay );
     label_buttons[BUTTON_PROJECTSHANDLING_INDEX_CONFIRMSAVE]->setLocalZOrder( kLayer_ProjectHandling_SaveOverlay );
+    
+    buttonBack[BUTTON_PROJECTSHANDLING_INDEX_CONFIRMLOAD]->setPosition( Vec2( overlayLoad->getPosition().x + overlayLoad->getBoundingBox().size.width * 0.3, overlayLoad->getPosition().y ) );
+    label_buttons[BUTTON_PROJECTSHANDLING_INDEX_CONFIRMLOAD]->setPosition( buttonBack[BUTTON_PROJECTSHANDLING_INDEX_CONFIRMLOAD]->getPosition() );
+    buttonBack[BUTTON_PROJECTSHANDLING_INDEX_CONFIRMLOAD]->setLocalZOrder( kLayer_ProjectHandling_LoadOverlay );
+    label_buttons[BUTTON_PROJECTSHANDLING_INDEX_CONFIRMLOAD]->setLocalZOrder( kLayer_ProjectHandling_LoadOverlay );
+    buttonBack[BUTTON_PROJECTSHANDLING_INDEX_CONFIRMLOAD]->setOpacity( 100 );
+    
+    buttonBack[BUTTON_PROJECTSHANDLING_INDEX_CANCEL]->setPosition( Vec2( overlayLoad->getPosition().x + overlayLoad->getBoundingBox().size.width * 0.3, overlayLoad->getPosition().y - (overlayLoad->getBoundingBox().size.height * 0.3) ) );
+    label_buttons[BUTTON_PROJECTSHANDLING_INDEX_CANCEL]->setPosition( buttonBack[BUTTON_PROJECTSHANDLING_INDEX_CANCEL]->getPosition() );
+    buttonBack[BUTTON_PROJECTSHANDLING_INDEX_CANCEL]->setLocalZOrder( kLayer_ProjectHandling_LoadOverlay );
+    label_buttons[BUTTON_PROJECTSHANDLING_INDEX_CANCEL]->setLocalZOrder( kLayer_ProjectHandling_LoadOverlay );
     
     
     
@@ -114,18 +127,37 @@ ProjectHandling::ProjectHandling( Layer *layer ) {
     
     for ( int i = 0; i < savedProjectNames.size(); i++ ) {
         log( "saved project names: %s", savedProjectNames[i].c_str() );
-        projectNames.push_back( ProjectNames( layer, savedProjectNames[i].c_str(), i ) );
+        if ( strcmp( savedProjectNames[i].c_str(), "Uten tittel" ) != 0 ) {
+            projectNames.push_back( ProjectNames( layer, savedProjectNames[i].c_str(), i ) );
+        }
     }
     
-
- 
     
+    
+
+
     _isShowing = false;
     _isSaveOverlayOpen = false;
     _isLoadOverlayOpen = false;
+    selectedProjectNameForLoading = "";
+    _aProjectIsSelectedToOpen = false;
+    
+    
+    loadCurrentData();
+    
+    
+    std::string currentProjectName = UserDefault::getInstance()->getStringForKey( "currentProjectName" );
+    if ( currentProjectName == "Uten tittel" ) {
+        _savingIsPossible = true;
+    } else {
+        _savingIsPossible = false;
+        buttonBack[BUTTON_PROJECTSHANDLING_INDEX_SAVE]->setOpacity( 100 );
+        saveCurrentToOpenProject();
+    }
+    
     
     hide();
-    loadCurrentData();
+    
     
 }
 
@@ -139,6 +171,10 @@ void ProjectHandling::show() {
     }
     buttonBack[BUTTON_PROJECTSHANDLING_INDEX_CONFIRMSAVE]->setVisible( false );
     label_buttons[BUTTON_PROJECTSHANDLING_INDEX_CONFIRMSAVE]->setVisible( false );
+    buttonBack[BUTTON_PROJECTSHANDLING_INDEX_CONFIRMLOAD]->setVisible( false );
+    label_buttons[BUTTON_PROJECTSHANDLING_INDEX_CONFIRMLOAD]->setVisible( false );
+    buttonBack[BUTTON_PROJECTSHANDLING_INDEX_CANCEL]->setVisible( false );
+    label_buttons[BUTTON_PROJECTSHANDLING_INDEX_CANCEL]->setVisible( false );
     _isShowing = true;
 }
 
@@ -154,6 +190,14 @@ void ProjectHandling::hide() {
         projectNames[i].hide();
     }
     _isShowing = false;
+    overlayLoad->setVisible( false );
+    overlaySave->setVisible( false );
+    _isSaveOverlayOpen = false;
+    _isLoadOverlayOpen = false;
+    selectedProjectNameForLoading = "";
+    _aProjectIsSelectedToOpen = false;
+    label_instructTyping->setVisible( false );
+    textField->setVisible( false );
 }
 
 bool ProjectHandling::isShowing() {
@@ -214,7 +258,7 @@ void ProjectHandling::loadCurrentData() {
 
 }
 
-void ProjectHandling::save() {
+void ProjectHandling::saveNewProject() {
     
     if ( currentPos.size() != 0 ) {
         
@@ -288,7 +332,76 @@ void ProjectHandling::save() {
     
 }
 
-void ProjectHandling::load() {
+void ProjectHandling::saveCurrentToOpenProject() {
+    
+    if ( currentPos.size() != 0 ) {
+        
+        std::string currentProjectName = UserDefault::getInstance()->getStringForKey( "currentProjectName" );
+        
+        // ----------------------------------------------------------------------------------
+        Data data_pos_X;
+        std::vector<float> pos_X;
+        
+        for ( int i = 0; i < currentPos.size(); i++ ) {
+            pos_X.push_back( currentPos[i].x );
+        }
+        
+        for ( int i = 0; i < pos_X.size(); i++ ) {
+            log( "PH save posX[%i]: %f", i, pos_X[i] );
+        }
+        
+        data_pos_X.copy((unsigned char*) pos_X.data(), pos_X.size() * sizeof(float));
+        std::string projectName_X = currentProjectName + "_" + "pos_X";
+        log( "PH save current to open project X: %s", projectName_X.c_str() );
+        UserDefault::getInstance()->deleteValueForKey( projectName_X.c_str() );
+        UserDefault::getInstance()->setDataForKey( projectName_X.c_str(), data_pos_X );
+        // ----------------------------------------------------------------------------------
+        
+        
+        // ----------------------------------------------------------------------------------
+        Data data_pos_Y;
+        std::vector<float> pos_Y;
+        
+        for ( int i = 0; i < currentPos.size(); i++ ) {
+            pos_Y.push_back( currentPos[i].y );
+        }
+        
+        for ( int i = 0; i < pos_Y.size(); i++ ) {
+            log( "PH save posY[%i]: %f", i, pos_Y[i] );
+        }
+        
+        data_pos_Y.copy((unsigned char*) pos_Y.data(), pos_Y.size() * sizeof(float));
+        std::string projectName_Y = currentProjectName + "_" + "pos_Y";
+        log( "PH save current to project Y: %s", projectName_Y.c_str() );
+        UserDefault::getInstance()->deleteValueForKey( projectName_Y.c_str() );
+        UserDefault::getInstance()->setDataForKey( projectName_Y.c_str(), data_pos_Y );
+        // ----------------------------------------------------------------------------------
+        
+        
+        // ----------------------------------------------------------------------------------
+        Data data_whatSound;
+        std::vector<int> whatSound;
+        
+        for ( int i = 0; i < currentWhatSound.size(); i++ ) {
+            whatSound.push_back( currentWhatSound[i] );
+        }
+        
+        for ( int i = 0; i < currentWhatSound.size(); i++ ) {
+            log( "PH save what sound: %d", currentWhatSound[i] );
+        }
+        
+        data_whatSound.copy((unsigned char*) whatSound.data(), whatSound.size() * sizeof(int));
+        std::string projectName_whatSound = currentProjectName + "_" + "whatSound";
+        log( "PH save current to project whatSound: %s", projectName_whatSound.c_str() );
+        UserDefault::getInstance()->deleteValueForKey( projectName_whatSound.c_str() );
+        UserDefault::getInstance()->setDataForKey( projectName_whatSound.c_str(), data_whatSound );
+        // ----------------------------------------------------------------------------------
+        
+    }
+    
+}
+
+void ProjectHandling::loadSavedProject() {
     
     UserDefault::getInstance()->deleteValueForKey( "current_posX" );
     UserDefault::getInstance()->deleteValueForKey( "current_posY" );
@@ -299,8 +412,8 @@ void ProjectHandling::load() {
     
     
     // ----------------------------------------------------------------------------------
-    std::string projectName_X = textField->getString() + "_" + "pos_X";
-    
+    std::string projectName_X = selectedProjectNameForLoading + "_" + "pos_X";
+    log( "load saved project name (posX): %s", projectName_X.c_str() );
     Data data_pos_X = UserDefault::getInstance()->getDataForKey( projectName_X.c_str() );
     float*  buffer_X = (float*) data_pos_X.getBytes();
     ssize_t length_X = data_pos_X.getSize() / sizeof(float);
@@ -315,8 +428,8 @@ void ProjectHandling::load() {
     
     
     // ----------------------------------------------------------------------------------
-    std::string projectName_Y = textField->getString() + "_" + "pos_Y";
-    
+    std::string projectName_Y = selectedProjectNameForLoading + "_" + "pos_Y";
+    log( "load saved project name (posY): %s", projectName_Y.c_str() );
     Data data_pos_Y = UserDefault::getInstance()->getDataForKey( projectName_Y.c_str() );
     float*  buffer_Y = (float*) data_pos_Y.getBytes();
     ssize_t length_Y = data_pos_Y.getSize() / sizeof(float);
@@ -331,8 +444,8 @@ void ProjectHandling::load() {
     
     
     // ----------------------------------------------------------------------------------
-    std::string projectName_whatSound = textField->getString() + "_" + "whatSound";
-    
+    std::string projectName_whatSound = selectedProjectNameForLoading + "_" + "whatSound";
+    log( "load saved project name (whatSound): %s", projectName_whatSound.c_str() );
     Data data_whatSound = UserDefault::getInstance()->getDataForKey( projectName_whatSound.c_str() );
     int* buffer_whatSound = (int*) data_whatSound.getBytes();
     ssize_t length_whatSound = data_whatSound.getSize() / sizeof(int);
@@ -421,14 +534,20 @@ void ProjectHandling::showSaveOverlay() {
     textField->attachWithIME();
     buttonBack[BUTTON_PROJECTSHANDLING_INDEX_CONFIRMSAVE]->setVisible( true );
     label_buttons[BUTTON_PROJECTSHANDLING_INDEX_CONFIRMSAVE]->setVisible( true );
+    buttonBack[BUTTON_PROJECTSHANDLING_INDEX_CANCEL]->setVisible( true );
+    label_buttons[BUTTON_PROJECTSHANDLING_INDEX_CANCEL]->setVisible( true );
     _isSaveOverlayOpen = true;
 }
 
 void ProjectHandling::showLoadOverlay() {
-    overlaySave->setVisible( true );
+    overlayLoad->setVisible( true );
     for ( int i = 0; i < projectNames.size(); i++ ) {
         projectNames[i].show();
     }
+    buttonBack[BUTTON_PROJECTSHANDLING_INDEX_CONFIRMLOAD]->setVisible( true );
+    label_buttons[BUTTON_PROJECTSHANDLING_INDEX_CONFIRMLOAD]->setVisible( true );
+    buttonBack[BUTTON_PROJECTSHANDLING_INDEX_CANCEL]->setVisible( true );
+    label_buttons[BUTTON_PROJECTSHANDLING_INDEX_CANCEL]->setVisible( true );
     _isLoadOverlayOpen = true;
 }
 
@@ -451,4 +570,34 @@ void ProjectHandling::closeSaveOverlay() {
     buttonBack[BUTTON_PROJECTSHANDLING_INDEX_CONFIRMSAVE]->setVisible( false );
     label_buttons[BUTTON_PROJECTSHANDLING_INDEX_CONFIRMSAVE]->setVisible( false );
     _isSaveOverlayOpen = false;
+    buttonBack[BUTTON_PROJECTSHANDLING_INDEX_SAVE]->setOpacity( 100 );
+    _savingIsPossible = false;
+    buttonBack[BUTTON_PROJECTSHANDLING_INDEX_CANCEL]->setVisible( false );
+    label_buttons[BUTTON_PROJECTSHANDLING_INDEX_CANCEL]->setVisible( false );
+}
+
+void ProjectHandling::setSelectedProjectNameForLoading( std::string projectName ) {
+    selectedProjectNameForLoading = projectName;
+    log( "selected project for loading: %s", selectedProjectNameForLoading.c_str() );
+}
+
+std::string ProjectHandling::getSelectedProjectNameForLoading( ){
+    return selectedProjectNameForLoading;
+}
+
+bool ProjectHandling::savingIsPossible() {
+    return _savingIsPossible;
+}
+
+bool ProjectHandling::aProjectIsSelectedToOpen() {
+    return _aProjectIsSelectedToOpen;
+}
+
+void ProjectHandling::setAprojectIsSelectedToOpen( bool aProjectIsSelectedToOpen ) {
+    _aProjectIsSelectedToOpen = aProjectIsSelectedToOpen;
+    if ( _aProjectIsSelectedToOpen ) {
+        buttonBack[BUTTON_PROJECTSHANDLING_INDEX_CONFIRMLOAD]->setOpacity( 255 );
+    } else {
+        buttonBack[BUTTON_PROJECTSHANDLING_INDEX_CONFIRMLOAD]->setOpacity( 100 );
+    }
 }

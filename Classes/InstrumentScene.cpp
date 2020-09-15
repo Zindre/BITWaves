@@ -63,6 +63,7 @@ bool InstrumentScene::init()
     mainMenu->buttons_image[kButtons_ArrayNum_Rec]->setOpacity( 100 );
     
     
+    
     this->scheduleUpdate();
     
     return true;
@@ -128,30 +129,15 @@ void InstrumentScene::onTouchesBegan( const std::vector<Touch*>& touches, Event*
                 // PROJECT HANDLING
                 if ( projectHandling->isShowing() ) {
                     
+                    // SAVE
                     if ( ! projectHandling->isSaveOverlayOpen() ) {
                         
-                        if ( projectHandling->closeCross->getBoundingBox().containsPoint( touch->getLocation() ) ) {
-                            projectHandling->hide();
-                        }
-                        
-                        if ( projectHandling->buttonBack[BUTTON_PROJECTSHANDLING_INDEX_SAVE]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
-                            projectHandling->showSaveOverlay();
-                        }
-                        
-                        if ( projectHandling->buttonBack[BUTTON_PROJECTSHANDLING_INDEX_LOAD]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
-                            /*projectHandling->load();
-                            mainMenu->setCurrentProjectName( projectHandling->getTextFieldString() );
-                            auto scene = InstrumentScene::createScene();
-                            Director::getInstance()->replaceScene( scene );*/
-                            
-                            projectHandling->showLoadOverlay();
-                        }
-                        
-                        if ( projectHandling->buttonBack[BUTTON_PROJECTSHANDLING_INDEX_NEW]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
-                            projectHandling->createNewProject();
-                            mainMenu->setCurrentProjectName( "Uten tittel" );
-                            auto scene = InstrumentScene::createScene();
-                            Director::getInstance()->replaceScene( scene );
+                        if ( ! projectHandling->isLoadOverlayOpen() ) {
+                            if ( projectHandling->savingIsPossible() ) {
+                                if ( projectHandling->buttonBack[BUTTON_PROJECTSHANDLING_INDEX_SAVE]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
+                                    projectHandling->showSaveOverlay();
+                                }
+                            }
                         }
                         
                     } else {
@@ -161,14 +147,71 @@ void InstrumentScene::onTouchesBegan( const std::vector<Touch*>& touches, Event*
                             projectHandling->openKeyboard();
                         }
                         
-                        if ( projectHandling->buttonBack[BUTTON_PROJECTSHANDLING_INDEX_CONFIRMSAVE]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
-                            projectHandling->save();
-                            mainMenu->setCurrentProjectName( projectHandling->getTextFieldString() );
-                            projectHandling->closeSaveOverlay();
+                        if ( projectHandling->textField->getString() != "" ) {
+                            if ( projectHandling->buttonBack[BUTTON_PROJECTSHANDLING_INDEX_CONFIRMSAVE]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
+                                projectHandling->saveNewProject();
+                                mainMenu->setCurrentProjectName( projectHandling->getTextFieldString() );
+                                projectHandling->closeSaveOverlay();
+                            }
                         }
                         
+                    }
+                    
+                    // LOAD
+                    if ( ! projectHandling->isLoadOverlayOpen() ) {
+                    
+                        if ( ! projectHandling->isSaveOverlayOpen() ) {
+                            if ( projectHandling->buttonBack[BUTTON_PROJECTSHANDLING_INDEX_LOAD]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
+                                projectHandling->showLoadOverlay();
+                            }
+                        }
                         
+                    } else {
                         
+                        // LOAD OVERLAY
+                        for ( int i = 0; i < projectHandling->projectNames.size(); i++ ) {
+                            if ( projectHandling->projectNames[i].label->getBoundingBox().containsPoint( touch->getLocation() ) ) {
+                                for ( int j = 0; j < projectHandling->projectNames.size(); j++ ) {
+                                    projectHandling->projectNames[j].label->setColor( Color3B::BLACK );
+                                }
+                                projectHandling->projectNames[i].label->setColor( Color3B::YELLOW );
+                                projectHandling->setSelectedProjectNameForLoading( projectHandling->projectNames[i].label->getString() );
+                                projectHandling->setAprojectIsSelectedToOpen( true );
+                            }
+                        }
+                        
+                        if ( projectHandling->aProjectIsSelectedToOpen() ) {
+                            if ( projectHandling->buttonBack[BUTTON_PROJECTSHANDLING_INDEX_CONFIRMLOAD]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
+                                projectHandling->loadSavedProject();
+                                mainMenu->setCurrentProjectName( projectHandling->getSelectedProjectNameForLoading() );
+                                auto scene = InstrumentScene::createScene();
+                                Director::getInstance()->replaceScene( scene );
+                            }
+                        }
+                        
+                    }
+                    
+                    // NEW PROJECT AND CLOSE CROSS
+                    if ( ! projectHandling->isLoadOverlayOpen() && ! projectHandling->isSaveOverlayOpen() ) {
+                        
+                        if ( projectHandling->buttonBack[BUTTON_PROJECTSHANDLING_INDEX_NEW]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
+                            projectHandling->createNewProject();
+                            mainMenu->setCurrentProjectName( "Uten tittel" );
+                            auto scene = InstrumentScene::createScene();
+                            Director::getInstance()->replaceScene( scene );
+                        }
+                        
+                        if ( projectHandling->closeCross->getBoundingBox().containsPoint( touch->getLocation() ) ) {
+                            projectHandling->hide();
+                        }
+                        
+                    }
+                    
+                    // CANCEL BUTTON
+                    if ( projectHandling->isLoadOverlayOpen() || projectHandling->isSaveOverlayOpen() ) {
+                        if ( projectHandling->buttonBack[BUTTON_PROJECTSHANDLING_INDEX_CANCEL]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
+                            projectHandling->hide();
+                        }
                     }
                     
                 } else {
