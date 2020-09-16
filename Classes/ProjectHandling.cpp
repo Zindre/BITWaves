@@ -3,8 +3,12 @@
 
 ProjectHandling::ProjectHandling( Layer *layer ) {
     
+    this->_layer = layer;
+    
     visibleSize = Director::getInstance()->getSafeAreaRect().size;
     origin = Director::getInstance()->getSafeAreaRect().origin;
+    
+    _whatState = kProjectHandling_State_Closed;
     
     blackLayer = Sprite::create( "square1px.png" );
     blackLayer->setTextureRect( Rect( 0, 0, visibleSize.width, visibleSize.height ) );
@@ -25,7 +29,7 @@ ProjectHandling::ProjectHandling( Layer *layer ) {
     
     float padding = 0.0;
     
-    for ( int i = 0; i < NUM_OF_BUTTONS_PROJECTSHANDLING; i++ ) {
+    for ( int i = 0; i < kButtons_ProjectHandling_NumOf; i++ ) {
         buttonBack[i] = Sprite::create( "buttonBack.png" );
         padding = buttonBack[i]->getBoundingBox().size.height * 0.5;
         buttonBack[i]->setPosition( Vec2( origin.x + visibleSize.width * 0.5, origin.y + visibleSize.height * 0.6 - ( (buttonBack[i]->getBoundingBox().size.height + padding) * i) ) );
@@ -36,12 +40,12 @@ ProjectHandling::ProjectHandling( Layer *layer ) {
         label_buttons[i]->setPosition( buttonBack[i]->getPosition() );
         layer->addChild( label_buttons[i], kLayer_ProjectHandling );
     }
-    label_buttons[BUTTON_PROJECTSHANDLING_INDEX_SAVE]->setString( "Lagre" );
-    label_buttons[BUTTON_PROJECTSHANDLING_INDEX_LOAD]->setString( "Åpne" );
-    label_buttons[BUTTON_PROJECTSHANDLING_INDEX_NEW]->setString( "Nytt prosjekt" );
-    label_buttons[BUTTON_PROJECTSHANDLING_INDEX_CONFIRMSAVE]->setString( "Bekreft Lagre" );
-    label_buttons[BUTTON_PROJECTSHANDLING_INDEX_CONFIRMLOAD]->setString( "Bekreft Åpne" );
-    label_buttons[BUTTON_PROJECTSHANDLING_INDEX_CANCEL]->setString( "Avbryt" );
+    label_buttons[kButtons_ProjectHandling_Index_Save]->setString( "Lagre" );
+    label_buttons[kButtons_ProjectHandling_Index_Load]->setString( "Åpne" );
+    label_buttons[kButtons_ProjectHandling_Index_New]->setString( "Nytt prosjekt" );
+    label_buttons[kButtons_ProjectHandling_Index_ConfirmSave]->setString( "Bekreft Lagre" );
+    label_buttons[kButtons_ProjectHandling_Index_ConfirmLoad]->setString( "Bekreft Åpne" );
+    label_buttons[kButtons_ProjectHandling_Index_Cancel]->setString( "Avbryt" );
     
     
     overlaySave = Sprite::create( "square1px.png" );
@@ -64,84 +68,45 @@ ProjectHandling::ProjectHandling( Layer *layer ) {
     label_instructTyping->setColor( Color3B::BLACK );
     layer->addChild( label_instructTyping, kLayer_ProjectHandling );
     
+    textFieldArea = Sprite::create( "square1px.png" );
+    textFieldArea->setTextureRect( Rect( 0, 0, overlayLoad->getBoundingBox().size.width * 0.8, label_instructTyping->getBoundingBox().size.height * 1.2 ) );
+    textFieldArea->setPosition( Vec2( label_instructTyping->getPosition().x, label_instructTyping->getPosition().y - (label_instructTyping->getBoundingBox().size.height * 2) ) );
+    textFieldArea->setVisible( false );
+    layer->addChild( textFieldArea, kLayer_ProjectHandling_SaveOverlay );
+    
     textField = cocos2d::TextFieldTTF::textFieldWithPlaceHolder( "", "fonts/arial.ttf", 10 );
     textField->setPosition( Vec2( label_instructTyping->getPosition().x, label_instructTyping->getPosition().y - (label_instructTyping->getBoundingBox().size.height * 2) ) );
-    textField->setColor( Color3B::BLACK );
     textField->setVisible( false );
-    layer->addChild( textField, kLayer_ProjectHandling );
+    textField->setCursorEnabled( true );
+    textField->setTextColor( Color4B( 0, 0, 0, 255 ) );
+    layer->addChild( textField, kLayer_ProjectHandling_SaveOverlay );
     
-    buttonBack[BUTTON_PROJECTSHANDLING_INDEX_CONFIRMSAVE]->setPosition( Vec2( textField->getPosition().x, textField->getPosition().y - (padding * 2) ) );
-    label_buttons[BUTTON_PROJECTSHANDLING_INDEX_CONFIRMSAVE]->setPosition( buttonBack[BUTTON_PROJECTSHANDLING_INDEX_CONFIRMSAVE]->getPosition() );
-    buttonBack[BUTTON_PROJECTSHANDLING_INDEX_CONFIRMSAVE]->setLocalZOrder( kLayer_ProjectHandling_SaveOverlay );
-    label_buttons[BUTTON_PROJECTSHANDLING_INDEX_CONFIRMSAVE]->setLocalZOrder( kLayer_ProjectHandling_SaveOverlay );
+    buttonBack[kButtons_ProjectHandling_Index_ConfirmSave]->setPosition( Vec2( overlaySave->getPosition().x - (buttonBack[kButtons_ProjectHandling_Index_ConfirmSave]->getBoundingBox().size.width * 0.5) - padding, overlaySave->getPosition().y - buttonBack[kButtons_ProjectHandling_Index_ConfirmSave]->getBoundingBox().size.height ) );
+    label_buttons[kButtons_ProjectHandling_Index_ConfirmSave]->setPosition( buttonBack[kButtons_ProjectHandling_Index_ConfirmSave]->getPosition() );
+    buttonBack[kButtons_ProjectHandling_Index_ConfirmSave]->setLocalZOrder( kLayer_ProjectHandling_SaveOverlay );
+    label_buttons[kButtons_ProjectHandling_Index_ConfirmSave]->setLocalZOrder( kLayer_ProjectHandling_SaveOverlay );
     
-    buttonBack[BUTTON_PROJECTSHANDLING_INDEX_CONFIRMLOAD]->setPosition( Vec2( overlayLoad->getPosition().x + overlayLoad->getBoundingBox().size.width * 0.3, overlayLoad->getPosition().y ) );
-    label_buttons[BUTTON_PROJECTSHANDLING_INDEX_CONFIRMLOAD]->setPosition( buttonBack[BUTTON_PROJECTSHANDLING_INDEX_CONFIRMLOAD]->getPosition() );
-    buttonBack[BUTTON_PROJECTSHANDLING_INDEX_CONFIRMLOAD]->setLocalZOrder( kLayer_ProjectHandling_LoadOverlay );
-    label_buttons[BUTTON_PROJECTSHANDLING_INDEX_CONFIRMLOAD]->setLocalZOrder( kLayer_ProjectHandling_LoadOverlay );
-    buttonBack[BUTTON_PROJECTSHANDLING_INDEX_CONFIRMLOAD]->setOpacity( 100 );
+    buttonBack[kButtons_ProjectHandling_Index_ConfirmLoad]->setPosition( Vec2( overlayLoad->getPosition().x + overlayLoad->getBoundingBox().size.width * 0.3, overlayLoad->getPosition().y ) );
+    label_buttons[kButtons_ProjectHandling_Index_ConfirmLoad]->setPosition( buttonBack[kButtons_ProjectHandling_Index_ConfirmLoad]->getPosition() );
+    buttonBack[kButtons_ProjectHandling_Index_ConfirmLoad]->setLocalZOrder( kLayer_ProjectHandling_LoadOverlay );
+    label_buttons[kButtons_ProjectHandling_Index_ConfirmLoad]->setLocalZOrder( kLayer_ProjectHandling_LoadOverlay );
+    buttonBack[kButtons_ProjectHandling_Index_ConfirmLoad]->setOpacity( 100 );
     
-    buttonBack[BUTTON_PROJECTSHANDLING_INDEX_CANCEL]->setPosition( Vec2( overlayLoad->getPosition().x + overlayLoad->getBoundingBox().size.width * 0.3, overlayLoad->getPosition().y - (overlayLoad->getBoundingBox().size.height * 0.3) ) );
-    label_buttons[BUTTON_PROJECTSHANDLING_INDEX_CANCEL]->setPosition( buttonBack[BUTTON_PROJECTSHANDLING_INDEX_CANCEL]->getPosition() );
-    buttonBack[BUTTON_PROJECTSHANDLING_INDEX_CANCEL]->setLocalZOrder( kLayer_ProjectHandling_LoadOverlay );
-    label_buttons[BUTTON_PROJECTSHANDLING_INDEX_CANCEL]->setLocalZOrder( kLayer_ProjectHandling_LoadOverlay );
-    
-    
-    
-    
-    FileUtils *fileUtils = FileUtils::getInstance();
-    std::string writablePath = fileUtils->getWritablePath();
-    std::vector<std::string> savedProjectNamesFullPaths;
-    savedProjectNamesFullPaths = fileUtils->listFiles( writablePath );
-    
-    std::vector<std::string> tempStr;
-    
-    for ( int i = 0; i < savedProjectNamesFullPaths.size(); i++ ) {
-        
-        log( "saved projects full paths: %s", savedProjectNamesFullPaths[i].c_str() );
-        
-        char str[1024];
-        strcpy( str, savedProjectNamesFullPaths[i].c_str() );
-        
-        // Returns first token
-        char *token = strtok( str, "/" );
-
-        // Keep printing tokens while one of the
-        // delimiters present in str[].
-        while ( token != NULL ) {
-            log( "token: %s", token );
-            tempStr.push_back( token );
-            token = strtok( NULL, "/" );
-        }
-        
-        // Add last token of string path to vector array
-        savedProjectNames.push_back( tempStr.back() );
-        
-    }
-    
-    // Delete . and ..
-    savedProjectNames.erase( savedProjectNames.begin() );
-    savedProjectNames.erase( savedProjectNames.begin() );
+    buttonBack[kButtons_ProjectHandling_Index_Cancel]->setPosition( Vec2( overlaySave->getPosition().x + (buttonBack[kButtons_ProjectHandling_Index_ConfirmSave]->getBoundingBox().size.width * 0.5) + padding, overlaySave->getPosition().y - buttonBack[kButtons_ProjectHandling_Index_Cancel]->getBoundingBox().size.height ) );
+    label_buttons[kButtons_ProjectHandling_Index_Cancel]->setPosition( buttonBack[kButtons_ProjectHandling_Index_Cancel]->getPosition() );
+    buttonBack[kButtons_ProjectHandling_Index_Cancel]->setLocalZOrder( kLayer_ProjectHandling_LoadOverlay );
+    label_buttons[kButtons_ProjectHandling_Index_Cancel]->setLocalZOrder( kLayer_ProjectHandling_LoadOverlay );
     
     
     
-    for ( int i = 0; i < savedProjectNames.size(); i++ ) {
-        log( "saved project names: %s", savedProjectNames[i].c_str() );
-        if ( strcmp( savedProjectNames[i].c_str(), "Uten tittel" ) != 0 ) {
-            projectNames.push_back( ProjectNames( layer, savedProjectNames[i].c_str(), i ) );
-        }
-    }
+    
+    updateProjectList();
     
     
     
-
-
-    _isShowing = false;
-    _isSaveOverlayOpen = false;
-    _isLoadOverlayOpen = false;
     selectedProjectNameForLoading = "";
     _aProjectIsSelectedToOpen = false;
-    
+    _isShowing = false;
     
     loadCurrentData();
     
@@ -151,7 +116,7 @@ ProjectHandling::ProjectHandling( Layer *layer ) {
         _savingIsPossible = true;
     } else {
         _savingIsPossible = false;
-        buttonBack[BUTTON_PROJECTSHANDLING_INDEX_SAVE]->setOpacity( 100 );
+        buttonBack[kButtons_ProjectHandling_Index_Save]->setOpacity( 100 );
         saveCurrentToOpenProject();
     }
     
@@ -165,16 +130,17 @@ void ProjectHandling::show() {
     blackLayer->setVisible( true );
     background->setVisible( true );
     closeCross->setVisible( true );
-    for ( int i = 0; i < NUM_OF_BUTTONS_PROJECTSHANDLING; i++ ) {
+    for ( int i = 0; i < kButtons_ProjectHandling_NumOf; i++ ) {
         buttonBack[i]->setVisible( true );
         label_buttons[i]->setVisible( true );
     }
-    buttonBack[BUTTON_PROJECTSHANDLING_INDEX_CONFIRMSAVE]->setVisible( false );
-    label_buttons[BUTTON_PROJECTSHANDLING_INDEX_CONFIRMSAVE]->setVisible( false );
-    buttonBack[BUTTON_PROJECTSHANDLING_INDEX_CONFIRMLOAD]->setVisible( false );
-    label_buttons[BUTTON_PROJECTSHANDLING_INDEX_CONFIRMLOAD]->setVisible( false );
-    buttonBack[BUTTON_PROJECTSHANDLING_INDEX_CANCEL]->setVisible( false );
-    label_buttons[BUTTON_PROJECTSHANDLING_INDEX_CANCEL]->setVisible( false );
+    buttonBack[kButtons_ProjectHandling_Index_ConfirmSave]->setVisible( false );
+    label_buttons[kButtons_ProjectHandling_Index_ConfirmSave]->setVisible( false );
+    buttonBack[kButtons_ProjectHandling_Index_ConfirmLoad]->setVisible( false );
+    label_buttons[kButtons_ProjectHandling_Index_ConfirmLoad]->setVisible( false );
+    buttonBack[kButtons_ProjectHandling_Index_Cancel]->setVisible( false );
+    label_buttons[kButtons_ProjectHandling_Index_Cancel]->setVisible( false );
+    _whatState = kProjectHandling_State_MainScreen;
     _isShowing = true;
 }
 
@@ -182,26 +148,21 @@ void ProjectHandling::hide() {
     blackLayer->setVisible( false );
     background->setVisible( false );
     closeCross->setVisible( false );
-    for ( int i = 0; i < NUM_OF_BUTTONS_PROJECTSHANDLING; i++ ) {
+    for ( int i = 0; i < kButtons_ProjectHandling_NumOf; i++ ) {
         buttonBack[i]->setVisible( false );
         label_buttons[i]->setVisible( false );
     }
-    for ( int i = 0; i < projectNames.size(); i++ ) {
-        projectNames[i].hide();
+    for ( int i = 0; i < projectNamesLabel.size(); i++ ) {
+        projectNamesLabel[i].hide();
     }
-    _isShowing = false;
     overlayLoad->setVisible( false );
     overlaySave->setVisible( false );
-    _isSaveOverlayOpen = false;
-    _isLoadOverlayOpen = false;
     selectedProjectNameForLoading = "";
     _aProjectIsSelectedToOpen = false;
     label_instructTyping->setVisible( false );
     textField->setVisible( false );
-}
-
-bool ProjectHandling::isShowing() {
-    return _isShowing;
+    _whatState = kProjectHandling_State_Closed;
+    _isShowing = false;
 }
 
 void ProjectHandling::loadCurrentData() {
@@ -477,32 +438,33 @@ void ProjectHandling::loadSavedProject() {
         log( "PH current what sound: %i", currentWhatSound[i] );
     }
     
-    
-    Data data_current_pos_X;
-    std::vector<float> pos_X;
-    for ( int i = 0; i < currentPos.size(); i++ ) {
-        pos_X.push_back( currentPos[i].x );
+    if ( currentPos.size() != 0 ) {
+        Data data_current_pos_X;
+        std::vector<float> pos_X;
+        for ( int i = 0; i < currentPos.size(); i++ ) {
+            pos_X.push_back( currentPos[i].x );
+        }
+        data_current_pos_X.copy((unsigned char*) pos_X.data(), pos_X.size() * sizeof(float));
+        UserDefault::getInstance()->setDataForKey( "current_posX", data_current_pos_X );
+        
+        
+        Data data_current_pos_Y;
+        std::vector<float> pos_Y;
+        for ( int i = 0; i < currentPos.size(); i++ ) {
+            pos_Y.push_back( currentPos[i].y );
+        }
+        data_current_pos_Y.copy((unsigned char*) pos_Y.data(), pos_Y.size() * sizeof(float));
+        UserDefault::getInstance()->setDataForKey( "current_posY", data_current_pos_Y );
+        
+        
+        Data data_current_whatSound;
+        std::vector<int> whatSound;
+        for ( int i = 0; i < currentWhatSound.size(); i++ ) {
+            whatSound.push_back( currentWhatSound[i] );
+        }
+        data_current_whatSound.copy((unsigned char*) whatSound.data(), whatSound.size() * sizeof(int));
+        UserDefault::getInstance()->setDataForKey( "current_whatSound", data_current_whatSound );
     }
-    data_current_pos_X.copy((unsigned char*) pos_X.data(), pos_X.size() * sizeof(float));
-    UserDefault::getInstance()->setDataForKey( "current_posX", data_current_pos_X );
-    
-    
-    Data data_current_pos_Y;
-    std::vector<float> pos_Y;
-    for ( int i = 0; i < currentPos.size(); i++ ) {
-        pos_Y.push_back( currentPos[i].y );
-    }
-    data_current_pos_Y.copy((unsigned char*) pos_Y.data(), pos_Y.size() * sizeof(float));
-    UserDefault::getInstance()->setDataForKey( "current_posY", data_current_pos_Y );
-    
-    
-    Data data_current_whatSound;
-    std::vector<int> whatSound;
-    for ( int i = 0; i < currentWhatSound.size(); i++ ) {
-        whatSound.push_back( currentWhatSound[i] );
-    }
-    data_current_whatSound.copy((unsigned char*) whatSound.data(), whatSound.size() * sizeof(int));
-    UserDefault::getInstance()->setDataForKey( "current_whatSound", data_current_whatSound );
     
 }
 
@@ -532,31 +494,24 @@ void ProjectHandling::showSaveOverlay() {
     textField->setVisible( true );
     label_instructTyping->setVisible( true );
     textField->attachWithIME();
-    buttonBack[BUTTON_PROJECTSHANDLING_INDEX_CONFIRMSAVE]->setVisible( true );
-    label_buttons[BUTTON_PROJECTSHANDLING_INDEX_CONFIRMSAVE]->setVisible( true );
-    buttonBack[BUTTON_PROJECTSHANDLING_INDEX_CANCEL]->setVisible( true );
-    label_buttons[BUTTON_PROJECTSHANDLING_INDEX_CANCEL]->setVisible( true );
-    _isSaveOverlayOpen = true;
+    buttonBack[kButtons_ProjectHandling_Index_ConfirmSave]->setVisible( true );
+    label_buttons[kButtons_ProjectHandling_Index_ConfirmSave]->setVisible( true );
+    buttonBack[kButtons_ProjectHandling_Index_Cancel]->setVisible( true );
+    label_buttons[kButtons_ProjectHandling_Index_Cancel]->setVisible( true );
+    _whatState = kProjectHandling_State_SaveOverlay;
+    textFieldArea->setVisible( true );
 }
 
 void ProjectHandling::showLoadOverlay() {
     overlayLoad->setVisible( true );
-    for ( int i = 0; i < projectNames.size(); i++ ) {
-        projectNames[i].show();
+    for ( int i = 0; i < projectNamesLabel.size(); i++ ) {
+        projectNamesLabel[i].show();
     }
-    buttonBack[BUTTON_PROJECTSHANDLING_INDEX_CONFIRMLOAD]->setVisible( true );
-    label_buttons[BUTTON_PROJECTSHANDLING_INDEX_CONFIRMLOAD]->setVisible( true );
-    buttonBack[BUTTON_PROJECTSHANDLING_INDEX_CANCEL]->setVisible( true );
-    label_buttons[BUTTON_PROJECTSHANDLING_INDEX_CANCEL]->setVisible( true );
-    _isLoadOverlayOpen = true;
-}
-
-bool ProjectHandling::isSaveOverlayOpen() {
-    return _isSaveOverlayOpen;
-}
-
-bool ProjectHandling::isLoadOverlayOpen() {
-    return _isLoadOverlayOpen;
+    buttonBack[kButtons_ProjectHandling_Index_ConfirmLoad]->setVisible( true );
+    label_buttons[kButtons_ProjectHandling_Index_ConfirmLoad]->setVisible( true );
+    buttonBack[kButtons_ProjectHandling_Index_Cancel]->setVisible( true );
+    label_buttons[kButtons_ProjectHandling_Index_Cancel]->setVisible( true );
+    _whatState = kProjectHandling_State_LoadOverlay;
 }
 
 void ProjectHandling::openKeyboard() {
@@ -567,13 +522,27 @@ void ProjectHandling::closeSaveOverlay() {
     overlaySave->setVisible( false );
     textField->setVisible( false );
     label_instructTyping->setVisible( false );
-    buttonBack[BUTTON_PROJECTSHANDLING_INDEX_CONFIRMSAVE]->setVisible( false );
-    label_buttons[BUTTON_PROJECTSHANDLING_INDEX_CONFIRMSAVE]->setVisible( false );
-    _isSaveOverlayOpen = false;
-    buttonBack[BUTTON_PROJECTSHANDLING_INDEX_SAVE]->setOpacity( 100 );
+    buttonBack[kButtons_ProjectHandling_Index_ConfirmSave]->setVisible( false );
+    label_buttons[kButtons_ProjectHandling_Index_ConfirmSave]->setVisible( false );
+    buttonBack[kButtons_ProjectHandling_Index_Save]->setOpacity( 100 );
     _savingIsPossible = false;
-    buttonBack[BUTTON_PROJECTSHANDLING_INDEX_CANCEL]->setVisible( false );
-    label_buttons[BUTTON_PROJECTSHANDLING_INDEX_CANCEL]->setVisible( false );
+    buttonBack[kButtons_ProjectHandling_Index_Cancel]->setVisible( false );
+    label_buttons[kButtons_ProjectHandling_Index_Cancel]->setVisible( false );
+    updateProjectList();
+    _whatState = kProjectHandling_State_MainScreen;
+    textFieldArea->setVisible( false );
+}
+
+void ProjectHandling::closeLoadOverlay() {
+    overlayLoad->setVisible( false );
+    for ( int i = 0; i < projectNamesLabel.size(); i++ ) {
+       projectNamesLabel[i].hide();
+    }
+    buttonBack[kButtons_ProjectHandling_Index_ConfirmLoad]->setVisible( false );
+    label_buttons[kButtons_ProjectHandling_Index_ConfirmLoad]->setVisible( false );
+    buttonBack[kButtons_ProjectHandling_Index_Cancel]->setVisible( false );
+    label_buttons[kButtons_ProjectHandling_Index_Cancel]->setVisible( false );
+    _whatState = kProjectHandling_State_MainScreen;
 }
 
 void ProjectHandling::setSelectedProjectNameForLoading( std::string projectName ) {
@@ -596,8 +565,96 @@ bool ProjectHandling::aProjectIsSelectedToOpen() {
 void ProjectHandling::setAprojectIsSelectedToOpen( bool aProjectIsSelectedToOpen ) {
     _aProjectIsSelectedToOpen = aProjectIsSelectedToOpen;
     if ( _aProjectIsSelectedToOpen ) {
-        buttonBack[BUTTON_PROJECTSHANDLING_INDEX_CONFIRMLOAD]->setOpacity( 255 );
+        buttonBack[kButtons_ProjectHandling_Index_ConfirmLoad]->setOpacity( 255 );
     } else {
-        buttonBack[BUTTON_PROJECTSHANDLING_INDEX_CONFIRMLOAD]->setOpacity( 100 );
+        buttonBack[kButtons_ProjectHandling_Index_ConfirmLoad]->setOpacity( 100 );
     }
+}
+
+void ProjectHandling::updateProjectList() {
+    
+    savedProjectNames.clear();
+    projectNamesLabel.clear();
+    
+    FileUtils *fileUtils = FileUtils::getInstance();
+    std::string writablePath = fileUtils->getWritablePath();
+    std::vector<std::string> savedProjectNamesFullPaths;
+    savedProjectNamesFullPaths = fileUtils->listFiles( writablePath );
+    
+    std::vector<std::string> tempStr;
+    
+    for ( int i = 0; i < savedProjectNamesFullPaths.size(); i++ ) {
+        
+        log( "saved projects full paths: %s", savedProjectNamesFullPaths[i].c_str() );
+        
+        char str[1024];
+        strcpy( str, savedProjectNamesFullPaths[i].c_str() );
+        
+        // Returns first token
+        char *token = strtok( str, "/" );
+
+        // Keep printing tokens while one of the
+        // delimiters present in str[].
+        while ( token != NULL ) {
+            log( "token: %s", token );
+            tempStr.push_back( token );
+            token = strtok( NULL, "/" );
+        }
+        
+        // Add last token of string path to vector array
+        savedProjectNames.push_back( tempStr.back() );
+        
+    }
+    
+    log( "savedProjectNames.size(): %lu", savedProjectNames.size() );
+    for ( int i = 0; i < savedProjectNames.size(); i++ ) {
+        log( "saved project names before erase: %s", savedProjectNames[i].c_str() );
+    }
+    
+    for ( int i = 0; i < savedProjectNames.size(); i++ ) {
+        if ( savedProjectNames[i].compare( "Uten tittel" ) == 0 ) {
+            savedProjectNames.erase( savedProjectNames.begin() + i );
+        }
+        
+        if ( savedProjectNames[i].compare( "." ) == 0 ) {
+            savedProjectNames.erase( savedProjectNames.begin() + i );
+        }
+        
+        if ( savedProjectNames[i].compare( ".." ) == 0 ) {
+            savedProjectNames.erase( savedProjectNames.begin() + i );
+        }
+    }
+    
+    log( "savedProjectNames.size(): %lu", savedProjectNames.size() );
+    for ( int i = 0; i < savedProjectNames.size(); i++ ) {
+        log( "saved project names after: %s", savedProjectNames[i].c_str() );
+    }
+    
+    for ( int i = 0; i < savedProjectNames.size(); i++ ) {
+        projectNamesLabel.push_back( ProjectNamesLabel( _layer, savedProjectNames[i].c_str(), i ) );
+    }
+    
+    
+    
+}
+
+unsigned int ProjectHandling::getState() {
+    return _whatState;
+}
+
+bool ProjectHandling::isShowing() {
+    return _isShowing;
+}
+
+void ProjectHandling::cancelSaveOverlay() {
+    
+    overlaySave->setVisible( false );
+    textField->setVisible( false );
+    label_instructTyping->setVisible( false );
+    buttonBack[kButtons_ProjectHandling_Index_ConfirmSave]->setVisible( false );
+    label_buttons[kButtons_ProjectHandling_Index_ConfirmSave]->setVisible( false );
+    buttonBack[kButtons_ProjectHandling_Index_Cancel]->setVisible( false );
+    label_buttons[kButtons_ProjectHandling_Index_Cancel]->setVisible( false );
+    _whatState = kProjectHandling_State_MainScreen;
+    textFieldArea->setVisible( false );
 }

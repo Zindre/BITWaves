@@ -8,11 +8,11 @@
 
 using namespace cocos2d;
 
-class ProjectNames {
+class ProjectNamesLabel {
 
 public:
     
-    ProjectNames( cocos2d::Layer *layer, std::string projectName, int index );
+    ProjectNamesLabel( cocos2d::Layer *layer, std::string projectName, int index );
     
     void show();
     void hide();

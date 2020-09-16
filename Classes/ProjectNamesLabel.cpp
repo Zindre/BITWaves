@@ -1,6 +1,6 @@
-#include "ProjectNames.hpp"
+#include "ProjectNamesLabel.hpp"
 
-ProjectNames::ProjectNames( cocos2d::Layer *layer, std::string projectName, int index ) {
+ProjectNamesLabel::ProjectNamesLabel( cocos2d::Layer *layer, std::string projectName, int index ) {
     
     visibleSize = Director::getInstance()->getSafeAreaRect().size;
     origin = Director::getInstance()->getSafeAreaRect().origin;
@@ -14,10 +14,10 @@ ProjectNames::ProjectNames( cocos2d::Layer *layer, std::string projectName, int 
     hide();
 }
 
-void ProjectNames::show() {
+void ProjectNamesLabel::show() {
     label->setVisible( true );
 }
 
-void ProjectNames::hide() {
+void ProjectNamesLabel::hide() {
     label->setVisible( false );
 }

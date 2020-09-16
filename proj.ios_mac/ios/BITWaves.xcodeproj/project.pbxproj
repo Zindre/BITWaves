@@ -695,7 +695,7 @@
 		FFB2E21D25024F44002331DA /* ProjectHandling.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FFB2E21B25024F44002331DA /* ProjectHandling.cpp */; };
 		FFB2E222250258AD002331DA /* closeCross@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FFB2E221250258AD002331DA /* closeCross@2x.png */; };
 		FFB2E223250258B5002331DA /* closeCross@2x.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = FFB2E221250258AD002331DA /* closeCross@2x.png */; };
-		FFE9DFD9250F84C40068EE16 /* ProjectNames.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FFE9DFD7250F84C40068EE16 /* ProjectNames.cpp */; };
+		FFE9DFD9250F84C40068EE16 /* ProjectNamesLabel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FFE9DFD7250F84C40068EE16 /* ProjectNamesLabel.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -2393,8 +2393,8 @@
 		FFB2E21C25024F44002331DA /* ProjectHandling.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = ProjectHandling.hpp; path = Classes/ProjectHandling.hpp; sourceTree = "<group>"; };
 		FFB2E221250258AD002331DA /* closeCross@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "closeCross@2x.png"; path = "Resources/closeCross@2x.png"; sourceTree = "<group>"; };
 		FFD8FE7AB5E34C61AC81F73A /* Vec4.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = Vec4.h; path = cocos2d/cocos/math/Vec4.h; sourceTree = SOURCE_ROOT; };
-		FFE9DFD7250F84C40068EE16 /* ProjectNames.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = ProjectNames.cpp; path = Classes/ProjectNames.cpp; sourceTree = "<group>"; };
-		FFE9DFD8250F84C40068EE16 /* ProjectNames.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = ProjectNames.hpp; path = Classes/ProjectNames.hpp; sourceTree = "<group>"; };
+		FFE9DFD7250F84C40068EE16 /* ProjectNamesLabel.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = ProjectNamesLabel.cpp; path = Classes/ProjectNamesLabel.cpp; sourceTree = "<group>"; };
+		FFE9DFD8250F84C40068EE16 /* ProjectNamesLabel.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = ProjectNamesLabel.hpp; path = Classes/ProjectNamesLabel.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -2515,8 +2515,8 @@
 				F1CA5AA4068A4AFAA9336786 /* SeqSoundRect.hpp */,
 				6B3447B5F1A14709B7D3CF85 /* SequencerScene.cpp */,
 				44DCBC405F64482A9F6A5647 /* SequencerScene.h */,
-				FFE9DFD7250F84C40068EE16 /* ProjectNames.cpp */,
-				FFE9DFD8250F84C40068EE16 /* ProjectNames.hpp */,
+				FFE9DFD7250F84C40068EE16 /* ProjectNamesLabel.cpp */,
+				FFE9DFD8250F84C40068EE16 /* ProjectNamesLabel.hpp */,
 				FFB2E21B25024F44002331DA /* ProjectHandling.cpp */,
 				FFB2E21C25024F44002331DA /* ProjectHandling.hpp */,
 			);
@@ -5541,7 +5541,7 @@
 				86881D8B4D404095B7A4816B /* SeqSoundRect.cpp in Sources */,
 				28BCECE312D34035A5E73453 /* SequencerScene.cpp in Sources */,
 				B754570347B641969E8B41F5 /* AppController.mm in Sources */,
-				FFE9DFD9250F84C40068EE16 /* ProjectNames.cpp in Sources */,
+				FFE9DFD9250F84C40068EE16 /* ProjectNamesLabel.cpp in Sources */,
 				FFB2E21D25024F44002331DA /* ProjectHandling.cpp in Sources */,
 				61B202D324E1411BA2760D7C /* RootViewController.mm in Sources */,
 				09B70116F988487496E16A71 /* main.m in Sources */,

@@ -110,7 +110,19 @@ void InstrumentScene::update( float dt ) {
         hasLoadedSoundFiles = true;
     }
 
-
+    
+    if ( projectHandling->getState() == kProjectHandling_State_SaveOverlay ) {
+        if ( projectHandling->textField->getCharCount() == 0 ) {
+            if ( projectHandling->buttonBack[kButtons_ProjectHandling_Index_ConfirmSave]->getOpacity() == 255 ) {
+                projectHandling->buttonBack[kButtons_ProjectHandling_Index_ConfirmSave]->setOpacity( 100 );
+            }
+        } else {
+            if ( projectHandling->buttonBack[kButtons_ProjectHandling_Index_ConfirmSave]->getOpacity() == 100 ) {
+                projectHandling->buttonBack[kButtons_ProjectHandling_Index_ConfirmSave]->setOpacity( 255 );
+            }
+        }
+    }
+    
 }
 
 void InstrumentScene::onTouchesBegan( const std::vector<Touch*>& touches, Event* event ) {
@@ -129,59 +141,73 @@ void InstrumentScene::onTouchesBegan( const std::vector<Touch*>& touches, Event*
                 // PROJECT HANDLING
                 if ( projectHandling->isShowing() ) {
                     
-                    // SAVE
-                    if ( ! projectHandling->isSaveOverlayOpen() ) {
+                    
+                    // MAIN SCREEN //
+                    if ( projectHandling->getState() == kProjectHandling_State_MainScreen ) {
                         
-                        if ( ! projectHandling->isLoadOverlayOpen() ) {
-                            if ( projectHandling->savingIsPossible() ) {
-                                if ( projectHandling->buttonBack[BUTTON_PROJECTSHANDLING_INDEX_SAVE]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
-                                    projectHandling->showSaveOverlay();
-                                }
+                        // SAVE
+                        if ( projectHandling->savingIsPossible() ) {
+                            if ( projectHandling->buttonBack[kButtons_ProjectHandling_Index_Save]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
+                                projectHandling->showSaveOverlay();
                             }
                         }
                         
-                    } else {
+                        // LOAD
+                        if ( projectHandling->buttonBack[kButtons_ProjectHandling_Index_Load]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
+                            projectHandling->showLoadOverlay();
+                        }
                         
-                        // SAVE OVERLAY
-                        if ( projectHandling->textField->getBoundingBox().containsPoint( touch->getLocation() ) ) {
+                        // NEW
+                        if ( projectHandling->buttonBack[kButtons_ProjectHandling_Index_New]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
+                            projectHandling->createNewProject();
+                            mainMenu->setCurrentProjectName( "Uten tittel" );
+                            auto scene = InstrumentScene::createScene();
+                            Director::getInstance()->replaceScene( scene );
+                        }
+                        
+                        // CLOSE CROSS
+                        if ( projectHandling->closeCross->getBoundingBox().containsPoint( touch->getLocation() ) ) {
+                            projectHandling->hide();
+                        }
+                        
+                        
+                    // SAVE OVERLAY
+                    } else if ( projectHandling->getState() == kProjectHandling_State_SaveOverlay ) {
+                        
+                        if ( projectHandling->textFieldArea->getBoundingBox().containsPoint( touch->getLocation() ) ) {
                             projectHandling->openKeyboard();
                         }
                         
-                        if ( projectHandling->textField->getString() != "" ) {
-                            if ( projectHandling->buttonBack[BUTTON_PROJECTSHANDLING_INDEX_CONFIRMSAVE]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
+                        if ( projectHandling->textField->getCharCount() != 0 ) {
+                            if ( projectHandling->buttonBack[kButtons_ProjectHandling_Index_ConfirmSave]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
                                 projectHandling->saveNewProject();
                                 mainMenu->setCurrentProjectName( projectHandling->getTextFieldString() );
                                 projectHandling->closeSaveOverlay();
                             }
                         }
                         
-                    }
-                    
-                    // LOAD
-                    if ( ! projectHandling->isLoadOverlayOpen() ) {
-                    
-                        if ( ! projectHandling->isSaveOverlayOpen() ) {
-                            if ( projectHandling->buttonBack[BUTTON_PROJECTSHANDLING_INDEX_LOAD]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
-                                projectHandling->showLoadOverlay();
-                            }
+                        // CANCEL BUTTON
+                        if ( projectHandling->buttonBack[kButtons_ProjectHandling_Index_Cancel]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
+                           projectHandling->cancelSaveOverlay();
                         }
+                       
                         
-                    } else {
+                    // LOAD OVERLAY
+                    } else if ( projectHandling->getState() == kProjectHandling_State_LoadOverlay ) {
                         
-                        // LOAD OVERLAY
-                        for ( int i = 0; i < projectHandling->projectNames.size(); i++ ) {
-                            if ( projectHandling->projectNames[i].label->getBoundingBox().containsPoint( touch->getLocation() ) ) {
-                                for ( int j = 0; j < projectHandling->projectNames.size(); j++ ) {
-                                    projectHandling->projectNames[j].label->setColor( Color3B::BLACK );
+                        for ( int i = 0; i < projectHandling->projectNamesLabel.size(); i++ ) {
+                            if ( projectHandling->projectNamesLabel[i].label->getBoundingBox().containsPoint( touch->getLocation() ) ) {
+                                for ( int j = 0; j < projectHandling->projectNamesLabel.size(); j++ ) {
+                                    projectHandling->projectNamesLabel[j].label->setColor( Color3B::BLACK );
                                 }
-                                projectHandling->projectNames[i].label->setColor( Color3B::YELLOW );
-                                projectHandling->setSelectedProjectNameForLoading( projectHandling->projectNames[i].label->getString() );
+                                projectHandling->projectNamesLabel[i].label->setColor( Color3B::YELLOW );
+                                projectHandling->setSelectedProjectNameForLoading( projectHandling->projectNamesLabel[i].label->getString() );
                                 projectHandling->setAprojectIsSelectedToOpen( true );
                             }
                         }
                         
                         if ( projectHandling->aProjectIsSelectedToOpen() ) {
-                            if ( projectHandling->buttonBack[BUTTON_PROJECTSHANDLING_INDEX_CONFIRMLOAD]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
+                            if ( projectHandling->buttonBack[kButtons_ProjectHandling_Index_ConfirmLoad]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
                                 projectHandling->loadSavedProject();
                                 mainMenu->setCurrentProjectName( projectHandling->getSelectedProjectNameForLoading() );
                                 auto scene = InstrumentScene::createScene();
@@ -189,30 +215,19 @@ void InstrumentScene::onTouchesBegan( const std::vector<Touch*>& touches, Event*
                             }
                         }
                         
-                    }
-                    
-                    // NEW PROJECT AND CLOSE CROSS
-                    if ( ! projectHandling->isLoadOverlayOpen() && ! projectHandling->isSaveOverlayOpen() ) {
-                        
-                        if ( projectHandling->buttonBack[BUTTON_PROJECTSHANDLING_INDEX_NEW]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
-                            projectHandling->createNewProject();
-                            mainMenu->setCurrentProjectName( "Uten tittel" );
-                            auto scene = InstrumentScene::createScene();
-                            Director::getInstance()->replaceScene( scene );
-                        }
-                        
-                        if ( projectHandling->closeCross->getBoundingBox().containsPoint( touch->getLocation() ) ) {
-                            projectHandling->hide();
+                        // CANCEL BUTTON
+                        if ( projectHandling->buttonBack[kButtons_ProjectHandling_Index_Cancel]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
+                            for ( int i = 0; i < projectHandling->projectNamesLabel.size(); i++ ) {
+                                projectHandling->projectNamesLabel[i].label->setColor( Color3B::BLACK );
+                            }
+                            projectHandling->setSelectedProjectNameForLoading( "" );
+                            projectHandling->setAprojectIsSelectedToOpen( false );
+                            projectHandling->closeLoadOverlay();
                         }
                         
                     }
                     
-                    // CANCEL BUTTON
-                    if ( projectHandling->isLoadOverlayOpen() || projectHandling->isSaveOverlayOpen() ) {
-                        if ( projectHandling->buttonBack[BUTTON_PROJECTSHANDLING_INDEX_CANCEL]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
-                            projectHandling->hide();
-                        }
-                    }
+                    
                     
                 } else {
                     
