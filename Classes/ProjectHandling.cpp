@@ -27,8 +27,6 @@ ProjectHandling::ProjectHandling( Layer *layer ) {
     closeCross->setPosition( Vec2( origin.x + closeCross->getBoundingBox().size.width, visibleSize.height - closeCross->getBoundingBox().size.height + origin.y ) );
     layer->addChild( closeCross, kLayer_ProjectHandling );
     
-    float padding = 0.0;
-    
     for ( int i = 0; i < kButtons_ProjectHandling_NumOf; i++ ) {
         buttonBack[i] = Sprite::create( "buttonBack.png" );
         padding = buttonBack[i]->getBoundingBox().size.height * 0.5;
@@ -53,14 +51,14 @@ ProjectHandling::ProjectHandling( Layer *layer ) {
     overlaySave->setPosition( Vec2( origin.x + visibleSize.width * 0.5, origin.y + visibleSize.height * 0.5 ) );
     overlaySave->setColor( Color3B::RED );
     overlaySave->setVisible( false );
-    layer->addChild( overlaySave, kLayer_ProjectHandling );
+    layer->addChild( overlaySave, kLayer_ProjectHandling_SaveOverlay );
     
     overlayLoad = Sprite::create( "square1px.png" );
     overlayLoad->setTextureRect( Rect( 0, 0, background->getBoundingBox().size.width * 0.7, background->getBoundingBox().size.height * 0.7 ) );
     overlayLoad->setPosition( Vec2( origin.x + visibleSize.width * 0.5, origin.y + visibleSize.height * 0.5 ) );
     overlayLoad->setColor( Color3B::GREEN );
     overlayLoad->setVisible( false );
-    layer->addChild( overlayLoad, kLayer_ProjectHandling );
+    layer->addChild( overlayLoad, kLayer_ProjectHandling_LoadOverlay );
     
     label_instructTyping = Label::createWithTTF( "Gi prosjektet et navn:", "fonts/arial.ttf", 10 );
     label_instructTyping->setPosition( Vec2( overlaySave->getPosition().x, overlaySave->getPosition().y + (overlaySave->getBoundingBox().size.height * 0.3) ) );
@@ -100,6 +98,45 @@ ProjectHandling::ProjectHandling( Layer *layer ) {
     
     
     
+    
+    // SCROLL BOX
+    scrollViewSize = cocos2d::Size( visibleSize.width * 0.5f, visibleSize.height * 0.7f );
+    
+    scrollView = ui::ScrollView::create();
+    scrollView->setContentSize( scrollViewSize );
+    scrollView->setDirection( ui::ScrollView::Direction::VERTICAL );
+    scrollView->setAnchorPoint( Vec2( 0.5f, 0.5f ) );
+    scrollView->setPosition( Vec2( visibleSize.width * 0.3 + origin.x, visibleSize.height * 0.5 + origin.y ) );
+    scrollView->setBounceEnabled( true );
+    scrollView->setScrollBarAutoHideEnabled( false );
+    scrollView->setScrollBarPositionFromCornerForVertical( Vec2( scrollView->getScrollBarWidth() * 2, scrollView->getScrollBarWidth() * 2 ) );
+    scrollView->setScrollBarColor( Color3B( 255, 255, 255 ) );
+    scrollView->setScrollBarOpacity( 255 );
+    scrollView->setBackGroundColorType( cocos2d::ui::HBox::BackGroundColorType::SOLID );
+    scrollView->setBackGroundColor( Color3B( 50, 50, 50 ) );
+    //scrollView->setBackGroundColorOpacity( 0 );
+    scrollView->setVisible( false );
+    //scrollView->setTouchEnabled( true );
+    //scrollView->setPropagateTouchEvents( true );
+    /*scrollView->addTouchEventListener([&]( Ref*, ui::Widget::TouchEventType touchType ) {
+        switch ( touchType ) {
+            case ui::Widget::TouchEventType::BEGAN:
+                log( "touch began" );
+                break;
+            case ui::Widget::TouchEventType::ENDED:
+                log( "touch ended" );
+                break;
+            default: break;
+        }
+    });*/
+    layer->addChild( scrollView, kLayer_ProjectHandling_LoadOverlay );
+    
+    
+    
+    
+    
+    
+    
     updateProjectList();
     
     
@@ -125,6 +162,7 @@ ProjectHandling::ProjectHandling( Layer *layer ) {
     
     
 }
+
 
 void ProjectHandling::show() {
     blackLayer->setVisible( true );
@@ -512,6 +550,7 @@ void ProjectHandling::showLoadOverlay() {
     buttonBack[kButtons_ProjectHandling_Index_Cancel]->setVisible( true );
     label_buttons[kButtons_ProjectHandling_Index_Cancel]->setVisible( true );
     _whatState = kProjectHandling_State_LoadOverlay;
+    scrollView->setVisible( true );
 }
 
 void ProjectHandling::openKeyboard() {
@@ -543,6 +582,7 @@ void ProjectHandling::closeLoadOverlay() {
     buttonBack[kButtons_ProjectHandling_Index_Cancel]->setVisible( false );
     label_buttons[kButtons_ProjectHandling_Index_Cancel]->setVisible( false );
     _whatState = kProjectHandling_State_MainScreen;
+    scrollView->setVisible( false );
 }
 
 void ProjectHandling::setSelectedProjectNameForLoading( std::string projectName ) {
@@ -601,7 +641,7 @@ void ProjectHandling::updateProjectList() {
             token = strtok( NULL, "/" );
         }
         
-        // Add last token of string path to vector array
+        // Add last token (the directory we want) of string path to vector array
         savedProjectNames.push_back( tempStr.back() );
         
     }
@@ -611,6 +651,7 @@ void ProjectHandling::updateProjectList() {
         log( "saved project names before erase: %s", savedProjectNames[i].c_str() );
     }
     
+    // Remove unwanted dirs
     for ( int i = 0; i < savedProjectNames.size(); i++ ) {
         if ( savedProjectNames[i].compare( "Uten tittel" ) == 0 ) {
             savedProjectNames.erase( savedProjectNames.begin() + i );
@@ -634,6 +675,18 @@ void ProjectHandling::updateProjectList() {
         projectNamesLabel.push_back( ProjectNamesLabel( _layer, savedProjectNames[i].c_str(), i ) );
     }
     
+    for ( int i = 0; i < projectNamesLabel.size(); i++ ) {
+        scrollView->addChild( projectNamesLabel[i].button, kLayer_ProjectHandling_LoadOverlay );
+    }
+    
+    float maxLineWidth = scrollViewSize.width - (padding * 2.5f);
+    
+    scrollView->setInnerContainerSize( Size( maxLineWidth, ((projectNamesLabel[0].button->getBoundingBox().size.height + padding) * projectNamesLabel.size()) + (padding * 5) ) );
+    
+    for ( int i = 0; i < projectNamesLabel.size(); i++ ) {
+        projectNamesLabel[i].button->setPosition( Vec2( scrollView->getInnerContainerPosition().x + padding, (scrollView->getInnerContainerSize().height - padding) - ((projectNamesLabel[i].button->getBoundingBox().size.height + padding) * i) ) );
+    }
+
     
     
 }

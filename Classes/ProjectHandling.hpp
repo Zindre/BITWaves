@@ -41,6 +41,7 @@ public:
     cocos2d::Sprite *buttonBack[kButtons_ProjectHandling_NumOf];
     std::vector<ProjectNamesLabel> projectNamesLabel;
     cocos2d::Sprite *textFieldArea;
+    cocos2d::ui::ScrollView *scrollView;
     
 private:
     
@@ -65,6 +66,8 @@ private:
     bool _aProjectIsSelectedToOpen;
     cocos2d::Layer *_layer;
     unsigned int _whatState;
+    cocos2d::Size scrollViewSize;
+    float padding;
     
 
 

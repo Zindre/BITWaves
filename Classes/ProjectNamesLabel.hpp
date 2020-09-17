@@ -12,17 +12,26 @@ class ProjectNamesLabel {
 
 public:
     
-    ProjectNamesLabel( cocos2d::Layer *layer, std::string projectName, int index );
+    ProjectNamesLabel( cocos2d::Layer *layer, std::string projectName, unsigned int index );
     
     void show();
     void hide();
+    std::string getProjectName();
+    unsigned int getIndex();
+    bool isTouched();
     
-    cocos2d::Label *label;
+    //cocos2d::Label *label;
+    cocos2d::ui::Button *button;
 
 private:
     
+    void touchEvent( cocos2d::Ref* sender, cocos2d::ui::Widget::TouchEventType type );
+    
     cocos2d::Size visibleSize;
     cocos2d::Vec2 origin;
-    std::vector<std::string> savedProjectNames;
+    std::string _projectName;
+    unsigned int _index;
+    bool _isTouched;
+
     
 };

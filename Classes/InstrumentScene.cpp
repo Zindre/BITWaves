@@ -123,6 +123,8 @@ void InstrumentScene::update( float dt ) {
         }
     }
     
+    
+    
 }
 
 void InstrumentScene::onTouchesBegan( const std::vector<Touch*>& touches, Event* event ) {
@@ -196,14 +198,15 @@ void InstrumentScene::onTouchesBegan( const std::vector<Touch*>& touches, Event*
                     } else if ( projectHandling->getState() == kProjectHandling_State_LoadOverlay ) {
                         
                         for ( int i = 0; i < projectHandling->projectNamesLabel.size(); i++ ) {
-                            if ( projectHandling->projectNamesLabel[i].label->getBoundingBox().containsPoint( touch->getLocation() ) ) {
+                            
+                            /*if ( projectHandling->projectNamesLabel[i].label->getBoundingBox().containsPoint( touch->getLocation() ) ) {
                                 for ( int j = 0; j < projectHandling->projectNamesLabel.size(); j++ ) {
                                     projectHandling->projectNamesLabel[j].label->setColor( Color3B::BLACK );
                                 }
                                 projectHandling->projectNamesLabel[i].label->setColor( Color3B::YELLOW );
                                 projectHandling->setSelectedProjectNameForLoading( projectHandling->projectNamesLabel[i].label->getString() );
                                 projectHandling->setAprojectIsSelectedToOpen( true );
-                            }
+                            }*/
                         }
                         
                         if ( projectHandling->aProjectIsSelectedToOpen() ) {
@@ -217,9 +220,9 @@ void InstrumentScene::onTouchesBegan( const std::vector<Touch*>& touches, Event*
                         
                         // CANCEL BUTTON
                         if ( projectHandling->buttonBack[kButtons_ProjectHandling_Index_Cancel]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
-                            for ( int i = 0; i < projectHandling->projectNamesLabel.size(); i++ ) {
+                            /*for ( int i = 0; i < projectHandling->projectNamesLabel.size(); i++ ) {
                                 projectHandling->projectNamesLabel[i].label->setColor( Color3B::BLACK );
-                            }
+                            }*/
                             projectHandling->setSelectedProjectNameForLoading( "" );
                             projectHandling->setAprojectIsSelectedToOpen( false );
                             projectHandling->closeLoadOverlay();
