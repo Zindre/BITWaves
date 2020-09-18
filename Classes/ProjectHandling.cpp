@@ -116,19 +116,7 @@ ProjectHandling::ProjectHandling( Layer *layer ) {
     scrollView->setBackGroundColor( Color3B( 50, 50, 50 ) );
     //scrollView->setBackGroundColorOpacity( 0 );
     scrollView->setVisible( false );
-    //scrollView->setTouchEnabled( true );
-    //scrollView->setPropagateTouchEvents( true );
-    /*scrollView->addTouchEventListener([&]( Ref*, ui::Widget::TouchEventType touchType ) {
-        switch ( touchType ) {
-            case ui::Widget::TouchEventType::BEGAN:
-                log( "touch began" );
-                break;
-            case ui::Widget::TouchEventType::ENDED:
-                log( "touch ended" );
-                break;
-            default: break;
-        }
-    });*/
+    scrollView->setName( "projectsScrollView" );
     layer->addChild( scrollView, kLayer_ProjectHandling_LoadOverlay );
     
     
@@ -144,6 +132,8 @@ ProjectHandling::ProjectHandling( Layer *layer ) {
     selectedProjectNameForLoading = "";
     _aProjectIsSelectedToOpen = false;
     _isShowing = false;
+    
+    
     
     loadCurrentData();
     
@@ -672,11 +662,11 @@ void ProjectHandling::updateProjectList() {
     }
     
     for ( int i = 0; i < savedProjectNames.size(); i++ ) {
-        projectNamesLabel.push_back( ProjectNamesLabel( _layer, savedProjectNames[i].c_str(), i ) );
+        projectNamesLabel.push_back( ProjectNamesLabel( _layer, savedProjectNames[i].c_str(), i, scrollView ) );
     }
     
     for ( int i = 0; i < projectNamesLabel.size(); i++ ) {
-        scrollView->addChild( projectNamesLabel[i].button, kLayer_ProjectHandling_LoadOverlay );
+        //scrollView->addChild( projectNamesLabel[i].button, kLayer_ProjectHandling_LoadOverlay );
     }
     
     float maxLineWidth = scrollViewSize.width - (padding * 2.5f);
@@ -687,7 +677,10 @@ void ProjectHandling::updateProjectList() {
         projectNamesLabel[i].button->setPosition( Vec2( scrollView->getInnerContainerPosition().x + padding, (scrollView->getInnerContainerSize().height - padding) - ((projectNamesLabel[i].button->getBoundingBox().size.height + padding) * i) ) );
     }
 
+
     
+    
+
     
 }
 

@@ -69,6 +69,7 @@ private:
     cocos2d::Size scrollViewSize;
     float padding;
     
+    
 
 
     

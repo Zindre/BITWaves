@@ -27,6 +27,8 @@ bool InstrumentScene::init()
         return false;
     }
     
+    this->setName( "mainLayer" );
+    
     //visibleSize = Director::getInstance()->getVisibleSize();
     visibleSize = Director::getInstance()->getSafeAreaRect().size;
     //origin = Director::getInstance()->getVisibleOrigin();
