@@ -41,10 +41,11 @@ public:
     cocos2d::Sprite *buttonBack[kButtons_ProjectHandling_NumOf];
     std::vector<ProjectNamesLabel> projectNamesLabel;
     cocos2d::Sprite *textFieldArea;
-    cocos2d::ui::ScrollView *scrollView;
+    //cocos2d::ui::ScrollView *scrollView;
     
 private:
     
+    void touchEvent( Ref *pSender, cocos2d::ui::Widget::TouchEventType type );
     
     void loadCurrentData();
     void saveCurrentToOpenProject();

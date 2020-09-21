@@ -12,7 +12,7 @@ class ProjectNamesLabel {
 
 public:
     
-    ProjectNamesLabel( cocos2d::Layer *layer, std::string projectName, int index, cocos2d::ui::ScrollView *scrollView );
+    ProjectNamesLabel( cocos2d::Layer *layer, std::string projectName, int index );
     
     void show();
     void hide();
@@ -20,11 +20,10 @@ public:
     int getIndex();
     bool isTouched();
     
-    //cocos2d::Label *label;
-    cocos2d::ui::Button *button;
+    cocos2d::Label *label;
+    //cocos2d::ui::Button *button;
 
 private:
-    
     
     
     cocos2d::Size visibleSize;

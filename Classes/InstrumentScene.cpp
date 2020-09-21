@@ -201,14 +201,14 @@ void InstrumentScene::onTouchesBegan( const std::vector<Touch*>& touches, Event*
                         
                         for ( int i = 0; i < projectHandling->projectNamesLabel.size(); i++ ) {
                             
-                            /*if ( projectHandling->projectNamesLabel[i].label->getBoundingBox().containsPoint( touch->getLocation() ) ) {
+                            if ( projectHandling->projectNamesLabel[i].label->getBoundingBox().containsPoint( touch->getLocation() ) ) {
                                 for ( int j = 0; j < projectHandling->projectNamesLabel.size(); j++ ) {
                                     projectHandling->projectNamesLabel[j].label->setColor( Color3B::BLACK );
                                 }
                                 projectHandling->projectNamesLabel[i].label->setColor( Color3B::YELLOW );
                                 projectHandling->setSelectedProjectNameForLoading( projectHandling->projectNamesLabel[i].label->getString() );
                                 projectHandling->setAprojectIsSelectedToOpen( true );
-                            }*/
+                            }
                         }
                         
                         if ( projectHandling->aProjectIsSelectedToOpen() ) {

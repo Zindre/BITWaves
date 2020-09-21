@@ -54,7 +54,7 @@ ProjectHandling::ProjectHandling( Layer *layer ) {
     layer->addChild( overlaySave, kLayer_ProjectHandling_SaveOverlay );
     
     overlayLoad = Sprite::create( "square1px.png" );
-    overlayLoad->setTextureRect( Rect( 0, 0, background->getBoundingBox().size.width * 0.7, background->getBoundingBox().size.height * 0.7 ) );
+    overlayLoad->setTextureRect( Rect( 0, 0, background->getBoundingBox().size.width * 0.8, background->getBoundingBox().size.height * 0.7 ) );
     overlayLoad->setPosition( Vec2( origin.x + visibleSize.width * 0.5, origin.y + visibleSize.height * 0.5 ) );
     overlayLoad->setColor( Color3B::GREEN );
     overlayLoad->setVisible( false );
@@ -84,7 +84,7 @@ ProjectHandling::ProjectHandling( Layer *layer ) {
     buttonBack[kButtons_ProjectHandling_Index_ConfirmSave]->setLocalZOrder( kLayer_ProjectHandling_SaveOverlay );
     label_buttons[kButtons_ProjectHandling_Index_ConfirmSave]->setLocalZOrder( kLayer_ProjectHandling_SaveOverlay );
     
-    buttonBack[kButtons_ProjectHandling_Index_ConfirmLoad]->setPosition( Vec2( overlayLoad->getPosition().x + overlayLoad->getBoundingBox().size.width * 0.3, overlayLoad->getPosition().y ) );
+    buttonBack[kButtons_ProjectHandling_Index_ConfirmLoad]->setPosition( Vec2( overlayLoad->getPosition().x + (buttonBack[kButtons_ProjectHandling_Index_ConfirmLoad]->getBoundingBox().size.width * 0.5), overlayLoad->getPosition().y ) );
     label_buttons[kButtons_ProjectHandling_Index_ConfirmLoad]->setPosition( buttonBack[kButtons_ProjectHandling_Index_ConfirmLoad]->getPosition() );
     buttonBack[kButtons_ProjectHandling_Index_ConfirmLoad]->setLocalZOrder( kLayer_ProjectHandling_LoadOverlay );
     label_buttons[kButtons_ProjectHandling_Index_ConfirmLoad]->setLocalZOrder( kLayer_ProjectHandling_LoadOverlay );
@@ -100,7 +100,7 @@ ProjectHandling::ProjectHandling( Layer *layer ) {
     
     
     // SCROLL BOX
-    scrollViewSize = cocos2d::Size( visibleSize.width * 0.5f, visibleSize.height * 0.7f );
+    /*scrollViewSize = cocos2d::Size( visibleSize.width * 0.5f, visibleSize.height * 0.7f );
     
     scrollView = ui::ScrollView::create();
     scrollView->setContentSize( scrollViewSize );
@@ -117,7 +117,7 @@ ProjectHandling::ProjectHandling( Layer *layer ) {
     //scrollView->setBackGroundColorOpacity( 0 );
     scrollView->setVisible( false );
     scrollView->setName( "projectsScrollView" );
-    layer->addChild( scrollView, kLayer_ProjectHandling_LoadOverlay );
+    layer->addChild( scrollView, kLayer_ProjectHandling_LoadOverlay );*/
     
     
     
@@ -540,7 +540,6 @@ void ProjectHandling::showLoadOverlay() {
     buttonBack[kButtons_ProjectHandling_Index_Cancel]->setVisible( true );
     label_buttons[kButtons_ProjectHandling_Index_Cancel]->setVisible( true );
     _whatState = kProjectHandling_State_LoadOverlay;
-    scrollView->setVisible( true );
 }
 
 void ProjectHandling::openKeyboard() {
@@ -572,7 +571,6 @@ void ProjectHandling::closeLoadOverlay() {
     buttonBack[kButtons_ProjectHandling_Index_Cancel]->setVisible( false );
     label_buttons[kButtons_ProjectHandling_Index_Cancel]->setVisible( false );
     _whatState = kProjectHandling_State_MainScreen;
-    scrollView->setVisible( false );
 }
 
 void ProjectHandling::setSelectedProjectNameForLoading( std::string projectName ) {
@@ -662,24 +660,10 @@ void ProjectHandling::updateProjectList() {
     }
     
     for ( int i = 0; i < savedProjectNames.size(); i++ ) {
-        projectNamesLabel.push_back( ProjectNamesLabel( _layer, savedProjectNames[i].c_str(), i, scrollView ) );
-    }
-    
-    for ( int i = 0; i < projectNamesLabel.size(); i++ ) {
-        //scrollView->addChild( projectNamesLabel[i].button, kLayer_ProjectHandling_LoadOverlay );
-    }
-    
-    float maxLineWidth = scrollViewSize.width - (padding * 2.5f);
-    
-    scrollView->setInnerContainerSize( Size( maxLineWidth, ((projectNamesLabel[0].button->getBoundingBox().size.height + padding) * projectNamesLabel.size()) + (padding * 5) ) );
-    
-    for ( int i = 0; i < projectNamesLabel.size(); i++ ) {
-        projectNamesLabel[i].button->setPosition( Vec2( scrollView->getInnerContainerPosition().x + padding, (scrollView->getInnerContainerSize().height - padding) - ((projectNamesLabel[i].button->getBoundingBox().size.height + padding) * i) ) );
+        projectNamesLabel.push_back( ProjectNamesLabel( _layer, savedProjectNames[i].c_str(), i ) );
     }
 
 
-    
-    
 
     
 }
