@@ -1,6 +1,6 @@
 #include "ProjectNamesLabel.hpp"
 
-ProjectNamesLabel::ProjectNamesLabel( cocos2d::Layer *layer, std::string projectName, int index ) {
+ProjectNamesLabel::ProjectNamesLabel( cocos2d::Layer *layer, std::string projectName, int index, unsigned int myPageNr ) {
     
     visibleSize = Director::getInstance()->getSafeAreaRect().size;
     origin = Director::getInstance()->getSafeAreaRect().origin;
@@ -8,19 +8,18 @@ ProjectNamesLabel::ProjectNamesLabel( cocos2d::Layer *layer, std::string project
     _projectName = projectName;
     _index = index;
     _isTouched = false;
+    _myPageNr = myPageNr;
     
-    log( "index: %i", index );
-    log( "project name: %s", projectName.c_str() );
+    log( "project name: %s - index: %i - page nr: %i", projectName.c_str(), _index, _myPageNr );
     
-    label = cocos2d::Label::createWithTTF( projectName, "fonts/arial.ttf", 10 );
-    float padding = label->getBoundingBox().size.height;
-    log( "padding: %f", padding );
+    label = cocos2d::Label::createWithTTF( projectName, "fonts/arial.ttf", kProjectHandling_FontSize_ProjectNames );
+    _padding = label->getBoundingBox().size.height;
     label->setAnchorPoint( Vec2( 0.0, 1.0 ) );
     label->setColor( Color3B::BLACK );
-    label->setPosition( Vec2( origin.x + visibleSize.width * 0.2, origin.y + ((visibleSize.height * 0.7) - ((label->getBoundingBox().size.height + padding) * index ) ) ) );
+    label->setPosition( Vec2( origin.x + visibleSize.width * 0.2, origin.y + ((visibleSize.height * 0.7) - ((label->getBoundingBox().size.height + _padding) * index ) ) ) );
     layer->addChild( label, kLayer_ProjectHandling_LoadOverlay );
     
-    /*button = cocos2d::ui::Button::create( "buttonBack.png", "buttonBack.png" );
+    /*button = cocos2d::ui::Button::create( "buttonBg.png", "buttonBg.png" );
     button->setTitleText( _projectName );
     button->setTitleColor( Color3B::YELLOW );
     button->setAnchorPoint( Vec2( 0.0, 1.0 ) );
@@ -73,4 +72,12 @@ int ProjectNamesLabel::getIndex() {
 
 bool ProjectNamesLabel::isTouched() {
     return _isTouched;
+}
+
+unsigned int ProjectNamesLabel::getMyPageNr() {
+    return _myPageNr;
+}
+
+void ProjectNamesLabel::setPosToTop( int index ) {
+    label->setPosition( Vec2( origin.x + visibleSize.width * 0.2, origin.y + ((visibleSize.height * 0.7) - ((label->getBoundingBox().size.height + _padding) * index ) ) ) );
 }

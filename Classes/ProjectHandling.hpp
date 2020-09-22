@@ -34,14 +34,19 @@ public:
     void setAprojectIsSelectedToOpen( bool aProjectIsSelectedToOpen );
     unsigned int getState();
     void cancelSaveOverlay();
+    void cancelLoadOverlay();
+    void arrowRightClicked();
+    void arrowLeftClicked();
     
     cocos2d::Sprite *closeCross;
     cocos2d::TextFieldTTF *textField;
     cocos2d::Label *label_buttons[kButtons_ProjectHandling_NumOf];
-    cocos2d::Sprite *buttonBack[kButtons_ProjectHandling_NumOf];
+    cocos2d::Sprite *buttonBg[kButtons_ProjectHandling_NumOf];
     std::vector<ProjectNamesLabel> projectNamesLabel;
     cocos2d::Sprite *textFieldArea;
     //cocos2d::ui::ScrollView *scrollView;
+    cocos2d::Sprite *arrowRight;
+    cocos2d::Sprite *arrowLeft;
     
 private:
     
@@ -50,6 +55,7 @@ private:
     void loadCurrentData();
     void saveCurrentToOpenProject();
     void updateProjectList();
+    void decideWhichProjectNamesToShow();
     
     cocos2d::Size visibleSize;
     cocos2d::Vec2 origin;
@@ -69,6 +75,9 @@ private:
     unsigned int _whatState;
     cocos2d::Size scrollViewSize;
     float padding;
+    cocos2d::Label *label_projectNamesPageNr;
+    unsigned int _currentPageNr;
+    unsigned int _totalNrOfPages;
     
     
 

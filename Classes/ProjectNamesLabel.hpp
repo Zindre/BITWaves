@@ -12,13 +12,15 @@ class ProjectNamesLabel {
 
 public:
     
-    ProjectNamesLabel( cocos2d::Layer *layer, std::string projectName, int index );
+    ProjectNamesLabel( cocos2d::Layer *layer, std::string projectName, int index, unsigned int myPageNr );
     
     void show();
     void hide();
     std::string getProjectName();
     int getIndex();
     bool isTouched();
+    unsigned int getMyPageNr();
+    void setPosToTop( int index );
     
     cocos2d::Label *label;
     //cocos2d::ui::Button *button;
@@ -31,6 +33,7 @@ private:
     std::string _projectName;
     int _index;
     bool _isTouched;
-
+    unsigned int _myPageNr;
+    float _padding;
     
 };

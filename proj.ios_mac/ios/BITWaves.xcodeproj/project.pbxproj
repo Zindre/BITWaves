@@ -690,8 +690,10 @@
 		FF053A8D250A2DB3000A45C5 /* unLockButton.png in Resources */ = {isa = PBXBuildFile; fileRef = FF053A8C250A2DB3000A45C5 /* unLockButton.png */; };
 		FF053A8E250A2DBE000A45C5 /* unLockButton.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = FF053A8C250A2DB3000A45C5 /* unLockButton.png */; };
 		FF3310F6393E4770B776D84E /* CCComAttribute.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 64F9607844A04174A11DB12F /* CCComAttribute.cpp */; };
-		FF60C325250B6F680064157F /* buttonBack.png in Resources */ = {isa = PBXBuildFile; fileRef = FF60C324250B6F670064157F /* buttonBack.png */; };
-		FF60C326250B6F750064157F /* buttonBack.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = FF60C324250B6F670064157F /* buttonBack.png */; };
+		FF5DB5242519EA190025062D /* arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = FF5DB5232519EA190025062D /* arrow.png */; };
+		FF5DB5252519EA2B0025062D /* arrow.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = FF5DB5232519EA190025062D /* arrow.png */; };
+		FF60C325250B6F680064157F /* buttonBg.png in Resources */ = {isa = PBXBuildFile; fileRef = FF60C324250B6F670064157F /* buttonBg.png */; };
+		FF60C326250B6F750064157F /* buttonBg.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = FF60C324250B6F670064157F /* buttonBg.png */; };
 		FFB2E21D25024F44002331DA /* ProjectHandling.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FFB2E21B25024F44002331DA /* ProjectHandling.cpp */; };
 		FFB2E222250258AD002331DA /* closeCross@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FFB2E221250258AD002331DA /* closeCross@2x.png */; };
 		FFB2E223250258B5002331DA /* closeCross@2x.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = FFB2E221250258AD002331DA /* closeCross@2x.png */; };
@@ -1055,7 +1057,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 7;
 			files = (
-				FF60C326250B6F750064157F /* buttonBack.png in CopyFiles */,
+				FF5DB5252519EA2B0025062D /* arrow.png in CopyFiles */,
+				FF60C326250B6F750064157F /* buttonBg.png in CopyFiles */,
 				FF053A8E250A2DBE000A45C5 /* unLockButton.png in CopyFiles */,
 				FF053A70250A2522000A45C5 /* helpButton.png in CopyFiles */,
 				FF053A8B250A2AE4000A45C5 /* stopButtonDark.png in CopyFiles */,
@@ -2385,7 +2388,8 @@
 		FF059C3F30F047519C03E04B /* CCTableViewCell.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = CCTableViewCell.cpp; path = cocos2d/extensions/GUI/CCScrollView/CCTableViewCell.cpp; sourceTree = SOURCE_ROOT; };
 		FF1DAB7A9FD441ACAC5C9EFE /* CCPhysics3DShape.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = CCPhysics3DShape.cpp; path = cocos2d/cocos/physics3d/CCPhysics3DShape.cpp; sourceTree = SOURCE_ROOT; };
 		FF5C3951DAA2416BA59BC29A /* ConvertUTFWrapper.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = ConvertUTFWrapper.cpp; path = cocos2d/external/ConvertUTF/ConvertUTFWrapper.cpp; sourceTree = SOURCE_ROOT; };
-		FF60C324250B6F670064157F /* buttonBack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = buttonBack.png; path = Resources/buttonBack.png; sourceTree = "<group>"; };
+		FF5DB5232519EA190025062D /* arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = arrow.png; path = Resources/arrow.png; sourceTree = "<group>"; };
+		FF60C324250B6F670064157F /* buttonBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = buttonBg.png; path = Resources/buttonBg.png; sourceTree = "<group>"; };
 		FF675436CA9D4DCB829EF4DB /* CCPUDoAffectorEventHandler.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = CCPUDoAffectorEventHandler.cpp; path = cocos2d/extensions/Particle3D/PU/CCPUDoAffectorEventHandler.cpp; sourceTree = SOURCE_ROOT; };
 		FF698ADD262048AFAE5B39EF /* UIAbstractCheckButton.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = UIAbstractCheckButton.h; path = cocos2d/cocos/ui/UIAbstractCheckButton.h; sourceTree = SOURCE_ROOT; };
 		FF922BAD998C4C07AE4739AE /* CCPUBaseForceAffector.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = CCPUBaseForceAffector.cpp; path = cocos2d/extensions/Particle3D/PU/CCPUBaseForceAffector.cpp; sourceTree = SOURCE_ROOT; };
@@ -2401,6 +2405,8 @@
 		02E7330CAE3241C5B0AAB6E5 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				FF5DB5232519EA190025062D /* arrow.png */,
+				FF60C324250B6F670064157F /* buttonBg.png */,
 				84A8B2349F5F4D91A47465BC /* .DS_Store */,
 				FF053A86250A2A23000A45C5 /* backButton.png */,
 				81F4A5B51B854A448536AA14 /* blowExplosion_flame.plist */,
@@ -2422,7 +2428,6 @@
 				759F6914AC5E4C679850C987 /* help_help.png */,
 				F149FC21C4944A61AA1A84B9 /* help_instrument.png */,
 				4423E7DC8AE043508D60D4A1 /* help_lock.png */,
-				FF053A8C250A2DB3000A45C5 /* unLockButton.png */,
 				C1DF234931ED4EAC9FD5E877 /* help_loop.png */,
 				061783D2C5D74DE080CEAA3B /* help_play.png */,
 				64B0A864CBD0449083DF97CC /* help_rec.png */,
@@ -2448,6 +2453,7 @@
 				FF053A60250A2501000A45C5 /* stopButton.png */,
 				FF053A89250A2AD5000A45C5 /* stopButtonDark.png */,
 				F11113F01E484625A934CA5D /* trash.png */,
+				FF053A8C250A2DB3000A45C5 /* unLockButton.png */,
 				FF053A62250A2501000A45C5 /* helpButton.png */,
 			);
 			name = Resources;
@@ -3313,7 +3319,6 @@
 		6FD438C114584A63B02E2221 /* fonts */ = {
 			isa = PBXGroup;
 			children = (
-				FF60C324250B6F670064157F /* buttonBack.png */,
 				2E372E40B9A94E4AA7C0EF83 /* Marker Felt.ttf */,
 				6F47073088AB4879AE6571BD /* arial.ttf */,
 			);
@@ -4873,10 +4878,11 @@
 				AC5E5E3FD7D7476096A473E5 /* Images.xcassets in Resources */,
 				FF053A6B250A2503000A45C5 /* loopButton.png in Resources */,
 				8AA3130F86C94CA8A678D03D /* LaunchScreen.storyboard in Resources */,
-				FF60C325250B6F680064157F /* buttonBack.png in Resources */,
+				FF60C325250B6F680064157F /* buttonBg.png in Resources */,
 				FF053A67250A2503000A45C5 /* stopButton.png in Resources */,
 				FFB2E222250258AD002331DA /* closeCross@2x.png in Resources */,
 				FF053A8D250A2DB3000A45C5 /* unLockButton.png in Resources */,
+				FF5DB5242519EA190025062D /* arrow.png in Resources */,
 				FF053A69250A2503000A45C5 /* helpButton.png in Resources */,
 				FF053A7E250A26A4000A45C5 /* projectsButton.png in Resources */,
 				FF053A8A250A2AD5000A45C5 /* stopButtonDark.png in Resources */,

@@ -115,12 +115,12 @@ void InstrumentScene::update( float dt ) {
     
     if ( projectHandling->getState() == kProjectHandling_State_SaveOverlay ) {
         if ( projectHandling->textField->getCharCount() == 0 ) {
-            if ( projectHandling->buttonBack[kButtons_ProjectHandling_Index_ConfirmSave]->getOpacity() == 255 ) {
-                projectHandling->buttonBack[kButtons_ProjectHandling_Index_ConfirmSave]->setOpacity( 100 );
+            if ( projectHandling->buttonBg[kButtons_ProjectHandling_Index_ConfirmSave]->getOpacity() == 255 ) {
+                projectHandling->buttonBg[kButtons_ProjectHandling_Index_ConfirmSave]->setOpacity( 100 );
             }
         } else {
-            if ( projectHandling->buttonBack[kButtons_ProjectHandling_Index_ConfirmSave]->getOpacity() == 100 ) {
-                projectHandling->buttonBack[kButtons_ProjectHandling_Index_ConfirmSave]->setOpacity( 255 );
+            if ( projectHandling->buttonBg[kButtons_ProjectHandling_Index_ConfirmSave]->getOpacity() == 100 ) {
+                projectHandling->buttonBg[kButtons_ProjectHandling_Index_ConfirmSave]->setOpacity( 255 );
             }
         }
     }
@@ -151,18 +151,18 @@ void InstrumentScene::onTouchesBegan( const std::vector<Touch*>& touches, Event*
                         
                         // SAVE
                         if ( projectHandling->savingIsPossible() ) {
-                            if ( projectHandling->buttonBack[kButtons_ProjectHandling_Index_Save]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
+                            if ( projectHandling->buttonBg[kButtons_ProjectHandling_Index_Save]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
                                 projectHandling->showSaveOverlay();
                             }
                         }
                         
                         // LOAD
-                        if ( projectHandling->buttonBack[kButtons_ProjectHandling_Index_Load]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
+                        if ( projectHandling->buttonBg[kButtons_ProjectHandling_Index_Load]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
                             projectHandling->showLoadOverlay();
                         }
                         
                         // NEW
-                        if ( projectHandling->buttonBack[kButtons_ProjectHandling_Index_New]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
+                        if ( projectHandling->buttonBg[kButtons_ProjectHandling_Index_New]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
                             projectHandling->createNewProject();
                             mainMenu->setCurrentProjectName( "Uten tittel" );
                             auto scene = InstrumentScene::createScene();
@@ -183,7 +183,7 @@ void InstrumentScene::onTouchesBegan( const std::vector<Touch*>& touches, Event*
                         }
                         
                         if ( projectHandling->textField->getCharCount() != 0 ) {
-                            if ( projectHandling->buttonBack[kButtons_ProjectHandling_Index_ConfirmSave]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
+                            if ( projectHandling->buttonBg[kButtons_ProjectHandling_Index_ConfirmSave]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
                                 projectHandling->saveNewProject();
                                 mainMenu->setCurrentProjectName( projectHandling->getTextFieldString() );
                                 projectHandling->closeSaveOverlay();
@@ -191,7 +191,7 @@ void InstrumentScene::onTouchesBegan( const std::vector<Touch*>& touches, Event*
                         }
                         
                         // CANCEL BUTTON
-                        if ( projectHandling->buttonBack[kButtons_ProjectHandling_Index_Cancel]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
+                        if ( projectHandling->buttonBg[kButtons_ProjectHandling_Index_Cancel]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
                            projectHandling->cancelSaveOverlay();
                         }
                        
@@ -201,18 +201,23 @@ void InstrumentScene::onTouchesBegan( const std::vector<Touch*>& touches, Event*
                         
                         for ( int i = 0; i < projectHandling->projectNamesLabel.size(); i++ ) {
                             
-                            if ( projectHandling->projectNamesLabel[i].label->getBoundingBox().containsPoint( touch->getLocation() ) ) {
-                                for ( int j = 0; j < projectHandling->projectNamesLabel.size(); j++ ) {
-                                    projectHandling->projectNamesLabel[j].label->setColor( Color3B::BLACK );
+                            // CHOOSE PROJECT
+                            if ( projectHandling->projectNamesLabel[i].label->isVisible() ) {
+                                if ( projectHandling->projectNamesLabel[i].label->getBoundingBox().containsPoint( touch->getLocation() ) ) {
+                                    for ( int j = 0; j < projectHandling->projectNamesLabel.size(); j++ ) {
+                                        projectHandling->projectNamesLabel[j].label->setColor( Color3B::BLACK );
+                                    }
+                                    projectHandling->projectNamesLabel[i].label->setColor( Color3B::YELLOW );
+                                    projectHandling->setSelectedProjectNameForLoading( projectHandling->projectNamesLabel[i].label->getString() );
+                                    projectHandling->setAprojectIsSelectedToOpen( true );
                                 }
-                                projectHandling->projectNamesLabel[i].label->setColor( Color3B::YELLOW );
-                                projectHandling->setSelectedProjectNameForLoading( projectHandling->projectNamesLabel[i].label->getString() );
-                                projectHandling->setAprojectIsSelectedToOpen( true );
                             }
+                            
                         }
                         
+                        // CONFIRM LOAD
                         if ( projectHandling->aProjectIsSelectedToOpen() ) {
-                            if ( projectHandling->buttonBack[kButtons_ProjectHandling_Index_ConfirmLoad]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
+                            if ( projectHandling->buttonBg[kButtons_ProjectHandling_Index_ConfirmLoad]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
                                 projectHandling->loadSavedProject();
                                 mainMenu->setCurrentProjectName( projectHandling->getSelectedProjectNameForLoading() );
                                 auto scene = InstrumentScene::createScene();
@@ -221,13 +226,19 @@ void InstrumentScene::onTouchesBegan( const std::vector<Touch*>& touches, Event*
                         }
                         
                         // CANCEL BUTTON
-                        if ( projectHandling->buttonBack[kButtons_ProjectHandling_Index_Cancel]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
-                            /*for ( int i = 0; i < projectHandling->projectNamesLabel.size(); i++ ) {
-                                projectHandling->projectNamesLabel[i].label->setColor( Color3B::BLACK );
-                            }*/
-                            projectHandling->setSelectedProjectNameForLoading( "" );
-                            projectHandling->setAprojectIsSelectedToOpen( false );
-                            projectHandling->closeLoadOverlay();
+                        if ( projectHandling->buttonBg[kButtons_ProjectHandling_Index_Cancel]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
+                            projectHandling->cancelLoadOverlay();
+                        }
+                        
+                        // ARROW LEFT
+                        if ( projectHandling->arrowLeft->getBoundingBox().containsPoint( touch->getLocation() ) ) {
+                            projectHandling->arrowLeftClicked();
+                        }
+                        
+                        
+                        // ARROW RIGHT
+                        if ( projectHandling->arrowRight->getBoundingBox().containsPoint( touch->getLocation() ) ) {
+                            projectHandling->arrowRightClicked();
                         }
                         
                     }

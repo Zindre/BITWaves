@@ -77,3 +77,6 @@
 #define kProjectHandling_State_SaveOverlay 4
 #define kProjectHandling_State_SaveOverlay_KeyboardOpen 5
 
+#define kProjectHandling_FontSize_Buttons 10
+#define kProjectHandling_FontSize_ProjectNames 8
+#define kProjectHandling_FontSize_Text 12
