@@ -63,13 +63,16 @@
 
 #define kNumOfChannels 32
 
-#define kButtons_ProjectHandling_NumOf 6
+#define kButtons_ProjectHandling_NumOf 7
 #define kButtons_ProjectHandling_Index_Save 0
-#define kButtons_ProjectHandling_Index_Load 1
+#define kButtons_ProjectHandling_Index_Browse 1
 #define kButtons_ProjectHandling_Index_New 2
 #define kButtons_ProjectHandling_Index_ConfirmSave 3
-#define kButtons_ProjectHandling_Index_ConfirmLoad 4
+#define kButtons_ProjectHandling_Index_Open 4
 #define kButtons_ProjectHandling_Index_Cancel 5
+#define kButtons_ProjectHandling_Index_Delete 6
+
+#define kProjectHandling_Button_TransparantValue 100
 
 #define kProjectHandling_State_Closed 1
 #define kProjectHandling_State_MainScreen 2

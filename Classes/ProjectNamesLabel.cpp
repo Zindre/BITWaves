@@ -1,6 +1,6 @@
 #include "ProjectNamesLabel.hpp"
 
-ProjectNamesLabel::ProjectNamesLabel( cocos2d::Layer *layer, std::string projectName, int index, unsigned int myPageNr ) {
+ProjectNamesLabel::ProjectNamesLabel( cocos2d::Layer *layer, std::string projectName, int index, unsigned int myPageNr, unsigned int pageIndex ) {
     
     visibleSize = Director::getInstance()->getSafeAreaRect().size;
     origin = Director::getInstance()->getSafeAreaRect().origin;
@@ -9,6 +9,7 @@ ProjectNamesLabel::ProjectNamesLabel( cocos2d::Layer *layer, std::string project
     _index = index;
     _isTouched = false;
     _myPageNr = myPageNr;
+    _pageIndex = pageIndex;
     
     log( "project name: %s - index: %i - page nr: %i", projectName.c_str(), _index, _myPageNr );
     
@@ -78,6 +79,6 @@ unsigned int ProjectNamesLabel::getMyPageNr() {
     return _myPageNr;
 }
 
-void ProjectNamesLabel::setPosToTop( int index ) {
-    label->setPosition( Vec2( origin.x + visibleSize.width * 0.2, origin.y + ((visibleSize.height * 0.7) - ((label->getBoundingBox().size.height + _padding) * index ) ) ) );
+void ProjectNamesLabel::setPosToTop() {
+    label->setPosition( Vec2( origin.x + visibleSize.width * 0.2, origin.y + ((visibleSize.height * 0.7) - ((label->getBoundingBox().size.height + _padding) * _pageIndex ) ) ) );
 }

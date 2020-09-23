@@ -23,18 +23,18 @@ public:
     std::string getTextFieldString();
     void createNewProject();
     void showSaveOverlay();
-    void showLoadOverlay();
+    void showBrowseOverlay();
     void openKeyboard();
     void closeSaveOverlay();
-    void closeLoadOverlay();
+    void closeBrowseOverlay();
     void setSelectedProjectNameForLoading( std::string projectName );
     std::string getSelectedProjectNameForLoading();
     bool savingIsPossible();
-    bool aProjectIsSelectedToOpen();
-    void setAprojectIsSelectedToOpen( bool aProjectIsSelectedToOpen );
+    bool aProjectIsSelected();
+    void setAprojectIsSelected( bool aProjectIsSelected );
     unsigned int getState();
     void cancelSaveOverlay();
-    void cancelLoadOverlay();
+    void cancelBrowseOverlay();
     void arrowRightClicked();
     void arrowLeftClicked();
     
@@ -65,12 +65,12 @@ private:
     std::vector<Vec2> currentPos;
     std::vector<int> currentWhatSound;
     cocos2d::Sprite *overlaySave;
-    cocos2d::Sprite *overlayLoad;
+    cocos2d::Sprite *overlayBrowse;
     cocos2d::Label *label_instructTyping;
     std::vector<std::string> savedProjectNames;
     std::string selectedProjectNameForLoading;
     bool _savingIsPossible;
-    bool _aProjectIsSelectedToOpen;
+    bool _aProjectIsSelected;
     cocos2d::Layer *_layer;
     unsigned int _whatState;
     cocos2d::Size scrollViewSize;

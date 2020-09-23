@@ -116,7 +116,7 @@ void InstrumentScene::update( float dt ) {
     if ( projectHandling->getState() == kProjectHandling_State_SaveOverlay ) {
         if ( projectHandling->textField->getCharCount() == 0 ) {
             if ( projectHandling->buttonBg[kButtons_ProjectHandling_Index_ConfirmSave]->getOpacity() == 255 ) {
-                projectHandling->buttonBg[kButtons_ProjectHandling_Index_ConfirmSave]->setOpacity( 100 );
+                projectHandling->buttonBg[kButtons_ProjectHandling_Index_ConfirmSave]->setOpacity( kProjectHandling_Button_TransparantValue );
             }
         } else {
             if ( projectHandling->buttonBg[kButtons_ProjectHandling_Index_ConfirmSave]->getOpacity() == 100 ) {
@@ -156,9 +156,9 @@ void InstrumentScene::onTouchesBegan( const std::vector<Touch*>& touches, Event*
                             }
                         }
                         
-                        // LOAD
-                        if ( projectHandling->buttonBg[kButtons_ProjectHandling_Index_Load]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
-                            projectHandling->showLoadOverlay();
+                        // BROWSE
+                        if ( projectHandling->buttonBg[kButtons_ProjectHandling_Index_Browse]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
+                            projectHandling->showBrowseOverlay();
                         }
                         
                         // NEW
@@ -209,15 +209,22 @@ void InstrumentScene::onTouchesBegan( const std::vector<Touch*>& touches, Event*
                                     }
                                     projectHandling->projectNamesLabel[i].label->setColor( Color3B::YELLOW );
                                     projectHandling->setSelectedProjectNameForLoading( projectHandling->projectNamesLabel[i].label->getString() );
-                                    projectHandling->setAprojectIsSelectedToOpen( true );
+                                    projectHandling->setAprojectIsSelected( true );
+                                    if ( projectHandling->aProjectIsSelected() ) {
+                                        projectHandling->buttonBg[kButtons_ProjectHandling_Index_Open]->setOpacity( 255 );
+                                        projectHandling->buttonBg[kButtons_ProjectHandling_Index_Delete]->setOpacity( 255 );
+                                    } else {
+                                        projectHandling->buttonBg[kButtons_ProjectHandling_Index_Open]->setOpacity( kProjectHandling_Button_TransparantValue );
+                                        projectHandling->buttonBg[kButtons_ProjectHandling_Index_Delete]->setOpacity( kProjectHandling_Button_TransparantValue );
+                                    }
                                 }
                             }
                             
                         }
                         
-                        // CONFIRM LOAD
-                        if ( projectHandling->aProjectIsSelectedToOpen() ) {
-                            if ( projectHandling->buttonBg[kButtons_ProjectHandling_Index_ConfirmLoad]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
+                        // OPEN
+                        if ( projectHandling->aProjectIsSelected() ) {
+                            if ( projectHandling->buttonBg[kButtons_ProjectHandling_Index_Open]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
                                 projectHandling->loadSavedProject();
                                 mainMenu->setCurrentProjectName( projectHandling->getSelectedProjectNameForLoading() );
                                 auto scene = InstrumentScene::createScene();
@@ -225,9 +232,16 @@ void InstrumentScene::onTouchesBegan( const std::vector<Touch*>& touches, Event*
                             }
                         }
                         
+                        // DELETE
+                        if ( projectHandling->aProjectIsSelected() ) {
+                            if ( projectHandling->buttonBg[kButtons_ProjectHandling_Index_Delete]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
+                                log( "Delete!" );
+                            }
+                        }
+                        
                         // CANCEL BUTTON
                         if ( projectHandling->buttonBg[kButtons_ProjectHandling_Index_Cancel]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
-                            projectHandling->cancelLoadOverlay();
+                            projectHandling->cancelBrowseOverlay();
                         }
                         
                         // ARROW LEFT
@@ -460,7 +474,7 @@ void InstrumentScene::onTouchesEnded( const std::vector<Touch*> &touches, Event*
                                 if ( ! recIsLocked ) {
                                     recIsLocked = true;
                                     mainMenu->buttons_image[kButtons_ArrayNum_Lock]->setTexture( "lockButton.png" );
-                                    mainMenu->buttons_image[kButtons_ArrayNum_Rec]->setOpacity( 100 );
+                                    mainMenu->buttons_image[kButtons_ArrayNum_Rec]->setOpacity( kProjectHandling_Button_TransparantValue );
                                 } else {
                                     recIsLocked = false;
                                     mainMenu->buttons_image[kButtons_ArrayNum_Lock]->setTexture( "unLockButton.png" );

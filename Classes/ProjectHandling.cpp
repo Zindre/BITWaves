@@ -39,11 +39,12 @@ ProjectHandling::ProjectHandling( Layer *layer ) {
         layer->addChild( label_buttons[i], kLayer_ProjectHandling );
     }
     label_buttons[kButtons_ProjectHandling_Index_Save]->setString( "Lagre" );
-    label_buttons[kButtons_ProjectHandling_Index_Load]->setString( "Åpne" );
+    label_buttons[kButtons_ProjectHandling_Index_Browse]->setString( "Bla gjennom" );
     label_buttons[kButtons_ProjectHandling_Index_New]->setString( "Nytt prosjekt" );
     label_buttons[kButtons_ProjectHandling_Index_ConfirmSave]->setString( "Bekreft Lagre" );
-    label_buttons[kButtons_ProjectHandling_Index_ConfirmLoad]->setString( "Bekreft Åpne" );
+    label_buttons[kButtons_ProjectHandling_Index_Open]->setString( "Åpne" );
     label_buttons[kButtons_ProjectHandling_Index_Cancel]->setString( "Avbryt" );
+    label_buttons[kButtons_ProjectHandling_Index_Delete]->setString( "Slett" );
     
     
     overlaySave = Sprite::create( "square1px.png" );
@@ -53,12 +54,12 @@ ProjectHandling::ProjectHandling( Layer *layer ) {
     overlaySave->setVisible( false );
     layer->addChild( overlaySave, kLayer_ProjectHandling_SaveOverlay );
     
-    overlayLoad = Sprite::create( "square1px.png" );
-    overlayLoad->setTextureRect( Rect( 0, 0, background->getBoundingBox().size.width * 0.8, background->getBoundingBox().size.height * 0.7 ) );
-    overlayLoad->setPosition( Vec2( origin.x + visibleSize.width * 0.5, origin.y + visibleSize.height * 0.5 ) );
-    overlayLoad->setColor( Color3B::GREEN );
-    overlayLoad->setVisible( false );
-    layer->addChild( overlayLoad, kLayer_ProjectHandling_LoadOverlay );
+    overlayBrowse = Sprite::create( "square1px.png" );
+    overlayBrowse->setTextureRect( Rect( 0, 0, background->getBoundingBox().size.width * 0.8, background->getBoundingBox().size.height * 0.7 ) );
+    overlayBrowse->setPosition( Vec2( origin.x + visibleSize.width * 0.5, origin.y + visibleSize.height * 0.5 ) );
+    overlayBrowse->setColor( Color3B::GREEN );
+    overlayBrowse->setVisible( false );
+    layer->addChild( overlayBrowse, kLayer_ProjectHandling_LoadOverlay );
     
     label_instructTyping = Label::createWithTTF( "Gi prosjektet et navn:", "fonts/arial.ttf", kProjectHandling_FontSize_Text );
     label_instructTyping->setPosition( Vec2( overlaySave->getPosition().x, overlaySave->getPosition().y + (overlaySave->getBoundingBox().size.height * 0.3) ) );
@@ -67,7 +68,7 @@ ProjectHandling::ProjectHandling( Layer *layer ) {
     layer->addChild( label_instructTyping, kLayer_ProjectHandling );
     
     textFieldArea = Sprite::create( "square1px.png" );
-    textFieldArea->setTextureRect( Rect( 0, 0, overlayLoad->getBoundingBox().size.width * 0.8, label_instructTyping->getBoundingBox().size.height * 1.2 ) );
+    textFieldArea->setTextureRect( Rect( 0, 0, overlayBrowse->getBoundingBox().size.width * 0.8, label_instructTyping->getBoundingBox().size.height * 1.2 ) );
     textFieldArea->setPosition( Vec2( label_instructTyping->getPosition().x, label_instructTyping->getPosition().y - (label_instructTyping->getBoundingBox().size.height * 2) ) );
     textFieldArea->setVisible( false );
     layer->addChild( textFieldArea, kLayer_ProjectHandling_SaveOverlay );
@@ -86,33 +87,39 @@ ProjectHandling::ProjectHandling( Layer *layer ) {
     buttonBg[kButtons_ProjectHandling_Index_ConfirmSave]->setLocalZOrder( kLayer_ProjectHandling_SaveOverlay );
     label_buttons[kButtons_ProjectHandling_Index_ConfirmSave]->setLocalZOrder( kLayer_ProjectHandling_SaveOverlay );
     
-    buttonBg[kButtons_ProjectHandling_Index_ConfirmLoad]->setPosition( Vec2( overlayLoad->getPosition().x + buttonBgSize.width, overlayLoad->getPosition().y + buttonBgSize.height ) );
-    label_buttons[kButtons_ProjectHandling_Index_ConfirmLoad]->setPosition( buttonBg[kButtons_ProjectHandling_Index_ConfirmLoad]->getPosition() );
-    buttonBg[kButtons_ProjectHandling_Index_ConfirmLoad]->setLocalZOrder( kLayer_ProjectHandling_LoadOverlay );
-    label_buttons[kButtons_ProjectHandling_Index_ConfirmLoad]->setLocalZOrder( kLayer_ProjectHandling_LoadOverlay );
-    buttonBg[kButtons_ProjectHandling_Index_ConfirmLoad]->setOpacity( 100 );
+    buttonBg[kButtons_ProjectHandling_Index_Open]->setPosition( Vec2( overlayBrowse->getPosition().x + buttonBgSize.width, overlayBrowse->getPosition().y + (buttonBgSize.height * 2) ) );
+    label_buttons[kButtons_ProjectHandling_Index_Open]->setPosition( buttonBg[kButtons_ProjectHandling_Index_Open]->getPosition() );
+    buttonBg[kButtons_ProjectHandling_Index_Open]->setLocalZOrder( kLayer_ProjectHandling_LoadOverlay );
+    label_buttons[kButtons_ProjectHandling_Index_Open]->setLocalZOrder( kLayer_ProjectHandling_LoadOverlay );
+    buttonBg[kButtons_ProjectHandling_Index_Open]->setOpacity( kProjectHandling_Button_TransparantValue );
     
-    buttonBg[kButtons_ProjectHandling_Index_Cancel]->setPosition( Vec2( overlayLoad->getPosition().x + buttonBgSize.width, overlayLoad->getPosition().y - buttonBgSize.height ) );
+    buttonBg[kButtons_ProjectHandling_Index_Delete]->setPosition( Vec2( overlayBrowse->getPosition().x + buttonBgSize.width, overlayBrowse->getPosition().y ) );
+    label_buttons[kButtons_ProjectHandling_Index_Delete]->setPosition( buttonBg[kButtons_ProjectHandling_Index_Delete]->getPosition() );
+    buttonBg[kButtons_ProjectHandling_Index_Delete]->setLocalZOrder( kLayer_ProjectHandling_LoadOverlay );
+    label_buttons[kButtons_ProjectHandling_Index_Delete]->setLocalZOrder( kLayer_ProjectHandling_LoadOverlay );
+    buttonBg[kButtons_ProjectHandling_Index_Delete]->setOpacity( kProjectHandling_Button_TransparantValue );
+    
+    buttonBg[kButtons_ProjectHandling_Index_Cancel]->setPosition( Vec2( overlayBrowse->getPosition().x + buttonBgSize.width, overlayBrowse->getPosition().y - (buttonBgSize.height * 2) ) );
     label_buttons[kButtons_ProjectHandling_Index_Cancel]->setPosition( buttonBg[kButtons_ProjectHandling_Index_Cancel]->getPosition() );
     buttonBg[kButtons_ProjectHandling_Index_Cancel]->setLocalZOrder( kLayer_ProjectHandling_LoadOverlay );
     label_buttons[kButtons_ProjectHandling_Index_Cancel]->setLocalZOrder( kLayer_ProjectHandling_LoadOverlay );
     
     
-    cocos2d::Size overlayLoadSize = overlayLoad->getBoundingBox().size;
+    cocos2d::Size overlayBrowseSize = overlayBrowse->getBoundingBox().size;
     
     arrowLeft = Sprite::create( "arrow.png" );
     arrowLeft->setFlippedX( true );
-    arrowLeft->setPosition( Vec2( overlayLoad->getPosition().x - (overlayLoadSize.width * 0.5), overlayLoad->getPosition().y - (overlayLoadSize.height * 0.5) ) );
+    arrowLeft->setPosition( Vec2( overlayBrowse->getPosition().x - (overlayBrowseSize.width * 0.5), overlayBrowse->getPosition().y - (overlayBrowseSize.height * 0.5) ) );
     arrowLeft->setVisible( false );
     layer->addChild( arrowLeft, kLayer_ProjectHandling_LoadOverlay );
     
     arrowRight = Sprite::create( "arrow.png" );
-    arrowRight->setPosition( Vec2( overlayLoad->getPosition().x, overlayLoad->getPosition().y - (overlayLoadSize.height * 0.5) ) );
+    arrowRight->setPosition( Vec2( overlayBrowse->getPosition().x, overlayBrowse->getPosition().y - (overlayBrowseSize.height * 0.5) ) );
     arrowRight->setVisible( false );
     layer->addChild( arrowRight, kLayer_ProjectHandling_LoadOverlay );
     
     label_projectNamesPageNr = Label::createWithTTF( "1", "fonts/arial.ttf", kProjectHandling_FontSize_Text );
-    label_projectNamesPageNr->setPosition( Vec2( overlayLoad->getPosition().x - (overlayLoadSize.width * 0.25), overlayLoad->getPosition().y - (overlayLoadSize.height * 0.5) ) );
+    label_projectNamesPageNr->setPosition( Vec2( overlayBrowse->getPosition().x - (overlayBrowseSize.width * 0.25), overlayBrowse->getPosition().y - (overlayBrowseSize.height * 0.5) ) );
     label_projectNamesPageNr->setVisible( false );
     label_projectNamesPageNr->setColor( Color3B::BLACK );
     layer->addChild( label_projectNamesPageNr, kLayer_ProjectHandling_LoadOverlay );
@@ -148,7 +155,7 @@ ProjectHandling::ProjectHandling( Layer *layer ) {
     
     
     selectedProjectNameForLoading = "";
-    _aProjectIsSelectedToOpen = false;
+    _aProjectIsSelected = false;
     _isShowing = false;
     _currentPageNr = 1;
     _totalNrOfPages = 1;
@@ -163,7 +170,7 @@ ProjectHandling::ProjectHandling( Layer *layer ) {
         _savingIsPossible = true;
     } else {
         _savingIsPossible = false;
-        buttonBg[kButtons_ProjectHandling_Index_Save]->setOpacity( 100 );
+        buttonBg[kButtons_ProjectHandling_Index_Save]->setOpacity( kProjectHandling_Button_TransparantValue );
         saveCurrentToOpenProject();
     }
     
@@ -184,10 +191,12 @@ void ProjectHandling::show() {
     }
     buttonBg[kButtons_ProjectHandling_Index_ConfirmSave]->setVisible( false );
     label_buttons[kButtons_ProjectHandling_Index_ConfirmSave]->setVisible( false );
-    buttonBg[kButtons_ProjectHandling_Index_ConfirmLoad]->setVisible( false );
-    label_buttons[kButtons_ProjectHandling_Index_ConfirmLoad]->setVisible( false );
+    buttonBg[kButtons_ProjectHandling_Index_Open]->setVisible( false );
+    label_buttons[kButtons_ProjectHandling_Index_Open]->setVisible( false );
     buttonBg[kButtons_ProjectHandling_Index_Cancel]->setVisible( false );
     label_buttons[kButtons_ProjectHandling_Index_Cancel]->setVisible( false );
+    buttonBg[kButtons_ProjectHandling_Index_Delete]->setVisible( false );
+    label_buttons[kButtons_ProjectHandling_Index_Delete]->setVisible( false );
     _whatState = kProjectHandling_State_MainScreen;
     _isShowing = true;
 }
@@ -203,10 +212,10 @@ void ProjectHandling::hide() {
     for ( int i = 0; i < projectNamesLabel.size(); i++ ) {
         projectNamesLabel[i].hide();
     }
-    overlayLoad->setVisible( false );
+    overlayBrowse->setVisible( false );
     overlaySave->setVisible( false );
     selectedProjectNameForLoading = "";
-    _aProjectIsSelectedToOpen = false;
+    _aProjectIsSelected = false;
     label_instructTyping->setVisible( false );
     textField->setVisible( false );
     _whatState = kProjectHandling_State_Closed;
@@ -552,12 +561,14 @@ void ProjectHandling::showSaveOverlay() {
     textFieldArea->setVisible( true );
 }
 
-void ProjectHandling::showLoadOverlay() {
-    overlayLoad->setVisible( true );
-    buttonBg[kButtons_ProjectHandling_Index_ConfirmLoad]->setVisible( true );
-    label_buttons[kButtons_ProjectHandling_Index_ConfirmLoad]->setVisible( true );
+void ProjectHandling::showBrowseOverlay() {
+    overlayBrowse->setVisible( true );
+    buttonBg[kButtons_ProjectHandling_Index_Open]->setVisible( true );
+    label_buttons[kButtons_ProjectHandling_Index_Open]->setVisible( true );
     buttonBg[kButtons_ProjectHandling_Index_Cancel]->setVisible( true );
     label_buttons[kButtons_ProjectHandling_Index_Cancel]->setVisible( true );
+    buttonBg[kButtons_ProjectHandling_Index_Delete]->setVisible( true );
+    label_buttons[kButtons_ProjectHandling_Index_Delete]->setVisible( true );
     _whatState = kProjectHandling_State_LoadOverlay;
     arrowLeft->setVisible( true );
     arrowRight->setVisible( true );
@@ -578,7 +589,7 @@ void ProjectHandling::closeSaveOverlay() {
     label_instructTyping->setVisible( false );
     buttonBg[kButtons_ProjectHandling_Index_ConfirmSave]->setVisible( false );
     label_buttons[kButtons_ProjectHandling_Index_ConfirmSave]->setVisible( false );
-    buttonBg[kButtons_ProjectHandling_Index_Save]->setOpacity( 100 );
+    buttonBg[kButtons_ProjectHandling_Index_Save]->setOpacity( kProjectHandling_Button_TransparantValue );
     _savingIsPossible = false;
     buttonBg[kButtons_ProjectHandling_Index_Cancel]->setVisible( false );
     label_buttons[kButtons_ProjectHandling_Index_Cancel]->setVisible( false );
@@ -587,15 +598,17 @@ void ProjectHandling::closeSaveOverlay() {
     textFieldArea->setVisible( false );
 }
 
-void ProjectHandling::closeLoadOverlay() {
-    overlayLoad->setVisible( false );
+void ProjectHandling::closeBrowseOverlay() {
+    overlayBrowse->setVisible( false );
     for ( int i = 0; i < projectNamesLabel.size(); i++ ) {
        projectNamesLabel[i].hide();
     }
-    buttonBg[kButtons_ProjectHandling_Index_ConfirmLoad]->setVisible( false );
-    label_buttons[kButtons_ProjectHandling_Index_ConfirmLoad]->setVisible( false );
+    buttonBg[kButtons_ProjectHandling_Index_Open]->setVisible( false );
+    label_buttons[kButtons_ProjectHandling_Index_Open]->setVisible( false );
     buttonBg[kButtons_ProjectHandling_Index_Cancel]->setVisible( false );
     label_buttons[kButtons_ProjectHandling_Index_Cancel]->setVisible( false );
+    buttonBg[kButtons_ProjectHandling_Index_Delete]->setVisible( false );
+    label_buttons[kButtons_ProjectHandling_Index_Delete]->setVisible( false );
     _whatState = kProjectHandling_State_MainScreen;
     arrowLeft->setVisible( false );
     arrowRight->setVisible( false );
@@ -615,17 +628,12 @@ bool ProjectHandling::savingIsPossible() {
     return _savingIsPossible;
 }
 
-bool ProjectHandling::aProjectIsSelectedToOpen() {
-    return _aProjectIsSelectedToOpen;
+bool ProjectHandling::aProjectIsSelected() {
+    return _aProjectIsSelected;
 }
 
-void ProjectHandling::setAprojectIsSelectedToOpen( bool aProjectIsSelectedToOpen ) {
-    _aProjectIsSelectedToOpen = aProjectIsSelectedToOpen;
-    if ( _aProjectIsSelectedToOpen ) {
-        buttonBg[kButtons_ProjectHandling_Index_ConfirmLoad]->setOpacity( 255 );
-    } else {
-        buttonBg[kButtons_ProjectHandling_Index_ConfirmLoad]->setOpacity( 100 );
-    }
+void ProjectHandling::setAprojectIsSelected( bool aProjectIsSelected ) {
+    _aProjectIsSelected = aProjectIsSelected;
 }
 
 void ProjectHandling::updateProjectList() {
@@ -689,9 +697,15 @@ void ProjectHandling::updateProjectList() {
     }
     
     
+    // Sort alphabetically
+    std::sort( savedProjectNames.begin(), savedProjectNames.end() );
+    for ( int i = 0; i < savedProjectNames.size(); i++ ) {
+        log( "saved project names alphabetically: %s", savedProjectNames[i].c_str() );
+    }
+    
     
     unsigned long amount = savedProjectNames.size();
-    const int membersPrGroup = 4;
+    const int membersPrGroup = 5;
     int groupsFloored = floor( amount / membersPrGroup );
     int leftover = amount % membersPrGroup;
     int groups = 1;
@@ -701,6 +715,8 @@ void ProjectHandling::updateProjectList() {
         groups = groupsFloored;
     }
     
+    
+    // Spread labels into pages
     log( "amount: %lu", amount );
     log( "members pr group: %i", membersPrGroup );
     log( "groups floored: %i", groupsFloored );
@@ -712,23 +728,21 @@ void ProjectHandling::updateProjectList() {
 
     unsigned int myPageNr = 1;
     int valCounter = 0;
-    int groupCounter = 0;
     
     for ( int i = 0; i < savedProjectNames.size(); i++ ) {
         
-        if ( groupCounter <= groups ) {
+        if ( myPageNr <= groups ) {
             valCounter++;
-            log( "val counter: %i", valCounter );
-            if ( valCounter >= membersPrGroup ) {
+            if ( valCounter > membersPrGroup ) {
                 myPageNr++;
-                log( "my page nr: %i", myPageNr );
-                valCounter = 0;
-                groupCounter++;
-                log( "group counter: %i", groupCounter );
+                valCounter = 1; // Reset to 1 to get the correct num of members on first page
             }
         }
         
-        projectNamesLabel.push_back( ProjectNamesLabel( _layer, savedProjectNames[i].c_str(), i, myPageNr ) );
+        log( "val counter: %i", valCounter );
+        log( "my page nr: %i", myPageNr );
+        unsigned int pageIndex = valCounter - 1;
+        projectNamesLabel.push_back( ProjectNamesLabel( _layer, savedProjectNames[i].c_str(), i, myPageNr, pageIndex ) );
     }
     
 
@@ -757,27 +771,41 @@ void ProjectHandling::cancelSaveOverlay() {
     textFieldArea->setVisible( false );
 }
 
-void ProjectHandling::cancelLoadOverlay() {
-    
+void ProjectHandling::cancelBrowseOverlay() {
     for ( int i = 0; i < projectNamesLabel.size(); i++ ) {
         projectNamesLabel[i].label->setColor( Color3B::BLACK );
     }
     setSelectedProjectNameForLoading( "" );
-    setAprojectIsSelectedToOpen( false );
-    closeLoadOverlay();
-    
+    setAprojectIsSelected( false );
+    closeBrowseOverlay();
+    buttonBg[kButtons_ProjectHandling_Index_Open]->setOpacity( kProjectHandling_Button_TransparantValue );
+    buttonBg[kButtons_ProjectHandling_Index_Delete]->setOpacity( kProjectHandling_Button_TransparantValue );
 }
 
 void ProjectHandling::arrowRightClicked() {
     _currentPageNr++;
     label_projectNamesPageNr->setString( to_string( _currentPageNr ) );
     decideWhichProjectNamesToShow();
+    setSelectedProjectNameForLoading( "" );
+    setAprojectIsSelected( false );
+    buttonBg[kButtons_ProjectHandling_Index_Open]->setOpacity( kProjectHandling_Button_TransparantValue );
+    buttonBg[kButtons_ProjectHandling_Index_Delete]->setOpacity( kProjectHandling_Button_TransparantValue );
+    for ( int i = 0; i < projectNamesLabel.size(); i++ ) {
+        projectNamesLabel[i].label->setColor( Color3B::BLACK );
+    }
 }
 
 void ProjectHandling::arrowLeftClicked() {
     _currentPageNr--;
     label_projectNamesPageNr->setString( to_string( _currentPageNr ) );
     decideWhichProjectNamesToShow();
+    setSelectedProjectNameForLoading( "" );
+    setAprojectIsSelected( false );
+    buttonBg[kButtons_ProjectHandling_Index_Open]->setOpacity( kProjectHandling_Button_TransparantValue );
+    buttonBg[kButtons_ProjectHandling_Index_Delete]->setOpacity( kProjectHandling_Button_TransparantValue );
+    for ( int i = 0; i < projectNamesLabel.size(); i++ ) {
+        projectNamesLabel[i].label->setColor( Color3B::BLACK );
+    }
 }
 
 void ProjectHandling::decideWhichProjectNamesToShow() {
@@ -790,7 +818,7 @@ void ProjectHandling::decideWhichProjectNamesToShow() {
         }
         
         if ( projectNamesLabel[i].label->isVisible() ) {
-            projectNamesLabel[i].setPosToTop( i );
+            projectNamesLabel[i].setPosToTop();
         }
     }
     
