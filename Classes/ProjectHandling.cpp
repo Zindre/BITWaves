@@ -48,18 +48,18 @@ ProjectHandling::ProjectHandling( Layer *layer ) {
     
     
     overlaySave = Sprite::create( "square1px.png" );
-    overlaySave->setTextureRect( Rect( 0, 0, background->getBoundingBox().size.width * 0.7, background->getBoundingBox().size.height * 0.7 ) );
+    overlaySave->setTextureRect( Rect( 0, 0, background->getBoundingBox().size.width * 0.8, background->getBoundingBox().size.height * 0.7 ) );
     overlaySave->setPosition( Vec2( origin.x + visibleSize.width * 0.5, origin.y + visibleSize.height * 0.5 ) );
-    overlaySave->setColor( Color3B::RED );
+    overlaySave->setColor( Color3B::GRAY );
     overlaySave->setVisible( false );
     layer->addChild( overlaySave, kLayer_ProjectHandling_SaveOverlay );
     
     overlayBrowse = Sprite::create( "square1px.png" );
     overlayBrowse->setTextureRect( Rect( 0, 0, background->getBoundingBox().size.width * 0.8, background->getBoundingBox().size.height * 0.7 ) );
     overlayBrowse->setPosition( Vec2( origin.x + visibleSize.width * 0.5, origin.y + visibleSize.height * 0.5 ) );
-    overlayBrowse->setColor( Color3B::GREEN );
+    overlayBrowse->setColor( Color3B::GRAY );
     overlayBrowse->setVisible( false );
-    layer->addChild( overlayBrowse, kLayer_ProjectHandling_LoadOverlay );
+    layer->addChild( overlayBrowse, kLayer_ProjectHandling_BrowseOverlay );
     
     label_instructTyping = Label::createWithTTF( "Gi prosjektet et navn:", "fonts/arial.ttf", kProjectHandling_FontSize_Text );
     label_instructTyping->setPosition( Vec2( overlaySave->getPosition().x, overlaySave->getPosition().y + (overlaySave->getBoundingBox().size.height * 0.3) ) );
@@ -89,20 +89,20 @@ ProjectHandling::ProjectHandling( Layer *layer ) {
     
     buttonBg[kButtons_ProjectHandling_Index_Open]->setPosition( Vec2( overlayBrowse->getPosition().x + buttonBgSize.width, overlayBrowse->getPosition().y + (buttonBgSize.height * 2) ) );
     label_buttons[kButtons_ProjectHandling_Index_Open]->setPosition( buttonBg[kButtons_ProjectHandling_Index_Open]->getPosition() );
-    buttonBg[kButtons_ProjectHandling_Index_Open]->setLocalZOrder( kLayer_ProjectHandling_LoadOverlay );
-    label_buttons[kButtons_ProjectHandling_Index_Open]->setLocalZOrder( kLayer_ProjectHandling_LoadOverlay );
+    buttonBg[kButtons_ProjectHandling_Index_Open]->setLocalZOrder( kLayer_ProjectHandling_BrowseOverlay );
+    label_buttons[kButtons_ProjectHandling_Index_Open]->setLocalZOrder( kLayer_ProjectHandling_BrowseOverlay );
     buttonBg[kButtons_ProjectHandling_Index_Open]->setOpacity( kProjectHandling_Button_TransparantValue );
     
     buttonBg[kButtons_ProjectHandling_Index_Delete]->setPosition( Vec2( overlayBrowse->getPosition().x + buttonBgSize.width, overlayBrowse->getPosition().y ) );
     label_buttons[kButtons_ProjectHandling_Index_Delete]->setPosition( buttonBg[kButtons_ProjectHandling_Index_Delete]->getPosition() );
-    buttonBg[kButtons_ProjectHandling_Index_Delete]->setLocalZOrder( kLayer_ProjectHandling_LoadOverlay );
-    label_buttons[kButtons_ProjectHandling_Index_Delete]->setLocalZOrder( kLayer_ProjectHandling_LoadOverlay );
+    buttonBg[kButtons_ProjectHandling_Index_Delete]->setLocalZOrder( kLayer_ProjectHandling_BrowseOverlay );
+    label_buttons[kButtons_ProjectHandling_Index_Delete]->setLocalZOrder( kLayer_ProjectHandling_BrowseOverlay );
     buttonBg[kButtons_ProjectHandling_Index_Delete]->setOpacity( kProjectHandling_Button_TransparantValue );
     
     buttonBg[kButtons_ProjectHandling_Index_Cancel]->setPosition( Vec2( overlayBrowse->getPosition().x + buttonBgSize.width, overlayBrowse->getPosition().y - (buttonBgSize.height * 2) ) );
     label_buttons[kButtons_ProjectHandling_Index_Cancel]->setPosition( buttonBg[kButtons_ProjectHandling_Index_Cancel]->getPosition() );
-    buttonBg[kButtons_ProjectHandling_Index_Cancel]->setLocalZOrder( kLayer_ProjectHandling_LoadOverlay );
-    label_buttons[kButtons_ProjectHandling_Index_Cancel]->setLocalZOrder( kLayer_ProjectHandling_LoadOverlay );
+    buttonBg[kButtons_ProjectHandling_Index_Cancel]->setLocalZOrder( kLayer_ProjectHandling_BrowseOverlay );
+    label_buttons[kButtons_ProjectHandling_Index_Cancel]->setLocalZOrder( kLayer_ProjectHandling_BrowseOverlay );
     
     
     cocos2d::Size overlayBrowseSize = overlayBrowse->getBoundingBox().size;
@@ -111,18 +111,18 @@ ProjectHandling::ProjectHandling( Layer *layer ) {
     arrowLeft->setFlippedX( true );
     arrowLeft->setPosition( Vec2( overlayBrowse->getPosition().x - (overlayBrowseSize.width * 0.5), overlayBrowse->getPosition().y - (overlayBrowseSize.height * 0.5) ) );
     arrowLeft->setVisible( false );
-    layer->addChild( arrowLeft, kLayer_ProjectHandling_LoadOverlay );
+    layer->addChild( arrowLeft, kLayer_ProjectHandling_BrowseOverlay );
     
     arrowRight = Sprite::create( "arrow.png" );
     arrowRight->setPosition( Vec2( overlayBrowse->getPosition().x, overlayBrowse->getPosition().y - (overlayBrowseSize.height * 0.5) ) );
     arrowRight->setVisible( false );
-    layer->addChild( arrowRight, kLayer_ProjectHandling_LoadOverlay );
+    layer->addChild( arrowRight, kLayer_ProjectHandling_BrowseOverlay );
     
     label_projectNamesPageNr = Label::createWithTTF( "1", "fonts/arial.ttf", kProjectHandling_FontSize_Text );
     label_projectNamesPageNr->setPosition( Vec2( overlayBrowse->getPosition().x - (overlayBrowseSize.width * 0.25), overlayBrowse->getPosition().y - (overlayBrowseSize.height * 0.5) ) );
     label_projectNamesPageNr->setVisible( false );
     label_projectNamesPageNr->setColor( Color3B::BLACK );
-    layer->addChild( label_projectNamesPageNr, kLayer_ProjectHandling_LoadOverlay );
+    layer->addChild( label_projectNamesPageNr, kLayer_ProjectHandling_BrowseOverlay );
     
     // SCROLL BOX
     /*scrollViewSize = cocos2d::Size( visibleSize.width * 0.5f, visibleSize.height * 0.7f );
@@ -142,7 +142,7 @@ ProjectHandling::ProjectHandling( Layer *layer ) {
     //scrollView->setBackGroundColorOpacity( 0 );
     scrollView->setVisible( false );
     scrollView->setName( "projectsScrollView" );
-    layer->addChild( scrollView, kLayer_ProjectHandling_LoadOverlay );*/
+    layer->addChild( scrollView, kLayer_ProjectHandling_BrowseOverlay );*/
     
     
     
@@ -154,7 +154,7 @@ ProjectHandling::ProjectHandling( Layer *layer ) {
     
     
     
-    selectedProjectNameForLoading = "";
+    selectedProjectName = "";
     _aProjectIsSelected = false;
     _isShowing = false;
     _currentPageNr = 1;
@@ -214,7 +214,7 @@ void ProjectHandling::hide() {
     }
     overlayBrowse->setVisible( false );
     overlaySave->setVisible( false );
-    selectedProjectNameForLoading = "";
+    selectedProjectName = "";
     _aProjectIsSelected = false;
     label_instructTyping->setVisible( false );
     textField->setVisible( false );
@@ -432,7 +432,7 @@ void ProjectHandling::loadSavedProject() {
     
     
     // ----------------------------------------------------------------------------------
-    std::string projectName_X = selectedProjectNameForLoading + "_" + "pos_X";
+    std::string projectName_X = selectedProjectName + "_" + "pos_X";
     log( "load saved project name (posX): %s", projectName_X.c_str() );
     Data data_pos_X = UserDefault::getInstance()->getDataForKey( projectName_X.c_str() );
     float*  buffer_X = (float*) data_pos_X.getBytes();
@@ -448,7 +448,7 @@ void ProjectHandling::loadSavedProject() {
     
     
     // ----------------------------------------------------------------------------------
-    std::string projectName_Y = selectedProjectNameForLoading + "_" + "pos_Y";
+    std::string projectName_Y = selectedProjectName + "_" + "pos_Y";
     log( "load saved project name (posY): %s", projectName_Y.c_str() );
     Data data_pos_Y = UserDefault::getInstance()->getDataForKey( projectName_Y.c_str() );
     float*  buffer_Y = (float*) data_pos_Y.getBytes();
@@ -464,7 +464,7 @@ void ProjectHandling::loadSavedProject() {
     
     
     // ----------------------------------------------------------------------------------
-    std::string projectName_whatSound = selectedProjectNameForLoading + "_" + "whatSound";
+    std::string projectName_whatSound = selectedProjectName + "_" + "whatSound";
     log( "load saved project name (whatSound): %s", projectName_whatSound.c_str() );
     Data data_whatSound = UserDefault::getInstance()->getDataForKey( projectName_whatSound.c_str() );
     int* buffer_whatSound = (int*) data_whatSound.getBytes();
@@ -562,6 +562,7 @@ void ProjectHandling::showSaveOverlay() {
 }
 
 void ProjectHandling::showBrowseOverlay() {
+    updateProjectList();
     overlayBrowse->setVisible( true );
     buttonBg[kButtons_ProjectHandling_Index_Open]->setVisible( true );
     label_buttons[kButtons_ProjectHandling_Index_Open]->setVisible( true );
@@ -569,6 +570,8 @@ void ProjectHandling::showBrowseOverlay() {
     label_buttons[kButtons_ProjectHandling_Index_Cancel]->setVisible( true );
     buttonBg[kButtons_ProjectHandling_Index_Delete]->setVisible( true );
     label_buttons[kButtons_ProjectHandling_Index_Delete]->setVisible( true );
+    buttonBg[kButtons_ProjectHandling_Index_Cancel]->setPosition( Vec2( overlayBrowse->getPosition().x + buttonBg[kButtons_ProjectHandling_Index_Cancel]->getBoundingBox().size.width, overlayBrowse->getPosition().y - (buttonBg[kButtons_ProjectHandling_Index_Cancel]->getBoundingBox().size.height * 2) ) );
+    label_buttons[kButtons_ProjectHandling_Index_Cancel]->setPosition( buttonBg[kButtons_ProjectHandling_Index_Cancel]->getPosition() );
     _whatState = kProjectHandling_State_LoadOverlay;
     arrowLeft->setVisible( true );
     arrowRight->setVisible( true );
@@ -615,13 +618,13 @@ void ProjectHandling::closeBrowseOverlay() {
     label_projectNamesPageNr->setVisible( false );
 }
 
-void ProjectHandling::setSelectedProjectNameForLoading( std::string projectName ) {
-    selectedProjectNameForLoading = projectName;
-    log( "selected project for loading: %s", selectedProjectNameForLoading.c_str() );
+void ProjectHandling::setSelectedProjectName( std::string projectName ) {
+    selectedProjectName = projectName;
+    log( "selected project: %s", selectedProjectName.c_str() );
 }
 
-std::string ProjectHandling::getSelectedProjectNameForLoading( ){
-    return selectedProjectNameForLoading;
+std::string ProjectHandling::getSelectedProjectName( ){
+    return selectedProjectName;
 }
 
 bool ProjectHandling::savingIsPossible() {
@@ -671,14 +674,15 @@ void ProjectHandling::updateProjectList() {
         
     }
     
-    log( "savedProjectNames.size(): %lu", savedProjectNames.size() );
+    log( "savedProjectNames.size() before erase: %lu", savedProjectNames.size() );
     for ( int i = 0; i < savedProjectNames.size(); i++ ) {
         log( "saved project names before erase: %s", savedProjectNames[i].c_str() );
     }
     
-    // Remove unwanted dirs
+    // Remove unwanted dirs to show on list
     for ( int i = 0; i < savedProjectNames.size(); i++ ) {
         if ( savedProjectNames[i].compare( "Uten tittel" ) == 0 ) {
+            log( "Uten tittel savedProjectNames gets ereased" );
             savedProjectNames.erase( savedProjectNames.begin() + i );
         }
         
@@ -691,7 +695,7 @@ void ProjectHandling::updateProjectList() {
         }
     }
     
-    log( "savedProjectNames.size(): %lu", savedProjectNames.size() );
+    log( "savedProjectNames.size() after: %lu", savedProjectNames.size() );
     for ( int i = 0; i < savedProjectNames.size(); i++ ) {
         log( "saved project names after: %s", savedProjectNames[i].c_str() );
     }
@@ -705,7 +709,7 @@ void ProjectHandling::updateProjectList() {
     
     
     unsigned long amount = savedProjectNames.size();
-    const int membersPrGroup = 5;
+    const int membersPrGroup = 4;
     int groupsFloored = floor( amount / membersPrGroup );
     int leftover = amount % membersPrGroup;
     int groups = 1;
@@ -725,6 +729,7 @@ void ProjectHandling::updateProjectList() {
     
     _totalNrOfPages = groups;
     log( "total nr of pages: %i", _totalNrOfPages );
+    label_projectNamesPageNr->setString( to_string( _currentPageNr ) + " / " + to_string( _totalNrOfPages ) );
 
     unsigned int myPageNr = 1;
     int valCounter = 0;
@@ -775,7 +780,7 @@ void ProjectHandling::cancelBrowseOverlay() {
     for ( int i = 0; i < projectNamesLabel.size(); i++ ) {
         projectNamesLabel[i].label->setColor( Color3B::BLACK );
     }
-    setSelectedProjectNameForLoading( "" );
+    setSelectedProjectName( "" );
     setAprojectIsSelected( false );
     closeBrowseOverlay();
     buttonBg[kButtons_ProjectHandling_Index_Open]->setOpacity( kProjectHandling_Button_TransparantValue );
@@ -783,28 +788,32 @@ void ProjectHandling::cancelBrowseOverlay() {
 }
 
 void ProjectHandling::arrowRightClicked() {
-    _currentPageNr++;
-    label_projectNamesPageNr->setString( to_string( _currentPageNr ) );
-    decideWhichProjectNamesToShow();
-    setSelectedProjectNameForLoading( "" );
-    setAprojectIsSelected( false );
-    buttonBg[kButtons_ProjectHandling_Index_Open]->setOpacity( kProjectHandling_Button_TransparantValue );
-    buttonBg[kButtons_ProjectHandling_Index_Delete]->setOpacity( kProjectHandling_Button_TransparantValue );
-    for ( int i = 0; i < projectNamesLabel.size(); i++ ) {
-        projectNamesLabel[i].label->setColor( Color3B::BLACK );
+    if ( _currentPageNr < _totalNrOfPages ) {
+        _currentPageNr++;
+        label_projectNamesPageNr->setString( to_string( _currentPageNr ) + " / " + to_string( _totalNrOfPages ) );
+        decideWhichProjectNamesToShow();
+        setSelectedProjectName( "" );
+        setAprojectIsSelected( false );
+        buttonBg[kButtons_ProjectHandling_Index_Open]->setOpacity( kProjectHandling_Button_TransparantValue );
+        buttonBg[kButtons_ProjectHandling_Index_Delete]->setOpacity( kProjectHandling_Button_TransparantValue );
+        for ( int i = 0; i < projectNamesLabel.size(); i++ ) {
+            projectNamesLabel[i].label->setColor( Color3B::BLACK );
+        }
     }
 }
 
 void ProjectHandling::arrowLeftClicked() {
-    _currentPageNr--;
-    label_projectNamesPageNr->setString( to_string( _currentPageNr ) );
-    decideWhichProjectNamesToShow();
-    setSelectedProjectNameForLoading( "" );
-    setAprojectIsSelected( false );
-    buttonBg[kButtons_ProjectHandling_Index_Open]->setOpacity( kProjectHandling_Button_TransparantValue );
-    buttonBg[kButtons_ProjectHandling_Index_Delete]->setOpacity( kProjectHandling_Button_TransparantValue );
-    for ( int i = 0; i < projectNamesLabel.size(); i++ ) {
-        projectNamesLabel[i].label->setColor( Color3B::BLACK );
+    if ( _currentPageNr > 1 ) {
+        _currentPageNr--;
+        label_projectNamesPageNr->setString( to_string( _currentPageNr ) + " / " + to_string( _totalNrOfPages ) );
+        decideWhichProjectNamesToShow();
+        setSelectedProjectName( "" );
+        setAprojectIsSelected( false );
+        buttonBg[kButtons_ProjectHandling_Index_Open]->setOpacity( kProjectHandling_Button_TransparantValue );
+        buttonBg[kButtons_ProjectHandling_Index_Delete]->setOpacity( kProjectHandling_Button_TransparantValue );
+        for ( int i = 0; i < projectNamesLabel.size(); i++ ) {
+            projectNamesLabel[i].label->setColor( Color3B::BLACK );
+        }
     }
 }
 
@@ -820,6 +829,47 @@ void ProjectHandling::decideWhichProjectNamesToShow() {
         if ( projectNamesLabel[i].label->isVisible() ) {
             projectNamesLabel[i].setPosToTop();
         }
+    }
+    
+}
+
+void ProjectHandling::deleteProject( std::string projectName, std::string currentProjectName ) {
+    
+    log( "delete project: %s", projectName.c_str() );
+    
+    if ( projectName.compare( currentProjectName ) != 0 ) {
+        
+        FileUtils *fileUtils = FileUtils::getInstance();
+        std::string writablePath = fileUtils->getWritablePath();
+        std::string projectFullPath = writablePath + projectName;
+        log( "full path project to delete: %s", projectFullPath.c_str() );
+        if ( fileUtils->isDirectoryExist( projectFullPath ) ) {
+            fileUtils->removeDirectory( projectFullPath );
+        }
+        
+        for ( int i = 0; i < projectNamesLabel.size(); i++ ) {
+            _layer->removeChild( projectNamesLabel[i].label );
+        }
+        projectNamesLabel.clear();
+        
+        updateProjectList();
+        decideWhichProjectNamesToShow();
+        setSelectedProjectName( "" );
+        setAprojectIsSelected( false );
+        buttonBg[kButtons_ProjectHandling_Index_Open]->setOpacity( kProjectHandling_Button_TransparantValue );
+        buttonBg[kButtons_ProjectHandling_Index_Delete]->setOpacity( kProjectHandling_Button_TransparantValue );
+        for ( int i = 0; i < projectNamesLabel.size(); i++ ) {
+            projectNamesLabel[i].label->setColor( Color3B::BLACK );
+        }
+        
+        if ( _currentPageNr > _totalNrOfPages ) {
+            _currentPageNr = _totalNrOfPages;
+            label_projectNamesPageNr->setString( to_string( _currentPageNr ) + " / " + to_string( _totalNrOfPages ) );
+            decideWhichProjectNamesToShow();
+        }
+        
+    } else {
+        log( "can not delete a project that is currently open" );
     }
     
 }

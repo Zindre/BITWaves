@@ -27,8 +27,8 @@ public:
     void openKeyboard();
     void closeSaveOverlay();
     void closeBrowseOverlay();
-    void setSelectedProjectNameForLoading( std::string projectName );
-    std::string getSelectedProjectNameForLoading();
+    void setSelectedProjectName( std::string projectName );
+    std::string getSelectedProjectName();
     bool savingIsPossible();
     bool aProjectIsSelected();
     void setAprojectIsSelected( bool aProjectIsSelected );
@@ -37,6 +37,7 @@ public:
     void cancelBrowseOverlay();
     void arrowRightClicked();
     void arrowLeftClicked();
+    void deleteProject( std::string projectName, std::string currentProjectName );
     
     cocos2d::Sprite *closeCross;
     cocos2d::TextFieldTTF *textField;
@@ -68,7 +69,7 @@ private:
     cocos2d::Sprite *overlayBrowse;
     cocos2d::Label *label_instructTyping;
     std::vector<std::string> savedProjectNames;
-    std::string selectedProjectNameForLoading;
+    std::string selectedProjectName;
     bool _savingIsPossible;
     bool _aProjectIsSelected;
     cocos2d::Layer *_layer;

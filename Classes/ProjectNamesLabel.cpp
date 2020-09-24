@@ -18,7 +18,7 @@ ProjectNamesLabel::ProjectNamesLabel( cocos2d::Layer *layer, std::string project
     label->setAnchorPoint( Vec2( 0.0, 1.0 ) );
     label->setColor( Color3B::BLACK );
     label->setPosition( Vec2( origin.x + visibleSize.width * 0.2, origin.y + ((visibleSize.height * 0.7) - ((label->getBoundingBox().size.height + _padding) * index ) ) ) );
-    layer->addChild( label, kLayer_ProjectHandling_LoadOverlay );
+    layer->addChild( label, kLayer_ProjectHandling_BrowseOverlay );
     
     /*button = cocos2d::ui::Button::create( "buttonBg.png", "buttonBg.png" );
     button->setTitleText( _projectName );
@@ -48,7 +48,7 @@ ProjectNamesLabel::ProjectNamesLabel( cocos2d::Layer *layer, std::string project
                             break;
             }
     });
-    scrollView->addChild( button, kLayer_ProjectHandling_LoadOverlay );*/
+    scrollView->addChild( button, kLayer_ProjectHandling_BrowseOverlay );*/
     
     
     

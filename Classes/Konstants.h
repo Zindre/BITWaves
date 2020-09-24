@@ -11,7 +11,7 @@
 #define kLayer_ConfirmRec 10
 #define kLayer_ProjectHandling 11
 #define kLayer_ProjectHandling_SaveOverlay 12
-#define kLayer_ProjectHandling_LoadOverlay 13
+#define kLayer_ProjectHandling_BrowseOverlay 13
 #define kLayer_HelpOverlayBorder 14
 #define kLayer_HelpOverlay 15
 #define kLayer_CurrentProjectName 16
@@ -81,5 +81,5 @@
 #define kProjectHandling_State_SaveOverlay_KeyboardOpen 5
 
 #define kProjectHandling_FontSize_Buttons 10
-#define kProjectHandling_FontSize_ProjectNames 8
+#define kProjectHandling_FontSize_ProjectNames 6
 #define kProjectHandling_FontSize_Text 12
