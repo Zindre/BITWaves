@@ -12,9 +12,11 @@
 #define kLayer_ProjectHandling 11
 #define kLayer_ProjectHandling_SaveOverlay 12
 #define kLayer_ProjectHandling_BrowseOverlay 13
-#define kLayer_HelpOverlayBorder 14
-#define kLayer_HelpOverlay 15
-#define kLayer_CurrentProjectName 16
+#define kLayer_ProjectHandling_NameBg 14
+#define kLayer_ProjectHandling_NameLabel 15
+#define kLayer_HelpOverlayBorder 16
+#define kLayer_HelpOverlay 17
+#define kLayer_CurrentProjectName 18
 
 #define kTouch_NumOfTouchesAllowed 11
 #define kPitchMin 0.1f
@@ -81,5 +83,5 @@
 #define kProjectHandling_State_SaveOverlay_KeyboardOpen 5
 
 #define kProjectHandling_FontSize_Buttons 10
-#define kProjectHandling_FontSize_ProjectNames 6
+#define kProjectHandling_FontSize_ProjectNames 7
 #define kProjectHandling_FontSize_Text 12

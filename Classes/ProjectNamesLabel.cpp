@@ -15,10 +15,17 @@ ProjectNamesLabel::ProjectNamesLabel( cocos2d::Layer *layer, std::string project
     
     label = cocos2d::Label::createWithTTF( projectName, "fonts/arial.ttf", kProjectHandling_FontSize_ProjectNames );
     _padding = label->getBoundingBox().size.height;
-    label->setAnchorPoint( Vec2( 0.0, 1.0 ) );
-    label->setColor( Color3B::BLACK );
+    label->setAnchorPoint( Vec2( 0.0, 0.5 ) );
+    label->setColor( Color3B::WHITE );
     label->setPosition( Vec2( origin.x + visibleSize.width * 0.2, origin.y + ((visibleSize.height * 0.7) - ((label->getBoundingBox().size.height + _padding) * index ) ) ) );
-    layer->addChild( label, kLayer_ProjectHandling_BrowseOverlay );
+    layer->addChild( label, kLayer_ProjectHandling_NameLabel );
+    
+    squareBg = Sprite::create( "square1px.png" );
+    squareBg->setTextureRect( Rect( 0, 0, visibleSize.width * 0.3, label->getBoundingBox().size.height * 1.5 ) );
+    squareBg->setAnchorPoint( Vec2( 0.0, 0.5 ) );
+    squareBg->setPosition( Vec2( label->getPosition().x - visibleSize.width * 0.01, label->getPosition().y ) );
+    squareBg->setColor( Color3B( 74, 74, 74 ) );
+    layer->addChild( squareBg, kLayer_ProjectHandling_NameBg );
     
     /*button = cocos2d::ui::Button::create( "buttonBg.png", "buttonBg.png" );
     button->setTitleText( _projectName );
@@ -57,10 +64,12 @@ ProjectNamesLabel::ProjectNamesLabel( cocos2d::Layer *layer, std::string project
 
 void ProjectNamesLabel::show() {
     label->setVisible( true );
+    squareBg->setVisible( true );
 }
 
 void ProjectNamesLabel::hide() {
     label->setVisible( false );
+    squareBg->setVisible( false );
 }
 
 std::string ProjectNamesLabel::getProjectName() {

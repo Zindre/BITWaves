@@ -149,24 +149,25 @@ void InstrumentScene::onTouchesBegan( const std::vector<Touch*>& touches, Event*
                     // MAIN SCREEN //
                     if ( projectHandling->getState() == kProjectHandling_State_MainScreen ) {
                         
+                        projectHandling->setTouchStartPos( touch->getLocation() );
+                        
                         // SAVE
                         if ( projectHandling->savingIsPossible() ) {
                             if ( projectHandling->buttonBg[kButtons_ProjectHandling_Index_Save]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
-                                projectHandling->showSaveOverlay();
+                                projectHandling->setButtonTouchHasBegun( true, kButtons_ProjectHandling_Index_Save );
                             }
                         }
                         
                         // BROWSE
                         if ( projectHandling->buttonBg[kButtons_ProjectHandling_Index_Browse]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
-                            projectHandling->showBrowseOverlay();
+                            projectHandling->setButtonTouchHasBegun( true, kButtons_ProjectHandling_Index_Browse );
+                            
                         }
                         
                         // NEW
                         if ( projectHandling->buttonBg[kButtons_ProjectHandling_Index_New]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
-                            projectHandling->createNewProject();
-                            mainMenu->setCurrentProjectName( "Uten tittel" );
-                            auto scene = InstrumentScene::createScene();
-                            Director::getInstance()->replaceScene( scene );
+                            projectHandling->setButtonTouchHasBegun( true, kButtons_ProjectHandling_Index_New );
+                            
                         }
                         
                         // CLOSE CROSS
@@ -178,21 +179,21 @@ void InstrumentScene::onTouchesBegan( const std::vector<Touch*>& touches, Event*
                     // SAVE OVERLAY
                     } else if ( projectHandling->getState() == kProjectHandling_State_SaveOverlay ) {
                         
+                        // TEXT FIELD
                         if ( projectHandling->textFieldArea->getBoundingBox().containsPoint( touch->getLocation() ) ) {
                             projectHandling->openKeyboard();
                         }
                         
+                        // CONFIRM SAVE
                         if ( projectHandling->textField->getCharCount() != 0 ) {
                             if ( projectHandling->buttonBg[kButtons_ProjectHandling_Index_ConfirmSave]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
-                                projectHandling->saveNewProject();
-                                mainMenu->setCurrentProjectName( projectHandling->getTextFieldString() );
-                                projectHandling->closeSaveOverlay();
+                                projectHandling->setButtonTouchHasBegun( true, kButtons_ProjectHandling_Index_ConfirmSave );
                             }
                         }
                         
                         // CANCEL BUTTON
                         if ( projectHandling->buttonBg[kButtons_ProjectHandling_Index_Cancel]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
-                           projectHandling->cancelSaveOverlay();
+                            projectHandling->setButtonTouchHasBegun( true, kButtons_ProjectHandling_Index_Cancel );
                         }
                        
                         
@@ -203,11 +204,11 @@ void InstrumentScene::onTouchesBegan( const std::vector<Touch*>& touches, Event*
                             
                             // CHOOSE PROJECT
                             if ( projectHandling->projectNamesLabel[i].label->isVisible() ) {
-                                if ( projectHandling->projectNamesLabel[i].label->getBoundingBox().containsPoint( touch->getLocation() ) ) {
+                                if ( projectHandling->projectNamesLabel[i].squareBg->getBoundingBox().containsPoint( touch->getLocation() ) ) {
                                     for ( int j = 0; j < projectHandling->projectNamesLabel.size(); j++ ) {
-                                        projectHandling->projectNamesLabel[j].label->setColor( Color3B::BLACK );
+                                        projectHandling->projectNamesLabel[j].squareBg->setColor( Color3B( 74, 74, 74 ) );
                                     }
-                                    projectHandling->projectNamesLabel[i].label->setColor( Color3B::YELLOW );
+                                    projectHandling->projectNamesLabel[i].squareBg->setColor( Color3B( 0, 0, 0 ) );
                                     projectHandling->setSelectedProjectName( projectHandling->projectNamesLabel[i].label->getString() );
                                     if ( projectHandling->getSelectedProjectName().compare( mainMenu->getCurrentProjectName() ) == 0 ) {
                                         projectHandling->buttonBg[kButtons_ProjectHandling_Index_Open]->setOpacity( kProjectHandling_Button_TransparantValue );
@@ -232,23 +233,20 @@ void InstrumentScene::onTouchesBegan( const std::vector<Touch*>& touches, Event*
                         // OPEN
                         if ( projectHandling->aProjectIsSelected() ) {
                             if ( projectHandling->buttonBg[kButtons_ProjectHandling_Index_Open]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
-                                projectHandling->loadSavedProject();
-                                mainMenu->setCurrentProjectName( projectHandling->getSelectedProjectName() );
-                                auto scene = InstrumentScene::createScene();
-                                Director::getInstance()->replaceScene( scene );
+                                projectHandling->setButtonTouchHasBegun( true, kButtons_ProjectHandling_Index_Open );
                             }
                         }
                         
                         // DELETE
                         if ( projectHandling->aProjectIsSelected() ) {
                             if ( projectHandling->buttonBg[kButtons_ProjectHandling_Index_Delete]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
-                                projectHandling->deleteProject( projectHandling->getSelectedProjectName(), mainMenu->getCurrentProjectName() );
+                                projectHandling->setButtonTouchHasBegun( true, kButtons_ProjectHandling_Index_Delete );
                             }
                         }
                         
-                        // CANCEL BUTTON
+                        // CANCEL
                         if ( projectHandling->buttonBg[kButtons_ProjectHandling_Index_Cancel]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
-                            projectHandling->cancelBrowseOverlay();
+                            projectHandling->setButtonTouchHasBegun( true, kButtons_ProjectHandling_Index_Cancel );
                         }
                         
                         // ARROW LEFT
@@ -382,35 +380,43 @@ void InstrumentScene::onTouchesMoved( const std::vector<Touch*> &touches, Event*
             
             if ( ! mainMenu->helpOverlayIsVisible ) {
             
-                if ( mainMenu->instrumentArea->getBoundingBox().containsPoint( touch->getLocation() ) ) {
+                
+                // PROJECT HANDLING
+                if ( projectHandling->isShowing() ) {
                     
-                    // INSTRUMENT AREA
+                    projectHandling->abortWithTouchMove( touch->getLocation() );
                     
-                    if ( ! FMODAudioEngine::isRecording() ) {
-                        
-                        if ( FMODAudioEngine::hasRecordWav( playingSoundObject[touch->getID()] ) ) {
-
-                            for ( int i = 0; i < circleEmitter.size(); i++ ) {
-                                if ( ! circleEmitter[i].touchHasEnded() ) {
-                                    if ( circleEmitter[i].getTouchID() == touch->getID() ) {
-                                        circleEmitter[i].setPos( touch->getLocation() );
-                                        circleEmitter[i].setPitch( touch->getLocation() );
-                                    }
-
-                                }
-
-                            }
-                        
-                        }
-                        
-                    }
-
-
                 } else {
                     
-                    // MAIN MENU
+                    if ( mainMenu->instrumentArea->getBoundingBox().containsPoint( touch->getLocation() ) ) {
+                        
+                        // INSTRUMENT AREA
+                        
+                        if ( ! FMODAudioEngine::isRecording() ) {
+                            
+                            if ( FMODAudioEngine::hasRecordWav( playingSoundObject[touch->getID()] ) ) {
 
+                                for ( int i = 0; i < circleEmitter.size(); i++ ) {
+                                    if ( ! circleEmitter[i].touchHasEnded() ) {
+                                        if ( circleEmitter[i].getTouchID() == touch->getID() ) {
+                                            circleEmitter[i].setPos( touch->getLocation() );
+                                            circleEmitter[i].setPitch( touch->getLocation() );
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        
+                    } else {
+                        // MAIN MENU
+                    }
+                    
                 }
+                
+                
+                
+                
+                
                 
             }
             
@@ -427,104 +433,179 @@ void InstrumentScene::onTouchesEnded( const std::vector<Touch*> &touches, Event*
             touchIsDown = false;
             
             if ( ! mainMenu->helpOverlayIsVisible ) {
-            
-                // MAIN MENU
-                if ( touch->getID() == 0 ) {
+                
+                // PROJECT HANDLING
+                
+                if ( projectHandling->isShowing() ) {
                     
-                    if ( mainMenu->buttons_image[kButtons_ArrayNum_Rec]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
+                    if ( projectHandling->getState() == kProjectHandling_State_MainScreen ) {
+                        
+                        // SAVE
+                        if ( projectHandling->buttonTouchHasBegun( kButtons_ProjectHandling_Index_Save ) ) {
+                            projectHandling->showSaveOverlay();
+                        }
+                        
+                        // BROWSE
+                        if ( projectHandling->buttonTouchHasBegun( kButtons_ProjectHandling_Index_Browse ) ) {
+                            projectHandling->showBrowseOverlay();
+                        }
+                        
+                        // NEW
+                        if ( projectHandling->buttonTouchHasBegun( kButtons_ProjectHandling_Index_New ) ) {
+                            projectHandling->createNewProject();
+                            mainMenu->setCurrentProjectName( "Uten tittel" );
+                            auto scene = InstrumentScene::createScene();
+                            Director::getInstance()->replaceScene( scene );
+                        }
+                        
+                    // SAVE OVERLAY
+                    } else if ( projectHandling->getState() == kProjectHandling_State_SaveOverlay ) {
+                        
+                        // CONFIRM SAVE
+                        if ( projectHandling->buttonTouchHasBegun( kButtons_ProjectHandling_Index_ConfirmSave ) ) {
+                            projectHandling->saveNewProject();
+                            mainMenu->setCurrentProjectName( projectHandling->getTextFieldString() );
+                            projectHandling->closeSaveOverlay();
+                        }
+                        
+                        // CANCEL BUTTON
+                        if ( projectHandling->buttonTouchHasBegun( kButtons_ProjectHandling_Index_Cancel ) ) {
+                            projectHandling->cancelSaveOverlay();
+                        }
+                        
+                    // BROWSE OVERLAY
+                    } else if ( projectHandling->getState() == kProjectHandling_State_LoadOverlay ) {
+                        
+                        // OPEN
+                        if ( projectHandling->buttonTouchHasBegun( kButtons_ProjectHandling_Index_Open ) ) {
+                            projectHandling->loadSavedProject();
+                            mainMenu->setCurrentProjectName( projectHandling->getSelectedProjectName() );
+                            auto scene = InstrumentScene::createScene();
+                            Director::getInstance()->replaceScene( scene );
+                        }
+                        
+                        // DELETE
+                        if ( projectHandling->buttonTouchHasBegun( kButtons_ProjectHandling_Index_Delete ) ) {
+                            projectHandling->deleteProject( projectHandling->getSelectedProjectName(), mainMenu->getCurrentProjectName() );
+                        }
+                        
+                        // CANCEL
+                        if ( projectHandling->buttonTouchHasBegun( kButtons_ProjectHandling_Index_Cancel ) ) {
+                            projectHandling->cancelBrowseOverlay();
+                        }
+                        
+                    }
+                    
+                    
+                    // Touch bagan to false
+                    for ( int i = 0; i < kButtons_ProjectHandling_NumOf; i++ ) {
+                        projectHandling->setButtonTouchHasBegun( false, i );
+                        projectHandling->buttonBg[i]->setScale( 1.0 );
+                        projectHandling->label_buttons[i]->setScale( 1.0 );
+                    }
+                    
+                } else {
+                    
+                    
+                    // MAIN MENU
+                    if ( touch->getID() == 0 ) {
+                        
+                        if ( mainMenu->buttons_image[kButtons_ArrayNum_Rec]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
+                            if ( ! FMODAudioEngine::isRecording() ) {
+                                if ( mainMenu->getTouchHasBegun( kButtons_ArrayNum_Rec ) ) {
+                                    mainMenu->buttons_image[kButtons_ArrayNum_Rec]->setColor( Color3B::RED );
+                                    FMODAudioEngine::recordStart( mainMenu->getCurrentProjectName(), mainMenu->getActiveSoundObject() );
+                                    mainMenu->buttons_image[kButtons_ArrayNum_Seq]->setColor( Color3B( kButtons_GrayedOutValue, kButtons_GrayedOutValue, kButtons_GrayedOutValue ) );
+                                    mainMenu->buttons_image[kButtons_ArrayNum_Help]->setColor( Color3B( kButtons_GrayedOutValue, kButtons_GrayedOutValue, kButtons_GrayedOutValue ) );
+                                    mainMenu->buttons_image[kButtons_ArrayNum_Projects]->setColor( Color3B( kButtons_GrayedOutValue, kButtons_GrayedOutValue, kButtons_GrayedOutValue ) );
+                                    mainMenu->buttons_image[kButtons_ArrayNum_Lock]->setColor( Color3B( kButtons_GrayedOutValue, kButtons_GrayedOutValue, kButtons_GrayedOutValue ) );
+                                    mainMenu->buttons_image[kButtons_ArrayNum_Stop]->setVisible( true );
+                                }
+                            }
+                        }
+                        
+                        
+                        if ( ! FMODAudioEngine::isRecording() && !mainMenu->buttons_image[kButtons_ArrayNum_Rec]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
+                            mainMenu->buttons_image[kButtons_ArrayNum_Rec]->setScale( 1.0f );
+                        }
+                        
+                        
+                        if ( FMODAudioEngine::isRecording() ) {
+                            if ( mainMenu->buttons_image[kButtons_ArrayNum_Stop]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
+                                if ( mainMenu->getTouchHasBegun( kButtons_ArrayNum_Stop ) ) {
+                                    stopRecording();
+                                }
+                            }
+                        }
+
+                    
                         if ( ! FMODAudioEngine::isRecording() ) {
-                            if ( mainMenu->getTouchHasBegun( kButtons_ArrayNum_Rec ) ) {
-                                mainMenu->buttons_image[kButtons_ArrayNum_Rec]->setColor( Color3B::RED );
-                                FMODAudioEngine::recordStart( mainMenu->getCurrentProjectName(), mainMenu->getActiveSoundObject() );
-                                mainMenu->buttons_image[kButtons_ArrayNum_Seq]->setColor( Color3B( kButtons_GrayedOutValue, kButtons_GrayedOutValue, kButtons_GrayedOutValue ) );
-                                mainMenu->buttons_image[kButtons_ArrayNum_Help]->setColor( Color3B( kButtons_GrayedOutValue, kButtons_GrayedOutValue, kButtons_GrayedOutValue ) );
-                                mainMenu->buttons_image[kButtons_ArrayNum_Projects]->setColor( Color3B( kButtons_GrayedOutValue, kButtons_GrayedOutValue, kButtons_GrayedOutValue ) );
-                                mainMenu->buttons_image[kButtons_ArrayNum_Lock]->setColor( Color3B( kButtons_GrayedOutValue, kButtons_GrayedOutValue, kButtons_GrayedOutValue ) );
-                                mainMenu->buttons_image[kButtons_ArrayNum_Stop]->setVisible( true );
-                            }
-                        }
-                    }
-                    
-                    
-                    if ( ! FMODAudioEngine::isRecording() && !mainMenu->buttons_image[kButtons_ArrayNum_Rec]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
-                        mainMenu->buttons_image[kButtons_ArrayNum_Rec]->setScale( 1.0f );
-                    }
-                    
-                    
-                    if ( FMODAudioEngine::isRecording() ) {
-                        if ( mainMenu->buttons_image[kButtons_ArrayNum_Stop]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
-                            if ( mainMenu->getTouchHasBegun( kButtons_ArrayNum_Stop ) ) {
-                                stopRecording();
-                            }
-                        }
-                    }
-
-                
-                    if ( ! FMODAudioEngine::isRecording() ) {
-                        if ( mainMenu->buttons_image[kButtons_ArrayNum_Seq]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
-                            if ( mainMenu->getTouchHasBegun( kButtons_ArrayNum_Seq ) ) {
-                                auto scene = SequencerScene::createScene();
-                                Director::getInstance()->replaceScene( scene );
-                            }
-                        }
-                        
-                        if ( mainMenu->buttons_image[kButtons_ArrayNum_Help]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
-                            if ( mainMenu->getTouchHasBegun( kButtons_ArrayNum_Help ) ) {
-                                mainMenu->helpOverlayIsVisible = true;
-                                //mainMenu->helpOverlay->setVisible( true );
-                                mainMenu->helpOverlay->show();
-                            }
-                        }
-                        
-                        if ( mainMenu->buttons_image[kButtons_ArrayNum_Lock]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
-                            if ( mainMenu->getTouchHasBegun( kButtons_ArrayNum_Lock ) ) {
-                                if ( ! recIsLocked ) {
-                                    recIsLocked = true;
-                                    mainMenu->buttons_image[kButtons_ArrayNum_Lock]->setTexture( "lockButton.png" );
-                                    mainMenu->buttons_image[kButtons_ArrayNum_Rec]->setOpacity( kProjectHandling_Button_TransparantValue );
-                                } else {
-                                    recIsLocked = false;
-                                    mainMenu->buttons_image[kButtons_ArrayNum_Lock]->setTexture( "unLockButton.png" );
-                                    mainMenu->buttons_image[kButtons_ArrayNum_Rec]->setOpacity( 255 );
+                            if ( mainMenu->buttons_image[kButtons_ArrayNum_Seq]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
+                                if ( mainMenu->getTouchHasBegun( kButtons_ArrayNum_Seq ) ) {
+                                    auto scene = SequencerScene::createScene();
+                                    Director::getInstance()->replaceScene( scene );
                                 }
                             }
-                        }
-                        
-                        if ( mainMenu->buttons_image[kButtons_ArrayNum_Projects]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
-                            if ( mainMenu->getTouchHasBegun( kButtons_ArrayNum_Projects ) ) {
-                                if ( ! projectHandling->isShowing() ) {
-                                    projectHandling->show();
+                            
+                            if ( mainMenu->buttons_image[kButtons_ArrayNum_Help]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
+                                if ( mainMenu->getTouchHasBegun( kButtons_ArrayNum_Help ) ) {
+                                    mainMenu->helpOverlayIsVisible = true;
+                                    //mainMenu->helpOverlay->setVisible( true );
+                                    mainMenu->helpOverlay->show();
                                 }
                             }
+                            
+                            if ( mainMenu->buttons_image[kButtons_ArrayNum_Lock]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
+                                if ( mainMenu->getTouchHasBegun( kButtons_ArrayNum_Lock ) ) {
+                                    if ( ! recIsLocked ) {
+                                        recIsLocked = true;
+                                        mainMenu->buttons_image[kButtons_ArrayNum_Lock]->setTexture( "lockButton.png" );
+                                        mainMenu->buttons_image[kButtons_ArrayNum_Rec]->setOpacity( kProjectHandling_Button_TransparantValue );
+                                    } else {
+                                        recIsLocked = false;
+                                        mainMenu->buttons_image[kButtons_ArrayNum_Lock]->setTexture( "unLockButton.png" );
+                                        mainMenu->buttons_image[kButtons_ArrayNum_Rec]->setOpacity( 255 );
+                                    }
+                                }
+                            }
+                            
+                            if ( mainMenu->buttons_image[kButtons_ArrayNum_Projects]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
+                                if ( mainMenu->getTouchHasBegun( kButtons_ArrayNum_Projects ) ) {
+                                    if ( ! projectHandling->isShowing() ) {
+                                        projectHandling->show();
+                                    }
+                                }
+                            }
+                            
+                            
+                            
                         }
-                        
-                        
-                        
-                    }
 
-                }
-                
-                
-                mainMenu->buttons_image[kButtons_ArrayNum_Stop]->setScale( 1.0f );
-                mainMenu->buttons_image[kButtons_ArrayNum_Seq]->setScale( 1.0f );
-                mainMenu->buttons_image[kButtons_ArrayNum_Help]->setScale( 1.0f );
-                mainMenu->buttons_image[kButtons_ArrayNum_Lock]->setScale( 1.0f );
-                mainMenu->buttons_image[kButtons_ArrayNum_Projects]->setScale( 1.0f );
-                mainMenu->setTouchHasBegun( false, kButtons_ArrayNum_Rec );
-                mainMenu->setTouchHasBegun( false, kButtons_ArrayNum_Stop );
-                mainMenu->setTouchHasBegun( false, kButtons_ArrayNum_Seq );
-                mainMenu->setTouchHasBegun( false, kButtons_ArrayNum_Help );
-                mainMenu->setTouchHasBegun( false, kButtons_ArrayNum_Lock );
-                mainMenu->setTouchHasBegun( false, kButtons_ArrayNum_Projects );
-                
-                for ( int i = 0; i < circleEmitter.size(); i++ ) {
-                    if ( circleEmitter[i].getTouchID() == touch->getID() ) {
-                        circleEmitter[i].setTouchHasEnded( true );
-                        circleEmitter[i].fadeOut();
                     }
-                }
+                    
+                    
+                    mainMenu->buttons_image[kButtons_ArrayNum_Stop]->setScale( 1.0f );
+                    mainMenu->buttons_image[kButtons_ArrayNum_Seq]->setScale( 1.0f );
+                    mainMenu->buttons_image[kButtons_ArrayNum_Help]->setScale( 1.0f );
+                    mainMenu->buttons_image[kButtons_ArrayNum_Lock]->setScale( 1.0f );
+                    mainMenu->buttons_image[kButtons_ArrayNum_Projects]->setScale( 1.0f );
+                    mainMenu->setTouchHasBegun( false, kButtons_ArrayNum_Rec );
+                    mainMenu->setTouchHasBegun( false, kButtons_ArrayNum_Stop );
+                    mainMenu->setTouchHasBegun( false, kButtons_ArrayNum_Seq );
+                    mainMenu->setTouchHasBegun( false, kButtons_ArrayNum_Help );
+                    mainMenu->setTouchHasBegun( false, kButtons_ArrayNum_Lock );
+                    mainMenu->setTouchHasBegun( false, kButtons_ArrayNum_Projects );
+                    
+                    for ( int i = 0; i < circleEmitter.size(); i++ ) {
+                        if ( circleEmitter[i].getTouchID() == touch->getID() ) {
+                            circleEmitter[i].setTouchHasEnded( true );
+                            circleEmitter[i].fadeOut();
+                        }
+                    }
+                    
+                    
             
-                
+                }
                 
             } else {
                 

@@ -38,6 +38,10 @@ public:
     void arrowRightClicked();
     void arrowLeftClicked();
     void deleteProject( std::string projectName, std::string currentProjectName );
+    bool buttonTouchHasBegun( int whatButton );
+    void setButtonTouchHasBegun( bool touchHasBegun, int whatButton );
+    void setTouchStartPos( cocos2d::Vec2 touchPos );
+    void abortWithTouchMove( Vec2 touchPos );
     
     cocos2d::Sprite *closeCross;
     cocos2d::TextFieldTTF *textField;
@@ -52,11 +56,11 @@ public:
 private:
     
     void touchEvent( Ref *pSender, cocos2d::ui::Widget::TouchEventType type );
-    
     void loadCurrentData();
     void saveCurrentToOpenProject();
     void updateProjectList();
     void decideWhichProjectNamesToShow();
+    
     
     cocos2d::Size visibleSize;
     cocos2d::Vec2 origin;
@@ -79,6 +83,8 @@ private:
     cocos2d::Label *label_projectNamesPageNr;
     unsigned int _currentPageNr;
     unsigned int _totalNrOfPages;
+    bool _buttonTouchHasBegun[kButtons_ProjectHandling_NumOf];
+    cocos2d::Vec2 _touchStartPos;
     
     
 

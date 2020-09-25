@@ -23,6 +23,7 @@ public:
     void setPosToTop();
     
     cocos2d::Label *label;
+    cocos2d::Sprite *squareBg;
     //cocos2d::ui::Button *button;
 
 private:

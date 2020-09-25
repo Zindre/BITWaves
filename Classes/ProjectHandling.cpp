@@ -109,17 +109,20 @@ ProjectHandling::ProjectHandling( Layer *layer ) {
     
     arrowLeft = Sprite::create( "arrow.png" );
     arrowLeft->setFlippedX( true );
+    arrowLeft->setAnchorPoint( Vec2( 0.0, 0.0 ) );
     arrowLeft->setPosition( Vec2( overlayBrowse->getPosition().x - (overlayBrowseSize.width * 0.5), overlayBrowse->getPosition().y - (overlayBrowseSize.height * 0.5) ) );
     arrowLeft->setVisible( false );
     layer->addChild( arrowLeft, kLayer_ProjectHandling_BrowseOverlay );
     
     arrowRight = Sprite::create( "arrow.png" );
+    arrowRight->setAnchorPoint( Vec2( 0.5, 0.0 ) );
     arrowRight->setPosition( Vec2( overlayBrowse->getPosition().x, overlayBrowse->getPosition().y - (overlayBrowseSize.height * 0.5) ) );
     arrowRight->setVisible( false );
     layer->addChild( arrowRight, kLayer_ProjectHandling_BrowseOverlay );
     
-    label_projectNamesPageNr = Label::createWithTTF( "1", "fonts/arial.ttf", kProjectHandling_FontSize_Text );
-    label_projectNamesPageNr->setPosition( Vec2( overlayBrowse->getPosition().x - (overlayBrowseSize.width * 0.25), overlayBrowse->getPosition().y - (overlayBrowseSize.height * 0.5) ) );
+    label_projectNamesPageNr = Label::createWithTTF( "1/1", "fonts/arial.ttf", kProjectHandling_FontSize_Text );
+    label_projectNamesPageNr->setAnchorPoint( Vec2( 0.5, 0.5 ) );
+    label_projectNamesPageNr->setPosition( Vec2( arrowLeft->getPosition().x + overlayBrowseSize.width * 0.25, arrowLeft->getPosition().y + (arrowLeft->getBoundingBox().size.height * 0.5) ) );
     label_projectNamesPageNr->setVisible( false );
     label_projectNamesPageNr->setColor( Color3B::BLACK );
     layer->addChild( label_projectNamesPageNr, kLayer_ProjectHandling_BrowseOverlay );
@@ -159,7 +162,10 @@ ProjectHandling::ProjectHandling( Layer *layer ) {
     _isShowing = false;
     _currentPageNr = 1;
     _totalNrOfPages = 1;
-    
+    for ( int i = 0; i < kButtons_ProjectHandling_NumOf; i++ ) {
+        _buttonTouchHasBegun[i] = false;
+    }
+    _touchStartPos = Vec2( 0.0, 0.0 );
     
     
     loadCurrentData();
@@ -557,6 +563,8 @@ void ProjectHandling::showSaveOverlay() {
     label_buttons[kButtons_ProjectHandling_Index_ConfirmSave]->setVisible( true );
     buttonBg[kButtons_ProjectHandling_Index_Cancel]->setVisible( true );
     label_buttons[kButtons_ProjectHandling_Index_Cancel]->setVisible( true );
+    buttonBg[kButtons_ProjectHandling_Index_Cancel]->setPosition( Vec2( overlaySave->getPosition().x + (buttonBg[0]->getBoundingBox().size.width * 0.5) + padding, overlaySave->getPosition().y - buttonBg[0]->getBoundingBox().size.height  ) );
+    label_buttons[kButtons_ProjectHandling_Index_Cancel]->setPosition( buttonBg[kButtons_ProjectHandling_Index_Cancel]->getPosition() );
     _whatState = kProjectHandling_State_SaveOverlay;
     textFieldArea->setVisible( true );
 }
@@ -709,7 +717,7 @@ void ProjectHandling::updateProjectList() {
     
     
     unsigned long amount = savedProjectNames.size();
-    const int membersPrGroup = 4;
+    const int membersPrGroup = 10;
     int groupsFloored = floor( amount / membersPrGroup );
     int leftover = amount % membersPrGroup;
     int groups = 1;
@@ -849,6 +857,7 @@ void ProjectHandling::deleteProject( std::string projectName, std::string curren
         
         for ( int i = 0; i < projectNamesLabel.size(); i++ ) {
             _layer->removeChild( projectNamesLabel[i].label );
+            _layer->removeChild( projectNamesLabel[i].squareBg );
         }
         projectNamesLabel.clear();
         
@@ -859,7 +868,7 @@ void ProjectHandling::deleteProject( std::string projectName, std::string curren
         buttonBg[kButtons_ProjectHandling_Index_Open]->setOpacity( kProjectHandling_Button_TransparantValue );
         buttonBg[kButtons_ProjectHandling_Index_Delete]->setOpacity( kProjectHandling_Button_TransparantValue );
         for ( int i = 0; i < projectNamesLabel.size(); i++ ) {
-            projectNamesLabel[i].label->setColor( Color3B::BLACK );
+            projectNamesLabel[i].label->setColor( Color3B::WHITE );
         }
         
         if ( _currentPageNr > _totalNrOfPages ) {
@@ -872,4 +881,35 @@ void ProjectHandling::deleteProject( std::string projectName, std::string curren
         log( "can not delete a project that is currently open" );
     }
     
+}
+
+bool ProjectHandling::buttonTouchHasBegun( int whatButton ) {
+    return _buttonTouchHasBegun[whatButton];
+}
+
+void ProjectHandling::setButtonTouchHasBegun( bool touchHasBegun, int whatButton ) {
+    _buttonTouchHasBegun[whatButton] = touchHasBegun;
+    buttonBg[whatButton]->setScale( 1.1 );
+    label_buttons[whatButton]->setScale( 1.1 );
+}
+
+void ProjectHandling::abortWithTouchMove( Vec2 touchPos ) {
+    
+    Vec2 stopPos = touchPos;
+    float distX = _touchStartPos.x - stopPos.x;
+    float distY = _touchStartPos.y - stopPos.y;
+    float touchMoveTolerance = visibleSize.width * 0.05f;
+    
+    if ( abs( distX ) + abs( distY ) > touchMoveTolerance ) {
+        for ( int i = 0; i < kNumOfButtons; i++ ) {
+            _buttonTouchHasBegun[i] = false;
+            buttonBg[i]->setScale( 1.0 );
+            label_buttons[i]->setScale( 1.0 );
+        }
+    }
+        
+}
+
+void ProjectHandling::setTouchStartPos( Vec2 touchPos ) {
+    _touchStartPos = touchPos;
 }
