@@ -1,31 +1,37 @@
 #include "ProjectNamesLabel.hpp"
 
-ProjectNamesLabel::ProjectNamesLabel( cocos2d::Layer *layer, std::string projectName, int index, unsigned int myPageNr, unsigned int pageIndex ) {
+ProjectNamesLabel::ProjectNamesLabel( cocos2d::Layer *layer, std::string projectName, int index, unsigned int myPageNr, unsigned int pageIndex, cocos2d::Size overlayBrowseSize, cocos2d::Vec2 overlayBrowsePos ) {
     
     visibleSize = Director::getInstance()->getSafeAreaRect().size;
     origin = Director::getInstance()->getSafeAreaRect().origin;
     
-    _projectName = projectName;
-    _index = index;
-    _isTouched = false;
     _myPageNr = myPageNr;
     _pageIndex = pageIndex;
+    _projectNameFullString = projectName;
     
-    log( "project name: %s - index: %i - page nr: %i", projectName.c_str(), _index, _myPageNr );
+    log( "project name: %s - index: %i - page nr: %i", projectName.c_str(), index, _myPageNr );
     
-    label = cocos2d::Label::createWithTTF( projectName, "fonts/arial.ttf", kProjectHandling_FontSize_ProjectNames );
+    int maxStringLength = 40;
+    std::string shortString = "";
+    if ( projectName.length() > maxStringLength ) {
+        shortString = projectName.substr ( 0, maxStringLength ) + "...";
+    } else {
+        shortString = projectName;
+    }
+    
+    label = cocos2d::Label::createWithTTF( shortString, "fonts/arial.ttf", kProjectHandling_FontSize_ProjectNames );
     _padding = label->getBoundingBox().size.height;
     label->setAnchorPoint( Vec2( 0.0, 0.5 ) );
     label->setColor( Color3B::WHITE );
-    label->setPosition( Vec2( origin.x + visibleSize.width * 0.2, origin.y + ((visibleSize.height * 0.7) - ((label->getBoundingBox().size.height + _padding) * index ) ) ) );
+    label->setPosition( Vec2( overlayBrowsePos.x - (overlayBrowseSize.width * 0.5), ( (overlayBrowsePos.y + (overlayBrowseSize.height * 0.5) ) - ( (label->getBoundingBox().size.height + _padding) * index ) ) ) );
     layer->addChild( label, kLayer_ProjectHandling_NameLabel );
     
     squareBg = Sprite::create( "square1px.png" );
     squareBg->setTextureRect( Rect( 0, 0, visibleSize.width * 0.3, label->getBoundingBox().size.height * 1.5 ) );
     squareBg->setAnchorPoint( Vec2( 0.0, 0.5 ) );
-    squareBg->setPosition( Vec2( label->getPosition().x - visibleSize.width * 0.01, label->getPosition().y ) );
     squareBg->setColor( Color3B( 74, 74, 74 ) );
     layer->addChild( squareBg, kLayer_ProjectHandling_NameBg );
+    setSquareBgPos();
     
     /*button = cocos2d::ui::Button::create( "buttonBg.png", "buttonBg.png" );
     button->setTitleText( _projectName );
@@ -72,22 +78,19 @@ void ProjectNamesLabel::hide() {
     squareBg->setVisible( false );
 }
 
-std::string ProjectNamesLabel::getProjectName() {
-    return _projectName;
-}
-
-int ProjectNamesLabel::getIndex() {
-    return _index;
-}
-
-bool ProjectNamesLabel::isTouched() {
-    return _isTouched;
-}
-
 unsigned int ProjectNamesLabel::getMyPageNr() {
     return _myPageNr;
 }
 
 void ProjectNamesLabel::setPosToTop() {
     label->setPosition( Vec2( origin.x + visibleSize.width * 0.2, origin.y + ((visibleSize.height * 0.7) - ((label->getBoundingBox().size.height + _padding) * _pageIndex ) ) ) );
+    setSquareBgPos();
+}
+
+std::string ProjectNamesLabel::getFullString() {
+    return _projectNameFullString;
+}
+
+void ProjectNamesLabel::setSquareBgPos() {
+    squareBg->setPosition( Vec2( label->getPosition().x - visibleSize.width * 0.01, label->getPosition().y ) );
 }

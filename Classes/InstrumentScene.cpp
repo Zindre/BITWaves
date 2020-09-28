@@ -146,10 +146,12 @@ void InstrumentScene::onTouchesBegan( const std::vector<Touch*>& touches, Event*
                 if ( projectHandling->isShowing() ) {
                     
                     
+                    projectHandling->setTouchStartPos( touch->getLocation() );
+                    
+                    
                     // MAIN SCREEN //
                     if ( projectHandling->getState() == kProjectHandling_State_MainScreen ) {
                         
-                        projectHandling->setTouchStartPos( touch->getLocation() );
                         
                         // SAVE
                         if ( projectHandling->savingIsPossible() ) {
@@ -198,7 +200,7 @@ void InstrumentScene::onTouchesBegan( const std::vector<Touch*>& touches, Event*
                        
                         
                     // BROWSE OVERLAY
-                    } else if ( projectHandling->getState() == kProjectHandling_State_LoadOverlay ) {
+                    } else if ( projectHandling->getState() == kProjectHandling_State_BrowseOverlay ) {
                         
                         for ( int i = 0; i < projectHandling->projectNamesLabel.size(); i++ ) {
                             
@@ -209,7 +211,7 @@ void InstrumentScene::onTouchesBegan( const std::vector<Touch*>& touches, Event*
                                         projectHandling->projectNamesLabel[j].squareBg->setColor( Color3B( 74, 74, 74 ) );
                                     }
                                     projectHandling->projectNamesLabel[i].squareBg->setColor( Color3B( 0, 0, 0 ) );
-                                    projectHandling->setSelectedProjectName( projectHandling->projectNamesLabel[i].label->getString() );
+                                    projectHandling->setSelectedProjectName( projectHandling->projectNamesLabel[i].getFullString() );
                                     if ( projectHandling->getSelectedProjectName().compare( mainMenu->getCurrentProjectName() ) == 0 ) {
                                         projectHandling->buttonBg[kButtons_ProjectHandling_Index_Open]->setOpacity( kProjectHandling_Button_TransparantValue );
                                         projectHandling->buttonBg[kButtons_ProjectHandling_Index_Delete]->setOpacity( kProjectHandling_Button_TransparantValue );
@@ -258,6 +260,21 @@ void InstrumentScene::onTouchesBegan( const std::vector<Touch*>& touches, Event*
                         // ARROW RIGHT
                         if ( projectHandling->arrowRight->getBoundingBox().containsPoint( touch->getLocation() ) ) {
                             projectHandling->arrowRightClicked();
+                        }
+                        
+                        
+                        
+                    // DELETE PROMPT
+                    } else if ( projectHandling->getState() == kProjectHandling_State_DeletePrompt ) {
+                        
+                        // CONFIRM DELETE
+                        if ( projectHandling->buttonBg[kButtons_ProjectHandling_Index_ConfirmDelete]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
+                            projectHandling->setButtonTouchHasBegun( true, kButtons_ProjectHandling_Index_ConfirmDelete );
+                        }
+                        
+                        // CANCEL DELETE
+                        if ( projectHandling->buttonBg[kButtons_ProjectHandling_Index_CancelDelete]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
+                            projectHandling->setButtonTouchHasBegun( true, kButtons_ProjectHandling_Index_CancelDelete );
                         }
                         
                     }
@@ -438,6 +455,7 @@ void InstrumentScene::onTouchesEnded( const std::vector<Touch*> &touches, Event*
                 
                 if ( projectHandling->isShowing() ) {
                     
+                    // MAIN SCREEN
                     if ( projectHandling->getState() == kProjectHandling_State_MainScreen ) {
                         
                         // SAVE
@@ -474,7 +492,7 @@ void InstrumentScene::onTouchesEnded( const std::vector<Touch*> &touches, Event*
                         }
                         
                     // BROWSE OVERLAY
-                    } else if ( projectHandling->getState() == kProjectHandling_State_LoadOverlay ) {
+                    } else if ( projectHandling->getState() == kProjectHandling_State_BrowseOverlay ) {
                         
                         // OPEN
                         if ( projectHandling->buttonTouchHasBegun( kButtons_ProjectHandling_Index_Open ) ) {
@@ -486,12 +504,24 @@ void InstrumentScene::onTouchesEnded( const std::vector<Touch*> &touches, Event*
                         
                         // DELETE
                         if ( projectHandling->buttonTouchHasBegun( kButtons_ProjectHandling_Index_Delete ) ) {
-                            projectHandling->deleteProject( projectHandling->getSelectedProjectName(), mainMenu->getCurrentProjectName() );
+                            projectHandling->showDeletePrompt( projectHandling->getSelectedProjectName() );
                         }
                         
                         // CANCEL
                         if ( projectHandling->buttonTouchHasBegun( kButtons_ProjectHandling_Index_Cancel ) ) {
                             projectHandling->cancelBrowseOverlay();
+                        }
+                        
+                    } else if ( projectHandling->getState() == kProjectHandling_State_DeletePrompt ) {
+                        
+                        // CONFIRM DELETE
+                        if ( projectHandling->buttonTouchHasBegun( kButtons_ProjectHandling_Index_ConfirmDelete ) ) {
+                            projectHandling->deleteProject( projectHandling->getSelectedProjectName(), mainMenu->getCurrentProjectName() );
+                        }
+                        
+                        // CANCEL DELETE
+                        if ( projectHandling->buttonTouchHasBegun( kButtons_ProjectHandling_Index_CancelDelete ) ) {
+                            projectHandling->closeDeletePrompt();
                         }
                         
                     }

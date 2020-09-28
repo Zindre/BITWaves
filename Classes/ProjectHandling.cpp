@@ -45,6 +45,8 @@ ProjectHandling::ProjectHandling( Layer *layer ) {
     label_buttons[kButtons_ProjectHandling_Index_Open]->setString( "Åpne" );
     label_buttons[kButtons_ProjectHandling_Index_Cancel]->setString( "Avbryt" );
     label_buttons[kButtons_ProjectHandling_Index_Delete]->setString( "Slett" );
+    label_buttons[kButtons_ProjectHandling_Index_ConfirmDelete]->setString( "Ja" );
+    label_buttons[kButtons_ProjectHandling_Index_CancelDelete]->setString( "Avbryt" );
     
     
     overlaySave = Sprite::create( "square1px.png" );
@@ -65,7 +67,7 @@ ProjectHandling::ProjectHandling( Layer *layer ) {
     label_instructTyping->setPosition( Vec2( overlaySave->getPosition().x, overlaySave->getPosition().y + (overlaySave->getBoundingBox().size.height * 0.3) ) );
     label_instructTyping->setVisible( false );
     label_instructTyping->setColor( Color3B::BLACK );
-    layer->addChild( label_instructTyping, kLayer_ProjectHandling );
+    layer->addChild( label_instructTyping, kLayer_ProjectHandling_SaveOverlay );
     
     textFieldArea = Sprite::create( "square1px.png" );
     textFieldArea->setTextureRect( Rect( 0, 0, overlayBrowse->getBoundingBox().size.width * 0.8, label_instructTyping->getBoundingBox().size.height * 1.2 ) );
@@ -126,6 +128,32 @@ ProjectHandling::ProjectHandling( Layer *layer ) {
     label_projectNamesPageNr->setVisible( false );
     label_projectNamesPageNr->setColor( Color3B::BLACK );
     layer->addChild( label_projectNamesPageNr, kLayer_ProjectHandling_BrowseOverlay );
+    
+    
+    overlayDeletePrompt = Sprite::create( "square1px.png" );
+    overlayDeletePrompt->setTextureRect( Rect( 0, 0, overlayBrowse->getBoundingBox().size.width * 0.8, overlayBrowse->getBoundingBox().size.height * 0.8 ) );
+    overlayDeletePrompt->setPosition( Vec2( origin.x + visibleSize.width * 0.5, origin.y + visibleSize.height * 0.5 ) );
+    overlayDeletePrompt->setColor( Color3B::RED );
+    overlayDeletePrompt->setVisible( false );
+    layer->addChild( overlayDeletePrompt, kLayer_ProjectHandling_DeletePrompt );
+    
+    label_deletePrompt_areYouSure = Label::createWithTTF( "Er du sikker på du vil slette?", "fonts/arial.ttf", kProjectHandling_FontSize_Text );
+    label_deletePrompt_areYouSure->setPosition( Vec2( overlayDeletePrompt->getPosition().x, overlayDeletePrompt->getPosition().y + (overlayDeletePrompt->getBoundingBox().size.height * 0.25 ) ) );
+    label_deletePrompt_areYouSure->setVisible( false );
+    label_deletePrompt_areYouSure->setColor( Color3B::BLACK );
+    label_deletePrompt_areYouSure->setAlignment( TextHAlignment::CENTER );
+    layer->addChild( label_deletePrompt_areYouSure, kLayer_ProjectHandling_DeletePrompt );
+    
+    buttonBg[kButtons_ProjectHandling_Index_ConfirmDelete]->setPosition( Vec2( overlayDeletePrompt->getPosition().x - (buttonBgSize.width * 0.6), overlayDeletePrompt->getPosition().y - (buttonBgSize.height * 0.5) ) );
+    label_buttons[kButtons_ProjectHandling_Index_ConfirmDelete]->setPosition( buttonBg[kButtons_ProjectHandling_Index_ConfirmDelete]->getPosition() );
+    buttonBg[kButtons_ProjectHandling_Index_ConfirmDelete]->setLocalZOrder( kLayer_ProjectHandling_DeletePrompt );
+    label_buttons[kButtons_ProjectHandling_Index_ConfirmDelete]->setLocalZOrder( kLayer_ProjectHandling_DeletePrompt );
+    
+    buttonBg[kButtons_ProjectHandling_Index_CancelDelete]->setPosition( Vec2( overlayDeletePrompt->getPosition().x + (buttonBgSize.width * 0.6), overlayDeletePrompt->getPosition().y - (buttonBgSize.height * 0.5) ) );
+    label_buttons[kButtons_ProjectHandling_Index_CancelDelete]->setPosition( buttonBg[kButtons_ProjectHandling_Index_CancelDelete]->getPosition() );
+    buttonBg[kButtons_ProjectHandling_Index_CancelDelete]->setLocalZOrder( kLayer_ProjectHandling_DeletePrompt );
+    label_buttons[kButtons_ProjectHandling_Index_CancelDelete]->setLocalZOrder( kLayer_ProjectHandling_DeletePrompt );
+    
     
     // SCROLL BOX
     /*scrollViewSize = cocos2d::Size( visibleSize.width * 0.5f, visibleSize.height * 0.7f );
@@ -203,6 +231,10 @@ void ProjectHandling::show() {
     label_buttons[kButtons_ProjectHandling_Index_Cancel]->setVisible( false );
     buttonBg[kButtons_ProjectHandling_Index_Delete]->setVisible( false );
     label_buttons[kButtons_ProjectHandling_Index_Delete]->setVisible( false );
+    buttonBg[kButtons_ProjectHandling_Index_ConfirmDelete]->setVisible( false );
+    label_buttons[kButtons_ProjectHandling_Index_ConfirmDelete]->setVisible( false );
+    buttonBg[kButtons_ProjectHandling_Index_CancelDelete]->setVisible( false );
+    label_buttons[kButtons_ProjectHandling_Index_CancelDelete]->setVisible( false );
     _whatState = kProjectHandling_State_MainScreen;
     _isShowing = true;
 }
@@ -580,7 +612,7 @@ void ProjectHandling::showBrowseOverlay() {
     label_buttons[kButtons_ProjectHandling_Index_Delete]->setVisible( true );
     buttonBg[kButtons_ProjectHandling_Index_Cancel]->setPosition( Vec2( overlayBrowse->getPosition().x + buttonBg[kButtons_ProjectHandling_Index_Cancel]->getBoundingBox().size.width, overlayBrowse->getPosition().y - (buttonBg[kButtons_ProjectHandling_Index_Cancel]->getBoundingBox().size.height * 2) ) );
     label_buttons[kButtons_ProjectHandling_Index_Cancel]->setPosition( buttonBg[kButtons_ProjectHandling_Index_Cancel]->getPosition() );
-    _whatState = kProjectHandling_State_LoadOverlay;
+    _whatState = kProjectHandling_State_BrowseOverlay;
     arrowLeft->setVisible( true );
     arrowRight->setVisible( true );
     label_projectNamesPageNr->setVisible( true );
@@ -717,7 +749,7 @@ void ProjectHandling::updateProjectList() {
     
     
     unsigned long amount = savedProjectNames.size();
-    const int membersPrGroup = 10;
+    const int membersPrGroup = 8;
     int groupsFloored = floor( amount / membersPrGroup );
     int leftover = amount % membersPrGroup;
     int groups = 1;
@@ -755,7 +787,7 @@ void ProjectHandling::updateProjectList() {
         log( "val counter: %i", valCounter );
         log( "my page nr: %i", myPageNr );
         unsigned int pageIndex = valCounter - 1;
-        projectNamesLabel.push_back( ProjectNamesLabel( _layer, savedProjectNames[i].c_str(), i, myPageNr, pageIndex ) );
+        projectNamesLabel.push_back( ProjectNamesLabel( _layer, savedProjectNames[i].c_str(), i, myPageNr, pageIndex, overlayBrowse->getBoundingBox().size, overlayBrowse->getPosition() ) );
     }
     
 
@@ -785,9 +817,6 @@ void ProjectHandling::cancelSaveOverlay() {
 }
 
 void ProjectHandling::cancelBrowseOverlay() {
-    for ( int i = 0; i < projectNamesLabel.size(); i++ ) {
-        projectNamesLabel[i].label->setColor( Color3B::BLACK );
-    }
     setSelectedProjectName( "" );
     setAprojectIsSelected( false );
     closeBrowseOverlay();
@@ -804,9 +833,7 @@ void ProjectHandling::arrowRightClicked() {
         setAprojectIsSelected( false );
         buttonBg[kButtons_ProjectHandling_Index_Open]->setOpacity( kProjectHandling_Button_TransparantValue );
         buttonBg[kButtons_ProjectHandling_Index_Delete]->setOpacity( kProjectHandling_Button_TransparantValue );
-        for ( int i = 0; i < projectNamesLabel.size(); i++ ) {
-            projectNamesLabel[i].label->setColor( Color3B::BLACK );
-        }
+
     }
 }
 
@@ -819,9 +846,6 @@ void ProjectHandling::arrowLeftClicked() {
         setAprojectIsSelected( false );
         buttonBg[kButtons_ProjectHandling_Index_Open]->setOpacity( kProjectHandling_Button_TransparantValue );
         buttonBg[kButtons_ProjectHandling_Index_Delete]->setOpacity( kProjectHandling_Button_TransparantValue );
-        for ( int i = 0; i < projectNamesLabel.size(); i++ ) {
-            projectNamesLabel[i].label->setColor( Color3B::BLACK );
-        }
     }
 }
 
@@ -839,6 +863,17 @@ void ProjectHandling::decideWhichProjectNamesToShow() {
         }
     }
     
+}
+
+void ProjectHandling::showDeletePrompt( std::string projectName ) {
+    _whatState = kProjectHandling_State_DeletePrompt;
+    overlayDeletePrompt->setVisible( true );
+    label_deletePrompt_areYouSure->setString( "Er du sikker på du vil slette\n" + projectName + "?" );
+    label_deletePrompt_areYouSure->setVisible( true );
+    buttonBg[kButtons_ProjectHandling_Index_ConfirmDelete]->setVisible( true );
+    label_buttons[kButtons_ProjectHandling_Index_ConfirmDelete]->setVisible( true );
+    buttonBg[kButtons_ProjectHandling_Index_CancelDelete]->setVisible( true );
+    label_buttons[kButtons_ProjectHandling_Index_CancelDelete]->setVisible( true );
 }
 
 void ProjectHandling::deleteProject( std::string projectName, std::string currentProjectName ) {
@@ -867,15 +902,14 @@ void ProjectHandling::deleteProject( std::string projectName, std::string curren
         setAprojectIsSelected( false );
         buttonBg[kButtons_ProjectHandling_Index_Open]->setOpacity( kProjectHandling_Button_TransparantValue );
         buttonBg[kButtons_ProjectHandling_Index_Delete]->setOpacity( kProjectHandling_Button_TransparantValue );
-        for ( int i = 0; i < projectNamesLabel.size(); i++ ) {
-            projectNamesLabel[i].label->setColor( Color3B::WHITE );
-        }
         
         if ( _currentPageNr > _totalNrOfPages ) {
             _currentPageNr = _totalNrOfPages;
             label_projectNamesPageNr->setString( to_string( _currentPageNr ) + " / " + to_string( _totalNrOfPages ) );
             decideWhichProjectNamesToShow();
         }
+        
+        closeDeletePrompt();
         
     } else {
         log( "can not delete a project that is currently open" );
@@ -900,8 +934,10 @@ void ProjectHandling::abortWithTouchMove( Vec2 touchPos ) {
     float distY = _touchStartPos.y - stopPos.y;
     float touchMoveTolerance = visibleSize.width * 0.05f;
     
-    if ( abs( distX ) + abs( distY ) > touchMoveTolerance ) {
-        for ( int i = 0; i < kNumOfButtons; i++ ) {
+    float offsetAbs = abs( distX ) + abs( distY );
+    
+    if ( offsetAbs > touchMoveTolerance ) {
+        for ( int i = 0; i < kButtons_ProjectHandling_NumOf; i++ ) {
             _buttonTouchHasBegun[i] = false;
             buttonBg[i]->setScale( 1.0 );
             label_buttons[i]->setScale( 1.0 );
@@ -912,4 +948,14 @@ void ProjectHandling::abortWithTouchMove( Vec2 touchPos ) {
 
 void ProjectHandling::setTouchStartPos( Vec2 touchPos ) {
     _touchStartPos = touchPos;
+}
+
+void ProjectHandling::closeDeletePrompt() {
+    _whatState = kProjectHandling_State_BrowseOverlay;
+    overlayDeletePrompt->setVisible( false );
+    label_deletePrompt_areYouSure->setVisible( false );
+    buttonBg[kButtons_ProjectHandling_Index_CancelDelete]->setVisible( false );
+    label_buttons[kButtons_ProjectHandling_Index_CancelDelete]->setVisible( false );
+    buttonBg[kButtons_ProjectHandling_Index_ConfirmDelete]->setVisible( false );
+    label_buttons[kButtons_ProjectHandling_Index_ConfirmDelete]->setVisible( false );
 }

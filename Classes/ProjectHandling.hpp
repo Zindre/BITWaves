@@ -42,6 +42,8 @@ public:
     void setButtonTouchHasBegun( bool touchHasBegun, int whatButton );
     void setTouchStartPos( cocos2d::Vec2 touchPos );
     void abortWithTouchMove( Vec2 touchPos );
+    void showDeletePrompt( std::string projectName );
+    void closeDeletePrompt();
     
     cocos2d::Sprite *closeCross;
     cocos2d::TextFieldTTF *textField;
@@ -60,6 +62,7 @@ private:
     void saveCurrentToOpenProject();
     void updateProjectList();
     void decideWhichProjectNamesToShow();
+    
     
     
     cocos2d::Size visibleSize;
@@ -85,6 +88,8 @@ private:
     unsigned int _totalNrOfPages;
     bool _buttonTouchHasBegun[kButtons_ProjectHandling_NumOf];
     cocos2d::Vec2 _touchStartPos;
+    cocos2d::Sprite *overlayDeletePrompt;
+    cocos2d::Label *label_deletePrompt_areYouSure;
     
     
 

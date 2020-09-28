@@ -12,15 +12,13 @@ class ProjectNamesLabel {
 
 public:
     
-    ProjectNamesLabel( cocos2d::Layer *layer, std::string projectName, int index, unsigned int myPageNr, unsigned int pageIndex );
+    ProjectNamesLabel( cocos2d::Layer *layer, std::string projectName, int index, unsigned int myPageNr, unsigned int pageIndex, cocos2d::Size overlayBrowseSize, cocos2d::Vec2 overlayBrowsePos );
     
     void show();
     void hide();
-    std::string getProjectName();
-    int getIndex();
-    bool isTouched();
     unsigned int getMyPageNr();
     void setPosToTop();
+    std::string getFullString();
     
     cocos2d::Label *label;
     cocos2d::Sprite *squareBg;
@@ -28,14 +26,13 @@ public:
 
 private:
     
+    void setSquareBgPos();
     
     cocos2d::Size visibleSize;
     cocos2d::Vec2 origin;
-    std::string _projectName;
-    int _index;
-    bool _isTouched;
     unsigned int _myPageNr;
     float _padding;
     unsigned int _pageIndex;
+    std::string _projectNameFullString;
     
 };
