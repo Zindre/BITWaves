@@ -133,7 +133,7 @@ ProjectHandling::ProjectHandling( Layer *layer ) {
     overlayDeletePrompt = Sprite::create( "square1px.png" );
     overlayDeletePrompt->setTextureRect( Rect( 0, 0, overlayBrowse->getBoundingBox().size.width * 0.8, overlayBrowse->getBoundingBox().size.height * 0.8 ) );
     overlayDeletePrompt->setPosition( Vec2( origin.x + visibleSize.width * 0.5, origin.y + visibleSize.height * 0.5 ) );
-    overlayDeletePrompt->setColor( Color3B::RED );
+    overlayDeletePrompt->setColor( Color3B::WHITE );
     overlayDeletePrompt->setVisible( false );
     layer->addChild( overlayDeletePrompt, kLayer_ProjectHandling_DeletePrompt );
     
@@ -256,10 +256,12 @@ void ProjectHandling::hide() {
     _aProjectIsSelected = false;
     label_instructTyping->setVisible( false );
     textField->setVisible( false );
+    textFieldArea->setVisible( false );
     _whatState = kProjectHandling_State_Closed;
     _isShowing = false;
     arrowLeft->setVisible( false );
     arrowRight->setVisible( false );
+    label_projectNamesPageNr->setVisible( false );
 }
 
 void ProjectHandling::loadCurrentData() {

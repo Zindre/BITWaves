@@ -148,6 +148,11 @@ void InstrumentScene::onTouchesBegan( const std::vector<Touch*>& touches, Event*
                     
                     projectHandling->setTouchStartPos( touch->getLocation() );
                     
+                    // CLOSE CROSS
+                    if ( projectHandling->closeCross->getBoundingBox().containsPoint( touch->getLocation() ) ) {
+                        projectHandling->hide();
+                    }
+                    
                     
                     // MAIN SCREEN //
                     if ( projectHandling->getState() == kProjectHandling_State_MainScreen ) {
@@ -170,11 +175,6 @@ void InstrumentScene::onTouchesBegan( const std::vector<Touch*>& touches, Event*
                         if ( projectHandling->buttonBg[kButtons_ProjectHandling_Index_New]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
                             projectHandling->setButtonTouchHasBegun( true, kButtons_ProjectHandling_Index_New );
                             
-                        }
-                        
-                        // CLOSE CROSS
-                        if ( projectHandling->closeCross->getBoundingBox().containsPoint( touch->getLocation() ) ) {
-                            projectHandling->hide();
                         }
                         
                         

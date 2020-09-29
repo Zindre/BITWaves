@@ -27,7 +27,7 @@ ProjectNamesLabel::ProjectNamesLabel( cocos2d::Layer *layer, std::string project
     layer->addChild( label, kLayer_ProjectHandling_NameLabel );
     
     squareBg = Sprite::create( "square1px.png" );
-    squareBg->setTextureRect( Rect( 0, 0, visibleSize.width * 0.3, label->getBoundingBox().size.height * 1.5 ) );
+    squareBg->setTextureRect( Rect( 0, 0, overlayBrowseSize.width * 0.5, label->getBoundingBox().size.height * 1.5 ) );
     squareBg->setAnchorPoint( Vec2( 0.0, 0.5 ) );
     squareBg->setColor( Color3B( 74, 74, 74 ) );
     layer->addChild( squareBg, kLayer_ProjectHandling_NameBg );
