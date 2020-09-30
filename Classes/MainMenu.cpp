@@ -22,9 +22,9 @@ MainMenu::MainMenu( Layer *layer, unsigned int whatScene ) {
     }
     log( "current project name: %s", currentProjectName.c_str() );
     
-    label_currentProjectName = Label::createWithTTF( currentProjectName.c_str(), "fonts/arial.ttf", 12 );
+    label_currentProjectName = Label::createWithTTF( currentProjectName.c_str(), "fonts/arial.ttf", 9 );
     label_currentProjectName->setPosition( Vec2( visibleSize.width * 0.5 + origin.x, visibleSize.height * 0.95 + origin.y ) );
-    label_currentProjectName->setColor( Color3B::WHITE );
+    label_currentProjectName->setColor( Color3B( 50, 50, 50 ) );
     layer->addChild( label_currentProjectName, kLayer_CurrentProjectName );
     
     FileUtils *fileUtils = FileUtils::getInstance();

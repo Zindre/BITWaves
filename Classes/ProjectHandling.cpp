@@ -18,19 +18,18 @@ ProjectHandling::ProjectHandling( Layer *layer ) {
     layer->addChild( blackLayer, kLayer_ProjectHandling );
     
     background = Sprite::create( "square1px.png" );
-    background->setTextureRect( Rect( 0, 0, visibleSize.width * 0.8, visibleSize.height * 0.8 ) );
+    background->setTextureRect( Rect( 0, 0, visibleSize.width, visibleSize.height ) );
     background->setPosition( Vec2( visibleSize.width * 0.5 + origin.x, visibleSize.height * 0.5 + origin.y ) );
     layer->addChild( background, kLayer_ProjectHandling );
     
-    closeCross = Sprite::create( "closeCross@2x.png" );
+    closeCross = Sprite::create( "closeCross.png" );
     closeCross->setAnchorPoint( Vec2( 0, 1 ) );
-    closeCross->setPosition( Vec2( origin.x + closeCross->getBoundingBox().size.width, visibleSize.height - closeCross->getBoundingBox().size.height + origin.y ) );
+    closeCross->setPosition( Vec2( origin.x + (closeCross->getBoundingBox().size.width * 0.5), visibleSize.height - (closeCross->getBoundingBox().size.height * 0.5) + origin.y ) );
     layer->addChild( closeCross, kLayer_ProjectHandling );
     
     for ( int i = 0; i < kButtons_ProjectHandling_NumOf; i++ ) {
         buttonBg[i] = Sprite::create( "buttonBg.png" );
         padding = buttonBg[i]->getBoundingBox().size.height * 0.5;
-        buttonBg[i]->setPosition( Vec2( origin.x + visibleSize.width * 0.5, origin.y + visibleSize.height * 0.6 - ( (buttonBg[i]->getBoundingBox().size.height + padding) * i) ) );
         layer->addChild( buttonBg[i], kLayer_ProjectHandling );
         
         label_buttons[i] = Label::createWithTTF( "button", "fonts/arial.ttf", kProjectHandling_FontSize_Buttons );
@@ -57,7 +56,7 @@ ProjectHandling::ProjectHandling( Layer *layer ) {
     layer->addChild( overlaySave, kLayer_ProjectHandling_SaveOverlay );
     
     overlayBrowse = Sprite::create( "square1px.png" );
-    overlayBrowse->setTextureRect( Rect( 0, 0, background->getBoundingBox().size.width * 0.8, background->getBoundingBox().size.height * 0.7 ) );
+    overlayBrowse->setTextureRect( Rect( 0, 0, background->getBoundingBox().size.width * 0.8, background->getBoundingBox().size.height * 0.8 ) );
     overlayBrowse->setPosition( Vec2( origin.x + visibleSize.width * 0.5, origin.y + visibleSize.height * 0.5 ) );
     overlayBrowse->setColor( Color3B::GRAY );
     overlayBrowse->setVisible( false );
@@ -83,6 +82,15 @@ ProjectHandling::ProjectHandling( Layer *layer ) {
     layer->addChild( textField, kLayer_ProjectHandling_SaveOverlay );
     
     cocos2d::Size buttonBgSize = buttonBg[0]->getBoundingBox().size;
+    
+    buttonBg[kButtons_ProjectHandling_Index_Browse]->setPosition( Vec2( overlayBrowse->getPosition().x, overlayBrowse->getPosition().y ) );
+    label_buttons[kButtons_ProjectHandling_Index_Browse]->setPosition( buttonBg[kButtons_ProjectHandling_Index_Browse]->getPosition() );
+    
+    buttonBg[kButtons_ProjectHandling_Index_Save]->setPosition( Vec2( buttonBg[kButtons_ProjectHandling_Index_Browse]->getPosition().x, buttonBg[kButtons_ProjectHandling_Index_Browse]->getPosition().y + (padding * 3) ) );
+    label_buttons[kButtons_ProjectHandling_Index_Save]->setPosition( buttonBg[kButtons_ProjectHandling_Index_Save]->getPosition() );
+    
+    buttonBg[kButtons_ProjectHandling_Index_New]->setPosition( Vec2( buttonBg[kButtons_ProjectHandling_Index_Browse]->getPosition().x, buttonBg[kButtons_ProjectHandling_Index_Browse]->getPosition().y - (padding * 3) ) );
+    label_buttons[kButtons_ProjectHandling_Index_New]->setPosition( buttonBg[kButtons_ProjectHandling_Index_New]->getPosition() );
     
     buttonBg[kButtons_ProjectHandling_Index_ConfirmSave]->setPosition( Vec2( overlaySave->getPosition().x - (buttonBgSize.width * 0.5) - padding, overlaySave->getPosition().y - buttonBgSize.height ) );
     label_buttons[kButtons_ProjectHandling_Index_ConfirmSave]->setPosition( buttonBg[kButtons_ProjectHandling_Index_ConfirmSave]->getPosition() );
@@ -319,6 +327,15 @@ void ProjectHandling::loadCurrentData() {
 }
 
 void ProjectHandling::saveNewProject() {
+    
+    /*std::string newFileName = textField->getString();
+    
+    for ( int i = 0; i < savedProjectNames.size(); i++ ) {
+        if ( savedProjectNames[i].compare( textField->getString() ) == 0 ) {
+            log( "filename exist!" );
+            newFileName = textField->getString() + " 1";
+        }
+    }*/
     
     if ( currentPos.size() != 0 ) {
         
@@ -691,6 +708,28 @@ void ProjectHandling::updateProjectList() {
     std::vector<std::string> savedProjectNamesFullPaths;
     savedProjectNamesFullPaths = fileUtils->listFiles( writablePath );
     
+    
+    // Look for existing files from previous version of app
+    for ( int i = 0; i < savedProjectNamesFullPaths.size(); i++ ) {
+        std::size_t foundWaveForm = savedProjectNamesFullPaths[i].find( "waveForm" );
+        if ( foundWaveForm != std::string::npos ) {
+            log( "found old waveFormX.png files" );
+            std::string fromLastVerString = "Fra forrige versjon";
+            std::string fromLastVerFullPath = writablePath + fromLastVerString;
+            if ( ! fileUtils->isDirectoryExist( fromLastVerFullPath ) ) {
+                fileUtils->createDirectory( fromLastVerFullPath );
+            }
+            //fileUtils->renameFile( savedProjectNamesFullPaths[i], writablePath + fromLastVerString + "/" + "waveForm" + to_string( i ) + ".png" );
+        }
+        
+        std::size_t foundRecord = savedProjectNamesFullPaths[i].find( "record" );
+        if ( foundRecord != std::string::npos ) {
+            log( "found old recordX.wav files" );
+        }
+    }
+    
+    
+    // Extract folder string from full path
     std::vector<std::string> tempStr;
     
     for ( int i = 0; i < savedProjectNamesFullPaths.size(); i++ ) {
@@ -835,7 +874,9 @@ void ProjectHandling::arrowRightClicked() {
         setAprojectIsSelected( false );
         buttonBg[kButtons_ProjectHandling_Index_Open]->setOpacity( kProjectHandling_Button_TransparantValue );
         buttonBg[kButtons_ProjectHandling_Index_Delete]->setOpacity( kProjectHandling_Button_TransparantValue );
-
+        for ( int i = 0; i < projectNamesLabel.size(); i++ ) {
+            projectNamesLabel[i].squareBg->setColor( Color3B( kProjectHandling_Browse_FileListBgColor, kProjectHandling_Browse_FileListBgColor, kProjectHandling_Browse_FileListBgColor ) );
+        }
     }
 }
 
@@ -848,6 +889,9 @@ void ProjectHandling::arrowLeftClicked() {
         setAprojectIsSelected( false );
         buttonBg[kButtons_ProjectHandling_Index_Open]->setOpacity( kProjectHandling_Button_TransparantValue );
         buttonBg[kButtons_ProjectHandling_Index_Delete]->setOpacity( kProjectHandling_Button_TransparantValue );
+        for ( int i = 0; i < projectNamesLabel.size(); i++ ) {
+            projectNamesLabel[i].squareBg->setColor( Color3B( kProjectHandling_Browse_FileListBgColor, kProjectHandling_Browse_FileListBgColor, kProjectHandling_Browse_FileListBgColor ) );
+        }
     }
 }
 
@@ -861,7 +905,7 @@ void ProjectHandling::decideWhichProjectNamesToShow() {
         }
         
         if ( projectNamesLabel[i].label->isVisible() ) {
-            projectNamesLabel[i].setPosToTop();
+            projectNamesLabel[i].setPosToTop( overlayBrowse->getBoundingBox().size, overlayBrowse->getPosition() );
         }
     }
     

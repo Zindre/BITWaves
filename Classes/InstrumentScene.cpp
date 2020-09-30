@@ -208,7 +208,7 @@ void InstrumentScene::onTouchesBegan( const std::vector<Touch*>& touches, Event*
                             if ( projectHandling->projectNamesLabel[i].label->isVisible() ) {
                                 if ( projectHandling->projectNamesLabel[i].squareBg->getBoundingBox().containsPoint( touch->getLocation() ) ) {
                                     for ( int j = 0; j < projectHandling->projectNamesLabel.size(); j++ ) {
-                                        projectHandling->projectNamesLabel[j].squareBg->setColor( Color3B( 74, 74, 74 ) );
+                                        projectHandling->projectNamesLabel[j].squareBg->setColor( Color3B( kProjectHandling_Browse_FileListBgColor, kProjectHandling_Browse_FileListBgColor, kProjectHandling_Browse_FileListBgColor ) );
                                     }
                                     projectHandling->projectNamesLabel[i].squareBg->setColor( Color3B( 0, 0, 0 ) );
                                     projectHandling->setSelectedProjectName( projectHandling->projectNamesLabel[i].getFullString() );

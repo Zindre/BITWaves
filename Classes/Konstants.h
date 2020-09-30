@@ -89,3 +89,5 @@
 #define kProjectHandling_FontSize_Buttons 10
 #define kProjectHandling_FontSize_ProjectNames 7
 #define kProjectHandling_FontSize_Text 12
+
+#define kProjectHandling_Browse_FileListBgColor 74

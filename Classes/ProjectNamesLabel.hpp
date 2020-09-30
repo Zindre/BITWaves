@@ -17,7 +17,7 @@ public:
     void show();
     void hide();
     unsigned int getMyPageNr();
-    void setPosToTop();
+    void setPosToTop( cocos2d::Size overlayBrowseSize, cocos2d::Vec2 overlayBrowsePos );
     std::string getFullString();
     
     cocos2d::Label *label;
@@ -25,8 +25,6 @@ public:
     //cocos2d::ui::Button *button;
 
 private:
-    
-    void setSquareBgPos();
     
     cocos2d::Size visibleSize;
     cocos2d::Vec2 origin;

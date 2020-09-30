@@ -23,15 +23,15 @@ ProjectNamesLabel::ProjectNamesLabel( cocos2d::Layer *layer, std::string project
     _padding = label->getBoundingBox().size.height;
     label->setAnchorPoint( Vec2( 0.0, 0.5 ) );
     label->setColor( Color3B::WHITE );
-    label->setPosition( Vec2( overlayBrowsePos.x - (overlayBrowseSize.width * 0.5), ( (overlayBrowsePos.y + (overlayBrowseSize.height * 0.5) ) - ( (label->getBoundingBox().size.height + _padding) * index ) ) ) );
     layer->addChild( label, kLayer_ProjectHandling_NameLabel );
     
     squareBg = Sprite::create( "square1px.png" );
     squareBg->setTextureRect( Rect( 0, 0, overlayBrowseSize.width * 0.5, label->getBoundingBox().size.height * 1.5 ) );
     squareBg->setAnchorPoint( Vec2( 0.0, 0.5 ) );
-    squareBg->setColor( Color3B( 74, 74, 74 ) );
+    squareBg->setColor( Color3B( kProjectHandling_Browse_FileListBgColor, kProjectHandling_Browse_FileListBgColor, kProjectHandling_Browse_FileListBgColor ) );
     layer->addChild( squareBg, kLayer_ProjectHandling_NameBg );
-    setSquareBgPos();
+    
+    setPosToTop( overlayBrowseSize, overlayBrowsePos );
     
     /*button = cocos2d::ui::Button::create( "buttonBg.png", "buttonBg.png" );
     button->setTitleText( _projectName );
@@ -82,15 +82,11 @@ unsigned int ProjectNamesLabel::getMyPageNr() {
     return _myPageNr;
 }
 
-void ProjectNamesLabel::setPosToTop() {
-    label->setPosition( Vec2( origin.x + visibleSize.width * 0.2, origin.y + ((visibleSize.height * 0.7) - ((label->getBoundingBox().size.height + _padding) * _pageIndex ) ) ) );
-    setSquareBgPos();
+void ProjectNamesLabel::setPosToTop( cocos2d::Size overlayBrowseSize, cocos2d::Vec2 overlayBrowsePos ) {
+    label->setPosition( Vec2( overlayBrowsePos.x - (overlayBrowseSize.width * 0.5) + (_padding * 2), (overlayBrowsePos.y + (overlayBrowseSize.height * 0.5) - (_padding * 2)) - ((label->getBoundingBox().size.height + _padding) * _pageIndex ) ) );
+    squareBg->setPosition( Vec2( label->getPosition().x - visibleSize.width * 0.01, label->getPosition().y ) );
 }
 
 std::string ProjectNamesLabel::getFullString() {
     return _projectNameFullString;
-}
-
-void ProjectNamesLabel::setSquareBgPos() {
-    squareBg->setPosition( Vec2( label->getPosition().x - visibleSize.width * 0.01, label->getPosition().y ) );
 }
