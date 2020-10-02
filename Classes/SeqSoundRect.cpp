@@ -34,11 +34,13 @@ SeqSoundRect::SeqSoundRect( Layer *layer, Vec2 startPos, unsigned int whatSoundO
     touchArea->setPosition( sprite->getPosition() );
     touchArea->setOpacity( 50 );
     touchArea->setVisible( false );
+    touchArea->setColor( Color3B::RED );
     layer->addChild( touchArea, kLayer_SeqSoundRect_Over );
     
     collisionSprite = Sprite::create( "square1px.png" );
     collisionSprite->setTextureRect( Rect( 0, 0, 1, 1 ) );
     collisionSprite->setVisible( false );
+    collisionSprite->setColor( Color3B::GREEN );
     setCollisionSpritePos();
     layer->addChild( collisionSprite, kLayer_SeqSoundRect_Over );
     
@@ -130,10 +132,20 @@ void SeqSoundRect::bounceWhenHit() {
 }
 
 void SeqSoundRect::setWidth() {
+    log( "-------------------------" );
+    log( "sceen height: %f", Director::getInstance()->getVisibleSize().height );
+    log( "safe area height: %f", Director::getInstance()->getSafeAreaRect().size.height );;
+    log( "pos Y: %f", sprite->getPosition().y );
+    log( "midline pos Y: %f", visibleSize.height * kMidLine_Height_Multiplier );
+    log( "min Y pos: %f", visibleSize.height * kSequencer_MinYpos_height_multiplier );
     float pitch = scaleValue( sprite->getPosition().y, visibleSize.height * kSequencer_MinYpos_height_multiplier, visibleSize.height * kMidLine_Height_Multiplier, kPitchMin, kPitchMax, true );
+    log( "pitch: %f", pitch );
     float multiplier = 1/pitch;
+    log( "multiplier: %f", multiplier );
     float stretchedWidth = normalWidth * multiplier;
+    log( "stretche width: %f", stretchedWidth );
     sprite->setContentSize( Size( stretchedWidth, height ) );
+    log( "-------------------------" );
 }
 
 void SeqSoundRect::updateBorder() {

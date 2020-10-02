@@ -79,7 +79,7 @@ MainMenu::MainMenu( Layer *layer, unsigned int whatScene ) {
         buttons_image[kButtons_ArrayNum_Mic]->setTexture( "micButton.png" );
         buttons_image[kButtons_ArrayNum_Play]->setTexture( "playButton.png" );
         buttons_image[kButtons_ArrayNum_Loop]->setTexture( "loopButton.png" );
-        buttons_image[kButtons_ArrayNum_Bounce]->setTexture( "bounceButton.png" );
+        buttons_image[kButtons_ArrayNum_Bounce]->setTexture( "shareButton.png" );
         buttons_image[kButtons_ArrayNum_Bomb]->setTexture( "bombButton.png" );
         buttons_image[kButtons_ArrayNum_Stop]->setTexture( "backButton.png" );
         buttons_image[kButtons_ArrayNum_Help]->setTexture( "helpButtonDark.png" );

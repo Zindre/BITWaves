@@ -27,9 +27,13 @@ HelpOverlay::HelpOverlay( cocos2d::Layer *layer, unsigned int whatScene ) {
     //scrollView->setBackGroundColorOpacity( 0 );
     layer->addChild( scrollView, kLayer_HelpOverlay );
     
-    unsigned int fontSize_heading = visibleSize.width * 0.03f;
-    unsigned int fontSize_Text = visibleSize.width * 0.019f;
-    float lineHeightMultiplier = visibleSize.height/45.7f;
+    //unsigned int fontSize_heading = visibleSize.width * 0.03f;
+    //unsigned int fontSize_Text = visibleSize.width * 0.019f;
+    //float lineHeightMultiplier = visibleSize.height/45.7f;
+    unsigned int fontSize_heading = 12;
+    unsigned int fontSize_Text = 9;
+    float lineHeight_Text = fontSize_Text * 6;
+    log( "line height text: %f", lineHeight_Text );
     
     helpHeading_string = std::string( "Hjelp" );
     helpHeading = Label::createWithTTF( helpHeading_string, "fonts/arial.ttf", fontSize_heading );
@@ -47,7 +51,7 @@ HelpOverlay::HelpOverlay( cocos2d::Layer *layer, unsigned int whatScene ) {
     helpText = Label::createWithTTF( helpText_instrument_string, "fonts/arial.ttf", fontSize_Text );
     helpText->setAnchorPoint( Vec2( 0.0f, 1.0f ) );
     helpText->setMaxLineWidth( maxLineWidth );
-    helpText->setLineHeight( fontSize_Text * lineHeightMultiplier );
+    helpText->setLineHeight( lineHeight_Text );
     helpText->setColor( Color3B::WHITE );
     scrollView->addChild( helpText, kLayer_HelpOverlay );
     if ( whatScene == kScene_Instrument ) {
@@ -67,7 +71,7 @@ HelpOverlay::HelpOverlay( cocos2d::Layer *layer, unsigned int whatScene ) {
     aboutText = Label::createWithTTF( about_string, "fonts/arial.ttf", fontSize_Text );
     aboutText->setAnchorPoint( Vec2( 0.0f, 1.0f ) );
     aboutText->setMaxLineWidth( maxLineWidth );
-    aboutText->setLineHeight( fontSize_Text * lineHeightMultiplier );
+    aboutText->setLineHeight( lineHeight_Text );
     aboutText->setColor( Color3B::WHITE );
     scrollView->addChild( aboutText, kLayer_HelpOverlay );
     

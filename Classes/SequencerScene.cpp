@@ -90,6 +90,7 @@ void SequencerScene::update( float dt ) {
                     if ( CheckBoxCollision( seqSoundRect[i].collisionSprite, playHead ) ) {
                         FMODAudioEngine::playSound( seqSoundRect[i].getWhatSoundObject() );
                         float pitch  = scaleValue( seqSoundRect[i].sprite->getPosition().y, visibleSize.height * kSequencer_MinYpos_height_multiplier, visibleSize.height * kMidLine_Height_Multiplier, kPitchMin, kPitchMax, true );
+                        log( "fmod pitch: %f", pitch );
                         //log( "pitch UPDATE: %f", pitch );
                         FMODAudioEngine::setPitch( pitch, FMODAudioEngine::getChannelID() );
                         seqSoundRect[i].setIsPlaying( true );
@@ -138,6 +139,13 @@ void SequencerScene::onTouchesBegan( const std::vector<Touch*>& touches, Event* 
             if ( ! mainMenu->helpOverlayIsVisible ) {
                 
                 if ( touch->getID() == 0 ) {
+                    
+                    log( "touch began location Y: %f", touch->getLocation().y );
+                    log( "touch began location X: %f", touch->getLocation().x );
+                    log( "touch began location in view Y: %f", touch->getLocationInView().y );
+                    log( "touch began location in view X: %f", touch->getLocationInView().x );
+                    log( "touch began previous location Y: %f", touch->getPreviousLocation().y );
+                    log( "touch began previous location X: %f", touch->getPreviousLocation().x );
                     
                     if ( ! playHeadHandleIsPressed ) {
                         
@@ -240,6 +248,13 @@ void SequencerScene::onTouchesMoved( const std::vector<Touch*> &touches, Event* 
             if ( ! mainMenu->helpOverlayIsVisible ) {
                 
                 if ( touch->getID() == 0 ) {
+                    
+                    log( "touch moved location Y: %f", touch->getLocation().y );
+                    log( "touch moved location X: %f", touch->getLocation().x );
+                    log( "touch moved location in view Y: %f", touch->getLocationInView().y );
+                    log( "touch moved location in view X: %f", touch->getLocationInView().x );
+                    log( "touch moved previous location Y: %f", touch->getPreviousLocation().y );
+                    log( "touch moved previous location X: %f", touch->getPreviousLocation().x );
                     
                     mainMenu->abortWithTouchMove( touch->getLocation() );
                 

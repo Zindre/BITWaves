@@ -564,11 +564,15 @@ namespace FMODAudioEngine {
         
         bIsBouncing = true;
         
-        //char cDest[200] = {0};
-        //[[NSString stringWithFormat:@"%@/bounce.wav", [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0]] getCString:cDest maxLength:200 encoding:NSASCIIStringEncoding];
-        std::string str = Common_MediaPath_Bounce();
-        char *cstr = new char[str.length() + 1];
-        strcpy(cstr, str.c_str());
+        //std::string str = Common_MediaPath_Bounce();
+        
+        FileUtils *fileUtils = FileUtils::getInstance();
+        std::string writablePath = fileUtils->getWritablePath();
+        std::string bounceFileFullPath = writablePath + "bounce.wav";
+        log( "bounceFileFullPath: %s", bounceFileFullPath.c_str() );
+        
+        char *cstr = new char[bounceFileFullPath.length() + 1];
+        strcpy(cstr, bounceFileFullPath.c_str());
         // do stuff
 
         
