@@ -29,7 +29,6 @@ namespace FMODAudioEngine {
     FILE *fileBuffer;
     unsigned int whatSoundObjectToWrite = 0;
     bool bHasRecordWav[kNumOfSoundObjects] = {0};
-    bool bIsBouncing = false;
     unsigned int recPlayChannel = 0;
     unsigned int samplesRecorded = 0;
     unsigned int desiredLatency = 0;
@@ -562,8 +561,6 @@ namespace FMODAudioEngine {
     
     void START_outputToWaveWriter() {
         
-        bIsBouncing = true;
-        
         //std::string str = Common_MediaPath_Bounce();
         
         FileUtils *fileUtils = FileUtils::getInstance();
@@ -623,12 +620,6 @@ namespace FMODAudioEngine {
         /*for ( int i = 0; i < kNumOfSoundObjects; i++ ) {
             loadSoundFromDisk( i );
         }*/
-
-        bIsBouncing = false;
-    }
-    
-    bool isBouncing() {
-        return bIsBouncing;
     }
     
     bool hasRecordWav( unsigned int whatSoundObject ) {

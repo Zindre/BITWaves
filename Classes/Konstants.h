@@ -15,9 +15,10 @@
 #define kLayer_ProjectHandling_NameBg 14
 #define kLayer_ProjectHandling_NameLabel 15
 #define kLayer_ProjectHandling_DeletePrompt 16
-#define kLayer_HelpOverlayBorder 17
-#define kLayer_HelpOverlay 18
-#define kLayer_CurrentProjectName 19
+#define kLayer_BounceAndShare 17
+#define kLayer_HelpOverlayBorder 18
+#define kLayer_HelpOverlay 19
+#define kLayer_CurrentProjectName 20
 
 #define kTouch_NumOfTouchesAllowed 11
 #define kPitchMin 0.1f
@@ -91,3 +92,11 @@
 #define kProjectHandling_FontSize_Text 12
 
 #define kProjectHandling_Browse_FileListBgColor 74
+
+#define kSequencerScene_State_Normal 1
+#define kSequencerScene_State_HelpOverlay 2
+#define kSequencerScene_State_PlayHeadIsMoving 3
+#define kSequencerScene_State_PlayHeadIsPressed 4
+#define kSequencerScene_State_BounceAndShare 5
+#define kSequencerScene_State_IsBouncing 6
+#define kSequencerScene_State_BombIsPressed 7

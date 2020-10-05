@@ -692,6 +692,7 @@
 		FF3310F6393E4770B776D84E /* CCComAttribute.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 64F9607844A04174A11DB12F /* CCComAttribute.cpp */; };
 		FF40D5D8252488C5004C57D7 /* closeCross.png in Resources */ = {isa = PBXBuildFile; fileRef = FF40D5D7252488C5004C57D7 /* closeCross.png */; };
 		FF40D5D9252488DF004C57D7 /* closeCross.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = FF40D5D7252488C5004C57D7 /* closeCross.png */; };
+		FF5637A3252B32FE005356E9 /* BounceAndShare.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FF5637A1252B32FE005356E9 /* BounceAndShare.cpp */; };
 		FF5DB5242519EA190025062D /* arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = FF5DB5232519EA190025062D /* arrow.png */; };
 		FF5DB5252519EA2B0025062D /* arrow.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = FF5DB5232519EA190025062D /* arrow.png */; };
 		FF60C325250B6F680064157F /* buttonBg.png in Resources */ = {isa = PBXBuildFile; fileRef = FF60C324250B6F670064157F /* buttonBg.png */; };
@@ -2391,6 +2392,8 @@
 		FF059C3F30F047519C03E04B /* CCTableViewCell.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = CCTableViewCell.cpp; path = cocos2d/extensions/GUI/CCScrollView/CCTableViewCell.cpp; sourceTree = SOURCE_ROOT; };
 		FF1DAB7A9FD441ACAC5C9EFE /* CCPhysics3DShape.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = CCPhysics3DShape.cpp; path = cocos2d/cocos/physics3d/CCPhysics3DShape.cpp; sourceTree = SOURCE_ROOT; };
 		FF40D5D7252488C5004C57D7 /* closeCross.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = closeCross.png; path = Resources/closeCross.png; sourceTree = "<group>"; };
+		FF5637A1252B32FE005356E9 /* BounceAndShare.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = BounceAndShare.cpp; path = Classes/BounceAndShare.cpp; sourceTree = "<group>"; };
+		FF5637A2252B32FE005356E9 /* BounceAndShare.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = BounceAndShare.hpp; path = Classes/BounceAndShare.hpp; sourceTree = "<group>"; };
 		FF5C3951DAA2416BA59BC29A /* ConvertUTFWrapper.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = ConvertUTFWrapper.cpp; path = cocos2d/external/ConvertUTF/ConvertUTFWrapper.cpp; sourceTree = SOURCE_ROOT; };
 		FF5DB5232519EA190025062D /* arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = arrow.png; path = Resources/arrow.png; sourceTree = "<group>"; };
 		FF60C324250B6F670064157F /* buttonBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = buttonBg.png; path = Resources/buttonBg.png; sourceTree = "<group>"; };
@@ -2510,6 +2513,8 @@
 				5D937694A023409BBF5505E6 /* CircleEmitter.cpp */,
 				70F2D83C80764E87A987D89E /* CircleEmitter.hpp */,
 				EFA04D15E9764109AD7A19B7 /* FMODAudioEngine.cpp */,
+				FF5637A1252B32FE005356E9 /* BounceAndShare.cpp */,
+				FF5637A2252B32FE005356E9 /* BounceAndShare.hpp */,
 				5EEC1692437D44BEBBC7091B /* FMODAudioEngine.h */,
 				72B530B9DAD741A4993EA018 /* FMOD_commonPlatform.h */,
 				FA57FA5453954C19907BE380 /* FMOD_commonPlatform_ios.mm */,
@@ -5542,6 +5547,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EF723A918D4742D49589C285 /* AppDelegate.cpp in Sources */,
+				FF5637A3252B32FE005356E9 /* BounceAndShare.cpp in Sources */,
 				019F29668EE3446BAD708A8A /* Circle.cpp in Sources */,
 				930448FF58684B1D9DC57EA5 /* CircleEmitter.cpp in Sources */,
 				7BA2AFAEF7D34F36B71C05DC /* FMODAudioEngine.cpp in Sources */,

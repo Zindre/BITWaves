@@ -7,8 +7,7 @@
 #include "MainMenu.hpp"
 #include "InstrumentScene.h"
 #include "SeqSoundRect.hpp"
-#include "iCloud.hpp"
-
+#include "BounceAndShare.hpp"
 
 class SequencerScene : public cocos2d::Layer
 {
@@ -54,7 +53,8 @@ private:
     std::vector<cocos2d::Vec2> savePos;
     std::vector<int> saveWhatSoundObject;
     bool playHeadIsMoving;
-    bool playHeadHandleIsPressed;
+    BounceAndShare *bounceAndShare;
+    unsigned int whatState;
     
 
 

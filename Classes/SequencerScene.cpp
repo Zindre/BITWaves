@@ -53,7 +53,7 @@ bool SequencerScene::init() {
     playHeadHandle = Sprite::create( "playHeadHandle@2x.png" );
     setPlayHeadHandlePos();
     this->addChild( playHeadHandle, kLayer_PlayHead );
-    playHeadHandleIsPressed = false;
+    whatState = kSequencerScene_State_Normal;
     
     
     for ( int i = 0; i < kNumOfSoundObjects; i++ ) {
@@ -65,6 +65,8 @@ bool SequencerScene::init() {
     /*UserDefault::getInstance()->deleteValueForKey( "current_posX" );
     UserDefault::getInstance()->deleteValueForKey( "current_posY" );
     UserDefault::getInstance()->deleteValueForKey( "current_whatSound" );*/
+    
+    bounceAndShare = new BounceAndShare( this );
     
 
     loadData();
@@ -85,7 +87,7 @@ void SequencerScene::update( float dt ) {
     for ( int i = 0; i < seqSoundRect.size(); i++ ) {
         if ( ! seqSoundRect[i].isPlaying() ) {
             if ( ! seqSoundRect[i].getIsHeld() ) {
-                if ( playHeadIsMoving ) {
+                if ( whatState == kSequencerScene_State_PlayHeadIsMoving ) {
                     
                     if ( CheckBoxCollision( seqSoundRect[i].collisionSprite, playHead ) ) {
                         FMODAudioEngine::playSound( seqSoundRect[i].getWhatSoundObject() );
@@ -116,7 +118,7 @@ void SequencerScene::update( float dt ) {
         log( "channel pos: %d", FMODAudioEngine::getChannelPos() );
     }*/
     
-    if ( mainMenu->bombIsPressed() ) {
+    if ( whatState == kSequencerScene_State_BombIsPressed ) {
         
         mainMenu->bombTimer( dt );
     
@@ -135,102 +137,108 @@ void SequencerScene::onTouchesBegan( const std::vector<Touch*>& touches, Event* 
     
     for ( auto &touch : touches ) {
         if ( touch != nullptr ) {
+            if ( touch->getID() == 0 ) {
             
-            if ( ! mainMenu->helpOverlayIsVisible ) {
-                
-                if ( touch->getID() == 0 ) {
+                if ( whatState == kSequencerScene_State_Normal ) {
                     
-                    log( "touch began location Y: %f", touch->getLocation().y );
-                    log( "touch began location X: %f", touch->getLocation().x );
-                    log( "touch began location in view Y: %f", touch->getLocationInView().y );
-                    log( "touch began location in view X: %f", touch->getLocationInView().x );
-                    log( "touch began previous location Y: %f", touch->getPreviousLocation().y );
-                    log( "touch began previous location X: %f", touch->getPreviousLocation().x );
+                    // MAIN MENU
+                    mainMenu->setStartPos( touch->getLocation() );
                     
-                    if ( ! playHeadHandleIsPressed ) {
-                        
-                        if ( ! FMODAudioEngine::isBouncing() ) {
-                            
-                            mainMenu->setStartPos( touch->getLocation() );
-                            
-                            if ( mainMenu->buttons_image[kButtons_ArrayNum_Bomb]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
-                                mainMenu->setBombIsPressed( true );
-                                mainMenu->animateBomb();
-                                mainMenu->buttons_image[kButtons_ArrayNum_Bomb]->setScale( kButtons_ScaleValue );
-                            }
-                            
-                            if ( mainMenu->buttons_image[kButtons_ArrayNum_Mic]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
-                                mainMenu->setTouchHasBegun( true, kButtons_ArrayNum_Mic );
-                                mainMenu->buttons_image[kButtons_ArrayNum_Mic]->setScale( kButtons_ScaleValue );
-                            }
-                            
-                            if ( mainMenu->buttons_image[kButtons_ArrayNum_Play]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
-                                mainMenu->setTouchHasBegun( true, kButtons_ArrayNum_Play );
-                                mainMenu->buttons_image[kButtons_ArrayNum_Play]->setScale( kButtons_ScaleValue );
-                            }
-                            
-                            if ( mainMenu->buttons_image[kButtons_ArrayNum_Stop]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
-                                mainMenu->setTouchHasBegun( true, kButtons_ArrayNum_Stop );
-                                mainMenu->buttons_image[kButtons_ArrayNum_Stop]->setScale( kButtons_ScaleValue );
-                            }
-                            
-                            if ( mainMenu->buttons_image[kButtons_ArrayNum_Loop]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
-                                mainMenu->setTouchHasBegun( true, kButtons_ArrayNum_Loop );
-                                mainMenu->buttons_image[kButtons_ArrayNum_Loop]->setScale( kButtons_ScaleValue );
-                            }
-                            
-                            if ( mainMenu->buttons_image[kButtons_ArrayNum_Help]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
-                                mainMenu->buttons_image[kButtons_ArrayNum_Help]->setScale( kButtons_ScaleValue );
-                                mainMenu->setTouchHasBegun( true, kButtons_ArrayNum_Help );
+                    // BACK BUTTON
+                    if ( mainMenu->buttons_image[kButtons_ArrayNum_Stop]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
+                        mainMenu->setTouchHasBegun( true, kButtons_ArrayNum_Stop );
+                        mainMenu->buttons_image[kButtons_ArrayNum_Stop]->setScale( kButtons_ScaleValue );
+                    }
+                    
+                    if ( mainMenu->buttons_image[kButtons_ArrayNum_Bomb]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
+                        //mainMenu->setBombIsPressed( true );
+                        mainMenu->animateBomb();
+                        mainMenu->buttons_image[kButtons_ArrayNum_Bomb]->setScale( kButtons_ScaleValue );
+                        whatState = kSequencerScene_State_BombIsPressed;
+                    }
+                    
+                    if ( mainMenu->buttons_image[kButtons_ArrayNum_Mic]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
+                        mainMenu->setTouchHasBegun( true, kButtons_ArrayNum_Mic );
+                        mainMenu->buttons_image[kButtons_ArrayNum_Mic]->setScale( kButtons_ScaleValue );
+                    }
+                    
+                    if ( mainMenu->buttons_image[kButtons_ArrayNum_Play]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
+                        mainMenu->setTouchHasBegun( true, kButtons_ArrayNum_Play );
+                        mainMenu->buttons_image[kButtons_ArrayNum_Play]->setScale( kButtons_ScaleValue );
+                    }
+                    
+                    if ( mainMenu->buttons_image[kButtons_ArrayNum_Help]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
+                        mainMenu->buttons_image[kButtons_ArrayNum_Help]->setScale( kButtons_ScaleValue );
+                        mainMenu->setTouchHasBegun( true, kButtons_ArrayNum_Help );
+                    }
+                    
+                    if ( mainMenu->buttons_image[kButtons_ArrayNum_Bounce]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
+                        mainMenu->setTouchHasBegun( true, kButtons_ArrayNum_Bounce );
+                        mainMenu->buttons_image[kButtons_ArrayNum_Bounce]->setScale( kButtons_ScaleValue );
+                    }
+                    
+                    // PLAY HEAD HANDLE
+                    if ( playHeadHandle->getBoundingBox().containsPoint( touch->getLocation() ) ) {
+                        whatState = kSequencerScene_State_PlayHeadIsPressed;
+                    }
+                    
+                    // RIGHT SOUND SELECT MENU
+                    for ( int i = 0; i < kNumOfSoundObjects; i++ ) {
+                        int whatSoundObject = i;
+                        if ( FMODAudioEngine::hasRecordWav( whatSoundObject ) ) {
+                            if ( mainMenu->soundSquare[whatSoundObject]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
+                                seqSoundRect.push_back( SeqSoundRect( this, touch->getLocation(), whatSoundObject, FMODAudioEngine::getSoundLength( whatSoundObject ), mainMenu->getInstrumentAreaWidth(), mainMenu->getCurrentProjectName() ) );
+                                savePos.push_back( Vec2( 0, 0 ) );
+                                saveWhatSoundObject.push_back( whatSoundObject );
                             }
                         }
+                    }
 
-                        if ( mainMenu->buttons_image[kButtons_ArrayNum_Bounce]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
-                            mainMenu->setTouchHasBegun( true, kButtons_ArrayNum_Bounce );
-                            mainMenu->buttons_image[kButtons_ArrayNum_Bounce]->setScale( kButtons_ScaleValue );
-                        }
-                
-                    }
-            
-                    if ( ! FMODAudioEngine::isBouncing() ) {
-                        if ( ! playHeadHandleIsPressed ) {
-                            if ( playHeadHandle->getBoundingBox().containsPoint( touch->getLocation() ) ) {
-                                playHeadHandleIsPressed = true;
+                    // SOUND BOXES ON CANVAS
+                    for ( unsigned long i = seqSoundRect.size(); i-- > 0; ) {
+                        if ( ! seqSoundRect[i].getIsHeld() && ! someoneIsHeld ) {
+                            if ( seqSoundRect[i].sprite->getBoundingBox().containsPoint( touch->getLocation() ) || seqSoundRect[i].touchArea->getBoundingBox().containsPoint( touch->getLocation() ) ) {
+                                seqSoundRect[i].setIsHeld( true );
+                                someoneIsHeld = true;
+                                seqSoundRect[i].setOffsetPos( touch->getLocation() );
                             }
                         }
                     }
                     
-                    if ( ! FMODAudioEngine::isBouncing() ) {
-                        
-                        if ( ! playHeadHandleIsPressed ) {
-                            
-                            for ( int i = 0; i < kNumOfSoundObjects; i++ ) {
-                                int whatSoundObject = i;
-                                if ( FMODAudioEngine::hasRecordWav( whatSoundObject ) ) {
-                                    if ( mainMenu->soundSquare[whatSoundObject]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
-                                        seqSoundRect.push_back( SeqSoundRect( this, touch->getLocation(), whatSoundObject, FMODAudioEngine::getSoundLength( whatSoundObject ), mainMenu->getInstrumentAreaWidth(), mainMenu->getCurrentProjectName() ) );
-                                        savePos.push_back( Vec2( 0, 0 ) );
-                                        saveWhatSoundObject.push_back( whatSoundObject );
-                                    }
-                                }
-                            }
-
-                            for ( unsigned long i = seqSoundRect.size(); i-- > 0; ) {
-                                if ( ! seqSoundRect[i].getIsHeld() && ! someoneIsHeld ) {
-                                    if ( seqSoundRect[i].sprite->getBoundingBox().containsPoint( touch->getLocation() ) || seqSoundRect[i].touchArea->getBoundingBox().containsPoint( touch->getLocation() ) ) {
-                                        seqSoundRect[i].setIsHeld( true );
-                                        someoneIsHeld = true;
-                                        seqSoundRect[i].setOffsetPos( touch->getLocation() );
-                                    }
-                                }
-                            }
-                            
-                        }
-                        
+                } else if ( whatState == kSequencerScene_State_HelpOverlay ) {
+                    
+                } else if ( whatState == kSequencerScene_State_PlayHeadIsMoving ) {
+                    
+                    // STOP BUTTON
+                    if ( mainMenu->buttons_image[kButtons_ArrayNum_Stop]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
+                        mainMenu->setTouchHasBegun( true, kButtons_ArrayNum_Stop );
+                        mainMenu->buttons_image[kButtons_ArrayNum_Stop]->setScale( kButtons_ScaleValue );
                     }
                     
+                } else if ( whatState == kSequencerScene_State_PlayHeadIsPressed ) {
+                    
+                } else if ( whatState == kSequencerScene_State_BounceAndShare ) {
+                    
+                    if ( bounceAndShare->closeCross->getBoundingBox().containsPoint( touch->getLocation() ) ) {
+                        bounceAndShare->hide();
+                        whatState = kSequencerScene_State_Normal;
+                    }
+                    
+                } else if ( whatState == kSequencerScene_State_IsBouncing ) {
+                    
+                } else if ( whatState == kSequencerScene_State_BombIsPressed ) {
                     
                 }
+                
+                
+                if ( whatState == kSequencerScene_State_PlayHeadIsMoving || whatState == kSequencerScene_State_Normal ) {
+                    if ( mainMenu->buttons_image[kButtons_ArrayNum_Loop]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
+                        mainMenu->setTouchHasBegun( true, kButtons_ArrayNum_Loop );
+                        mainMenu->buttons_image[kButtons_ArrayNum_Loop]->setScale( kButtons_ScaleValue );
+                    }
+                }
+                
+                
                 
             }
         
@@ -244,20 +252,12 @@ void SequencerScene::onTouchesMoved( const std::vector<Touch*> &touches, Event* 
     
     for ( auto touch : touches ) {
         if ( touch != nullptr ) {
+            if ( touch->getID() == 0 ) {
             
-            if ( ! mainMenu->helpOverlayIsVisible ) {
-                
-                if ( touch->getID() == 0 ) {
-                    
-                    log( "touch moved location Y: %f", touch->getLocation().y );
-                    log( "touch moved location X: %f", touch->getLocation().x );
-                    log( "touch moved location in view Y: %f", touch->getLocationInView().y );
-                    log( "touch moved location in view X: %f", touch->getLocationInView().x );
-                    log( "touch moved previous location Y: %f", touch->getPreviousLocation().y );
-                    log( "touch moved previous location X: %f", touch->getPreviousLocation().x );
+                if ( whatState == kSequencerScene_State_Normal ) {
                     
                     mainMenu->abortWithTouchMove( touch->getLocation() );
-                
+                    
                     for ( int i = 0; i < seqSoundRect.size(); i++ ) {
                         if ( seqSoundRect[i].getIsHeld() ) {
                             seqSoundRect[i].sprite->setPositionY( touch->getLocation().y - seqSoundRect[i].getOffsetPos().y );
@@ -272,23 +272,30 @@ void SequencerScene::onTouchesMoved( const std::vector<Touch*> &touches, Event* 
                         }
                     }
                     
-                    if ( ! playHeadIsMoving ) {
-                        if ( playHeadHandleIsPressed ) {
-                            
-                            playHeadHandle->setPositionX( touch->getLocation().x );
-                            playHead->setPositionX( playHeadHandle->getPosition().x );
-                            
-                            if ( playHeadHandle->getPosition().x <= mainMenu->getPlayHeadStartPosX() ) {
-                                playHeadHandle->setPositionX( mainMenu->getPlayHeadStartPosX() );
-                                playHead->setPositionX( playHeadHandle->getPosition().x );
-                            }
-                            if ( playHeadHandle->getPosition().x >= mainMenu->getPlayHeadEndPosX() ) {
-                                playHeadHandle->setPositionX( mainMenu->getPlayHeadEndPosX() );
-                                playHead->setPositionX( playHeadHandle->getPosition().x );
-                            }
-                        }
+                } else if ( whatState == kSequencerScene_State_HelpOverlay ) {
+                    
+                } else if ( whatState == kSequencerScene_State_PlayHeadIsMoving ) {
+                    
+                } else if ( whatState == kSequencerScene_State_PlayHeadIsPressed ) {
+                    
+                    playHeadHandle->setPositionX( touch->getLocation().x );
+                    playHead->setPositionX( playHeadHandle->getPosition().x );
+                    
+                    if ( playHeadHandle->getPosition().x <= mainMenu->getPlayHeadStartPosX() ) {
+                        playHeadHandle->setPositionX( mainMenu->getPlayHeadStartPosX() );
+                        playHead->setPositionX( playHeadHandle->getPosition().x );
                     }
-            
+                    if ( playHeadHandle->getPosition().x >= mainMenu->getPlayHeadEndPosX() ) {
+                        playHeadHandle->setPositionX( mainMenu->getPlayHeadEndPosX() );
+                        playHead->setPositionX( playHeadHandle->getPosition().x );
+                    }
+                    
+                } else if ( whatState == kSequencerScene_State_BounceAndShare ) {
+                    
+                } else if ( whatState == kSequencerScene_State_IsBouncing ) {
+                    
+                } else if ( whatState == kSequencerScene_State_BombIsPressed ) {
+                    
                 }
                 
             }
@@ -302,10 +309,9 @@ void SequencerScene::onTouchesEnded( const std::vector<Touch*> &touches, Event* 
     
     for ( auto touch : touches ) {
         if ( touch != nullptr ) {
+            if ( touch->getID() == 0 ) {
             
-            if ( ! mainMenu->helpOverlayIsVisible ) {
-            
-                if ( touch->getID() == 0 ) {
+                if ( whatState == kSequencerScene_State_Normal ) {
                     
                     if ( someoneIsHeld ) {
                         keepSeqSoundRectInArea();
@@ -326,59 +332,33 @@ void SequencerScene::onTouchesEnded( const std::vector<Touch*> &touches, Event* 
                         }
                     }
                     
-                    if ( mainMenu->bombIsPressed() ) {
-                        mainMenu->resetBomb();
-                    }
-                    
                     if ( mainMenu->buttons_image[kButtons_ArrayNum_Mic]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
-                        if ( ! FMODAudioEngine::isBouncing() ) {
-                            if ( mainMenu->getTouchHasBegun( kButtons_ArrayNum_Mic ) ) {
-                                FMODAudioEngine::stopSound();
-                                saveData();
-                                auto scene = InstrumentScene::createScene();
-                                Director::getInstance()->replaceScene( scene );
-                            }
+                        if ( mainMenu->getTouchHasBegun( kButtons_ArrayNum_Mic ) ) {
+                            FMODAudioEngine::stopSound();
+                            saveData();
+                            auto scene = InstrumentScene::createScene();
+                            Director::getInstance()->replaceScene( scene );
                         }
                     }
                     
                     if ( mainMenu->buttons_image[kButtons_ArrayNum_Play]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
-                        if ( ! FMODAudioEngine::isBouncing() ) {
-                            if ( mainMenu->getTouchHasBegun( kButtons_ArrayNum_Play ) ) {
-                                FMODAudioEngine::stopSound();
-                                movePlayHead();
-                                playHeadHandle->setVisible( false );
-                                mainMenu->buttons_image[kButtons_ArrayNum_Stop]->setTexture( "stopButtonDark.png" );
-                            }
-                        }
-                    }
-                    
-                    if ( mainMenu->buttons_image[kButtons_ArrayNum_Stop]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
-                        if ( ! FMODAudioEngine::isBouncing() ) {
-                            if ( mainMenu->getTouchHasBegun( kButtons_ArrayNum_Stop ) ) {
-                                if ( ! playHeadIsMoving ) {
-                                    playHead->setPosition( Vec2( mainMenu->getPlayHeadStartPosX(), visibleSize.height * 0.5 + origin.y ) );
-                                    playHeadHandle->setPositionX( playHead->getPosition().x );
-                                }
-                                resetWhenStop();
-                            }
-                        }
-                    }
-                    
-                    if ( mainMenu->buttons_image[kButtons_ArrayNum_Loop]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
-                        if ( mainMenu->getTouchHasBegun( kButtons_ArrayNum_Loop ) ) {
-                            if ( ! mainMenu->getIsLoopOn() ) {
-                                mainMenu->setIsLoopOn( true );
-                                mainMenu->buttons_image[kButtons_ArrayNum_Loop]->setColor( Color3B::YELLOW );
-                            } else {
-                                mainMenu->setIsLoopOn( false );
-                                mainMenu->buttons_image[kButtons_ArrayNum_Loop]->setColor( Color3B::WHITE );
-                            }
+                        if ( mainMenu->getTouchHasBegun( kButtons_ArrayNum_Play ) ) {
+                            FMODAudioEngine::stopSound();
+                            movePlayHead();
+                            playHeadHandle->setVisible( false );
+                            mainMenu->buttons_image[kButtons_ArrayNum_Stop]->setTexture( "stopButtonDark.png" );
+                            whatState = kSequencerScene_State_PlayHeadIsMoving;
                         }
                     }
                     
                     if ( mainMenu->buttons_image[kButtons_ArrayNum_Bounce]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
                         if ( mainMenu->getTouchHasBegun( kButtons_ArrayNum_Bounce ) ) {
-                            if ( mainMenu->bounceWavIsOn() ) {
+                            
+                            bounceAndShare->show();
+                            whatState = kSequencerScene_State_BounceAndShare;
+                            
+                            
+                            /*if ( mainMenu->bounceWavIsOn() ) {
                                 stopBounce();
                             } else {
                                 mainMenu->setBounceWavIsOn( true );
@@ -396,7 +376,11 @@ void SequencerScene::onTouchesEnded( const std::vector<Touch*> &touches, Event* 
                                 mainMenu->buttons_image[kButtons_ArrayNum_Bomb]->setColor( Color3B( kButtons_GrayedOutValue, kButtons_GrayedOutValue, kButtons_GrayedOutValue ) );
                                 mainMenu->buttons_image[kButtons_ArrayNum_Mic]->setColor( Color3B( kButtons_GrayedOutValue, kButtons_GrayedOutValue, kButtons_GrayedOutValue ) );
                                 mainMenu->buttons_image[kButtons_ArrayNum_Help]->setColor( Color3B( kButtons_GrayedOutValue, kButtons_GrayedOutValue, kButtons_GrayedOutValue ) );
-                            }
+                            }*/
+                            
+                            
+                            
+                            
                         }
                     }
                     
@@ -405,35 +389,81 @@ void SequencerScene::onTouchesEnded( const std::vector<Touch*> &touches, Event* 
                             mainMenu->helpOverlayIsVisible = true;
                             //mainMenu->helpOverlay->setVisible( true );
                             mainMenu->helpOverlay->show();
+                            whatState = kSequencerScene_State_HelpOverlay;
                         }
                     }
                     
+                    // BACK BUTTON
+                    if ( mainMenu->buttons_image[kButtons_ArrayNum_Stop]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
+                        if ( mainMenu->getTouchHasBegun( kButtons_ArrayNum_Stop ) ) {
+                            playHead->setPosition( Vec2( mainMenu->getPlayHeadStartPosX(), visibleSize.height * 0.5 + origin.y ) );
+                            playHeadHandle->setPositionX( playHead->getPosition().x );
+                        }
+                    }
+          
+                } else if ( whatState == kSequencerScene_State_HelpOverlay ) {
+                    
+                    mainMenu->helpOverlayIsVisible = false;
+                    mainMenu->helpOverlay->hide();
+                    whatState = kSequencerScene_State_Normal;
+                    
+                } else if ( whatState == kSequencerScene_State_PlayHeadIsMoving ) {
+                    
+                    if ( mainMenu->buttons_image[kButtons_ArrayNum_Stop]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
+                        if ( mainMenu->getTouchHasBegun( kButtons_ArrayNum_Stop ) ) {
+                            resetWhenStop();
+                        }
+                    }
+                    
+                } else if ( whatState == kSequencerScene_State_PlayHeadIsPressed ) {
+                    
+                    whatState = kSequencerScene_State_Normal;
+                    
+                } else if ( whatState == kSequencerScene_State_BounceAndShare ) {
+                    
+                } else if ( whatState == kSequencerScene_State_IsBouncing ) {
+                    
+                    stopBounce();
+                    whatState = kSequencerScene_State_Normal;
+                    
+                } else if ( whatState == kSequencerScene_State_BombIsPressed ) {
+                    
+                    mainMenu->resetBomb();
+                    whatState = kSequencerScene_State_Normal;
                     
                 }
                 
-                mainMenu->buttons_image[kButtons_ArrayNum_Play]->setScale( 1.0f );
-                mainMenu->buttons_image[kButtons_ArrayNum_Stop]->setScale( 1.0f );
-                mainMenu->buttons_image[kButtons_ArrayNum_Loop]->setScale( 1.0f );
-                mainMenu->buttons_image[kButtons_ArrayNum_Bounce]->setScale( 1.0f );
-                mainMenu->buttons_image[kButtons_ArrayNum_Mic]->setScale( 1.0f );
-                mainMenu->buttons_image[kButtons_ArrayNum_Bomb]->setScale( 1.0f );
-                mainMenu->buttons_image[kButtons_ArrayNum_Help]->setScale( 1.0f );
-                mainMenu->setTouchHasBegun( false, kButtons_ArrayNum_Mic );
-                mainMenu->setTouchHasBegun( false, kButtons_ArrayNum_Play );
-                mainMenu->setTouchHasBegun( false, kButtons_ArrayNum_Stop );
-                mainMenu->setTouchHasBegun( false, kButtons_ArrayNum_Loop );
-                mainMenu->setTouchHasBegun( false, kButtons_ArrayNum_Bounce );
-                playHeadHandleIsPressed = false;
-                mainMenu->bombAnim->setVisible( false );
-                
-                
-                
-            } else {
-                
-                mainMenu->helpOverlayIsVisible = false;
-                //mainMenu->helpOverlay->setVisible( false );
-                mainMenu->helpOverlay->hide();
             }
+            
+            if ( whatState == kSequencerScene_State_PlayHeadIsMoving || whatState == kSequencerScene_State_Normal ) {
+                if ( mainMenu->buttons_image[kButtons_ArrayNum_Loop]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
+                    if ( mainMenu->getTouchHasBegun( kButtons_ArrayNum_Loop ) ) {
+                        if ( ! mainMenu->getIsLoopOn() ) {
+                            mainMenu->setIsLoopOn( true );
+                            mainMenu->buttons_image[kButtons_ArrayNum_Loop]->setColor( Color3B::YELLOW );
+                        } else {
+                            mainMenu->setIsLoopOn( false );
+                            mainMenu->buttons_image[kButtons_ArrayNum_Loop]->setColor( Color3B::WHITE );
+                        }
+                    }
+                }
+            }
+            
+            
+            
+            mainMenu->buttons_image[kButtons_ArrayNum_Play]->setScale( 1.0f );
+            mainMenu->buttons_image[kButtons_ArrayNum_Stop]->setScale( 1.0f );
+            mainMenu->buttons_image[kButtons_ArrayNum_Loop]->setScale( 1.0f );
+            mainMenu->buttons_image[kButtons_ArrayNum_Bounce]->setScale( 1.0f );
+            mainMenu->buttons_image[kButtons_ArrayNum_Mic]->setScale( 1.0f );
+            mainMenu->buttons_image[kButtons_ArrayNum_Bomb]->setScale( 1.0f );
+            mainMenu->buttons_image[kButtons_ArrayNum_Help]->setScale( 1.0f );
+            mainMenu->setTouchHasBegun( false, kButtons_ArrayNum_Mic );
+            mainMenu->setTouchHasBegun( false, kButtons_ArrayNum_Play );
+            mainMenu->setTouchHasBegun( false, kButtons_ArrayNum_Stop );
+            mainMenu->setTouchHasBegun( false, kButtons_ArrayNum_Loop );
+            mainMenu->setTouchHasBegun( false, kButtons_ArrayNum_Bounce );
+            mainMenu->bombAnim->setVisible( false );
             
             
         }
@@ -493,9 +523,7 @@ void SequencerScene::movePlayHead() {
     } else {
         playHead->runAction( seqNormalPlay );
     }
-    
-    
-    playHeadIsMoving = true;
+
 }
 
 void SequencerScene::stopBounce() {
@@ -517,6 +545,8 @@ void SequencerScene::stopBounce() {
     mainMenu->buttons_image[kButtons_ArrayNum_Help]->setColor( Color3B::WHITE );
     
     //saveToIcloud();
+    
+    whatState = kSequencerScene_State_Normal;
 }
 
 void SequencerScene::resetWhenStop() {
@@ -530,8 +560,9 @@ void SequencerScene::resetWhenStop() {
     playHeadHandle->setVisible( true );
     setPlayHeadHandlePos();
     stopPlayHead();
-    
+    whatState = kSequencerScene_State_Normal;
 }
+
 void SequencerScene::resetWhenReachEnd() {
     FMODAudioEngine::stopSound();
     for ( int i = 0; i < seqSoundRect.size(); i++ ) {
@@ -548,13 +579,13 @@ void SequencerScene::resetWhenReachEnd() {
         playHeadHandle->setVisible( true );
         setPlayHeadHandlePos();
         stopPlayHead();
+        whatState = kSequencerScene_State_Normal;
     }
 
 }
 
 void SequencerScene::stopPlayHead() {
     playHead->stopActionByTag( kTag_MoveRight );
-    playHeadIsMoving = false;
 }
 
 bool SequencerScene::CheckBoxCollision( Sprite *box1, Sprite *box2 ) {
