@@ -2412,10 +2412,8 @@
 		02E7330CAE3241C5B0AAB6E5 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				FF40D5D7252488C5004C57D7 /* closeCross.png */,
-				FF5DB5232519EA190025062D /* arrow.png */,
-				FF60C324250B6F670064157F /* buttonBg.png */,
 				84A8B2349F5F4D91A47465BC /* .DS_Store */,
+				FF5DB5232519EA190025062D /* arrow.png */,
 				FF053A86250A2A23000A45C5 /* backButton.png */,
 				81F4A5B51B854A448536AA14 /* blowExplosion_flame.plist */,
 				979141B5D22F4806AB559214 /* blowExplosion_flame.png */,
@@ -2427,7 +2425,9 @@
 				C7E53E498680404F9FD4BAD7 /* Bomb4.png */,
 				FF053A65250A2502000A45C5 /* bombButton.png */,
 				FF053A61250A2501000A45C5 /* bounceButton.png */,
+				FF60C324250B6F670064157F /* buttonBg.png */,
 				3B788A82D8FE480FA231E60A /* circle.png */,
+				FF40D5D7252488C5004C57D7 /* closeCross.png */,
 				6FD438C114584A63B02E2221 /* fonts */,
 				0B1B0286326B446382F3DC0D /* help_back.png */,
 				14EF533AA1F040598E0390AE /* help_comp.png */,
@@ -2456,10 +2456,10 @@
 				FF053A77250A268F000A45C5 /* recButton.png */,
 				E3A7B0648FCA4BEDB473F203 /* res */,
 				FF053A79250A26A3000A45C5 /* sequencerButton.png */,
+				FFBE8FF025274D6400CB6BCB /* shareButton.png */,
 				7181D35D76874F0DBEEA8592 /* square1px.png */,
 				FF053A60250A2501000A45C5 /* stopButton.png */,
 				FF053A89250A2AD5000A45C5 /* stopButtonDark.png */,
-				FFBE8FF025274D6400CB6BCB /* shareButton.png */,
 				F11113F01E484625A934CA5D /* trash.png */,
 				FF053A8C250A2DB3000A45C5 /* unLockButton.png */,
 				FF053A62250A2501000A45C5 /* helpButton.png */,

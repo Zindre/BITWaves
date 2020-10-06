@@ -55,6 +55,7 @@ private:
     bool playHeadIsMoving;
     BounceAndShare *bounceAndShare;
     unsigned int whatState;
+    bool playHeadIsPressed;
     
 
 

@@ -29,6 +29,7 @@ ProjectHandling::ProjectHandling( Layer *layer ) {
     
     for ( int i = 0; i < kButtons_ProjectHandling_NumOf; i++ ) {
         buttonBg[i] = Sprite::create( "buttonBg.png" );
+        buttonBg[i]->setColor( Color3B::BLACK );
         padding = buttonBg[i]->getBoundingBox().size.height * 0.5;
         layer->addChild( buttonBg[i], kLayer_ProjectHandling );
         
@@ -774,6 +775,10 @@ void ProjectHandling::updateProjectList() {
         if ( savedProjectNames[i].compare( ".." ) == 0 ) {
             savedProjectNames.erase( savedProjectNames.begin() + i );
         }
+        
+        if ( savedProjectNames[i].compare( ".Trash" ) == 0 ) {
+            savedProjectNames.erase( savedProjectNames.begin() + i );
+        }
     }
     
     log( "savedProjectNames.size() after: %lu", savedProjectNames.size() );
@@ -969,8 +974,13 @@ bool ProjectHandling::buttonTouchHasBegun( int whatButton ) {
 
 void ProjectHandling::setButtonTouchHasBegun( bool touchHasBegun, int whatButton ) {
     _buttonTouchHasBegun[whatButton] = touchHasBegun;
-    buttonBg[whatButton]->setScale( 1.1 );
-    label_buttons[whatButton]->setScale( 1.1 );
+    if ( touchHasBegun ) {
+        buttonBg[whatButton]->setScale( 1.1 );
+        label_buttons[whatButton]->setScale( 1.1 );
+    } else {
+        buttonBg[whatButton]->setScale( 1.0 );
+        label_buttons[whatButton]->setScale( 1.0 );
+    }
 }
 
 void ProjectHandling::abortWithTouchMove( Vec2 touchPos ) {

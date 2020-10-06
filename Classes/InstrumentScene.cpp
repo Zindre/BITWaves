@@ -50,7 +50,6 @@ bool InstrumentScene::init()
     mainMenu = new MainMenu( this, kScene_Instrument );
     projectHandling = new ProjectHandling( this );
     recordTimer = 0.0f;
-    touchIsDown = false;
     
     waveFormRect = DrawNode::create();
     this->addChild( waveFormRect, kLayer_RecordWaveForm );
@@ -137,7 +136,6 @@ void InstrumentScene::onTouchesBegan( const std::vector<Touch*>& touches, Event*
         
         if ( touch != nullptr ) {
             
-            touchIsDown = true;
             mainMenu->setStartPos( touch->getLocation() );
             
             if ( ! mainMenu->helpOverlayIsVisible ) {
@@ -447,8 +445,6 @@ void InstrumentScene::onTouchesEnded( const std::vector<Touch*> &touches, Event*
     for ( auto touch : touches ) {
         if ( touch != nullptr ) {
             
-            touchIsDown = false;
-            
             if ( ! mainMenu->helpOverlayIsVisible ) {
                 
                 // PROJECT HANDLING
@@ -530,8 +526,6 @@ void InstrumentScene::onTouchesEnded( const std::vector<Touch*> &touches, Event*
                     // Touch bagan to false
                     for ( int i = 0; i < kButtons_ProjectHandling_NumOf; i++ ) {
                         projectHandling->setButtonTouchHasBegun( false, i );
-                        projectHandling->buttonBg[i]->setScale( 1.0 );
-                        projectHandling->label_buttons[i]->setScale( 1.0 );
                     }
                     
                 } else {

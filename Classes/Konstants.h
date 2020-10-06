@@ -87,7 +87,7 @@
 #define kProjectHandling_State_SaveOverlay_KeyboardOpen 5
 #define kProjectHandling_State_DeletePrompt 6
 
-#define kProjectHandling_FontSize_Buttons 10
+#define kProjectHandling_FontSize_Buttons 9
 #define kProjectHandling_FontSize_ProjectNames 7
 #define kProjectHandling_FontSize_Text 12
 
@@ -96,7 +96,10 @@
 #define kSequencerScene_State_Normal 1
 #define kSequencerScene_State_HelpOverlay 2
 #define kSequencerScene_State_PlayHeadIsMoving 3
-#define kSequencerScene_State_PlayHeadIsPressed 4
-#define kSequencerScene_State_BounceAndShare 5
-#define kSequencerScene_State_IsBouncing 6
-#define kSequencerScene_State_BombIsPressed 7
+#define kSequencerScene_State_BounceAndShare 4
+#define kSequencerScene_State_IsBouncing 5
+#define kSequencerScene_State_BombIsPressed 6
+
+#define kBounceAndShare_Buttons_NumOf 2
+#define kBounceAndShare_Buttons_Index_StartBounce 0
+#define kBounceAndShare_Buttons_Index_Share 1

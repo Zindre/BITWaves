@@ -29,7 +29,7 @@ namespace FMODAudioEngine {
     void stopSound();
     void fadeOut( int channelid, float fadeOutTime );
     int getChannelID();
-    void START_outputToWaveWriter();
+    void START_outputToWaveWriter( std::string currentProjectName );
     void STOP_outputToWaveWriter();
     bool hasRecordWav(  unsigned int whatSoundObject );
     float getSpectrum( int channelID );

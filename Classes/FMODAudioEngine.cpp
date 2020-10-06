@@ -559,14 +559,18 @@ namespace FMODAudioEngine {
     }
 
     
-    void START_outputToWaveWriter() {
+    void START_outputToWaveWriter( std::string currentProjectName ) {
         
         //std::string str = Common_MediaPath_Bounce();
         
+        
         FileUtils *fileUtils = FileUtils::getInstance();
         std::string writablePath = fileUtils->getWritablePath();
-        std::string bounceFileFullPath = writablePath + "bounce.wav";
+        std::string projectFolder = currentProjectName;
+        std::string bounceFile = "bounce.wav";
+        std::string bounceFileFullPath = writablePath + projectFolder + "/" + bounceFile;
         log( "bounceFileFullPath: %s", bounceFileFullPath.c_str() );
+        
         
         char *cstr = new char[bounceFileFullPath.length() + 1];
         strcpy(cstr, bounceFileFullPath.c_str());

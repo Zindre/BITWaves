@@ -44,7 +44,6 @@ private:
     cocos2d::Size visibleSize;
     cocos2d::Vec2 origin;
     float recordTimer;
-    bool touchIsDown;
     unsigned int playingSoundObject[kTouch_NumOfTouchesAllowed];
     cocos2d::DrawNode *waveFormRect;
     float waveFormPosX;
