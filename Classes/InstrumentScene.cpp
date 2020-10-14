@@ -47,8 +47,9 @@ bool InstrumentScene::init()
     }
 
 
-    mainMenu = new MainMenu( this, kScene_Instrument );
     projectHandling = new ProjectHandling( this );
+    mainMenu = new MainMenu( this, kScene_Instrument );
+    
     recordTimer = 0.0f;
     
     waveFormRect = DrawNode::create();
@@ -106,7 +107,8 @@ void InstrumentScene::update( float dt ) {
     
     if ( ! hasLoadedSoundFiles && FMODAudioEngine::systemIsInitialized() ) {
         for ( int i = 0; i < kNumOfSoundObjects; i++ ) {
-            FMODAudioEngine::loadSoundFromDisk( mainMenu->getCurrentProjectName(), i );
+            std::string currentProjectName = UserDefault::getInstance()->getStringForKey( "currentProjectName" );
+            FMODAudioEngine::loadSoundFromDisk( currentProjectName, i );
         }
         hasLoadedSoundFiles = true;
     }
@@ -210,7 +212,8 @@ void InstrumentScene::onTouchesBegan( const std::vector<Touch*>& touches, Event*
                                     }
                                     projectHandling->projectNamesLabel[i].squareBg->setColor( Color3B( 0, 0, 0 ) );
                                     projectHandling->setSelectedProjectName( projectHandling->projectNamesLabel[i].getFullString() );
-                                    if ( projectHandling->getSelectedProjectName().compare( mainMenu->getCurrentProjectName() ) == 0 ) {
+                                    std::string currentProjectName = UserDefault::getInstance()->getStringForKey( "currentProjectName" );
+                                    if ( projectHandling->getSelectedProjectName().compare( currentProjectName ) == 0 ) {
                                         projectHandling->buttonBg[kButtons_ProjectHandling_Index_Open]->setOpacity( kProjectHandling_Button_TransparantValue );
                                         projectHandling->buttonBg[kButtons_ProjectHandling_Index_Delete]->setOpacity( kProjectHandling_Button_TransparantValue );
                                         projectHandling->setAprojectIsSelected( false );
@@ -467,7 +470,8 @@ void InstrumentScene::onTouchesEnded( const std::vector<Touch*> &touches, Event*
                         // NEW
                         if ( projectHandling->buttonTouchHasBegun( kButtons_ProjectHandling_Index_New ) ) {
                             projectHandling->createNewProject();
-                            mainMenu->setCurrentProjectName( "Uten tittel" );
+                            UserDefault::getInstance()->setStringForKey( "currentProjectName", "Uten tittel" );
+                            mainMenu->updateCurrentProjectNameLabel( "Uten tittel" );
                             auto scene = InstrumentScene::createScene();
                             Director::getInstance()->replaceScene( scene );
                         }
@@ -478,7 +482,8 @@ void InstrumentScene::onTouchesEnded( const std::vector<Touch*> &touches, Event*
                         // CONFIRM SAVE
                         if ( projectHandling->buttonTouchHasBegun( kButtons_ProjectHandling_Index_ConfirmSave ) ) {
                             projectHandling->saveNewProject();
-                            mainMenu->setCurrentProjectName( projectHandling->getTextFieldString() );
+                            UserDefault::getInstance()->setStringForKey( "currentProjectName", projectHandling->getTextFieldString() );
+                            mainMenu->updateCurrentProjectNameLabel( projectHandling->getTextFieldString() );
                             projectHandling->closeSaveOverlay();
                         }
                         
@@ -493,7 +498,8 @@ void InstrumentScene::onTouchesEnded( const std::vector<Touch*> &touches, Event*
                         // OPEN
                         if ( projectHandling->buttonTouchHasBegun( kButtons_ProjectHandling_Index_Open ) ) {
                             projectHandling->loadSavedProject();
-                            mainMenu->setCurrentProjectName( projectHandling->getSelectedProjectName() );
+                            UserDefault::getInstance()->setStringForKey( "currentProjectName", projectHandling->getSelectedProjectName() );
+                            mainMenu->updateCurrentProjectNameLabel( projectHandling->getSelectedProjectName()  );
                             auto scene = InstrumentScene::createScene();
                             Director::getInstance()->replaceScene( scene );
                         }
@@ -512,7 +518,8 @@ void InstrumentScene::onTouchesEnded( const std::vector<Touch*> &touches, Event*
                         
                         // CONFIRM DELETE
                         if ( projectHandling->buttonTouchHasBegun( kButtons_ProjectHandling_Index_ConfirmDelete ) ) {
-                            projectHandling->deleteProject( projectHandling->getSelectedProjectName(), mainMenu->getCurrentProjectName() );
+                            std::string currentProjectName = UserDefault::getInstance()->getStringForKey( "currentProjectName" );
+                            projectHandling->deleteProject( projectHandling->getSelectedProjectName(), currentProjectName );
                         }
                         
                         // CANCEL DELETE
@@ -538,7 +545,8 @@ void InstrumentScene::onTouchesEnded( const std::vector<Touch*> &touches, Event*
                             if ( ! FMODAudioEngine::isRecording() ) {
                                 if ( mainMenu->getTouchHasBegun( kButtons_ArrayNum_Rec ) ) {
                                     mainMenu->buttons_image[kButtons_ArrayNum_Rec]->setColor( Color3B::RED );
-                                    FMODAudioEngine::recordStart( mainMenu->getCurrentProjectName(), mainMenu->getActiveSoundObject() );
+                                    std::string currentProjectName = UserDefault::getInstance()->getStringForKey( "currentProjectName" );
+                                    FMODAudioEngine::recordStart( currentProjectName, mainMenu->getActiveSoundObject() );
                                     mainMenu->buttons_image[kButtons_ArrayNum_Seq]->setColor( Color3B( kButtons_GrayedOutValue, kButtons_GrayedOutValue, kButtons_GrayedOutValue ) );
                                     mainMenu->buttons_image[kButtons_ArrayNum_Help]->setColor( Color3B( kButtons_GrayedOutValue, kButtons_GrayedOutValue, kButtons_GrayedOutValue ) );
                                     mainMenu->buttons_image[kButtons_ArrayNum_Projects]->setColor( Color3B( kButtons_GrayedOutValue, kButtons_GrayedOutValue, kButtons_GrayedOutValue ) );
@@ -658,7 +666,8 @@ void InstrumentScene::stopRecording() {
     FMODAudioEngine::recordStop( mainMenu->getActiveSoundObject() );
     
     for ( int i = 0; i < kNumOfSoundObjects; i++ ) {
-        FMODAudioEngine::loadSoundFromDisk( mainMenu->getCurrentProjectName(), i );
+        std::string currentProjectName = UserDefault::getInstance()->getStringForKey( "currentProjectName" );
+        FMODAudioEngine::loadSoundFromDisk( currentProjectName, i );
     }
     
     recordTimer = 0;
@@ -698,7 +707,8 @@ void InstrumentScene::captureWaveform() {
     FileUtils *fileUtils = FileUtils::getInstance();
     std::string writablePath = fileUtils->getWritablePath();
     std::string imageFile = "waveForm" + to_string( mainMenu->getActiveSoundObject() ) + ".png";
-    std::string projectFolder = mainMenu->getCurrentProjectName();
+    std::string currentProjectName = UserDefault::getInstance()->getStringForKey( "currentProjectName" );
+    std::string projectFolder = currentProjectName;
     std::string imageFileInProjectFolder = projectFolder + "/" + imageFile;
     std::string imageFileFullPath = writablePath + projectFolder + "/" + imageFile;
     log( "capture wave form - image file full path: %s", imageFileFullPath.c_str() );
@@ -740,7 +750,8 @@ void InstrumentScene::clearWaveForm( float dt ) {
             log( "updating wave sprite" );
             FileUtils *fileUtils = FileUtils::getInstance();
             std::string writablePath = fileUtils->getWritablePath();
-            std::string projectFolder = mainMenu->getCurrentProjectName();
+            std::string currentProjectName = UserDefault::getInstance()->getStringForKey( "currentProjectName" );
+            std::string projectFolder = currentProjectName;
             std::string imageFileFullPath = writablePath + projectFolder + "/" + "waveForm" + to_string( mainMenu->getActiveSoundObject() ) + ".png";
             log( "clear wave form - image file full path: %s", imageFileFullPath.c_str() );
             

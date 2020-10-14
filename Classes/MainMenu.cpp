@@ -12,15 +12,11 @@ MainMenu::MainMenu( Layer *layer, unsigned int whatScene ) {
     this->whatScene = whatScene;
     
     
-    std::string tempProjName = UserDefault::getInstance()->getStringForKey( "currentProjectName" );
-    log( "temp proj name: %s", tempProjName.c_str() );
-    if ( tempProjName == "" ) {
-        currentProjectName = "Uten tittel";
-        UserDefault::getInstance()->setStringForKey( "currentProjectName", currentProjectName );
-    } else {
-        currentProjectName = UserDefault::getInstance()->getStringForKey( "currentProjectName" );
-    }
-    log( "current project name: %s", currentProjectName.c_str() );
+
+    
+    std::string currentProjectName = UserDefault::getInstance()->getStringForKey( "currentProjectName" );
+    
+    log( "Main Menu - current project name: %s", currentProjectName.c_str() );
     
     label_currentProjectName = Label::createWithTTF( currentProjectName.c_str(), "fonts/arial.ttf", 9 );
     label_currentProjectName->setPosition( Vec2( visibleSize.width * 0.5 + origin.x, visibleSize.height * 0.95 + origin.y ) );
@@ -398,12 +394,16 @@ void MainMenu::setStartPos( cocos2d::Vec2 touchPos ) {
     startPos = touchPos;
 }
 
-std::string MainMenu::getCurrentProjectName() {
+/*std::string MainMenu::getCurrentProjectName() {
     return currentProjectName;
-}
+}*/
 
-void MainMenu::setCurrentProjectName( std::string textFieldString ) {
+/*void MainMenu::setCurrentProjectName( std::string textFieldString ) {
     currentProjectName = textFieldString;
     label_currentProjectName->setString( currentProjectName );
     UserDefault::getInstance()->setStringForKey( "currentProjectName", currentProjectName );
+}*/
+
+void MainMenu::updateCurrentProjectNameLabel( std::string currentProjectName ) {
+    label_currentProjectName->setString( currentProjectName );
 }

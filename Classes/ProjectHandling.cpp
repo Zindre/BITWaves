@@ -186,7 +186,25 @@ ProjectHandling::ProjectHandling( Layer *layer ) {
     
     
     
+    std::string currentProjectName = "";
+    std::string tempProjName = UserDefault::getInstance()->getStringForKey( "currentProjectName" );
+    log( "temp proj name: %s", tempProjName.c_str() );
+    if ( tempProjName == "" ) {
+        UserDefault::getInstance()->setStringForKey( "currentProjectName", "Uten tittel" );
+    } else {
+        currentProjectName = UserDefault::getInstance()->getStringForKey( "currentProjectName" );
+    }
+    log( "Proj handling - current project name: %s", currentProjectName.c_str() );
     
+    
+    currentProjectName = UserDefault::getInstance()->getStringForKey( "currentProjectName" );
+    if ( currentProjectName == "Uten tittel" ) {
+        _savingIsPossible = true;
+    } else {
+        _savingIsPossible = false;
+        buttonBg[kButtons_ProjectHandling_Index_Save]->setOpacity( kProjectHandling_Button_TransparantValue );
+        saveCurrentToOpenProject();
+    }
     
     
     
@@ -208,14 +226,7 @@ ProjectHandling::ProjectHandling( Layer *layer ) {
     loadCurrentData();
     
     
-    std::string currentProjectName = UserDefault::getInstance()->getStringForKey( "currentProjectName" );
-    if ( currentProjectName == "Uten tittel" ) {
-        _savingIsPossible = true;
-    } else {
-        _savingIsPossible = false;
-        buttonBg[kButtons_ProjectHandling_Index_Save]->setOpacity( kProjectHandling_Button_TransparantValue );
-        saveCurrentToOpenProject();
-    }
+    
     
     
     hide();
@@ -712,21 +723,37 @@ void ProjectHandling::updateProjectList() {
     
     // Look for existing files from previous version of app
     for ( int i = 0; i < savedProjectNamesFullPaths.size(); i++ ) {
-        std::size_t foundWaveForm = savedProjectNamesFullPaths[i].find( "waveForm" );
-        if ( foundWaveForm != std::string::npos ) {
-            log( "found old waveFormX.png files" );
-            std::string fromLastVerString = "Fra forrige versjon";
-            std::string fromLastVerFullPath = writablePath + fromLastVerString;
-            if ( ! fileUtils->isDirectoryExist( fromLastVerFullPath ) ) {
-                fileUtils->createDirectory( fromLastVerFullPath );
+        
+        log( "all files found: %s", savedProjectNamesFullPaths[i].c_str() );
+        
+        std::string noTitleString = "Uten tittel";
+        std::string fromLastVerFullPath = writablePath + noTitleString;
+        
+        // waveFormX files
+        for ( int j = 0; j < kNumOfSoundObjects; j++ ) {
+            std::size_t foundWaveForm = savedProjectNamesFullPaths[i].find( "waveForm" + to_string( j ) + ".png" );
+            if ( foundWaveForm != std::string::npos ) {
+                if ( ! fileUtils->isDirectoryExist( fromLastVerFullPath ) ) {
+                    fileUtils->createDirectory( fromLastVerFullPath );
+                }
+                fileUtils->renameFile( savedProjectNamesFullPaths[i], writablePath + noTitleString + "/" + "waveForm" + to_string( j ) + ".png" );
             }
-            //fileUtils->renameFile( savedProjectNamesFullPaths[i], writablePath + fromLastVerString + "/" + "waveForm" + to_string( i ) + ".png" );
         }
         
-        std::size_t foundRecord = savedProjectNamesFullPaths[i].find( "record" );
-        if ( foundRecord != std::string::npos ) {
-            log( "found old recordX.wav files" );
+        // recordX.wav files
+        for ( int j = 0; j < kNumOfSoundObjects; j++ ) {
+            std::size_t foundRecord = savedProjectNamesFullPaths[i].find( "record" + to_string( j ) + ".wav" );
+            if ( foundRecord != std::string::npos ) {
+                fileUtils->renameFile( savedProjectNamesFullPaths[i], writablePath + noTitleString + "/" + "record" + to_string( j ) + ".wav" );
+            }
         }
+        
+        // bounce.wav
+        std::size_t foundBounce = savedProjectNamesFullPaths[i].find( "bounce.wav" );
+        if ( foundBounce != std::string::npos ) {
+            fileUtils->renameFile( savedProjectNamesFullPaths[i], writablePath + noTitleString + "/" + "bounce.wav" );
+        }
+        
     }
     
     
@@ -763,20 +790,23 @@ void ProjectHandling::updateProjectList() {
     
     // Remove unwanted dirs to show on list
     for ( int i = 0; i < savedProjectNames.size(); i++ ) {
-        if ( savedProjectNames[i].compare( "Uten tittel" ) == 0 ) {
-            log( "Uten tittel savedProjectNames gets ereased" );
+        std::string noTitleString = "Uten tittel";
+        if ( savedProjectNames[i].compare( noTitleString ) == 0 ) {
             savedProjectNames.erase( savedProjectNames.begin() + i );
         }
         
-        if ( savedProjectNames[i].compare( "." ) == 0 ) {
+        std::string dotString = ".";
+        if ( savedProjectNames[i].compare( dotString ) == 0 ) {
             savedProjectNames.erase( savedProjectNames.begin() + i );
         }
         
-        if ( savedProjectNames[i].compare( ".." ) == 0 ) {
+        std::string dotdotString = "..";
+        if ( savedProjectNames[i].compare( dotdotString ) == 0 ) {
             savedProjectNames.erase( savedProjectNames.begin() + i );
         }
         
-        if ( savedProjectNames[i].compare( ".Trash" ) == 0 ) {
+        std::string trashString = ".Trash";
+        if ( savedProjectNames[i].compare( trashString ) == 0 ) {
             savedProjectNames.erase( savedProjectNames.begin() + i );
         }
     }

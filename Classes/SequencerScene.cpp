@@ -58,7 +58,8 @@ bool SequencerScene::init() {
     
     
     for ( int i = 0; i < kNumOfSoundObjects; i++ ) {
-        FMODAudioEngine::loadSoundFromDisk( mainMenu->getCurrentProjectName(), i );
+        std::string currentProjectName = UserDefault::getInstance()->getStringForKey( "currentProjectName" );
+        FMODAudioEngine::loadSoundFromDisk( currentProjectName, i );
     }
 
     
@@ -217,7 +218,8 @@ void SequencerScene::onTouchesBegan( const std::vector<Touch*>& touches, Event* 
                         int whatSoundObject = i;
                         if ( FMODAudioEngine::hasRecordWav( whatSoundObject ) ) {
                             if ( mainMenu->soundSquare[whatSoundObject]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
-                                seqSoundRect.push_back( SeqSoundRect( this, touch->getLocation(), whatSoundObject, FMODAudioEngine::getSoundLength( whatSoundObject ), mainMenu->getInstrumentAreaWidth(), mainMenu->getCurrentProjectName() ) );
+                                std::string currentProjectName = UserDefault::getInstance()->getStringForKey( "currentProjectName" );
+                                seqSoundRect.push_back( SeqSoundRect( this, touch->getLocation(), whatSoundObject, FMODAudioEngine::getSoundLength( whatSoundObject ), mainMenu->getInstrumentAreaWidth(), currentProjectName ) );
                                 savePos.push_back( Vec2( 0, 0 ) );
                                 saveWhatSoundObject.push_back( whatSoundObject );
                             }
@@ -446,9 +448,11 @@ void SequencerScene::onTouchesEnded( const std::vector<Touch*> &touches, Event* 
                             mainMenu->setBounceWavIsOn( true );
                             //mainMenu->buttons_image[kButtons_ArrayNum_Bounce]->setColor( Color3B::RED );
                             FMODAudioEngine::stopSound();
-                            FMODAudioEngine::START_outputToWaveWriter( mainMenu->getCurrentProjectName() );
+                            std::string currentProjectName = UserDefault::getInstance()->getStringForKey( "currentProjectName" );
+                            FMODAudioEngine::START_outputToWaveWriter( currentProjectName );
                             for ( int i = 0; i < kNumOfSoundObjects; i++ ) {
-                                FMODAudioEngine::loadSoundFromDisk( mainMenu->getCurrentProjectName(), i );
+                                std::string currentProjectName = UserDefault::getInstance()->getStringForKey( "currentProjectName" );
+                                FMODAudioEngine::loadSoundFromDisk( currentProjectName, i );
                             }
                             movePlayHead();
                             playHeadHandle->setVisible( false );
@@ -563,7 +567,8 @@ void SequencerScene::stopBounce() {
     setPlayHeadHandlePos();
     FMODAudioEngine::STOP_outputToWaveWriter();
     for ( int i = 0; i < kNumOfSoundObjects; i++ ) {
-        FMODAudioEngine::loadSoundFromDisk( mainMenu->getCurrentProjectName(), i );
+        std::string currentProjectName = UserDefault::getInstance()->getStringForKey( "currentProjectName" );
+        FMODAudioEngine::loadSoundFromDisk( currentProjectName, i );
     }
     mainMenu->buttons_image[kButtons_ArrayNum_Play]->setColor( Color3B::WHITE );
     mainMenu->buttons_image[kButtons_ArrayNum_Stop]->setColor( Color3B::WHITE );
@@ -647,6 +652,8 @@ void SequencerScene::saveData() {
         
         data_pos_X.copy((unsigned char*) pos_X.data(), pos_X.size() * sizeof(float));
         UserDefault::getInstance()->setDataForKey( "current_posX", data_pos_X );
+        
+        //UserDefault::getInstance()->setDataForKey( "savePos_X", data_pos_X );
     }
     // ----------------------------------------------------------------------------------
     
@@ -666,6 +673,8 @@ void SequencerScene::saveData() {
         
         data_pos_Y.copy((unsigned char*) pos_Y.data(), pos_Y.size() * sizeof(float));
         UserDefault::getInstance()->setDataForKey( "current_posY", data_pos_Y );
+        
+        //UserDefault::getInstance()->setDataForKey( "savePos_Y", data_pos_Y );
     }
     // ----------------------------------------------------------------------------------
     
@@ -685,6 +694,8 @@ void SequencerScene::saveData() {
         
         data_whatSound.copy((unsigned char*) whatSound.data(), whatSound.size() * sizeof(int));
         UserDefault::getInstance()->setDataForKey( "current_whatSound", data_whatSound );
+        
+        //UserDefault::getInstance()->setDataForKey( "saveWhatSound", data_whatSound );
     }
     // ----------------------------------------------------------------------------------
     
@@ -692,6 +703,23 @@ void SequencerScene::saveData() {
 }
 
 void SequencerScene::loadData() {
+    
+    // Check for user data from previous version of app
+    Data prevX = UserDefault::getInstance()->getDataForKey( "savePos_X" );
+    Data prevY = UserDefault::getInstance()->getDataForKey( "savePos_Y" );
+    Data prevWhatSound = UserDefault::getInstance()->getDataForKey( "saveWhatSound" );
+    if ( prevX.getSize() != 0 ) {
+        log( "found sequencer pos data from prev version" );
+        log( "prevX size: %lu", prevX.getSize() );
+        
+        UserDefault::getInstance()->setDataForKey( "current_posX", prevX );
+        UserDefault::getInstance()->setDataForKey( "current_posY", prevY );
+        UserDefault::getInstance()->setDataForKey( "current_whatSound", prevWhatSound );
+        
+        UserDefault::getInstance()->deleteValueForKey( "savePos_X" );
+        UserDefault::getInstance()->deleteValueForKey( "savePos_Y" );
+        UserDefault::getInstance()->deleteValueForKey( "saveWhatSound" );
+    }
 
     // ----------------------------------------------------------------------------------
     Data data_pos_X = UserDefault::getInstance()->getDataForKey( "current_posX" );
@@ -735,7 +763,8 @@ void SequencerScene::loadData() {
     // ----------------------------------------------------------------------------------
     
     for ( int i = 0; i < length_X; i++ ) {
-        seqSoundRect.push_back( SeqSoundRect( this, Vec2( buffer_X[i], buffer_Y[i] ), buffer_whatSound[i], FMODAudioEngine::getSoundLength( buffer_whatSound[i] ), mainMenu->getInstrumentAreaWidth(), mainMenu->getCurrentProjectName() ) );
+        std::string currentProjectName = UserDefault::getInstance()->getStringForKey( "currentProjectName" );
+        seqSoundRect.push_back( SeqSoundRect( this, Vec2( buffer_X[i], buffer_Y[i] ), buffer_whatSound[i], FMODAudioEngine::getSoundLength( buffer_whatSound[i] ), mainMenu->getInstrumentAreaWidth(), currentProjectName ) );
         savePos.push_back( Vec2( buffer_X[i], buffer_Y[i] ) );
         saveWhatSoundObject.push_back( buffer_whatSound[i] );
     }
