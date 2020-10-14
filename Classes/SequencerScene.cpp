@@ -246,6 +246,11 @@ void SequencerScene::onTouchesBegan( const std::vector<Touch*>& touches, Event* 
                         bounceAndShare->setButtonTouchHasBegun( true, kBounceAndShare_Buttons_Index_StartBounce );
                     }
                     
+                    // SHARE BUTTON
+                    if ( bounceAndShare->buttonBg[kBounceAndShare_Buttons_Index_Share]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
+                        bounceAndShare->setButtonTouchHasBegun( true, kBounceAndShare_Buttons_Index_Share );
+                    }
+                    
                 }
                 
                 if ( whatState == kSequencerScene_State_Normal || whatState == kSequencerScene_State_BounceAndShare ) {
@@ -438,8 +443,11 @@ void SequencerScene::onTouchesEnded( const std::vector<Touch*> &touches, Event* 
                     
                 }
                 
+                
+                // BOUNCE AND SHARE
                 if ( whatState == kSequencerScene_State_BounceAndShare || whatState == kSequencerScene_State_IsBouncing ) {
                     
+                    // START BOUNCE BUTTON
                     if ( bounceAndShare->buttonTouchHasBegun( kBounceAndShare_Buttons_Index_StartBounce ) ) {
                         
                         if ( mainMenu->bounceWavIsOn() ) {
@@ -467,6 +475,11 @@ void SequencerScene::onTouchesEnded( const std::vector<Touch*> &touches, Event* 
                             bounceAndShare->buttonBg[kBounceAndShare_Buttons_Index_StartBounce]->setColor( Color3B::RED );
                         }
                         
+                    }
+                    
+                    // SHARE BUTTON
+                    if ( bounceAndShare->buttonTouchHasBegun( kBounceAndShare_Buttons_Index_Share ) ) {
+                        log( "share button pressed" );
                     }
                     
                     // Touch bagan to false
