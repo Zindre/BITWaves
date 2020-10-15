@@ -141,6 +141,9 @@ void SequencerScene::onTouchesBegan( const std::vector<Touch*>& touches, Event* 
     for ( auto &touch : touches ) {
         if ( touch != nullptr ) {
             if ( touch->getID() == 0 ) {
+                
+                log( "began - touch->getLocation().y: %f", touch->getLocation().y );
+                log( "began - touch->getLocation().x: %f", touch->getLocation().x );
             
                 if ( whatState == kSequencerScene_State_Normal ) {
                     
@@ -277,6 +280,9 @@ void SequencerScene::onTouchesMoved( const std::vector<Touch*> &touches, Event* 
     for ( auto touch : touches ) {
         if ( touch != nullptr ) {
             if ( touch->getID() == 0 ) {
+                
+                log( "moved - touch->getLocation().y: %f", touch->getLocation().y );
+                log( "moved - touch->getLocation().x: %f", touch->getLocation().x );
             
                 if ( whatState == kSequencerScene_State_Normal ) {
                     
@@ -338,6 +344,9 @@ void SequencerScene::onTouchesEnded( const std::vector<Touch*> &touches, Event* 
     for ( auto touch : touches ) {
         if ( touch != nullptr ) {
             if ( touch->getID() == 0 ) {
+                
+                log( "ended - touch->getLocation().y: %f", touch->getLocation().y );
+                log( "ended - touch->getLocation().x: %f", touch->getLocation().x );
             
                 if ( whatState == kSequencerScene_State_Normal ) {
                     
