@@ -133,8 +133,8 @@ void SeqSoundRect::bounceWhenHit() {
 
 void SeqSoundRect::setWidth() {
     log( "-------------------------" );
-    log( "sceen height: %f", Director::getInstance()->getVisibleSize().height );
-    log( "safe area height: %f", Director::getInstance()->getSafeAreaRect().size.height );;
+    log( "screen height: %f", Director::getInstance()->getVisibleSize().height );
+    log( "safe area height: %f", Director::getInstance()->getSafeAreaRect().size.height );
     log( "pos Y: %f", sprite->getPosition().y );
     log( "midline pos Y: %f", visibleSize.height * kMidLine_Height_Multiplier );
     log( "min Y pos: %f", visibleSize.height * kSequencer_MinYpos_height_multiplier );
@@ -143,7 +143,7 @@ void SeqSoundRect::setWidth() {
     float multiplier = 1/pitch;
     log( "multiplier: %f", multiplier );
     float stretchedWidth = normalWidth * multiplier;
-    log( "stretche width: %f", stretchedWidth );
+    log( "stretched width: %f", stretchedWidth );
     sprite->setContentSize( Size( stretchedWidth, height ) );
     log( "-------------------------" );
 }

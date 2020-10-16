@@ -43,10 +43,12 @@ ProjectHandling::ProjectHandling( Layer *layer ) {
     label_buttons[kButtons_ProjectHandling_Index_New]->setString( "Nytt prosjekt" );
     label_buttons[kButtons_ProjectHandling_Index_ConfirmSave]->setString( "Bekreft Lagre" );
     label_buttons[kButtons_ProjectHandling_Index_Open]->setString( "Åpne" );
-    label_buttons[kButtons_ProjectHandling_Index_Cancel]->setString( "Avbryt" );
+    label_buttons[kButtons_ProjectHandling_Index_CancelSave]->setString( "Avbryt" );
     label_buttons[kButtons_ProjectHandling_Index_Delete]->setString( "Slett" );
     label_buttons[kButtons_ProjectHandling_Index_ConfirmDelete]->setString( "Ja" );
     label_buttons[kButtons_ProjectHandling_Index_CancelDelete]->setString( "Avbryt" );
+    label_buttons[kButtons_ProjectHandling_Index_CloseExistPrompt]->setString( "Ok" );
+    label_buttons[kButtons_ProjectHandling_Index_CancelBrowse]->setString( "Avbryt" );
     
     
     overlaySave = Sprite::create( "square1px.png" );
@@ -110,10 +112,19 @@ ProjectHandling::ProjectHandling( Layer *layer ) {
     label_buttons[kButtons_ProjectHandling_Index_Delete]->setLocalZOrder( kLayer_ProjectHandling_BrowseOverlay );
     buttonBg[kButtons_ProjectHandling_Index_Delete]->setOpacity( kProjectHandling_Button_TransparantValue );
     
-    buttonBg[kButtons_ProjectHandling_Index_Cancel]->setPosition( Vec2( overlayBrowse->getPosition().x + buttonBgSize.width, overlayBrowse->getPosition().y - (buttonBgSize.height * 2) ) );
-    label_buttons[kButtons_ProjectHandling_Index_Cancel]->setPosition( buttonBg[kButtons_ProjectHandling_Index_Cancel]->getPosition() );
-    buttonBg[kButtons_ProjectHandling_Index_Cancel]->setLocalZOrder( kLayer_ProjectHandling_BrowseOverlay );
-    label_buttons[kButtons_ProjectHandling_Index_Cancel]->setLocalZOrder( kLayer_ProjectHandling_BrowseOverlay );
+    buttonBg[kButtons_ProjectHandling_Index_CancelBrowse]->setPosition( Vec2( overlayBrowse->getPosition().x + buttonBgSize.width, overlayBrowse->getPosition().y - (buttonBgSize.height * 2) ) );
+    label_buttons[kButtons_ProjectHandling_Index_CancelBrowse]->setPosition( buttonBg[kButtons_ProjectHandling_Index_CancelBrowse]->getPosition() );
+    buttonBg[kButtons_ProjectHandling_Index_CancelBrowse]->setLocalZOrder( kLayer_ProjectHandling_BrowseOverlay );
+    label_buttons[kButtons_ProjectHandling_Index_CancelBrowse]->setLocalZOrder( kLayer_ProjectHandling_BrowseOverlay );
+    
+    buttonBg[kButtons_ProjectHandling_Index_CancelSave]->setPosition( Vec2( overlaySave->getPosition().x + (buttonBgSize.width * 0.5) + padding, overlaySave->getPosition().y - buttonBgSize.height ) );
+    label_buttons[kButtons_ProjectHandling_Index_CancelSave]->setPosition( buttonBg[kButtons_ProjectHandling_Index_CancelSave]->getPosition() );
+    buttonBg[kButtons_ProjectHandling_Index_CancelSave]->setLocalZOrder( kLayer_ProjectHandling_SaveOverlay );
+    label_buttons[kButtons_ProjectHandling_Index_CancelSave]->setLocalZOrder( kLayer_ProjectHandling_SaveOverlay );
+    
+    
+    
+    
     
     
     cocos2d::Size overlayBrowseSize = overlayBrowse->getBoundingBox().size;
@@ -139,29 +150,35 @@ ProjectHandling::ProjectHandling( Layer *layer ) {
     layer->addChild( label_projectNamesPageNr, kLayer_ProjectHandling_BrowseOverlay );
     
     
-    overlayDeletePrompt = Sprite::create( "square1px.png" );
-    overlayDeletePrompt->setTextureRect( Rect( 0, 0, overlayBrowse->getBoundingBox().size.width * 0.8, overlayBrowse->getBoundingBox().size.height * 0.8 ) );
-    overlayDeletePrompt->setPosition( Vec2( origin.x + visibleSize.width * 0.5, origin.y + visibleSize.height * 0.5 ) );
-    overlayDeletePrompt->setColor( Color3B::WHITE );
-    overlayDeletePrompt->setVisible( false );
-    layer->addChild( overlayDeletePrompt, kLayer_ProjectHandling_DeletePrompt );
+    overlayPrompt = Sprite::create( "square1px.png" );
+    overlayPrompt->setTextureRect( Rect( 0, 0, overlayBrowse->getBoundingBox().size.width * 0.8, overlayBrowse->getBoundingBox().size.height * 0.6 ) );
+    overlayPrompt->setPosition( Vec2( origin.x + visibleSize.width * 0.5, origin.y + visibleSize.height * 0.5 ) );
+    overlayPrompt->setColor( Color3B::WHITE );
+    overlayPrompt->setVisible( false );
+    layer->addChild( overlayPrompt, kLayer_ProjectHandling_Prompt );
     
-    label_deletePrompt_areYouSure = Label::createWithTTF( "Er du sikker på du vil slette?", "fonts/arial.ttf", kProjectHandling_FontSize_Text );
-    label_deletePrompt_areYouSure->setPosition( Vec2( overlayDeletePrompt->getPosition().x, overlayDeletePrompt->getPosition().y + (overlayDeletePrompt->getBoundingBox().size.height * 0.25 ) ) );
-    label_deletePrompt_areYouSure->setVisible( false );
-    label_deletePrompt_areYouSure->setColor( Color3B::BLACK );
-    label_deletePrompt_areYouSure->setAlignment( TextHAlignment::CENTER );
-    layer->addChild( label_deletePrompt_areYouSure, kLayer_ProjectHandling_DeletePrompt );
+    label_prompt = Label::createWithTTF( "Er du sikker på du vil slette?", "fonts/arial.ttf", kProjectHandling_FontSize_Text );
+    label_prompt->setPosition( Vec2( overlayPrompt->getPosition().x, overlayPrompt->getPosition().y + (overlayPrompt->getBoundingBox().size.height * 0.25 ) ) );
+    label_prompt->setVisible( false );
+    label_prompt->setColor( Color3B::BLACK );
+    label_prompt->setAlignment( TextHAlignment::CENTER );
+    layer->addChild( label_prompt, kLayer_ProjectHandling_Prompt );
     
-    buttonBg[kButtons_ProjectHandling_Index_ConfirmDelete]->setPosition( Vec2( overlayDeletePrompt->getPosition().x - (buttonBgSize.width * 0.6), overlayDeletePrompt->getPosition().y - (buttonBgSize.height * 0.5) ) );
+    buttonBg[kButtons_ProjectHandling_Index_ConfirmDelete]->setPosition( Vec2( overlayPrompt->getPosition().x - (buttonBgSize.width * 0.6), overlayPrompt->getPosition().y - buttonBgSize.height ) );
     label_buttons[kButtons_ProjectHandling_Index_ConfirmDelete]->setPosition( buttonBg[kButtons_ProjectHandling_Index_ConfirmDelete]->getPosition() );
-    buttonBg[kButtons_ProjectHandling_Index_ConfirmDelete]->setLocalZOrder( kLayer_ProjectHandling_DeletePrompt );
-    label_buttons[kButtons_ProjectHandling_Index_ConfirmDelete]->setLocalZOrder( kLayer_ProjectHandling_DeletePrompt );
+    buttonBg[kButtons_ProjectHandling_Index_ConfirmDelete]->setLocalZOrder( kLayer_ProjectHandling_Prompt );
+    label_buttons[kButtons_ProjectHandling_Index_ConfirmDelete]->setLocalZOrder( kLayer_ProjectHandling_Prompt );
     
-    buttonBg[kButtons_ProjectHandling_Index_CancelDelete]->setPosition( Vec2( overlayDeletePrompt->getPosition().x + (buttonBgSize.width * 0.6), overlayDeletePrompt->getPosition().y - (buttonBgSize.height * 0.5) ) );
+    buttonBg[kButtons_ProjectHandling_Index_CancelDelete]->setPosition( Vec2( overlayPrompt->getPosition().x + (buttonBgSize.width * 0.6), overlayPrompt->getPosition().y - buttonBgSize.height ) );
     label_buttons[kButtons_ProjectHandling_Index_CancelDelete]->setPosition( buttonBg[kButtons_ProjectHandling_Index_CancelDelete]->getPosition() );
-    buttonBg[kButtons_ProjectHandling_Index_CancelDelete]->setLocalZOrder( kLayer_ProjectHandling_DeletePrompt );
-    label_buttons[kButtons_ProjectHandling_Index_CancelDelete]->setLocalZOrder( kLayer_ProjectHandling_DeletePrompt );
+    buttonBg[kButtons_ProjectHandling_Index_CancelDelete]->setLocalZOrder( kLayer_ProjectHandling_Prompt );
+    label_buttons[kButtons_ProjectHandling_Index_CancelDelete]->setLocalZOrder( kLayer_ProjectHandling_Prompt );
+    
+    buttonBg[kButtons_ProjectHandling_Index_CloseExistPrompt]->setPosition( Vec2( overlayPrompt->getPosition().x, overlayPrompt->getPosition().y - buttonBgSize.height ) );
+    label_buttons[kButtons_ProjectHandling_Index_CloseExistPrompt]->setPosition( buttonBg[kButtons_ProjectHandling_Index_CloseExistPrompt]->getPosition() );
+    buttonBg[kButtons_ProjectHandling_Index_CloseExistPrompt]->setLocalZOrder( kLayer_ProjectHandling_Prompt );
+    label_buttons[kButtons_ProjectHandling_Index_CloseExistPrompt]->setLocalZOrder( kLayer_ProjectHandling_Prompt );
+    
     
     
     // SCROLL BOX
@@ -186,7 +203,25 @@ ProjectHandling::ProjectHandling( Layer *layer ) {
     
     
     
+    std::string currentProjectName = "";
+    std::string tempProjName = UserDefault::getInstance()->getStringForKey( "currentProjectName" );
+    log( "temp proj name: %s", tempProjName.c_str() );
+    if ( tempProjName == "" ) {
+        UserDefault::getInstance()->setStringForKey( "currentProjectName", "Uten tittel" );
+    } else {
+        currentProjectName = UserDefault::getInstance()->getStringForKey( "currentProjectName" );
+    }
+    log( "Proj handling - current project name: %s", currentProjectName.c_str() );
     
+    
+    currentProjectName = UserDefault::getInstance()->getStringForKey( "currentProjectName" );
+    if ( currentProjectName == "Uten tittel" ) {
+        _savingIsPossible = true;
+    } else {
+        _savingIsPossible = false;
+        buttonBg[kButtons_ProjectHandling_Index_Save]->setOpacity( kProjectHandling_Button_TransparantValue );
+        saveCurrentToOpenProject();
+    }
     
     
     
@@ -203,19 +238,13 @@ ProjectHandling::ProjectHandling( Layer *layer ) {
         _buttonTouchHasBegun[i] = false;
     }
     _touchStartPos = Vec2( 0.0, 0.0 );
+    _nameExists = false;
     
     
     loadCurrentData();
     
     
-    std::string currentProjectName = UserDefault::getInstance()->getStringForKey( "currentProjectName" );
-    if ( currentProjectName == "Uten tittel" ) {
-        _savingIsPossible = true;
-    } else {
-        _savingIsPossible = false;
-        buttonBg[kButtons_ProjectHandling_Index_Save]->setOpacity( kProjectHandling_Button_TransparantValue );
-        saveCurrentToOpenProject();
-    }
+    
     
     
     hide();
@@ -236,14 +265,18 @@ void ProjectHandling::show() {
     label_buttons[kButtons_ProjectHandling_Index_ConfirmSave]->setVisible( false );
     buttonBg[kButtons_ProjectHandling_Index_Open]->setVisible( false );
     label_buttons[kButtons_ProjectHandling_Index_Open]->setVisible( false );
-    buttonBg[kButtons_ProjectHandling_Index_Cancel]->setVisible( false );
-    label_buttons[kButtons_ProjectHandling_Index_Cancel]->setVisible( false );
+    buttonBg[kButtons_ProjectHandling_Index_CancelBrowse]->setVisible( false );
+    label_buttons[kButtons_ProjectHandling_Index_CancelBrowse]->setVisible( false );
     buttonBg[kButtons_ProjectHandling_Index_Delete]->setVisible( false );
     label_buttons[kButtons_ProjectHandling_Index_Delete]->setVisible( false );
     buttonBg[kButtons_ProjectHandling_Index_ConfirmDelete]->setVisible( false );
     label_buttons[kButtons_ProjectHandling_Index_ConfirmDelete]->setVisible( false );
     buttonBg[kButtons_ProjectHandling_Index_CancelDelete]->setVisible( false );
     label_buttons[kButtons_ProjectHandling_Index_CancelDelete]->setVisible( false );
+    buttonBg[kButtons_ProjectHandling_Index_CloseExistPrompt]->setVisible( false );
+    label_buttons[kButtons_ProjectHandling_Index_CloseExistPrompt]->setVisible( false );
+    buttonBg[kButtons_ProjectHandling_Index_CancelSave]->setVisible( false );
+    label_buttons[kButtons_ProjectHandling_Index_CancelSave]->setVisible( false );
     _whatState = kProjectHandling_State_MainScreen;
     _isShowing = true;
 }
@@ -271,6 +304,11 @@ void ProjectHandling::hide() {
     arrowLeft->setVisible( false );
     arrowRight->setVisible( false );
     label_projectNamesPageNr->setVisible( false );
+    overlayPrompt->setVisible( false );
+    label_prompt->setVisible( false );
+    buttonBg[kButtons_ProjectHandling_Index_Open]->setOpacity( kProjectHandling_Button_TransparantValue );
+    buttonBg[kButtons_ProjectHandling_Index_Delete]->setOpacity( kProjectHandling_Button_TransparantValue );
+    _nameExists = false;
 }
 
 void ProjectHandling::loadCurrentData() {
@@ -329,82 +367,78 @@ void ProjectHandling::loadCurrentData() {
 
 void ProjectHandling::saveNewProject() {
     
-    /*std::string newFileName = textField->getString();
     
-    for ( int i = 0; i < savedProjectNames.size(); i++ ) {
-        if ( savedProjectNames[i].compare( textField->getString() ) == 0 ) {
-            log( "filename exist!" );
-            newFileName = textField->getString() + " 1";
+    if ( ! _nameExists ) {
+        
+        if ( currentPos.size() != 0 ) {
+            
+            // ----------------------------------------------------------------------------------
+            Data data_pos_X;
+            std::vector<float> pos_X;
+            
+            for ( int i = 0; i < currentPos.size(); i++ ) {
+                pos_X.push_back( currentPos[i].x );
+            }
+            
+            for ( int i = 0; i < pos_X.size(); i++ ) {
+                log( "PH save posX[%i]: %f", i, pos_X[i] );
+            }
+            
+            data_pos_X.copy((unsigned char*) pos_X.data(), pos_X.size() * sizeof(float));
+            std::string projectName_X = textField->getString() + "_" + "pos_X";
+            log( "PH save project name X: %s", projectName_X.c_str() );
+            UserDefault::getInstance()->deleteValueForKey( projectName_X.c_str() );
+            UserDefault::getInstance()->setDataForKey( projectName_X.c_str(), data_pos_X );
+            // ----------------------------------------------------------------------------------
+            
+            
+            // ----------------------------------------------------------------------------------
+            Data data_pos_Y;
+            std::vector<float> pos_Y;
+            
+            for ( int i = 0; i < currentPos.size(); i++ ) {
+                pos_Y.push_back( currentPos[i].y );
+            }
+            
+            for ( int i = 0; i < pos_Y.size(); i++ ) {
+                log( "PH save posY[%i]: %f", i, pos_Y[i] );
+            }
+            
+            data_pos_Y.copy((unsigned char*) pos_Y.data(), pos_Y.size() * sizeof(float));
+            std::string projectName_Y = textField->getString() + "_" + "pos_Y";
+            log( "PH save project name Y: %s", projectName_Y.c_str() );
+            UserDefault::getInstance()->deleteValueForKey( projectName_Y.c_str() );
+            UserDefault::getInstance()->setDataForKey( projectName_Y.c_str(), data_pos_Y );
+            // ----------------------------------------------------------------------------------
+            
+            
+            // ----------------------------------------------------------------------------------
+            Data data_whatSound;
+            std::vector<int> whatSound;
+            
+            for ( int i = 0; i < currentWhatSound.size(); i++ ) {
+                whatSound.push_back( currentWhatSound[i] );
+            }
+            
+            for ( int i = 0; i < currentWhatSound.size(); i++ ) {
+                log( "PH save what sound: %d", currentWhatSound[i] );
+            }
+            
+            data_whatSound.copy((unsigned char*) whatSound.data(), whatSound.size() * sizeof(int));
+            std::string projectName_whatSound = textField->getString() + "_" + "whatSound";
+            log( "PH save project name whatSound: %s", projectName_whatSound.c_str() );
+            UserDefault::getInstance()->deleteValueForKey( projectName_whatSound.c_str() );
+            UserDefault::getInstance()->setDataForKey( projectName_whatSound.c_str(), data_whatSound );
+            // ----------------------------------------------------------------------------------
+            
         }
-    }*/
-    
-    if ( currentPos.size() != 0 ) {
         
-        // ----------------------------------------------------------------------------------
-        Data data_pos_X;
-        std::vector<float> pos_X;
-        
-        for ( int i = 0; i < currentPos.size(); i++ ) {
-            pos_X.push_back( currentPos[i].x );
+        FileUtils *fileUtils = FileUtils::getInstance();
+        std::string writablePath = fileUtils->getWritablePath();
+        if ( fileUtils->isDirectoryExist( writablePath + "Uten tittel" ) ) {
+            fileUtils->renameFile( writablePath, "Uten tittel", textField->getString() );
         }
         
-        for ( int i = 0; i < pos_X.size(); i++ ) {
-            log( "PH save posX[%i]: %f", i, pos_X[i] );
-        }
-        
-        data_pos_X.copy((unsigned char*) pos_X.data(), pos_X.size() * sizeof(float));
-        std::string projectName_X = textField->getString() + "_" + "pos_X";
-        log( "PH save project name X: %s", projectName_X.c_str() );
-        UserDefault::getInstance()->deleteValueForKey( projectName_X.c_str() );
-        UserDefault::getInstance()->setDataForKey( projectName_X.c_str(), data_pos_X );
-        // ----------------------------------------------------------------------------------
-        
-        
-        // ----------------------------------------------------------------------------------
-        Data data_pos_Y;
-        std::vector<float> pos_Y;
-        
-        for ( int i = 0; i < currentPos.size(); i++ ) {
-            pos_Y.push_back( currentPos[i].y );
-        }
-        
-        for ( int i = 0; i < pos_Y.size(); i++ ) {
-            log( "PH save posY[%i]: %f", i, pos_Y[i] );
-        }
-        
-        data_pos_Y.copy((unsigned char*) pos_Y.data(), pos_Y.size() * sizeof(float));
-        std::string projectName_Y = textField->getString() + "_" + "pos_Y";
-        log( "PH save project name Y: %s", projectName_Y.c_str() );
-        UserDefault::getInstance()->deleteValueForKey( projectName_Y.c_str() );
-        UserDefault::getInstance()->setDataForKey( projectName_Y.c_str(), data_pos_Y );
-        // ----------------------------------------------------------------------------------
-        
-        
-        // ----------------------------------------------------------------------------------
-        Data data_whatSound;
-        std::vector<int> whatSound;
-        
-        for ( int i = 0; i < currentWhatSound.size(); i++ ) {
-            whatSound.push_back( currentWhatSound[i] );
-        }
-        
-        for ( int i = 0; i < currentWhatSound.size(); i++ ) {
-            log( "PH save what sound: %d", currentWhatSound[i] );
-        }
-        
-        data_whatSound.copy((unsigned char*) whatSound.data(), whatSound.size() * sizeof(int));
-        std::string projectName_whatSound = textField->getString() + "_" + "whatSound";
-        log( "PH save project name whatSound: %s", projectName_whatSound.c_str() );
-        UserDefault::getInstance()->deleteValueForKey( projectName_whatSound.c_str() );
-        UserDefault::getInstance()->setDataForKey( projectName_whatSound.c_str(), data_whatSound );
-        // ----------------------------------------------------------------------------------
-        
-    }
-    
-    FileUtils *fileUtils = FileUtils::getInstance();
-    std::string writablePath = fileUtils->getWritablePath();
-    if ( fileUtils->isDirectoryExist( writablePath + "Uten tittel" ) ) {
-        fileUtils->renameFile( writablePath, "Uten tittel", textField->getString() );
     }
     
     
@@ -613,10 +647,8 @@ void ProjectHandling::showSaveOverlay() {
     textField->attachWithIME();
     buttonBg[kButtons_ProjectHandling_Index_ConfirmSave]->setVisible( true );
     label_buttons[kButtons_ProjectHandling_Index_ConfirmSave]->setVisible( true );
-    buttonBg[kButtons_ProjectHandling_Index_Cancel]->setVisible( true );
-    label_buttons[kButtons_ProjectHandling_Index_Cancel]->setVisible( true );
-    buttonBg[kButtons_ProjectHandling_Index_Cancel]->setPosition( Vec2( overlaySave->getPosition().x + (buttonBg[0]->getBoundingBox().size.width * 0.5) + padding, overlaySave->getPosition().y - buttonBg[0]->getBoundingBox().size.height  ) );
-    label_buttons[kButtons_ProjectHandling_Index_Cancel]->setPosition( buttonBg[kButtons_ProjectHandling_Index_Cancel]->getPosition() );
+    buttonBg[kButtons_ProjectHandling_Index_CancelSave]->setVisible( true );
+    label_buttons[kButtons_ProjectHandling_Index_CancelSave]->setVisible( true );
     _whatState = kProjectHandling_State_SaveOverlay;
     textFieldArea->setVisible( true );
 }
@@ -626,12 +658,10 @@ void ProjectHandling::showBrowseOverlay() {
     overlayBrowse->setVisible( true );
     buttonBg[kButtons_ProjectHandling_Index_Open]->setVisible( true );
     label_buttons[kButtons_ProjectHandling_Index_Open]->setVisible( true );
-    buttonBg[kButtons_ProjectHandling_Index_Cancel]->setVisible( true );
-    label_buttons[kButtons_ProjectHandling_Index_Cancel]->setVisible( true );
+    buttonBg[kButtons_ProjectHandling_Index_CancelBrowse]->setVisible( true );
+    label_buttons[kButtons_ProjectHandling_Index_CancelBrowse]->setVisible( true );
     buttonBg[kButtons_ProjectHandling_Index_Delete]->setVisible( true );
     label_buttons[kButtons_ProjectHandling_Index_Delete]->setVisible( true );
-    buttonBg[kButtons_ProjectHandling_Index_Cancel]->setPosition( Vec2( overlayBrowse->getPosition().x + buttonBg[kButtons_ProjectHandling_Index_Cancel]->getBoundingBox().size.width, overlayBrowse->getPosition().y - (buttonBg[kButtons_ProjectHandling_Index_Cancel]->getBoundingBox().size.height * 2) ) );
-    label_buttons[kButtons_ProjectHandling_Index_Cancel]->setPosition( buttonBg[kButtons_ProjectHandling_Index_Cancel]->getPosition() );
     _whatState = kProjectHandling_State_BrowseOverlay;
     arrowLeft->setVisible( true );
     arrowRight->setVisible( true );
@@ -654,8 +684,8 @@ void ProjectHandling::closeSaveOverlay() {
     label_buttons[kButtons_ProjectHandling_Index_ConfirmSave]->setVisible( false );
     buttonBg[kButtons_ProjectHandling_Index_Save]->setOpacity( kProjectHandling_Button_TransparantValue );
     _savingIsPossible = false;
-    buttonBg[kButtons_ProjectHandling_Index_Cancel]->setVisible( false );
-    label_buttons[kButtons_ProjectHandling_Index_Cancel]->setVisible( false );
+    buttonBg[kButtons_ProjectHandling_Index_CancelSave]->setVisible( false );
+    label_buttons[kButtons_ProjectHandling_Index_CancelSave]->setVisible( false );
     updateProjectList();
     _whatState = kProjectHandling_State_MainScreen;
     textFieldArea->setVisible( false );
@@ -668,8 +698,8 @@ void ProjectHandling::closeBrowseOverlay() {
     }
     buttonBg[kButtons_ProjectHandling_Index_Open]->setVisible( false );
     label_buttons[kButtons_ProjectHandling_Index_Open]->setVisible( false );
-    buttonBg[kButtons_ProjectHandling_Index_Cancel]->setVisible( false );
-    label_buttons[kButtons_ProjectHandling_Index_Cancel]->setVisible( false );
+    buttonBg[kButtons_ProjectHandling_Index_CancelBrowse]->setVisible( false );
+    label_buttons[kButtons_ProjectHandling_Index_CancelBrowse]->setVisible( false );
     buttonBg[kButtons_ProjectHandling_Index_Delete]->setVisible( false );
     label_buttons[kButtons_ProjectHandling_Index_Delete]->setVisible( false );
     _whatState = kProjectHandling_State_MainScreen;
@@ -712,21 +742,37 @@ void ProjectHandling::updateProjectList() {
     
     // Look for existing files from previous version of app
     for ( int i = 0; i < savedProjectNamesFullPaths.size(); i++ ) {
-        std::size_t foundWaveForm = savedProjectNamesFullPaths[i].find( "waveForm" );
-        if ( foundWaveForm != std::string::npos ) {
-            log( "found old waveFormX.png files" );
-            std::string fromLastVerString = "Fra forrige versjon";
-            std::string fromLastVerFullPath = writablePath + fromLastVerString;
-            if ( ! fileUtils->isDirectoryExist( fromLastVerFullPath ) ) {
-                fileUtils->createDirectory( fromLastVerFullPath );
+        
+        log( "all files found: %s", savedProjectNamesFullPaths[i].c_str() );
+        
+        std::string noTitleString = "Uten tittel";
+        std::string fromLastVerFullPath = writablePath + noTitleString;
+        
+        // waveFormX files
+        for ( int j = 0; j < kNumOfSoundObjects; j++ ) {
+            std::size_t foundWaveForm = savedProjectNamesFullPaths[i].find( "waveForm" + to_string( j ) + ".png" );
+            if ( foundWaveForm != std::string::npos ) {
+                if ( ! fileUtils->isDirectoryExist( fromLastVerFullPath ) ) {
+                    fileUtils->createDirectory( fromLastVerFullPath );
+                }
+                fileUtils->renameFile( savedProjectNamesFullPaths[i], writablePath + noTitleString + "/" + "waveForm" + to_string( j ) + ".png" );
             }
-            //fileUtils->renameFile( savedProjectNamesFullPaths[i], writablePath + fromLastVerString + "/" + "waveForm" + to_string( i ) + ".png" );
         }
         
-        std::size_t foundRecord = savedProjectNamesFullPaths[i].find( "record" );
-        if ( foundRecord != std::string::npos ) {
-            log( "found old recordX.wav files" );
+        // recordX.wav files
+        for ( int j = 0; j < kNumOfSoundObjects; j++ ) {
+            std::size_t foundRecord = savedProjectNamesFullPaths[i].find( "record" + to_string( j ) + ".wav" );
+            if ( foundRecord != std::string::npos ) {
+                fileUtils->renameFile( savedProjectNamesFullPaths[i], writablePath + noTitleString + "/" + "record" + to_string( j ) + ".wav" );
+            }
         }
+        
+        // bounce.wav
+        std::size_t foundBounce = savedProjectNamesFullPaths[i].find( "bounce.wav" );
+        if ( foundBounce != std::string::npos ) {
+            fileUtils->renameFile( savedProjectNamesFullPaths[i], writablePath + noTitleString + "/" + "bounce.wav" );
+        }
+        
     }
     
     
@@ -763,20 +809,23 @@ void ProjectHandling::updateProjectList() {
     
     // Remove unwanted dirs to show on list
     for ( int i = 0; i < savedProjectNames.size(); i++ ) {
-        if ( savedProjectNames[i].compare( "Uten tittel" ) == 0 ) {
-            log( "Uten tittel savedProjectNames gets ereased" );
+        std::string noTitleString = "Uten tittel";
+        if ( savedProjectNames[i].compare( noTitleString ) == 0 ) {
             savedProjectNames.erase( savedProjectNames.begin() + i );
         }
         
-        if ( savedProjectNames[i].compare( "." ) == 0 ) {
+        std::string dotString = ".";
+        if ( savedProjectNames[i].compare( dotString ) == 0 ) {
             savedProjectNames.erase( savedProjectNames.begin() + i );
         }
         
-        if ( savedProjectNames[i].compare( ".." ) == 0 ) {
+        std::string dotdotString = "..";
+        if ( savedProjectNames[i].compare( dotdotString ) == 0 ) {
             savedProjectNames.erase( savedProjectNames.begin() + i );
         }
         
-        if ( savedProjectNames[i].compare( ".Trash" ) == 0 ) {
+        std::string trashString = ".Trash";
+        if ( savedProjectNames[i].compare( trashString ) == 0 ) {
             savedProjectNames.erase( savedProjectNames.begin() + i );
         }
     }
@@ -856,8 +905,8 @@ void ProjectHandling::cancelSaveOverlay() {
     label_instructTyping->setVisible( false );
     buttonBg[kButtons_ProjectHandling_Index_ConfirmSave]->setVisible( false );
     label_buttons[kButtons_ProjectHandling_Index_ConfirmSave]->setVisible( false );
-    buttonBg[kButtons_ProjectHandling_Index_Cancel]->setVisible( false );
-    label_buttons[kButtons_ProjectHandling_Index_Cancel]->setVisible( false );
+    buttonBg[kButtons_ProjectHandling_Index_CancelSave]->setVisible( false );
+    label_buttons[kButtons_ProjectHandling_Index_CancelSave]->setVisible( false );
     _whatState = kProjectHandling_State_MainScreen;
     textFieldArea->setVisible( false );
 }
@@ -918,9 +967,9 @@ void ProjectHandling::decideWhichProjectNamesToShow() {
 
 void ProjectHandling::showDeletePrompt( std::string projectName ) {
     _whatState = kProjectHandling_State_DeletePrompt;
-    overlayDeletePrompt->setVisible( true );
-    label_deletePrompt_areYouSure->setString( "Er du sikker på du vil slette\n" + projectName + "?" );
-    label_deletePrompt_areYouSure->setVisible( true );
+    overlayPrompt->setVisible( true );
+    label_prompt->setString( "Er du sikker på du vil slette\n\n" + projectName + "?" );
+    label_prompt->setVisible( true );
     buttonBg[kButtons_ProjectHandling_Index_ConfirmDelete]->setVisible( true );
     label_buttons[kButtons_ProjectHandling_Index_ConfirmDelete]->setVisible( true );
     buttonBg[kButtons_ProjectHandling_Index_CancelDelete]->setVisible( true );
@@ -1008,10 +1057,47 @@ void ProjectHandling::setTouchStartPos( Vec2 touchPos ) {
 
 void ProjectHandling::closeDeletePrompt() {
     _whatState = kProjectHandling_State_BrowseOverlay;
-    overlayDeletePrompt->setVisible( false );
-    label_deletePrompt_areYouSure->setVisible( false );
+    overlayPrompt->setVisible( false );
+    label_prompt->setVisible( false );
     buttonBg[kButtons_ProjectHandling_Index_CancelDelete]->setVisible( false );
     label_buttons[kButtons_ProjectHandling_Index_CancelDelete]->setVisible( false );
     buttonBg[kButtons_ProjectHandling_Index_ConfirmDelete]->setVisible( false );
     label_buttons[kButtons_ProjectHandling_Index_ConfirmDelete]->setVisible( false );
+}
+
+void ProjectHandling::showNameExistPrompt( std::string textFieldString ) {
+    overlayPrompt->setVisible( true );
+    label_prompt->setVisible( true );
+    label_prompt->setString( textFieldString + "\n\nfinnes fra før,\nvennligst velg et annet navn" );
+    buttonBg[kButtons_ProjectHandling_Index_CloseExistPrompt]->setVisible( true );
+    label_buttons[kButtons_ProjectHandling_Index_CloseExistPrompt]->setVisible( true );
+    _whatState = kProjectHandling_State_NameExistPrompt;
+}
+
+bool ProjectHandling::nameExists() {
+    return _nameExists;
+}
+
+void ProjectHandling::checkIfNameExists() {
+    
+    std::string newFileName = textField->getString();
+    
+    for ( int i = 0; i < savedProjectNames.size(); i++ ) {
+        if ( savedProjectNames[i].compare( textField->getString() ) == 0 ) {
+            log( "filename exist!" );
+            showNameExistPrompt( newFileName );
+            _nameExists = true;
+        }
+    }
+    
+}
+
+void ProjectHandling::closeNameExistsPrompt() {
+    _nameExists = false;
+    _whatState = kProjectHandling_State_SaveOverlay;
+    label_prompt->setVisible( false );
+    overlayPrompt->setVisible ( false );
+    buttonBg[kButtons_ProjectHandling_Index_CloseExistPrompt]->setVisible( false );
+    label_buttons[kButtons_ProjectHandling_Index_CloseExistPrompt]->setVisible( false );
+    textField->attachWithIME();
 }

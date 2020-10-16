@@ -14,7 +14,7 @@
 #define kLayer_ProjectHandling_BrowseOverlay 13
 #define kLayer_ProjectHandling_NameBg 14
 #define kLayer_ProjectHandling_NameLabel 15
-#define kLayer_ProjectHandling_DeletePrompt 16
+#define kLayer_ProjectHandling_Prompt 16
 #define kLayer_BounceAndShare 17
 #define kLayer_HelpOverlayBorder 18
 #define kLayer_HelpOverlay 19
@@ -67,16 +67,18 @@
 
 #define kNumOfChannels 32
 
-#define kButtons_ProjectHandling_NumOf 9
+#define kButtons_ProjectHandling_NumOf 11
 #define kButtons_ProjectHandling_Index_Save 0
 #define kButtons_ProjectHandling_Index_Browse 1
 #define kButtons_ProjectHandling_Index_New 2
 #define kButtons_ProjectHandling_Index_ConfirmSave 3
 #define kButtons_ProjectHandling_Index_Open 4
-#define kButtons_ProjectHandling_Index_Cancel 5
+#define kButtons_ProjectHandling_Index_CancelSave 5
 #define kButtons_ProjectHandling_Index_Delete 6
 #define kButtons_ProjectHandling_Index_ConfirmDelete 7
 #define kButtons_ProjectHandling_Index_CancelDelete 8
+#define kButtons_ProjectHandling_Index_CloseExistPrompt 9
+#define kButtons_ProjectHandling_Index_CancelBrowse 10
 
 #define kProjectHandling_Button_TransparantValue 100
 
@@ -86,6 +88,7 @@
 #define kProjectHandling_State_SaveOverlay 4
 #define kProjectHandling_State_SaveOverlay_KeyboardOpen 5
 #define kProjectHandling_State_DeletePrompt 6
+#define kProjectHandling_State_NameExistPrompt 7
 
 #define kProjectHandling_FontSize_Buttons 9
 #define kProjectHandling_FontSize_ProjectNames 7
