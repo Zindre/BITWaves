@@ -8,6 +8,7 @@
 #include "InstrumentScene.h"
 #include "SeqSoundRect.hpp"
 #include "BounceAndShare.hpp"
+#include "Uploader.hpp"
 
 class SequencerScene : public cocos2d::Layer
 {
@@ -41,6 +42,7 @@ private:
     void stopBounce();
     void resetWhenReachEnd();
     void resetWhenStop();
+    std::string currentProjectName();
 
     
     MainMenu *mainMenu;

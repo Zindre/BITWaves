@@ -58,8 +58,7 @@ bool SequencerScene::init() {
     
     
     for ( int i = 0; i < kNumOfSoundObjects; i++ ) {
-        std::string currentProjectName = UserDefault::getInstance()->getStringForKey( "currentProjectName" );
-        FMODAudioEngine::loadSoundFromDisk( currentProjectName, i );
+        FMODAudioEngine::loadSoundFromDisk( this->currentProjectName(), i );
     }
 
     
@@ -80,6 +79,10 @@ bool SequencerScene::init() {
     this->scheduleUpdate();
     
     return true;
+}
+
+std::string SequencerScene::currentProjectName() {
+    return UserDefault::getInstance()->getStringForKey( "currentProjectName" );
 }
 
 void SequencerScene::update( float dt ) {
@@ -489,6 +492,9 @@ void SequencerScene::onTouchesEnded( const std::vector<Touch*> &touches, Event* 
                     // SHARE BUTTON
                     if ( bounceAndShare->buttonTouchHasBegun( kBounceAndShare_Buttons_Index_Share ) ) {
                         log( "share button pressed" );
+                        std::string currentProjectName = UserDefault::getInstance()->getStringForKey( "currentProjectName" );
+                        std::string bounceFileFullPath = FMODAudioEngine::bounceFileFullPath(currentProjectName);
+                        Uploader::upload_bounce_file(bounceFileFullPath, currentProjectName);
                     }
                     
                     // Touch bagan to false

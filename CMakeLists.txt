@@ -99,8 +99,11 @@ list(APPEND GAME_SOURCE
         Classes/FMODAudioEngine.cpp
         Classes/CircleEmitter.cpp
         Classes/HelpOverlay.cpp
-
-     )
+        Classes/BounceAndShare.cpp
+        Classes/ProjectHandling.cpp
+        Classes/ProjectNamesLabel.cpp
+        Classes/Uploader.mm
+)
 list(APPEND GAME_HEADER
         Classes/AppDelegate.h
         Classes/Circle.hpp
@@ -114,6 +117,10 @@ list(APPEND GAME_HEADER
         Classes/CircleEmitter.hpp
         Classes/HelpOverlay.h
         Classes/Konstants.h
+        Classes/BounceAndShare.hpp
+        Classes/ProjectHandling.hpp
+        Classes/ProjectNamesLabel.hpp
+        Classes/Uploader.hpp
      )
 endif()
 
@@ -234,3 +241,10 @@ if(LINUX OR WINDOWS)
     cocos_get_resource_path(APP_RES_DIR ${APP_NAME})
     cocos_copy_target_res(${APP_NAME} LINK_TO ${APP_RES_DIR} FOLDERS ${GAME_RES_FOLDER})
 endif()
+
+#add_subdirectory(NFHTTP)
+#target_link_libraries(${APP_NAME} NFHTTP)
+
+add_library(fmodLib SHARED IMPORTED)
+set_property(TARGET fmodLib PROPERTY IMPORTED_LOCATION "${CMAKE_CURRENT_SOURCE_DIR}/fmodLib/ios/release/libfmod_iphoneos.a")
+target_link_libraries(${APP_NAME} fmodLib)

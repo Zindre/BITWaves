@@ -4,3 +4,12 @@
 /proj.android/app/.cxx/
 /proj.android/build/
 /proj.android/release/
+CMakeScripts
+CMakeFiles
+BITWaves.build
+proj.ios_mac/ios/BITWaves.xcodeproj/project.xcworkspace/xcuserdata/sindre.xcuserdatad/
+proj.ios_mac/ios/BITWaves.xcodeproj/xcuserdata/sindre.xcuserdatad/
+proj.ios_mac/ios/build/
+proj.ios_mac/ios/output/
+*/project.pbxproj
+.DS_Store
