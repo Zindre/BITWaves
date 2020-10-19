@@ -29,5 +29,9 @@ private:
     cocos2d::Vec2 origin;
     bool _buttonTouchHasBegun[kBounceAndShare_Buttons_NumOf];
     cocos2d::Vec2 _touchStartPos;
+    cocos2d::Label *label_bounceSuccess;
+    cocos2d::Label *label_whereToFind;
+    cocos2d::Label *label_wantToShare;
+    cocos2d::Label *label_useRights;
     
 };

@@ -19,7 +19,7 @@ ProjectNamesLabel::ProjectNamesLabel( cocos2d::Layer *layer, std::string project
         shortString = projectName;
     }
     
-    label = cocos2d::Label::createWithTTF( shortString, "fonts/arial.ttf", kProjectHandling_FontSize_ProjectNames );
+    label = cocos2d::Label::createWithTTF( shortString, "fonts/arial.ttf", kFontSize_ProjectNames );
     _padding = label->getBoundingBox().size.height;
     label->setAnchorPoint( Vec2( 0.0, 0.5 ) );
     label->setColor( Color3B::WHITE );

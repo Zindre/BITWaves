@@ -33,7 +33,7 @@ ProjectHandling::ProjectHandling( Layer *layer ) {
         padding = buttonBg[i]->getBoundingBox().size.height * 0.5;
         layer->addChild( buttonBg[i], kLayer_ProjectHandling );
         
-        label_buttons[i] = Label::createWithTTF( "button", "fonts/arial.ttf", kProjectHandling_FontSize_Buttons );
+        label_buttons[i] = Label::createWithTTF( "button", "fonts/arial.ttf", kFontSize_Buttons );
         label_buttons[i]->setColor( Color3B::WHITE );
         label_buttons[i]->setPosition( buttonBg[i]->getPosition() );
         layer->addChild( label_buttons[i], kLayer_ProjectHandling );
@@ -65,7 +65,7 @@ ProjectHandling::ProjectHandling( Layer *layer ) {
     overlayBrowse->setVisible( false );
     layer->addChild( overlayBrowse, kLayer_ProjectHandling_BrowseOverlay );
     
-    label_instructTyping = Label::createWithTTF( "Gi prosjektet et navn:", "fonts/arial.ttf", kProjectHandling_FontSize_Text );
+    label_instructTyping = Label::createWithTTF( "Gi prosjektet et navn:", "fonts/arial.ttf", kFontSize_BigText );
     label_instructTyping->setPosition( Vec2( overlaySave->getPosition().x, overlaySave->getPosition().y + (overlaySave->getBoundingBox().size.height * 0.3) ) );
     label_instructTyping->setVisible( false );
     label_instructTyping->setColor( Color3B::BLACK );
@@ -77,7 +77,7 @@ ProjectHandling::ProjectHandling( Layer *layer ) {
     textFieldArea->setVisible( false );
     layer->addChild( textFieldArea, kLayer_ProjectHandling_SaveOverlay );
     
-    textField = cocos2d::TextFieldTTF::textFieldWithPlaceHolder( "", "fonts/arial.ttf", kProjectHandling_FontSize_Text );
+    textField = cocos2d::TextFieldTTF::textFieldWithPlaceHolder( "", "fonts/arial.ttf", kFontSize_BigText );
     textField->setPosition( Vec2( label_instructTyping->getPosition().x, label_instructTyping->getPosition().y - (label_instructTyping->getBoundingBox().size.height * 2) ) );
     textField->setVisible( false );
     textField->setCursorEnabled( true );
@@ -142,7 +142,7 @@ ProjectHandling::ProjectHandling( Layer *layer ) {
     arrowRight->setVisible( false );
     layer->addChild( arrowRight, kLayer_ProjectHandling_BrowseOverlay );
     
-    label_projectNamesPageNr = Label::createWithTTF( "1/1", "fonts/arial.ttf", kProjectHandling_FontSize_Text );
+    label_projectNamesPageNr = Label::createWithTTF( "1/1", "fonts/arial.ttf", kFontSize_BigText );
     label_projectNamesPageNr->setAnchorPoint( Vec2( 0.5, 0.5 ) );
     label_projectNamesPageNr->setPosition( Vec2( arrowLeft->getPosition().x + overlayBrowseSize.width * 0.25, arrowLeft->getPosition().y + (arrowLeft->getBoundingBox().size.height * 0.5) ) );
     label_projectNamesPageNr->setVisible( false );
@@ -157,7 +157,7 @@ ProjectHandling::ProjectHandling( Layer *layer ) {
     overlayPrompt->setVisible( false );
     layer->addChild( overlayPrompt, kLayer_ProjectHandling_Prompt );
     
-    label_prompt = Label::createWithTTF( "Er du sikker på du vil slette?", "fonts/arial.ttf", kProjectHandling_FontSize_Text );
+    label_prompt = Label::createWithTTF( "Er du sikker på du vil slette?", "fonts/arial.ttf", kFontSize_BigText );
     label_prompt->setPosition( Vec2( overlayPrompt->getPosition().x, overlayPrompt->getPosition().y + (overlayPrompt->getBoundingBox().size.height * 0.25 ) ) );
     label_prompt->setVisible( false );
     label_prompt->setColor( Color3B::BLACK );
@@ -514,6 +514,8 @@ void ProjectHandling::saveCurrentToOpenProject() {
 }
 
 void ProjectHandling::loadSavedProject() {
+    
+    saveCurrentToOpenProject();
     
     UserDefault::getInstance()->deleteValueForKey( "current_posX" );
     UserDefault::getInstance()->deleteValueForKey( "current_posY" );

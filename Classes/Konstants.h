@@ -90,9 +90,10 @@
 #define kProjectHandling_State_DeletePrompt 6
 #define kProjectHandling_State_NameExistPrompt 7
 
-#define kProjectHandling_FontSize_Buttons 9
-#define kProjectHandling_FontSize_ProjectNames 7
-#define kProjectHandling_FontSize_Text 12
+#define kFontSize_Buttons 9
+#define kFontSize_ProjectNames 7
+#define kFontSize_BigText 12
+#define kFontSize_SmallText 8
 
 #define kProjectHandling_Browse_FileListBgColor 74
 
@@ -103,6 +104,5 @@
 #define kSequencerScene_State_IsBouncing 5
 #define kSequencerScene_State_BombIsPressed 6
 
-#define kBounceAndShare_Buttons_NumOf 2
-#define kBounceAndShare_Buttons_Index_StartBounce 0
-#define kBounceAndShare_Buttons_Index_Share 1
+#define kBounceAndShare_Buttons_NumOf 1
+#define kBounceAndShare_Buttons_Index_Share 0

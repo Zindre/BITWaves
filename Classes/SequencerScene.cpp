@@ -185,10 +185,9 @@ void SequencerScene::onTouchesBegan( const std::vector<Touch*>& touches, Event* 
                         mainMenu->setTouchHasBegun( true, kButtons_ArrayNum_Help );
                     }
                     
-                    // BOUNCE AND SHARE BUTTON
-                    if ( mainMenu->buttons_image[kButtons_ArrayNum_Bounce]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
-                        mainMenu->setTouchHasBegun( true, kButtons_ArrayNum_Bounce );
-                        mainMenu->buttons_image[kButtons_ArrayNum_Bounce]->setScale( kButtons_ScaleValue );
+                    // PLAY HEAD HANDLE
+                    if ( playHeadHandle->getBoundingBox().containsPoint( touch->getLocation() ) ) {
+                        playHeadIsPressed = true;
                     }
                     
                 } else if ( whatState == kSequencerScene_State_PlayHeadIsMoving ) {
@@ -245,12 +244,17 @@ void SequencerScene::onTouchesBegan( const std::vector<Touch*>& touches, Event* 
                     
                 }
                 
-                if ( whatState == kSequencerScene_State_BounceAndShare || whatState == kSequencerScene_State_IsBouncing ) {
-                
-                    // START BOUNCE BUTTON
-                    if ( bounceAndShare->buttonBg[kBounceAndShare_Buttons_Index_StartBounce]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
-                        bounceAndShare->setButtonTouchHasBegun( true, kBounceAndShare_Buttons_Index_StartBounce );
+                if ( whatState == kSequencerScene_State_Normal || whatState == kSequencerScene_State_IsBouncing ) {
+                    
+                    // BOUNCE AND SHARE BUTTON
+                    if ( mainMenu->buttons_image[kButtons_ArrayNum_Bounce]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
+                        mainMenu->setTouchHasBegun( true, kButtons_ArrayNum_Bounce );
+                        mainMenu->buttons_image[kButtons_ArrayNum_Bounce]->setScale( kButtons_ScaleValue );
                     }
+                    
+                }
+                
+                if ( whatState == kSequencerScene_State_BounceAndShare || whatState == kSequencerScene_State_IsBouncing ) {
                     
                     // SHARE BUTTON
                     if ( bounceAndShare->buttonBg[kBounceAndShare_Buttons_Index_Share]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
@@ -258,16 +262,6 @@ void SequencerScene::onTouchesBegan( const std::vector<Touch*>& touches, Event* 
                     }
                     
                 }
-                
-                if ( whatState == kSequencerScene_State_Normal || whatState == kSequencerScene_State_BounceAndShare ) {
-                    
-                    // PLAY HEAD HANDLE
-                    if ( playHeadHandle->getBoundingBox().containsPoint( touch->getLocation() ) ) {
-                        playHeadIsPressed = true;
-                    }
-                    
-                }
-                
                 
                 
             }
@@ -291,14 +285,6 @@ void SequencerScene::onTouchesMoved( const std::vector<Touch*> &touches, Event* 
                     
                     mainMenu->abortWithTouchMove( touch->getLocation() );
                     
-                } else if ( whatState == kSequencerScene_State_BounceAndShare ) {
-                    
-                    bounceAndShare->abortWithTouchMove( touch->getLocation() );
-                    
-                }
-                
-                if ( whatState == kSequencerScene_State_Normal || whatState == kSequencerScene_State_BounceAndShare ) {
-                    
                     if ( playHeadIsPressed ) {
                         playHeadHandle->setPositionX( touch->getLocation().x );
                         playHead->setPositionX( playHeadHandle->getPosition().x );
@@ -312,6 +298,10 @@ void SequencerScene::onTouchesMoved( const std::vector<Touch*> &touches, Event* 
                             playHead->setPositionX( playHeadHandle->getPosition().x );
                         }
                     }
+                    
+                } else if ( whatState == kSequencerScene_State_BounceAndShare ) {
+                    
+                    bounceAndShare->abortWithTouchMove( touch->getLocation() );
                     
                 }
                 
@@ -371,14 +361,6 @@ void SequencerScene::onTouchesEnded( const std::vector<Touch*> &touches, Event* 
                             playHeadHandle->setVisible( false );
                             mainMenu->buttons_image[kButtons_ArrayNum_Stop]->setTexture( "stopButtonDark.png" );
                             whatState = kSequencerScene_State_PlayHeadIsMoving;
-                        }
-                    }
-                    
-                    // BOUNCE AND SHARE BUTTON
-                    if ( mainMenu->buttons_image[kButtons_ArrayNum_Bounce]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
-                        if ( mainMenu->getTouchHasBegun( kButtons_ArrayNum_Bounce ) ) {
-                            bounceAndShare->show();
-                            whatState = kSequencerScene_State_BounceAndShare;
                         }
                     }
                     
@@ -455,39 +437,42 @@ void SequencerScene::onTouchesEnded( const std::vector<Touch*> &touches, Event* 
                     
                 }
                 
+                if ( whatState == kSequencerScene_State_Normal || whatState == kSequencerScene_State_IsBouncing ) {
+                    
+                    // BOUNCE AND SHARE BUTTON
+                    if ( mainMenu->buttons_image[kButtons_ArrayNum_Bounce]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
+                        if ( mainMenu->getTouchHasBegun( kButtons_ArrayNum_Bounce ) ) {
+                            
+                            if ( mainMenu->bounceWavIsOn() ) {
+                                stopBounce();
+                            } else {
+                                mainMenu->setBounceWavIsOn( true );
+                                mainMenu->buttons_image[kButtons_ArrayNum_Bounce]->setColor( Color3B::RED );
+                                FMODAudioEngine::stopSound();
+                                std::string currentProjectName = UserDefault::getInstance()->getStringForKey( "currentProjectName" );
+                                FMODAudioEngine::START_outputToWaveWriter( currentProjectName );
+                                for ( int i = 0; i < kNumOfSoundObjects; i++ ) {
+                                    std::string currentProjectName = UserDefault::getInstance()->getStringForKey( "currentProjectName" );
+                                    FMODAudioEngine::loadSoundFromDisk( currentProjectName, i );
+                                }
+                                movePlayHead();
+                                playHeadHandle->setVisible( false );
+                                mainMenu->buttons_image[kButtons_ArrayNum_Play]->setColor( Color3B( kButtons_GrayedOutValue, kButtons_GrayedOutValue, kButtons_GrayedOutValue ) );
+                                mainMenu->buttons_image[kButtons_ArrayNum_Stop]->setColor( Color3B( kButtons_GrayedOutValue, kButtons_GrayedOutValue, kButtons_GrayedOutValue ) );
+                                mainMenu->buttons_image[kButtons_ArrayNum_Loop]->setColor( Color3B( kButtons_GrayedOutValue, kButtons_GrayedOutValue, kButtons_GrayedOutValue ) );
+                                mainMenu->buttons_image[kButtons_ArrayNum_Bomb]->setColor( Color3B( kButtons_GrayedOutValue, kButtons_GrayedOutValue, kButtons_GrayedOutValue ) );
+                                mainMenu->buttons_image[kButtons_ArrayNum_Mic]->setColor( Color3B( kButtons_GrayedOutValue, kButtons_GrayedOutValue, kButtons_GrayedOutValue ) );
+                                mainMenu->buttons_image[kButtons_ArrayNum_Help]->setColor( Color3B( kButtons_GrayedOutValue, kButtons_GrayedOutValue, kButtons_GrayedOutValue ) );
+                                whatState = kSequencerScene_State_IsBouncing;
+                            }
+                            
+                        }
+                    }
+                }
+                
                 
                 // BOUNCE AND SHARE
                 if ( whatState == kSequencerScene_State_BounceAndShare || whatState == kSequencerScene_State_IsBouncing ) {
-                    
-                    // START BOUNCE BUTTON
-                    if ( bounceAndShare->buttonTouchHasBegun( kBounceAndShare_Buttons_Index_StartBounce ) ) {
-                        
-                        if ( mainMenu->bounceWavIsOn() ) {
-                            stopBounce();
-                        } else {
-                            mainMenu->setBounceWavIsOn( true );
-                            //mainMenu->buttons_image[kButtons_ArrayNum_Bounce]->setColor( Color3B::RED );
-                            FMODAudioEngine::stopSound();
-                            std::string currentProjectName = UserDefault::getInstance()->getStringForKey( "currentProjectName" );
-                            FMODAudioEngine::START_outputToWaveWriter( currentProjectName );
-                            for ( int i = 0; i < kNumOfSoundObjects; i++ ) {
-                                std::string currentProjectName = UserDefault::getInstance()->getStringForKey( "currentProjectName" );
-                                FMODAudioEngine::loadSoundFromDisk( currentProjectName, i );
-                            }
-                            movePlayHead();
-                            playHeadHandle->setVisible( false );
-                            mainMenu->buttons_image[kButtons_ArrayNum_Play]->setColor( Color3B( kButtons_GrayedOutValue, kButtons_GrayedOutValue, kButtons_GrayedOutValue ) );
-                            mainMenu->buttons_image[kButtons_ArrayNum_Stop]->setColor( Color3B( kButtons_GrayedOutValue, kButtons_GrayedOutValue, kButtons_GrayedOutValue ) );
-                            mainMenu->buttons_image[kButtons_ArrayNum_Loop]->setColor( Color3B( kButtons_GrayedOutValue, kButtons_GrayedOutValue, kButtons_GrayedOutValue ) );
-                            mainMenu->buttons_image[kButtons_ArrayNum_Bomb]->setColor( Color3B( kButtons_GrayedOutValue, kButtons_GrayedOutValue, kButtons_GrayedOutValue ) );
-                            mainMenu->buttons_image[kButtons_ArrayNum_Mic]->setColor( Color3B( kButtons_GrayedOutValue, kButtons_GrayedOutValue, kButtons_GrayedOutValue ) );
-                            mainMenu->buttons_image[kButtons_ArrayNum_Help]->setColor( Color3B( kButtons_GrayedOutValue, kButtons_GrayedOutValue, kButtons_GrayedOutValue ) );
-                            whatState = kSequencerScene_State_IsBouncing;
-                            bounceAndShare->label_buttons[kBounceAndShare_Buttons_Index_StartBounce]->setString( "Stop" );
-                            bounceAndShare->buttonBg[kBounceAndShare_Buttons_Index_StartBounce]->setColor( Color3B::RED );
-                        }
-                        
-                    }
                     
                     // SHARE BUTTON
                     if ( bounceAndShare->buttonTouchHasBegun( kBounceAndShare_Buttons_Index_Share ) ) {
@@ -604,12 +589,13 @@ void SequencerScene::stopBounce() {
     mainMenu->buttons_image[kButtons_ArrayNum_Bomb]->setColor( Color3B::WHITE );
     mainMenu->buttons_image[kButtons_ArrayNum_Mic]->setColor( Color3B::WHITE );
     mainMenu->buttons_image[kButtons_ArrayNum_Help]->setColor( Color3B::WHITE );
+    mainMenu->buttons_image[kButtons_ArrayNum_Bounce]->setColor( Color3B::WHITE );
     
     //saveToIcloud();
-    
+
+    bounceAndShare->show();
     whatState = kSequencerScene_State_BounceAndShare;
-    bounceAndShare->label_buttons[kBounceAndShare_Buttons_Index_StartBounce]->setString( "Lag lydfil" );
-    bounceAndShare->buttonBg[kBounceAndShare_Buttons_Index_StartBounce]->setColor( Color3B::BLACK );
+    
 }
 
 void SequencerScene::resetWhenStop() {

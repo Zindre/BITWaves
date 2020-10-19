@@ -8,7 +8,7 @@ BounceAndShare::BounceAndShare( cocos2d::Layer *layer ) {
     origin = Director::getInstance()->getSafeAreaRect().origin;
     
     background = Sprite::create( "square1px.png" );
-    background->setTextureRect( Rect( 0, 0, visibleSize.width * 0.6, visibleSize.height * 0.4 ) );
+    background->setTextureRect( Rect( 0, 0, visibleSize.width * 0.6, visibleSize.height * 0.6 ) );
     background->setPosition( Vec2( origin.x + visibleSize.width * 0.5, origin.y + visibleSize.height * 0.5 ) );
     layer->addChild( background, kLayer_BounceAndShare );
     
@@ -19,26 +19,48 @@ BounceAndShare::BounceAndShare( cocos2d::Layer *layer ) {
     layer->addChild( closeCross, kLayer_BounceAndShare );
     
     
+    label_bounceSuccess = Label::createWithTTF( "Lagring av lydfilen var vellykket!", "fonts/arial.ttf", kFontSize_BigText );
+    label_bounceSuccess->setPosition( Vec2( background->getPosition().x, background->getPosition().y + (background->getBoundingBox().size.height * 0.3) ) );
+    label_bounceSuccess->setColor( Color3B::BLACK );
+    layer->addChild( label_bounceSuccess, kLayer_BounceAndShare );
+    
+    float padding = label_bounceSuccess->getBoundingBox().size.height;
+    float lineHeightSmallText = kFontSize_SmallText * 6;
+    
+    label_whereToFind = Label::createWithTTF( "Lydfilen finner du i appen «Filer» under BITWaves\nog katalogen til dette prosjektet.", "fonts/arial.ttf", kFontSize_SmallText );
+    label_whereToFind->setPosition( Vec2( background->getPosition().x, label_bounceSuccess->getPosition().y - label_bounceSuccess->getBoundingBox().size.height - padding ) );
+    label_whereToFind->setColor( Color3B::BLACK );
+    label_whereToFind->setAlignment( TextHAlignment::CENTER );
+    label_whereToFind->setLineHeight( lineHeightSmallText );
+    layer->addChild( label_whereToFind, kLayer_BounceAndShare );
+    
+    label_wantToShare = Label::createWithTTF( "Vil du dele lydfilen med BIT20?", "fonts/arial.ttf", kFontSize_BigText );
+    label_wantToShare->setPosition( Vec2( background->getPosition().x, label_whereToFind->getPosition().y - label_whereToFind->getBoundingBox().size.height - padding ) );
+    label_wantToShare->setColor( Color3B::BLACK );
+    layer->addChild( label_wantToShare, kLayer_BounceAndShare );
+    
+    label_useRights= Label::createWithTTF( "Ved å dele lydfilen med BIT20\ngir du samtidig all bruksrett til BIT20.", "fonts/arial.ttf", kFontSize_SmallText );
+    label_useRights->setPosition( Vec2( background->getPosition().x, label_wantToShare->getPosition().y - label_wantToShare->getBoundingBox().size.height - padding ) );
+    label_useRights->setColor( Color3B::BLACK );
+    label_useRights->setAlignment( TextHAlignment::CENTER );
+    label_useRights->setLineHeight( lineHeightSmallText );
+    layer->addChild( label_useRights, kLayer_BounceAndShare );
+    
     
     for ( int i = 0; i < kBounceAndShare_Buttons_NumOf; i++ ) {
         buttonBg[i] = Sprite::create( "buttonBg.png" );
         buttonBg[i]->setColor( Color3B::BLACK );
         layer->addChild( buttonBg[i], kLayer_BounceAndShare );
         
-        label_buttons[i] = Label::createWithTTF( "", "fonts/arial.ttf", kProjectHandling_FontSize_Buttons );
+        label_buttons[i] = Label::createWithTTF( "", "fonts/arial.ttf", kFontSize_Buttons );
         layer->addChild( label_buttons[i], kLayer_BounceAndShare );
         
         _buttonTouchHasBegun[i] = false;
     }
     
     Size buttonBgSize = buttonBg[0]->getBoundingBox().size;
-    buttonBg[kBounceAndShare_Buttons_Index_StartBounce]->setPosition( Vec2( background->getPosition().x - (buttonBgSize.width/1.5), background->getPosition().y ) );
-    label_buttons[kBounceAndShare_Buttons_Index_StartBounce]->setPosition( buttonBg[kBounceAndShare_Buttons_Index_StartBounce]->getPosition() );
-    buttonBg[kBounceAndShare_Buttons_Index_Share]->setPosition( Vec2( background->getPosition().x + (buttonBgSize.width/1.5), background->getPosition().y ) );
+    buttonBg[kBounceAndShare_Buttons_Index_Share]->setPosition( Vec2( background->getPosition().x, label_useRights->getPosition().y - label_useRights->getBoundingBox().size.height - padding ) );
     label_buttons[kBounceAndShare_Buttons_Index_Share]->setPosition( buttonBg[kBounceAndShare_Buttons_Index_Share]->getPosition() );
-
-    
-    label_buttons[kBounceAndShare_Buttons_Index_StartBounce]->setString( "Lag lydfil" );
     label_buttons[kBounceAndShare_Buttons_Index_Share]->setString( "Dele med BIT20" );
     
     
@@ -56,6 +78,10 @@ void BounceAndShare::show() {
         buttonBg[i]->setVisible( true );
         label_buttons[i]->setVisible( true );
     }
+    label_bounceSuccess->setVisible( true );
+    label_whereToFind->setVisible( true );
+    label_wantToShare->setVisible( true );
+    label_useRights->setVisible( true );
 }
 
 void BounceAndShare::hide() {
@@ -65,6 +91,10 @@ void BounceAndShare::hide() {
         buttonBg[i]->setVisible( false );
         label_buttons[i]->setVisible( false );
     }
+    label_bounceSuccess->setVisible( false );
+    label_whereToFind->setVisible( false );
+    label_wantToShare->setVisible( false );
+    label_useRights->setVisible( false );
 }
 
 bool BounceAndShare::buttonTouchHasBegun( int whatButton ) {
