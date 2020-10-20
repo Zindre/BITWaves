@@ -102,7 +102,7 @@ list(APPEND GAME_SOURCE
         Classes/BounceAndShare.cpp
         Classes/ProjectHandling.cpp
         Classes/ProjectNamesLabel.cpp
-        Classes/Uploader.mm
+        Classes/Uploader.cpp
 )
 list(APPEND GAME_HEADER
         Classes/AppDelegate.h

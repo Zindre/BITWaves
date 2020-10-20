@@ -565,7 +565,7 @@ std::string bounceFileFullPath( std::string currentProjectName ) {
     std::string projectFolder = currentProjectName;
     std::string bounceFile = "bounce.wav";
     std::string bounceFileFullPath = writablePath + projectFolder + "/" + bounceFile;
-    log( "bounceFileFullPath: %s", bounceFileFullPath.c_str() );
+    //log( "bounceFileFullPath: %s", bounceFileFullPath.c_str() );
     return bounceFileFullPath;
 }
 
