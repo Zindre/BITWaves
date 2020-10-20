@@ -115,7 +115,7 @@ void InstrumentScene::update( float dt ) {
 
     
     if ( projectHandling->getState() == kProjectHandling_State_SaveOverlay ) {
-        if ( projectHandling->textField->getCharCount() == 0 ) {
+        if ( projectHandling->textField_save->getCharCount() == 0 ) {
             if ( projectHandling->buttonBg[kButtons_ProjectHandling_Index_ConfirmSave]->getOpacity() == 255 ) {
                 projectHandling->buttonBg[kButtons_ProjectHandling_Index_ConfirmSave]->setOpacity( kProjectHandling_Button_TransparantValue );
             }
@@ -187,7 +187,7 @@ void InstrumentScene::onTouchesBegan( const std::vector<Touch*>& touches, Event*
                         }
                         
                         // CONFIRM SAVE
-                        if ( projectHandling->textField->getCharCount() != 0 ) {
+                        if ( projectHandling->textField_save->getCharCount() != 0 ) {
                             if ( projectHandling->buttonBg[kButtons_ProjectHandling_Index_ConfirmSave]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
                                 projectHandling->setButtonTouchHasBegun( true, kButtons_ProjectHandling_Index_ConfirmSave );
                             }
@@ -216,15 +216,18 @@ void InstrumentScene::onTouchesBegan( const std::vector<Touch*>& touches, Event*
                                     if ( projectHandling->getSelectedProjectName().compare( currentProjectName ) == 0 ) {
                                         projectHandling->buttonBg[kButtons_ProjectHandling_Index_Open]->setOpacity( kProjectHandling_Button_TransparantValue );
                                         projectHandling->buttonBg[kButtons_ProjectHandling_Index_Delete]->setOpacity( kProjectHandling_Button_TransparantValue );
+                                        projectHandling->buttonBg[kButtons_ProjectHandling_Index_Rename]->setOpacity( kProjectHandling_Button_TransparantValue );
                                         projectHandling->setAprojectIsSelected( false );
                                     } else {
                                         projectHandling->setAprojectIsSelected( true );
                                         if ( projectHandling->aProjectIsSelected() ) {
                                             projectHandling->buttonBg[kButtons_ProjectHandling_Index_Open]->setOpacity( 255 );
                                             projectHandling->buttonBg[kButtons_ProjectHandling_Index_Delete]->setOpacity( 255 );
+                                            projectHandling->buttonBg[kButtons_ProjectHandling_Index_Rename]->setOpacity( 255 );
                                         } else {
                                             projectHandling->buttonBg[kButtons_ProjectHandling_Index_Open]->setOpacity( kProjectHandling_Button_TransparantValue );
                                             projectHandling->buttonBg[kButtons_ProjectHandling_Index_Delete]->setOpacity( kProjectHandling_Button_TransparantValue );
+                                            projectHandling->buttonBg[kButtons_ProjectHandling_Index_Rename]->setOpacity( kProjectHandling_Button_TransparantValue );
                                         }
                                     }
                                     
@@ -244,6 +247,13 @@ void InstrumentScene::onTouchesBegan( const std::vector<Touch*>& touches, Event*
                         if ( projectHandling->aProjectIsSelected() ) {
                             if ( projectHandling->buttonBg[kButtons_ProjectHandling_Index_Delete]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
                                 projectHandling->setButtonTouchHasBegun( true, kButtons_ProjectHandling_Index_Delete );
+                            }
+                        }
+                        
+                        // RENAME
+                        if ( projectHandling->aProjectIsSelected() ) {
+                            if ( projectHandling->buttonBg[kButtons_ProjectHandling_Index_Rename]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
+                                projectHandling->setButtonTouchHasBegun( true, kButtons_ProjectHandling_Index_Rename );
                             }
                         }
                         
@@ -520,6 +530,11 @@ void InstrumentScene::onTouchesEnded( const std::vector<Touch*> &touches, Event*
                         // DELETE
                         if ( projectHandling->buttonTouchHasBegun( kButtons_ProjectHandling_Index_Delete ) ) {
                             projectHandling->showDeletePrompt( projectHandling->getSelectedProjectName() );
+                        }
+                        
+                        // RENAME
+                        if ( projectHandling->buttonTouchHasBegun( kButtons_ProjectHandling_Index_Rename ) ) {
+                            projectHandling->showRenameTextField( projectHandling->getSelectedProjectName() );
                         }
                         
                         // CANCEL

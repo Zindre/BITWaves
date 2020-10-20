@@ -68,7 +68,7 @@
 
 #define kNumOfChannels 32
 
-#define kButtons_ProjectHandling_NumOf 11
+#define kButtons_ProjectHandling_NumOf 12
 #define kButtons_ProjectHandling_Index_Save 0
 #define kButtons_ProjectHandling_Index_Browse 1
 #define kButtons_ProjectHandling_Index_New 2
@@ -80,6 +80,9 @@
 #define kButtons_ProjectHandling_Index_CancelDelete 8
 #define kButtons_ProjectHandling_Index_CloseExistPrompt 9
 #define kButtons_ProjectHandling_Index_CancelBrowse 10
+#define kButtons_ProjectHandling_Index_Rename 11
+
+
 
 #define kProjectHandling_Button_TransparantValue 100
 

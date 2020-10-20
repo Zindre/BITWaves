@@ -48,9 +48,10 @@ public:
     bool nameExists();
     void checkIfNameExists();
     void closeNameExistsPrompt();
+    void showRenameTextField( std::string projectName );
     
     cocos2d::Sprite *closeCross;
-    cocos2d::TextFieldTTF *textField;
+    cocos2d::TextFieldTTF *textField_save;
     cocos2d::Label *label_buttons[kButtons_ProjectHandling_NumOf];
     cocos2d::Sprite *buttonBg[kButtons_ProjectHandling_NumOf];
     std::vector<ProjectNamesLabel> projectNamesLabel;
@@ -96,7 +97,7 @@ private:
     cocos2d::Label *label_prompt;
     cocos2d::Label *label_warning;
     bool _nameExists;
-    
+    cocos2d::TextFieldTTF *textField_rename;
     
 
 
