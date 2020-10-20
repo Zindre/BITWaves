@@ -145,8 +145,8 @@ void SequencerScene::onTouchesBegan( const std::vector<Touch*>& touches, Event* 
         if ( touch != nullptr ) {
             if ( touch->getID() == 0 ) {
                 
-                log( "began - touch->getLocation().y: %f", touch->getLocation().y );
-                log( "began - touch->getLocation().x: %f", touch->getLocation().x );
+                //log( "began - touch->getLocation().y: %f", touch->getLocation().y );
+                //log( "began - touch->getLocation().x: %f", touch->getLocation().x );
             
                 if ( whatState == kSequencerScene_State_Normal ) {
                     
@@ -200,14 +200,28 @@ void SequencerScene::onTouchesBegan( const std::vector<Touch*>& touches, Event* 
                     
                 } else if ( whatState == kSequencerScene_State_BounceAndShare ) {
                     
-                    bounceAndShare->setTouchStartPos( touch->getLocation() );
-                    
                     // CLOSE CROSS
                     if ( bounceAndShare->closeCross->getBoundingBox().containsPoint( touch->getLocation() ) ) {
                         bounceAndShare->hide();
                         whatState = kSequencerScene_State_Normal;
                     }
+                    
+                    // SHARE BUTTON
+                    if ( bounceAndShare->buttonBg[kBounceAndShare_Buttons_Index_Share]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
+                        bounceAndShare->setButtonTouchHasBegun( true, kBounceAndShare_Buttons_Index_Share );
+                    }
             
+                } else if ( whatState == kSequencerScene_State_BounceAndShare_Prompt ) {
+                    
+                    // BOUNCE AND SHARE PROMPT
+                    if ( bounceAndShare->buttonBg[kBounceAndShare_Buttons_Index_PromptConfirm]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
+                        bounceAndShare->setButtonTouchHasBegun( true, kBounceAndShare_Buttons_Index_PromptConfirm );
+                    }
+                    
+                }
+                
+                if ( whatState == kSequencerScene_State_BounceAndShare || whatState == kSequencerScene_State_BounceAndShare_Prompt ) {
+                    bounceAndShare->setTouchStartPos( touch->getLocation() );
                 }
                 
                 if ( whatState == kSequencerScene_State_PlayHeadIsMoving || whatState == kSequencerScene_State_Normal ) {
@@ -254,15 +268,6 @@ void SequencerScene::onTouchesBegan( const std::vector<Touch*>& touches, Event* 
                     
                 }
                 
-                if ( whatState == kSequencerScene_State_BounceAndShare || whatState == kSequencerScene_State_IsBouncing ) {
-                    
-                    // SHARE BUTTON
-                    if ( bounceAndShare->buttonBg[kBounceAndShare_Buttons_Index_Share]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
-                        bounceAndShare->setButtonTouchHasBegun( true, kBounceAndShare_Buttons_Index_Share );
-                    }
-                    
-                }
-                
                 
             }
         
@@ -278,8 +283,8 @@ void SequencerScene::onTouchesMoved( const std::vector<Touch*> &touches, Event* 
         if ( touch != nullptr ) {
             if ( touch->getID() == 0 ) {
                 
-                log( "moved - touch->getLocation().y: %f", touch->getLocation().y );
-                log( "moved - touch->getLocation().x: %f", touch->getLocation().x );
+                //log( "moved - touch->getLocation().y: %f", touch->getLocation().y );
+                //log( "moved - touch->getLocation().x: %f", touch->getLocation().x );
             
                 if ( whatState == kSequencerScene_State_Normal ) {
                     
@@ -299,7 +304,9 @@ void SequencerScene::onTouchesMoved( const std::vector<Touch*> &touches, Event* 
                         }
                     }
                     
-                } else if ( whatState == kSequencerScene_State_BounceAndShare ) {
+                }
+                
+                if ( whatState == kSequencerScene_State_BounceAndShare || whatState == kSequencerScene_State_BounceAndShare_Prompt ) {
                     
                     bounceAndShare->abortWithTouchMove( touch->getLocation() );
                     
@@ -338,8 +345,8 @@ void SequencerScene::onTouchesEnded( const std::vector<Touch*> &touches, Event* 
         if ( touch != nullptr ) {
             if ( touch->getID() == 0 ) {
                 
-                log( "ended - touch->getLocation().y: %f", touch->getLocation().y );
-                log( "ended - touch->getLocation().x: %f", touch->getLocation().x );
+                //log( "ended - touch->getLocation().y: %f", touch->getLocation().y );
+                //log( "ended - touch->getLocation().x: %f", touch->getLocation().x );
             
                 if ( whatState == kSequencerScene_State_Normal ) {
                     
@@ -398,6 +405,32 @@ void SequencerScene::onTouchesEnded( const std::vector<Touch*> &touches, Event* 
                     
                     mainMenu->resetBomb();
                     whatState = kSequencerScene_State_Normal;
+                    
+                } else if ( whatState == kSequencerScene_State_BounceAndShare ) {
+                        
+                        // SHARE BUTTON
+                        if ( bounceAndShare->buttonTouchHasBegun( kBounceAndShare_Buttons_Index_Share ) ) {
+                            log( "share button pressed" );
+                            std::string currentProjectName = UserDefault::getInstance()->getStringForKey( "currentProjectName" );
+                            std::string bounceFileFullPath = FMODAudioEngine::bounceFileFullPath(currentProjectName);
+                            Uploader::upload_bounce_file(bounceFileFullPath, currentProjectName);
+                            
+                            //bounceAndShare->showPrompt( "Kunne ikke kontakte server. Vennligst prøv igjen når du har tid. Eller går ikke dette bra." );
+                            //whatState = kSequencerScene_State_BounceAndShare_Prompt;
+                        }
+                        
+                        // Touch bagan to false
+                        for ( int i = 0; i < kBounceAndShare_Buttons_NumOf; i++ ) {
+                            bounceAndShare->setButtonTouchHasBegun( false, i );
+                        }
+                        
+                } else if ( whatState == kSequencerScene_State_BounceAndShare_Prompt ) {
+                    
+                    // BOUNCE AND SHARE PROMPT
+                    if ( bounceAndShare->buttonTouchHasBegun( kBounceAndShare_Buttons_Index_PromptConfirm ) ) {
+                        bounceAndShare->hidePrompt();
+                        whatState = kSequencerScene_State_BounceAndShare;
+                    }
                     
                 }
                 
@@ -470,24 +503,6 @@ void SequencerScene::onTouchesEnded( const std::vector<Touch*> &touches, Event* 
                     }
                 }
                 
-                
-                // BOUNCE AND SHARE
-                if ( whatState == kSequencerScene_State_BounceAndShare || whatState == kSequencerScene_State_IsBouncing ) {
-                    
-                    // SHARE BUTTON
-                    if ( bounceAndShare->buttonTouchHasBegun( kBounceAndShare_Buttons_Index_Share ) ) {
-                        log( "share button pressed" );
-                        std::string currentProjectName = UserDefault::getInstance()->getStringForKey( "currentProjectName" );
-                        std::string bounceFileFullPath = FMODAudioEngine::bounceFileFullPath(currentProjectName);
-                        Uploader::upload_bounce_file(bounceFileFullPath, currentProjectName);
-                    }
-                    
-                    // Touch bagan to false
-                    for ( int i = 0; i < kBounceAndShare_Buttons_NumOf; i++ ) {
-                        bounceAndShare->setButtonTouchHasBegun( false, i );
-                    }
-                    
-                }
                 
             }
             

@@ -16,9 +16,10 @@
 #define kLayer_ProjectHandling_NameLabel 15
 #define kLayer_ProjectHandling_Prompt 16
 #define kLayer_BounceAndShare 17
-#define kLayer_HelpOverlayBorder 18
-#define kLayer_HelpOverlay 19
-#define kLayer_CurrentProjectName 20
+#define kLayer_BounceAndShare_Prompt 18
+#define kLayer_HelpOverlayBorder 19
+#define kLayer_HelpOverlay 20
+#define kLayer_CurrentProjectName 21
 
 #define kTouch_NumOfTouchesAllowed 11
 #define kPitchMin 0.1f
@@ -101,8 +102,10 @@
 #define kSequencerScene_State_HelpOverlay 2
 #define kSequencerScene_State_PlayHeadIsMoving 3
 #define kSequencerScene_State_BounceAndShare 4
-#define kSequencerScene_State_IsBouncing 5
-#define kSequencerScene_State_BombIsPressed 6
+#define kSequencerScene_State_BounceAndShare_Prompt 5
+#define kSequencerScene_State_IsBouncing 6
+#define kSequencerScene_State_BombIsPressed 7
 
-#define kBounceAndShare_Buttons_NumOf 1
+#define kBounceAndShare_Buttons_NumOf 2
 #define kBounceAndShare_Buttons_Index_Share 0
+#define kBounceAndShare_Buttons_Index_PromptConfirm 1

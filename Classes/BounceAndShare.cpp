@@ -10,6 +10,7 @@ BounceAndShare::BounceAndShare( cocos2d::Layer *layer ) {
     background = Sprite::create( "square1px.png" );
     background->setTextureRect( Rect( 0, 0, visibleSize.width * 0.6, visibleSize.height * 0.6 ) );
     background->setPosition( Vec2( origin.x + visibleSize.width * 0.5, origin.y + visibleSize.height * 0.5 ) );
+    background->setColor( Color3B::GRAY );
     layer->addChild( background, kLayer_BounceAndShare );
     
     Size bgSize = background->getBoundingBox().size;
@@ -66,6 +67,28 @@ BounceAndShare::BounceAndShare( cocos2d::Layer *layer ) {
     
     
     
+    promptBg = Sprite::create( "square1px.png" );
+    promptBg->setTextureRect( Rect( 0, 0, background->getBoundingBox().size.width * 0.8, background->getBoundingBox().size.height * 0.6 ) );
+    promptBg->setPosition( Vec2( background->getPosition().x, background->getPosition().y ) );
+    promptBg->setVisible( false );
+    layer->addChild( promptBg, kLayer_BounceAndShare );
+    
+    label_prompt = Label::createWithTTF( "Dette er en beskjed til bruker", "fonts/arial.ttf", kFontSize_SmallText );
+    label_prompt->setPosition( Vec2( promptBg->getPosition().x, promptBg->getPosition().y + (promptBg->getBoundingBox().size.height * 0.25) ) );
+    label_prompt->setColor( Color3B::BLACK );
+    label_prompt->setVisible( false );
+    label_prompt->setMaxLineWidth( promptBg->getBoundingBox().size.width * 0.8 );
+    float lineHeight = kFontSize_SmallText * 6;
+    label_prompt->setLineHeight( lineHeight );
+    label_prompt->setAlignment( TextHAlignment::CENTER );
+    layer->addChild( label_prompt, kLayer_BounceAndShare );
+    
+    buttonBg[kBounceAndShare_Buttons_Index_PromptConfirm]->setPosition( Vec2( promptBg->getPosition().x, promptBg->getPosition().y - buttonBgSize.height ) );
+    label_buttons[kBounceAndShare_Buttons_Index_PromptConfirm]->setPosition( buttonBg[kBounceAndShare_Buttons_Index_PromptConfirm]->getPosition() );
+    label_buttons[kBounceAndShare_Buttons_Index_PromptConfirm]->setString( "Ok" );
+    buttonBg[kBounceAndShare_Buttons_Index_PromptConfirm]->setLocalZOrder( kLayer_BounceAndShare_Prompt );
+    label_buttons[kBounceAndShare_Buttons_Index_PromptConfirm]->setLocalZOrder( kLayer_BounceAndShare_Prompt );
+    
     
     hide();
     
@@ -78,6 +101,8 @@ void BounceAndShare::show() {
         buttonBg[i]->setVisible( true );
         label_buttons[i]->setVisible( true );
     }
+    buttonBg[kBounceAndShare_Buttons_Index_PromptConfirm]->setVisible( false );
+    label_buttons[kBounceAndShare_Buttons_Index_PromptConfirm]->setVisible( false );
     label_bounceSuccess->setVisible( true );
     label_whereToFind->setVisible( true );
     label_wantToShare->setVisible( true );
@@ -136,4 +161,19 @@ void BounceAndShare::abortWithTouchMove( Vec2 touchPos ) {
         }
     }
         
+}
+
+void BounceAndShare::showPrompt( std::string message ) {
+    promptBg->setVisible( true );
+    label_prompt->setVisible( true );
+    label_prompt->setString( message );
+    buttonBg[kBounceAndShare_Buttons_Index_PromptConfirm]->setVisible( true );
+    label_buttons[kBounceAndShare_Buttons_Index_PromptConfirm]->setVisible( true );
+}
+
+void BounceAndShare::hidePrompt() {
+    promptBg->setVisible( false );
+    label_prompt->setVisible( false );
+    buttonBg[kBounceAndShare_Buttons_Index_PromptConfirm]->setVisible( false );
+    label_buttons[kBounceAndShare_Buttons_Index_PromptConfirm]->setVisible( false );
 }

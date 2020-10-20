@@ -17,6 +17,8 @@ public:
     void setButtonTouchHasBegun( bool touchHasBegun, int whatButton );
     void abortWithTouchMove( cocos2d::Vec2 touchPos );
     void setTouchStartPos( cocos2d::Vec2 touchPos );
+    void showPrompt( std::string message );
+    void hidePrompt();
     
     cocos2d::Sprite *closeCross;
     cocos2d::Sprite *buttonBg[kBounceAndShare_Buttons_NumOf];
@@ -33,5 +35,7 @@ private:
     cocos2d::Label *label_whereToFind;
     cocos2d::Label *label_wantToShare;
     cocos2d::Label *label_useRights;
+    cocos2d::Label *label_prompt;
+    cocos2d::Sprite *promptBg;
     
 };
