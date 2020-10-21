@@ -120,6 +120,7 @@ void BounceAndShare::hide() {
     label_whereToFind->setVisible( false );
     label_wantToShare->setVisible( false );
     label_useRights->setVisible( false );
+    hidePrompt();
 }
 
 bool BounceAndShare::buttonTouchHasBegun( int whatButton ) {
@@ -164,6 +165,7 @@ void BounceAndShare::abortWithTouchMove( Vec2 touchPos ) {
 }
 
 void BounceAndShare::showPrompt( std::string message ) {
+    log("Message at bns: %s", message.c_str());
     promptBg->setVisible( true );
     label_prompt->setVisible( true );
     label_prompt->setString( message );

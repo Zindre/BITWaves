@@ -11,7 +11,15 @@ USING_NS_CC;
 //using namespace network;
 
 
-std::tuple<char**, int> Uploader::file_to_base64(std::string path) {
+Uploader::Uploader(){
+    bounceAndShare = nullptr;
+}
+
+Uploader::Uploader(BounceAndShare* bas) {
+    bounceAndShare = bas;
+}
+
+std::tuple<char*, int> Uploader::file_to_base64(std::string path) {
     FILE * file = std::fopen(path.c_str(), "r+");
     if (file == NULL) return;
     fseek(file, 0, SEEK_END);
@@ -22,22 +30,50 @@ std::tuple<char**, int> Uploader::file_to_base64(std::string path) {
     unsigned char * in = (unsigned char *) malloc(size);
     long int bytes_read = fread(in, sizeof(unsigned char), size, file);
     fclose(file);
-    char** out;
-    int outlength = cocos2d::base64Encode(in, (int) size, out);
+    char* out;
+    unsigned int outlength = cocos2d::base64Encode(in, (int) size, &out);
     return {out, outlength};
 }
 
-void onHttpRequestCompleted(cocos2d::network::HttpClient *sender, cocos2d::network::HttpResponse *response) {
-    log("Hei");
+void Uploader::notifyUser(char message[]) {
+    
+    if (bounceAndShare) {
+        bounceAndShare->showPrompt(message);
+    }
+    else {
+        log("Upload status: %s", message);
+    }
+}
+
+void Uploader::onHttpRequestCompleted(cocos2d::network::HttpClient *sender, cocos2d::network::HttpResponse *response) {
+    char message[50];
+    if (!response)
+    {
+        sprintf(message, "Feil: Ingen respons ved forsøk på opplasting.");
+        notifyUser(message);
+        return;
+    }
+    long responseCode = response->getResponseCode();
+    if (responseCode == 200 or responseCode == 302  ) {
+        sprintf(message, "Lydklippet er lastet opp");
+    }
+    else {
+        sprintf(message,"Feil ved opplasting.");
+        log("Feil ved opplasting, kode %lu", response->getResponseCode());
+    }
+    notifyUser(message);
+    
 }
 
 void Uploader::upload_bounce_file(std::string sourcePath, std::string destinationPath) {
-    log("Saving destinationPath: %s", destinationPath.c_str());
-    char** datab64;
-    int datab64size;
+    char message[256] = "Laster opp fil til BIT20.";
+    notifyUser(message);
+    char* datab64;
+    unsigned int datab64size;
     std::tie (datab64, datab64size) = Uploader::file_to_base64(sourcePath);
     char *stringpayload = new char[datab64size + 6];
-    sprintf(stringpayload, "data=%s", *datab64);
+    sprintf(stringpayload, "data=%s", datab64);
+    
     const char *url_base = "https://script.google.com/macros/s/AKfycbzajQuBAyi8T_xY--iqoP5Ns1nqhmmzd2RvtKgTy8rkGQ3xl1d7/exec?mimetype=audio/wav&filename=";
     size_t filenameLen = std::strlen(destinationPath.c_str());
     char *url_filenameParam = new char[filenameLen + 1];
@@ -58,5 +94,6 @@ void Uploader::upload_bounce_file(std::string sourcePath, std::string destinatio
     //request->setResponseCallback([] (network::HttpClient *sender, network::HttpResponse *response) {
     //    log("Upload completed");
     //});
+    request->setResponseCallback(CC_CALLBACK_2(Uploader::onHttpRequestCompleted, this));
     network::HttpClient::getInstance()->send(request);
  }

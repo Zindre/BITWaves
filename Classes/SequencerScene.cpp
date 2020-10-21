@@ -413,7 +413,7 @@ void SequencerScene::onTouchesEnded( const std::vector<Touch*> &touches, Event* 
                             log( "share button pressed" );
                             std::string currentProjectName = UserDefault::getInstance()->getStringForKey( "currentProjectName" );
                             std::string bounceFileFullPath = FMODAudioEngine::bounceFileFullPath(currentProjectName);
-                            Uploader* ul = new Uploader();
+                            Uploader* ul = new Uploader(bounceAndShare);
                             ul->upload_bounce_file(bounceFileFullPath, currentProjectName);
                             //bounceAndShare->showPrompt("Laster opp til BIT20");
                             //bounceAndShare->showPrompt( "Kunne ikke kontakte server. Vennligst prøv igjen når du har tid. Eller går ikke dette bra." );
