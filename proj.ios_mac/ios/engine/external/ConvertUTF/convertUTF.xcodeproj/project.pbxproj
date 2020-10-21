@@ -7,62 +7,62 @@
 	objects = {
 
 /* Begin PBXAggregateTarget section */
-		3181D9B993894A9DAAB5280D /* ZERO_CHECK */ = {
+		AA42B9083F594B09804DF236 /* ALL_BUILD */ = {
 			isa = PBXAggregateTarget;
-			buildConfigurationList = C5D3BE8401644F328F781488 /* Build configuration list for PBXAggregateTarget "ZERO_CHECK" */;
+			buildConfigurationList = F3FEEA4518B0482B9A3CA0F8 /* Build configuration list for PBXAggregateTarget "ALL_BUILD" */;
 			buildPhases = (
-				69F0A64490C84EBABD5479A1 /* CMake Rules */,
+				46A7FD3ECA854CE4834EA389 /* CMake Rules */,
+			);
+			dependencies = (
+				88EAC5D13E63459E88831880 /* PBXTargetDependency */,
+				B4E9AF675D79463796183515 /* PBXTargetDependency */,
+			);
+			name = ALL_BUILD;
+			productName = ALL_BUILD;
+		};
+		D5584806EABE489EBF612B34 /* ZERO_CHECK */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = A88F8758355B400C9CC7265D /* Build configuration list for PBXAggregateTarget "ZERO_CHECK" */;
+			buildPhases = (
+				1CAC85907DA24836A2877967 /* CMake Rules */,
 			);
 			dependencies = (
 			);
 			name = ZERO_CHECK;
 			productName = ZERO_CHECK;
 		};
-		94D9557E0C5E4FA9800C4337 /* ALL_BUILD */ = {
-			isa = PBXAggregateTarget;
-			buildConfigurationList = 47E91B2E22294A42AD3B430A /* Build configuration list for PBXAggregateTarget "ALL_BUILD" */;
-			buildPhases = (
-				E957E7B628B948D4B09AD69B /* CMake Rules */,
-			);
-			dependencies = (
-				0686D867A58F4C95B2F42DAA /* PBXTargetDependency */,
-				4DDB745C56394332B97E291F /* PBXTargetDependency */,
-			);
-			name = ALL_BUILD;
-			productName = ALL_BUILD;
-		};
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		12FD2CC673A64075BE770689 /* /Users/sindre/Documents/projects/BITWaves/cocos2d/external/ConvertUTF/CMakeLists.txt */ = {isa = PBXBuildFile; fileRef = A61906A125B84660B83E6D2E /* /Users/sindre/Documents/projects/BITWaves/cocos2d/external/ConvertUTF/CMakeLists.txt */; };
-		4A1856D8CF72475AB56A5022 /* /Users/sindre/Documents/projects/BITWaves/cocos2d/external/ConvertUTF/ConvertUTFWrapper.cpp */ = {isa = PBXBuildFile; fileRef = 3BD50D0DCC854D2D8709E5CF /* /Users/sindre/Documents/projects/BITWaves/cocos2d/external/ConvertUTF/ConvertUTFWrapper.cpp */; };
-		4A8877AB3E87427CB40211DF /* /Users/sindre/Documents/projects/BITWaves/cocos2d/external/ConvertUTF/ConvertUTF.c */ = {isa = PBXBuildFile; fileRef = 4DFF4C7B662D4DAC977D3ED8 /* /Users/sindre/Documents/projects/BITWaves/cocos2d/external/ConvertUTF/ConvertUTF.c */; };
-		9E90A68CDFE747DBAFDFA680 /* /Users/sindre/Documents/projects/BITWaves/proj.ios_mac/ios/engine/external/ConvertUTF/CMakeFiles/ext_convertUTF.dir/Info.plist */ = {isa = PBXBuildFile; fileRef = B8734C168ACF451BB4D18E79 /* /Users/sindre/Documents/projects/BITWaves/proj.ios_mac/ios/engine/external/ConvertUTF/CMakeFiles/ext_convertUTF.dir/Info.plist */; };
+		529D08090CC34802868487E2 /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/ConvertUTF/ConvertUTF.c */ = {isa = PBXBuildFile; fileRef = 9A0DA84B1353407BBED28E30 /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/ConvertUTF/ConvertUTF.c */; };
+		6D2C0497997248E6BF6B20A4 /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/ConvertUTF/CMakeLists.txt */ = {isa = PBXBuildFile; fileRef = 167672D8A1614FFFA398EFF9 /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/ConvertUTF/CMakeLists.txt */; };
+		84701F2EEFD3475FB2DF581E /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/proj.ios_mac/ios/engine/external/ConvertUTF/CMakeFiles/ext_convertUTF.dir/Info.plist */ = {isa = PBXBuildFile; fileRef = FEB508D5C98F434081C9043A /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/proj.ios_mac/ios/engine/external/ConvertUTF/CMakeFiles/ext_convertUTF.dir/Info.plist */; };
+		990B3C097AD646AAB58EAEF6 /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/ConvertUTF/ConvertUTFWrapper.cpp */ = {isa = PBXBuildFile; fileRef = ED88B6B008AF476B8176DD84 /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/ConvertUTF/ConvertUTFWrapper.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXBuildStyle section */
-		77C7A4603FC54DBD91CA4449 /* MinSizeRel */ = {
-			isa = PBXBuildStyle;
-			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-			};
-			name = MinSizeRel;
-		};
-		7DB172124C764F7B857969E3 /* Release */ = {
+		24B82EAEFE444517A7C7752F /* Release */ = {
 			isa = PBXBuildStyle;
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
 			};
 			name = Release;
 		};
-		D2FC49309263481FAD53A442 /* RelWithDebInfo */ = {
+		546103E2C1CC4F88A3317BF0 /* MinSizeRel */ = {
+			isa = PBXBuildStyle;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+			};
+			name = MinSizeRel;
+		};
+		5B6BA27A7A1C488CA493C46A /* RelWithDebInfo */ = {
 			isa = PBXBuildStyle;
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
 			};
 			name = RelWithDebInfo;
 		};
-		FDA010D11F4949D8B257507B /* Debug */ = {
+		B2733EEA2E7945C0945CDDA2 /* Debug */ = {
 			isa = PBXBuildStyle;
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
@@ -72,159 +72,159 @@
 /* End PBXBuildStyle section */
 
 /* Begin PBXContainerItemProxy section */
-		02AA7752B65848F9BBCF0F92 /* PBXContainerItemProxy */ = {
+		1C73694A496C4F60A1C226B9 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = B5F247AFD1E749349B75C6C0 /* Project object */;
+			containerPortal = 629C13826D364759A842AAC3 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = A8600ECD0B7546279CB1D903;
+			remoteGlobalIDString = D5584806EABE489EBF612B34;
+			remoteInfo = ZERO_CHECK;
+		};
+		36492810CC544FF29DEC843D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 629C13826D364759A842AAC3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D5584806EABE489EBF612B34;
+			remoteInfo = ZERO_CHECK;
+		};
+		7B7655557C194E9597E8E0FC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 629C13826D364759A842AAC3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9AAC4034E52441EDB9E1551C;
 			remoteInfo = ext_convertUTF;
-		};
-		2BABCE2BCF4F41008935FCF1 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = B5F247AFD1E749349B75C6C0 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 3181D9B993894A9DAAB5280D;
-			remoteInfo = ZERO_CHECK;
-		};
-		DF126D39B3404614923C7044 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = B5F247AFD1E749349B75C6C0 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 3181D9B993894A9DAAB5280D;
-			remoteInfo = ZERO_CHECK;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		2B2F841D27434394BD1AD16E /* ext_convertUTF */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libext_convertUTF.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		3BD50D0DCC854D2D8709E5CF /* /Users/sindre/Documents/projects/BITWaves/cocos2d/external/ConvertUTF/ConvertUTFWrapper.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = ConvertUTFWrapper.cpp; path = ConvertUTFWrapper.cpp; sourceTree = SOURCE_ROOT; };
-		4DFF4C7B662D4DAC977D3ED8 /* /Users/sindre/Documents/projects/BITWaves/cocos2d/external/ConvertUTF/ConvertUTF.c */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.c; fileEncoding = 4; name = ConvertUTF.c; path = ConvertUTF.c; sourceTree = SOURCE_ROOT; };
-		A61906A125B84660B83E6D2E /* /Users/sindre/Documents/projects/BITWaves/cocos2d/external/ConvertUTF/CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = sourcecode.text; fileEncoding = 4; name = CMakeLists.txt; path = CMakeLists.txt; sourceTree = SOURCE_ROOT; };
-		B8734C168ACF451BB4D18E79 /* /Users/sindre/Documents/projects/BITWaves/proj.ios_mac/ios/engine/external/ConvertUTF/CMakeFiles/ext_convertUTF.dir/Info.plist */ = {isa = PBXFileReference; explicitFileType = sourcecode.text.plist; fileEncoding = 4; name = Info.plist; path = ../../../proj.ios_mac/ios/engine/external/ConvertUTF/CMakeFiles/ext_convertUTF.dir/Info.plist; sourceTree = SOURCE_ROOT; };
-		E66321D8F2764ADCBA49D392 /* /Users/sindre/Documents/projects/BITWaves/cocos2d/external/ConvertUTF/CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = sourcecode.text; fileEncoding = 4; name = CMakeLists.txt; path = CMakeLists.txt; sourceTree = SOURCE_ROOT; };
+		0F5769435F5844FC82E57FD8 /* ext_convertUTF */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libext_convertUTF.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		167672D8A1614FFFA398EFF9 /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/ConvertUTF/CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = sourcecode.text; fileEncoding = 4; name = CMakeLists.txt; path = CMakeLists.txt; sourceTree = SOURCE_ROOT; };
+		9A0DA84B1353407BBED28E30 /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/ConvertUTF/ConvertUTF.c */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.c; fileEncoding = 4; name = ConvertUTF.c; path = ConvertUTF.c; sourceTree = SOURCE_ROOT; };
+		ED88B6B008AF476B8176DD84 /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/ConvertUTF/ConvertUTFWrapper.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = ConvertUTFWrapper.cpp; path = ConvertUTFWrapper.cpp; sourceTree = SOURCE_ROOT; };
+		F55B8E84DD2E45A89057A91E /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/ConvertUTF/CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = sourcecode.text; fileEncoding = 4; name = CMakeLists.txt; path = CMakeLists.txt; sourceTree = SOURCE_ROOT; };
+		FEB508D5C98F434081C9043A /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/proj.ios_mac/ios/engine/external/ConvertUTF/CMakeFiles/ext_convertUTF.dir/Info.plist */ = {isa = PBXFileReference; explicitFileType = sourcecode.text.plist; fileEncoding = 4; name = Info.plist; path = ../../../proj.ios_mac/ios/engine/external/ConvertUTF/CMakeFiles/ext_convertUTF.dir/Info.plist; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
-		0706333880C54D1DB530EAA4 /* External */ = {
+		11E03390AB964B2D9BFE5A48 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				A7B8891B18684EBEA69B4E2D /* ext_convertUTF */,
-			);
-			name = External;
-			sourceTree = "<group>";
-		};
-		2E05FACE0FC1429DA7088893 = {
-			isa = PBXGroup;
-			children = (
-				0706333880C54D1DB530EAA4 /* External */,
-				CC7E300AB5F14855885E22BC /* ALL_BUILD */,
-				8AE8216C41F144469A03A440 /* Products */,
-			);
-			sourceTree = "<group>";
-		};
-		34AC50F19E8149169629C5C6 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				B8734C168ACF451BB4D18E79 /* /Users/sindre/Documents/projects/BITWaves/proj.ios_mac/ios/engine/external/ConvertUTF/CMakeFiles/ext_convertUTF.dir/Info.plist */,
-			);
-			name = Resources;
-			sourceTree = "<group>";
-		};
-		5561A05DC93143FB98A0CFB8 /* Source Files */ = {
-			isa = PBXGroup;
-			children = (
-				4DFF4C7B662D4DAC977D3ED8 /* /Users/sindre/Documents/projects/BITWaves/cocos2d/external/ConvertUTF/ConvertUTF.c */,
-				3BD50D0DCC854D2D8709E5CF /* /Users/sindre/Documents/projects/BITWaves/cocos2d/external/ConvertUTF/ConvertUTFWrapper.cpp */,
-			);
-			name = "Source Files";
-			sourceTree = "<group>";
-		};
-		8AE8216C41F144469A03A440 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				2B2F841D27434394BD1AD16E /* ext_convertUTF */,
+				0F5769435F5844FC82E57FD8 /* ext_convertUTF */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		A7B8891B18684EBEA69B4E2D /* ext_convertUTF */ = {
+		2DAD85A2F0DF4FCEACA99518 = {
 			isa = PBXGroup;
 			children = (
-				5561A05DC93143FB98A0CFB8 /* Source Files */,
-				34AC50F19E8149169629C5C6 /* Resources */,
-				A61906A125B84660B83E6D2E /* /Users/sindre/Documents/projects/BITWaves/cocos2d/external/ConvertUTF/CMakeLists.txt */,
+				CD6040C000AA43E88B666A53 /* External */,
+				7368D4BA64B94697AE49C727 /* ALL_BUILD */,
+				11E03390AB964B2D9BFE5A48 /* Products */,
 			);
-			name = ext_convertUTF;
 			sourceTree = "<group>";
 		};
-		CC7E300AB5F14855885E22BC /* ALL_BUILD */ = {
+		4283817AD0214EBCA00E1BE4 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				D30C43D2E84B452AA086C951 /* CMake Rules */,
-				E66321D8F2764ADCBA49D392 /* /Users/sindre/Documents/projects/BITWaves/cocos2d/external/ConvertUTF/CMakeLists.txt */,
+				FEB508D5C98F434081C9043A /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/proj.ios_mac/ios/engine/external/ConvertUTF/CMakeFiles/ext_convertUTF.dir/Info.plist */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		7368D4BA64B94697AE49C727 /* ALL_BUILD */ = {
+			isa = PBXGroup;
+			children = (
+				C5967286B4C441249180128D /* CMake Rules */,
+				F55B8E84DD2E45A89057A91E /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/ConvertUTF/CMakeLists.txt */,
 			);
 			name = ALL_BUILD;
 			sourceTree = "<group>";
 		};
-		D30C43D2E84B452AA086C951 /* CMake Rules */ = {
+		90ECBB33221F4E558C8FB410 /* Source Files */ = {
+			isa = PBXGroup;
+			children = (
+				9A0DA84B1353407BBED28E30 /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/ConvertUTF/ConvertUTF.c */,
+				ED88B6B008AF476B8176DD84 /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/ConvertUTF/ConvertUTFWrapper.cpp */,
+			);
+			name = "Source Files";
+			sourceTree = "<group>";
+		};
+		98F3C434B5DF4B7DA7B5602B /* ext_convertUTF */ = {
+			isa = PBXGroup;
+			children = (
+				90ECBB33221F4E558C8FB410 /* Source Files */,
+				4283817AD0214EBCA00E1BE4 /* Resources */,
+				167672D8A1614FFFA398EFF9 /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/ConvertUTF/CMakeLists.txt */,
+			);
+			name = ext_convertUTF;
+			sourceTree = "<group>";
+		};
+		C5967286B4C441249180128D /* CMake Rules */ = {
 			isa = PBXGroup;
 			children = (
 			);
 			name = "CMake Rules";
+			sourceTree = "<group>";
+		};
+		CD6040C000AA43E88B666A53 /* External */ = {
+			isa = PBXGroup;
+			children = (
+				98F3C434B5DF4B7DA7B5602B /* ext_convertUTF */,
+			);
+			name = External;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		A8600ECD0B7546279CB1D903 /* ext_convertUTF */ = {
+		9AAC4034E52441EDB9E1551C /* ext_convertUTF */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 0C8398AAC50045BFB28C4450 /* Build configuration list for PBXNativeTarget "ext_convertUTF" */;
+			buildConfigurationList = 1BB50FDF3F904BA7B0777AEB /* Build configuration list for PBXNativeTarget "ext_convertUTF" */;
 			buildPhases = (
-				62C400B9C2724F8D9F41F2CE /* Sources */,
+				2E059B31B7344815A7F5F6BC /* Sources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				866E537E853A47388805B289 /* PBXTargetDependency */,
+				63CB47A2088D4A6BAE358C04 /* PBXTargetDependency */,
 			);
 			name = ext_convertUTF;
 			productName = ext_convertUTF;
-			productReference = 2B2F841D27434394BD1AD16E /* ext_convertUTF */;
+			productReference = 0F5769435F5844FC82E57FD8 /* ext_convertUTF */;
 			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		B5F247AFD1E749349B75C6C0 /* Project object */ = {
+		629C13826D364759A842AAC3 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				LastUpgradeCheck = 1200;
 			};
-			buildConfigurationList = E2A05382DDBD4ADCB2D212B4 /* Build configuration list for PBXProject "convertUTF" */;
+			buildConfigurationList = C6CE2153A5964A1FA99205AD /* Build configuration list for PBXProject "convertUTF" */;
 			buildSettings = {
 			};
 			buildStyles = (
-				FDA010D11F4949D8B257507B /* Debug */,
-				7DB172124C764F7B857969E3 /* Release */,
-				77C7A4603FC54DBD91CA4449 /* MinSizeRel */,
-				D2FC49309263481FAD53A442 /* RelWithDebInfo */,
+				B2733EEA2E7945C0945CDDA2 /* Debug */,
+				24B82EAEFE444517A7C7752F /* Release */,
+				546103E2C1CC4F88A3317BF0 /* MinSizeRel */,
+				5B6BA27A7A1C488CA493C46A /* RelWithDebInfo */,
 			);
 			compatibilityVersion = "Xcode 3.2";
 			hasScannedForEncodings = 0;
-			mainGroup = 2E05FACE0FC1429DA7088893;
+			mainGroup = 2DAD85A2F0DF4FCEACA99518;
 			projectDirPath = ../../../../../cocos2d/external/ConvertUTF;
 			projectRoot = "";
 			targets = (
-				94D9557E0C5E4FA9800C4337 /* ALL_BUILD */,
-				3181D9B993894A9DAAB5280D /* ZERO_CHECK */,
-				A8600ECD0B7546279CB1D903 /* ext_convertUTF */,
+				AA42B9083F594B09804DF236 /* ALL_BUILD */,
+				D5584806EABE489EBF612B34 /* ZERO_CHECK */,
+				9AAC4034E52441EDB9E1551C /* ext_convertUTF */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		69F0A64490C84EBABD5479A1 /* CMake Rules */ = {
+		1CAC85907DA24836A2877967 /* CMake Rules */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -232,10 +232,10 @@
 			name = "CMake Rules";
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "make -C /Users/sindre/Documents/projects/BITWaves/proj.ios_mac/ios/engine/external/ConvertUTF -f /Users/sindre/Documents/projects/BITWaves/proj.ios_mac/ios/engine/external/ConvertUTF/CMakeScripts/ZERO_CHECK_cmakeRulesBuildPhase.make$CONFIGURATION OBJDIR=$(basename \"$OBJECT_FILE_DIR_normal\") all";
+			shellScript = "make -C /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/proj.ios_mac/ios/engine/external/ConvertUTF -f /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/proj.ios_mac/ios/engine/external/ConvertUTF/CMakeScripts/ZERO_CHECK_cmakeRulesBuildPhase.make$CONFIGURATION OBJDIR=$(basename \"$OBJECT_FILE_DIR_normal\") all";
 			showEnvVarsInLog = 0;
 		};
-		C807C8E32F594C23B705D1B1 = {
+		30D2D051641549899FDD0174 = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -250,7 +250,18 @@
 exit 0";
 			showEnvVarsInLog = 0;
 		};
-		E70AC23AB2DE4AC18F010253 = {
+		46A7FD3ECA854CE4834EA389 /* CMake Rules */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			name = "CMake Rules";
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "make -C /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/proj.ios_mac/ios/engine/external/ConvertUTF -f /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/proj.ios_mac/ios/engine/external/ConvertUTF/CMakeScripts/ALL_BUILD_cmakeRulesBuildPhase.make$CONFIGURATION OBJDIR=$(basename \"$OBJECT_FILE_DIR_normal\") all";
+			showEnvVarsInLog = 0;
+		};
+		4E4863E0C21E45068A3C3231 = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -263,63 +274,71 @@ exit 0";
 			shellPath = /bin/sh;
 			shellScript = "# shell script goes here
 exit 0";
-			showEnvVarsInLog = 0;
-		};
-		E957E7B628B948D4B09AD69B /* CMake Rules */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			name = "CMake Rules";
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "make -C /Users/sindre/Documents/projects/BITWaves/proj.ios_mac/ios/engine/external/ConvertUTF -f /Users/sindre/Documents/projects/BITWaves/proj.ios_mac/ios/engine/external/ConvertUTF/CMakeScripts/ALL_BUILD_cmakeRulesBuildPhase.make$CONFIGURATION OBJDIR=$(basename \"$OBJECT_FILE_DIR_normal\") all";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		62C400B9C2724F8D9F41F2CE /* Sources */ = {
+		2E059B31B7344815A7F5F6BC /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4A8877AB3E87427CB40211DF /* /Users/sindre/Documents/projects/BITWaves/cocos2d/external/ConvertUTF/ConvertUTF.c */,
-				4A1856D8CF72475AB56A5022 /* /Users/sindre/Documents/projects/BITWaves/cocos2d/external/ConvertUTF/ConvertUTFWrapper.cpp */,
+				529D08090CC34802868487E2 /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/ConvertUTF/ConvertUTF.c */,
+				990B3C097AD646AAB58EAEF6 /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/ConvertUTF/ConvertUTFWrapper.cpp */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		0686D867A58F4C95B2F42DAA /* PBXTargetDependency */ = {
+		63CB47A2088D4A6BAE358C04 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = A8600ECD0B7546279CB1D903 /* ext_convertUTF */;
-			targetProxy = 02AA7752B65848F9BBCF0F92 /* PBXContainerItemProxy */;
+			target = D5584806EABE489EBF612B34 /* ZERO_CHECK */;
+			targetProxy = 36492810CC544FF29DEC843D /* PBXContainerItemProxy */;
 		};
-		4DDB745C56394332B97E291F /* PBXTargetDependency */ = {
+		88EAC5D13E63459E88831880 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 3181D9B993894A9DAAB5280D /* ZERO_CHECK */;
-			targetProxy = 2BABCE2BCF4F41008935FCF1 /* PBXContainerItemProxy */;
+			target = 9AAC4034E52441EDB9E1551C /* ext_convertUTF */;
+			targetProxy = 7B7655557C194E9597E8E0FC /* PBXContainerItemProxy */;
 		};
-		866E537E853A47388805B289 /* PBXTargetDependency */ = {
+		B4E9AF675D79463796183515 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 3181D9B993894A9DAAB5280D /* ZERO_CHECK */;
-			targetProxy = DF126D39B3404614923C7044 /* PBXContainerItemProxy */;
+			target = D5584806EABE489EBF612B34 /* ZERO_CHECK */;
+			targetProxy = 1C73694A496C4F60A1C226B9 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		0AD3B30F41304BC18561C6E7 /* Release */ = {
+		0C733C938D684E0EBD93ADE2 /* MinSizeRel */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				COMBINE_HIDPI_IMAGES = YES;
+				CONFIGURATION_BUILD_DIR = "/Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/proj.ios_mac/ios/lib/MinSizeRel";
+				ENABLE_BITCODE = NO;
+				EXECUTABLE_PREFIX = lib;
+				EXECUTABLE_SUFFIX = .a;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = s;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = ("/Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/ConvertUTF/.");
+				INSTALL_PATH = "";
+				LIBRARY_STYLE = STATIC;
 				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = iphoneos;
-				SYMROOT = /Users/sindre/Documents/projects/BITWaves/proj.ios_mac/ios/engine/external/ConvertUTF/build;
+				OTHER_CFLAGS = "    -DNDEBUG '-std=gnu99' ";
+				OTHER_CPLUSPLUSFLAGS = "    -DNDEBUG '-std=c++11' ";
+				OTHER_LIBTOOLFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ext_convertUTF;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/proj.ios_mac/ios/engine/external/ConvertUTF";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("$(inherited)");
 			};
-			name = Release;
+			name = MinSizeRel;
 		};
-		0B5FD8FBD5DC45AF9A327B03 /* RelWithDebInfo */ = {
+		188BB3ACBA4E4DCE803776BC /* RelWithDebInfo */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
@@ -333,33 +352,42 @@ exit 0";
 				OTHER_REZFLAGS = "";
 				PRODUCT_NAME = ZERO_CHECK;
 				SECTORDER_FLAGS = "";
-				SYMROOT = /Users/sindre/Documents/projects/BITWaves/proj.ios_mac/ios/engine/external/ConvertUTF;
+				SYMROOT = "/Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/proj.ios_mac/ios/engine/external/ConvertUTF";
 				USE_HEADERMAP = NO;
 				WARNING_CFLAGS = ("$(inherited)");
 			};
 			name = RelWithDebInfo;
 		};
-		138423EBCCE0459AAA9FCBD8 /* Release */ = {
+		3E2055A589214EA892125A46 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				CONFIGURATION_BUILD_DIR = "/Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/proj.ios_mac/ios/lib/Release";
+				ENABLE_BITCODE = NO;
+				EXECUTABLE_PREFIX = lib;
+				EXECUTABLE_SUFFIX = .a;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = ("/Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/ConvertUTF/.");
 				INSTALL_PATH = "";
-				OTHER_LDFLAGS = " ";
+				LIBRARY_STYLE = STATIC;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_CFLAGS = "    -DNDEBUG '-std=gnu99' ";
+				OTHER_CPLUSPLUSFLAGS = "    -DNDEBUG '-std=c++11' ";
+				OTHER_LIBTOOLFLAGS = " ";
 				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = ALL_BUILD;
+				PRODUCT_NAME = ext_convertUTF;
 				SECTORDER_FLAGS = "";
-				SYMROOT = /Users/sindre/Documents/projects/BITWaves/proj.ios_mac/ios/engine/external/ConvertUTF;
+				SYMROOT = "/Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/proj.ios_mac/ios/engine/external/ConvertUTF";
 				USE_HEADERMAP = NO;
 				WARNING_CFLAGS = ("$(inherited)");
 			};
 			name = Release;
 		};
-		147411845CC44237A790BCDE /* MinSizeRel */ = {
+		4DDE67EC82534CB4B245E623 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
@@ -373,13 +401,23 @@ exit 0";
 				OTHER_REZFLAGS = "";
 				PRODUCT_NAME = ZERO_CHECK;
 				SECTORDER_FLAGS = "";
-				SYMROOT = /Users/sindre/Documents/projects/BITWaves/proj.ios_mac/ios/engine/external/ConvertUTF;
+				SYMROOT = "/Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/proj.ios_mac/ios/engine/external/ConvertUTF";
 				USE_HEADERMAP = NO;
 				WARNING_CFLAGS = ("$(inherited)");
 			};
-			name = MinSizeRel;
+			name = Release;
 		};
-		1C06A16EF7904034BD286CA4 /* MinSizeRel */ = {
+		4EB214E45A4540BB96A03CAB /* RelWithDebInfo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SYMROOT = "/Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/proj.ios_mac/ios/engine/external/ConvertUTF/build";
+			};
+			name = RelWithDebInfo;
+		};
+		59D0AE1F4FDF4DA282C50A52 /* MinSizeRel */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
@@ -393,17 +431,27 @@ exit 0";
 				OTHER_REZFLAGS = "";
 				PRODUCT_NAME = ALL_BUILD;
 				SECTORDER_FLAGS = "";
-				SYMROOT = /Users/sindre/Documents/projects/BITWaves/proj.ios_mac/ios/engine/external/ConvertUTF;
+				SYMROOT = "/Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/proj.ios_mac/ios/engine/external/ConvertUTF";
 				USE_HEADERMAP = NO;
 				WARNING_CFLAGS = ("$(inherited)");
 			};
 			name = MinSizeRel;
 		};
-		42D06A6B05E3430B9A4464CA /* RelWithDebInfo */ = {
+		5E57060F55BA460795527989 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SYMROOT = "/Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/proj.ios_mac/ios/engine/external/ConvertUTF/build";
+			};
+			name = Release;
+		};
+		9DC8FD253A9D4C74B362FB2F /* RelWithDebInfo */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
-				CONFIGURATION_BUILD_DIR = /Users/sindre/Documents/projects/BITWaves/proj.ios_mac/ios/lib/RelWithDebInfo;
+				CONFIGURATION_BUILD_DIR = "/Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/proj.ios_mac/ios/lib/RelWithDebInfo";
 				ENABLE_BITCODE = NO;
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
@@ -412,7 +460,7 @@ exit 0";
 				GCC_OPTIMIZATION_LEVEL = 2;
 				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				HEADER_SEARCH_PATHS = (/Users/sindre/Documents/projects/BITWaves/cocos2d/external/ConvertUTF/.);
+				HEADER_SEARCH_PATHS = ("/Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/ConvertUTF/.");
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
 				ONLY_ACTIVE_ARCH = YES;
@@ -422,13 +470,33 @@ exit 0";
 				OTHER_REZFLAGS = "";
 				PRODUCT_NAME = ext_convertUTF;
 				SECTORDER_FLAGS = "";
-				SYMROOT = /Users/sindre/Documents/projects/BITWaves/proj.ios_mac/ios/engine/external/ConvertUTF;
+				SYMROOT = "/Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/proj.ios_mac/ios/engine/external/ConvertUTF";
 				USE_HEADERMAP = NO;
 				WARNING_CFLAGS = ("$(inherited)");
 			};
 			name = RelWithDebInfo;
 		};
-		4607F7D5B1BA48EBAB4120E2 /* Debug */ = {
+		9E9F7B27596C4359A6696F12 /* MinSizeRel */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ZERO_CHECK;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/proj.ios_mac/ios/engine/external/ConvertUTF";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("$(inherited)");
+			};
+			name = MinSizeRel;
+		};
+		A242A253A5EF4D07812F3C36 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
@@ -442,17 +510,97 @@ exit 0";
 				OTHER_REZFLAGS = "";
 				PRODUCT_NAME = ALL_BUILD;
 				SECTORDER_FLAGS = "";
-				SYMROOT = /Users/sindre/Documents/projects/BITWaves/proj.ios_mac/ios/engine/external/ConvertUTF;
+				SYMROOT = "/Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/proj.ios_mac/ios/engine/external/ConvertUTF";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("$(inherited)");
+			};
+			name = Release;
+		};
+		CE5576338A2E43AEBDBB4860 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ZERO_CHECK;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/proj.ios_mac/ios/engine/external/ConvertUTF";
 				USE_HEADERMAP = NO;
 				WARNING_CFLAGS = ("$(inherited)");
 			};
 			name = Debug;
 		};
-		71747C65BD914931845FB600 /* Debug */ = {
+		D2F6D910D57D4D8B87EF42C8 /* RelWithDebInfo */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
-				CONFIGURATION_BUILD_DIR = /Users/sindre/Documents/projects/BITWaves/proj.ios_mac/ios/lib/Debug;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ALL_BUILD;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/proj.ios_mac/ios/engine/external/ConvertUTF";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("$(inherited)");
+			};
+			name = RelWithDebInfo;
+		};
+		E97B23CA1FDB459AB9792003 /* MinSizeRel */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SYMROOT = "/Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/proj.ios_mac/ios/engine/external/ConvertUTF/build";
+			};
+			name = MinSizeRel;
+		};
+		F6840EFA241D4EAF81A529DC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SYMROOT = "/Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/proj.ios_mac/ios/engine/external/ConvertUTF/build";
+			};
+			name = Debug;
+		};
+		F850142D03E2452BB3AE4D47 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ALL_BUILD;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/proj.ios_mac/ios/engine/external/ConvertUTF";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("$(inherited)");
+			};
+			name = Debug;
+		};
+		FAAA465EA5FA4560B10F2507 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				CONFIGURATION_BUILD_DIR = "/Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/proj.ios_mac/ios/lib/Debug";
 				ENABLE_BITCODE = NO;
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
@@ -461,7 +609,7 @@ exit 0";
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				HEADER_SEARCH_PATHS = (/Users/sindre/Documents/projects/BITWaves/cocos2d/external/ConvertUTF/.);
+				HEADER_SEARCH_PATHS = ("/Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/ConvertUTF/.");
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
 				ONLY_ACTIVE_ARCH = YES;
@@ -471,208 +619,60 @@ exit 0";
 				OTHER_REZFLAGS = "";
 				PRODUCT_NAME = ext_convertUTF;
 				SECTORDER_FLAGS = "";
-				SYMROOT = /Users/sindre/Documents/projects/BITWaves/proj.ios_mac/ios/engine/external/ConvertUTF;
+				SYMROOT = "/Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/proj.ios_mac/ios/engine/external/ConvertUTF";
 				USE_HEADERMAP = NO;
 				WARNING_CFLAGS = ("$(inherited)");
 			};
 			name = Debug;
-		};
-		7A0B0BD9ABBB4B2E98F230B4 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
-				CONFIGURATION_BUILD_DIR = /Users/sindre/Documents/projects/BITWaves/proj.ios_mac/ios/lib/Release;
-				ENABLE_BITCODE = NO;
-				EXECUTABLE_PREFIX = lib;
-				EXECUTABLE_SUFFIX = .a;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_OPTIMIZATION_LEVEL = 3;
-				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				HEADER_SEARCH_PATHS = (/Users/sindre/Documents/projects/BITWaves/cocos2d/external/ConvertUTF/.);
-				INSTALL_PATH = "";
-				LIBRARY_STYLE = STATIC;
-				ONLY_ACTIVE_ARCH = YES;
-				OTHER_CFLAGS = "    -DNDEBUG '-std=gnu99' ";
-				OTHER_CPLUSPLUSFLAGS = "    -DNDEBUG '-std=c++11' ";
-				OTHER_LIBTOOLFLAGS = " ";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = ext_convertUTF;
-				SECTORDER_FLAGS = "";
-				SYMROOT = /Users/sindre/Documents/projects/BITWaves/proj.ios_mac/ios/engine/external/ConvertUTF;
-				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = ("$(inherited)");
-			};
-			name = Release;
-		};
-		9085770DB0D640CF9585F83E /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				INSTALL_PATH = "";
-				OTHER_LDFLAGS = " ";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = ZERO_CHECK;
-				SECTORDER_FLAGS = "";
-				SYMROOT = /Users/sindre/Documents/projects/BITWaves/proj.ios_mac/ios/engine/external/ConvertUTF;
-				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = ("$(inherited)");
-			};
-			name = Debug;
-		};
-		9E403646F4ED45DC99774FB0 /* MinSizeRel */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = iphoneos;
-				SYMROOT = /Users/sindre/Documents/projects/BITWaves/proj.ios_mac/ios/engine/external/ConvertUTF/build;
-			};
-			name = MinSizeRel;
-		};
-		BAAC9E1F5F124F42B1B3129F /* MinSizeRel */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
-				CONFIGURATION_BUILD_DIR = /Users/sindre/Documents/projects/BITWaves/proj.ios_mac/ios/lib/MinSizeRel;
-				ENABLE_BITCODE = NO;
-				EXECUTABLE_PREFIX = lib;
-				EXECUTABLE_SUFFIX = .a;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_OPTIMIZATION_LEVEL = s;
-				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				HEADER_SEARCH_PATHS = (/Users/sindre/Documents/projects/BITWaves/cocos2d/external/ConvertUTF/.);
-				INSTALL_PATH = "";
-				LIBRARY_STYLE = STATIC;
-				ONLY_ACTIVE_ARCH = YES;
-				OTHER_CFLAGS = "    -DNDEBUG '-std=gnu99' ";
-				OTHER_CPLUSPLUSFLAGS = "    -DNDEBUG '-std=c++11' ";
-				OTHER_LIBTOOLFLAGS = " ";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = ext_convertUTF;
-				SECTORDER_FLAGS = "";
-				SYMROOT = /Users/sindre/Documents/projects/BITWaves/proj.ios_mac/ios/engine/external/ConvertUTF;
-				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = ("$(inherited)");
-			};
-			name = MinSizeRel;
-		};
-		BE61F088DF6843F58C3F0031 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				INSTALL_PATH = "";
-				OTHER_LDFLAGS = " ";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = ZERO_CHECK;
-				SECTORDER_FLAGS = "";
-				SYMROOT = /Users/sindre/Documents/projects/BITWaves/proj.ios_mac/ios/engine/external/ConvertUTF;
-				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = ("$(inherited)");
-			};
-			name = Release;
-		};
-		CE270CB37AEC40A1A4438BAD /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = iphoneos;
-				SYMROOT = /Users/sindre/Documents/projects/BITWaves/proj.ios_mac/ios/engine/external/ConvertUTF/build;
-			};
-			name = Debug;
-		};
-		DE3C52A319B3488A9C74871F /* RelWithDebInfo */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = iphoneos;
-				SYMROOT = /Users/sindre/Documents/projects/BITWaves/proj.ios_mac/ios/engine/external/ConvertUTF/build;
-			};
-			name = RelWithDebInfo;
-		};
-		F467791BCD994C1ABFC6890E /* RelWithDebInfo */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				INSTALL_PATH = "";
-				OTHER_LDFLAGS = " ";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = ALL_BUILD;
-				SECTORDER_FLAGS = "";
-				SYMROOT = /Users/sindre/Documents/projects/BITWaves/proj.ios_mac/ios/engine/external/ConvertUTF;
-				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = ("$(inherited)");
-			};
-			name = RelWithDebInfo;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		0C8398AAC50045BFB28C4450 /* Build configuration list for PBXNativeTarget "ext_convertUTF" */ = {
+		1BB50FDF3F904BA7B0777AEB /* Build configuration list for PBXNativeTarget "ext_convertUTF" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				71747C65BD914931845FB600 /* Debug */,
-				7A0B0BD9ABBB4B2E98F230B4 /* Release */,
-				BAAC9E1F5F124F42B1B3129F /* MinSizeRel */,
-				42D06A6B05E3430B9A4464CA /* RelWithDebInfo */,
+				FAAA465EA5FA4560B10F2507 /* Debug */,
+				3E2055A589214EA892125A46 /* Release */,
+				0C733C938D684E0EBD93ADE2 /* MinSizeRel */,
+				9DC8FD253A9D4C74B362FB2F /* RelWithDebInfo */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		47E91B2E22294A42AD3B430A /* Build configuration list for PBXAggregateTarget "ALL_BUILD" */ = {
+		A88F8758355B400C9CC7265D /* Build configuration list for PBXAggregateTarget "ZERO_CHECK" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				4607F7D5B1BA48EBAB4120E2 /* Debug */,
-				138423EBCCE0459AAA9FCBD8 /* Release */,
-				1C06A16EF7904034BD286CA4 /* MinSizeRel */,
-				F467791BCD994C1ABFC6890E /* RelWithDebInfo */,
+				CE5576338A2E43AEBDBB4860 /* Debug */,
+				4DDE67EC82534CB4B245E623 /* Release */,
+				9E9F7B27596C4359A6696F12 /* MinSizeRel */,
+				188BB3ACBA4E4DCE803776BC /* RelWithDebInfo */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		C5D3BE8401644F328F781488 /* Build configuration list for PBXAggregateTarget "ZERO_CHECK" */ = {
+		C6CE2153A5964A1FA99205AD /* Build configuration list for PBXProject "convertUTF" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				9085770DB0D640CF9585F83E /* Debug */,
-				BE61F088DF6843F58C3F0031 /* Release */,
-				147411845CC44237A790BCDE /* MinSizeRel */,
-				0B5FD8FBD5DC45AF9A327B03 /* RelWithDebInfo */,
+				F6840EFA241D4EAF81A529DC /* Debug */,
+				5E57060F55BA460795527989 /* Release */,
+				E97B23CA1FDB459AB9792003 /* MinSizeRel */,
+				4EB214E45A4540BB96A03CAB /* RelWithDebInfo */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		E2A05382DDBD4ADCB2D212B4 /* Build configuration list for PBXProject "convertUTF" */ = {
+		F3FEEA4518B0482B9A3CA0F8 /* Build configuration list for PBXAggregateTarget "ALL_BUILD" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				CE270CB37AEC40A1A4438BAD /* Debug */,
-				0AD3B30F41304BC18561C6E7 /* Release */,
-				9E403646F4ED45DC99774FB0 /* MinSizeRel */,
-				DE3C52A319B3488A9C74871F /* RelWithDebInfo */,
+				F850142D03E2452BB3AE4D47 /* Debug */,
+				A242A253A5EF4D07812F3C36 /* Release */,
+				59D0AE1F4FDF4DA282C50A52 /* MinSizeRel */,
+				D2F6D910D57D4D8B87EF42C8 /* RelWithDebInfo */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = B5F247AFD1E749349B75C6C0 /* Project object */;
+	rootObject = 629C13826D364759A842AAC3 /* Project object */;
 }

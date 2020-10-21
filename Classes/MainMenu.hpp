@@ -6,6 +6,7 @@
 #include "Functions.h"
 #include "Konstants.h"
 #include "HelpOverlay.h"
+#include "iosPreferences.h"
 
 #define kBombBlowTime 1.0f
 

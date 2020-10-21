@@ -7,213 +7,213 @@
 	objects = {
 
 /* Begin PBXAggregateTarget section */
-		3181D9B993894A9DAAB5280D /* ZERO_CHECK */ = {
+		AA42B9083F594B09804DF236 /* ALL_BUILD */ = {
 			isa = PBXAggregateTarget;
-			buildConfigurationList = 46472A1A9DCC4F6F949AA887 /* Build configuration list for PBXAggregateTarget "ZERO_CHECK" */;
+			buildConfigurationList = EE3166795A09422E8E2830D5 /* Build configuration list for PBXAggregateTarget "ALL_BUILD" */;
 			buildPhases = (
-				31ACB8D83DAF495393013AB7 /* CMake Rules */,
+				5253EA85494141B5BDB6CC6A /* CMake Rules */,
+			);
+			dependencies = (
+				8681DB51304840BF9FD9D041 /* PBXTargetDependency */,
+				F64A231B83C54F0EBE554F99 /* PBXTargetDependency */,
+			);
+			name = ALL_BUILD;
+			productName = ALL_BUILD;
+		};
+		D5584806EABE489EBF612B34 /* ZERO_CHECK */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 9CBA8F789C2C4F2A824FBD0D /* Build configuration list for PBXAggregateTarget "ZERO_CHECK" */;
+			buildPhases = (
+				EBFD48AC2B124560B32ED214 /* CMake Rules */,
 			);
 			dependencies = (
 			);
 			name = ZERO_CHECK;
 			productName = ZERO_CHECK;
 		};
-		94D9557E0C5E4FA9800C4337 /* ALL_BUILD */ = {
-			isa = PBXAggregateTarget;
-			buildConfigurationList = 5125EFD22AF0485B808C22DF /* Build configuration list for PBXAggregateTarget "ALL_BUILD" */;
-			buildPhases = (
-				838E2B9B6B6E48F5A27F6DAA /* CMake Rules */,
-			);
-			dependencies = (
-				4686504BD1E5497EA070D135 /* PBXTargetDependency */,
-				E63A58E612134ECFB6DAC8F8 /* PBXTargetDependency */,
-			);
-			name = ALL_BUILD;
-			productName = ALL_BUILD;
-		};
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		0C2532278DED42049832CF4B /* /Users/sindre/Documents/projects/BITWaves/cocos2d/external/recast/CMakeLists.txt */ = {isa = PBXBuildFile; fileRef = A9C5EF5B7D7D46D8949C0F85 /* /Users/sindre/Documents/projects/BITWaves/cocos2d/external/recast/CMakeLists.txt */; };
-		16BD5992AE55489CAE8E0879 /* /Users/sindre/Documents/projects/BITWaves/cocos2d/external/recast/Detour/DetourNode.cpp */ = {isa = PBXBuildFile; fileRef = BF0A59FA63864CA2925966C6 /* /Users/sindre/Documents/projects/BITWaves/cocos2d/external/recast/Detour/DetourNode.cpp */; };
-		203E65F7FF3548D5B4464202 /* /Users/sindre/Documents/projects/BITWaves/cocos2d/external/recast/Detour/DetourNavMeshBuilder.cpp */ = {isa = PBXBuildFile; fileRef = 9FB6ADF0B8254621BC65E51F /* /Users/sindre/Documents/projects/BITWaves/cocos2d/external/recast/Detour/DetourNavMeshBuilder.cpp */; };
-		57E0EC496AB842FE942CD44E /* /Users/sindre/Documents/projects/BITWaves/cocos2d/external/recast/Detour/DetourNavMeshQuery.cpp */ = {isa = PBXBuildFile; fileRef = FF86B33B1409478BBFA04EEC /* /Users/sindre/Documents/projects/BITWaves/cocos2d/external/recast/Detour/DetourNavMeshQuery.cpp */; };
-		5A0FCA9F3DCF4C1F82E39651 /* /Users/sindre/Documents/projects/BITWaves/cocos2d/external/recast/DetourCrowd/DetourPathQueue.cpp */ = {isa = PBXBuildFile; fileRef = C80F47B910294AC38D048645 /* /Users/sindre/Documents/projects/BITWaves/cocos2d/external/recast/DetourCrowd/DetourPathQueue.cpp */; };
-		723FDBAA3AB0467DB7798813 /* /Users/sindre/Documents/projects/BITWaves/cocos2d/external/recast/DetourTileCache/DetourTileCache.cpp */ = {isa = PBXBuildFile; fileRef = F86BC367768541E280B8F3B8 /* /Users/sindre/Documents/projects/BITWaves/cocos2d/external/recast/DetourTileCache/DetourTileCache.cpp */; };
-		75F62932889447FB9DEC6388 /* /Users/sindre/Documents/projects/BITWaves/cocos2d/external/recast/Detour/DetourCommon.cpp */ = {isa = PBXBuildFile; fileRef = CA79B8F0D391402188A38DCB /* /Users/sindre/Documents/projects/BITWaves/cocos2d/external/recast/Detour/DetourCommon.cpp */; };
-		83211192CA454143B6EBAE8B /* /Users/sindre/Documents/projects/BITWaves/cocos2d/external/recast/DetourCrowd/DetourProximityGrid.cpp */ = {isa = PBXBuildFile; fileRef = E65B93481C4D4888972DC262 /* /Users/sindre/Documents/projects/BITWaves/cocos2d/external/recast/DetourCrowd/DetourProximityGrid.cpp */; };
-		9F501F7B186A427AB308C279 /* /Users/sindre/Documents/projects/BITWaves/cocos2d/external/recast/DebugUtils/DetourDebugDraw.cpp */ = {isa = PBXBuildFile; fileRef = C74BC5C6029C4CE0A76CC300 /* /Users/sindre/Documents/projects/BITWaves/cocos2d/external/recast/DebugUtils/DetourDebugDraw.cpp */; };
-		A275277B0A0142A089EB7EE1 /* /Users/sindre/Documents/projects/BITWaves/cocos2d/external/recast/DetourTileCache/DetourTileCacheBuilder.cpp */ = {isa = PBXBuildFile; fileRef = 42094C4BE5CD441E83BBBA21 /* /Users/sindre/Documents/projects/BITWaves/cocos2d/external/recast/DetourTileCache/DetourTileCacheBuilder.cpp */; };
-		A5C91E55F1E14746A714D5EB /* /Users/sindre/Documents/projects/BITWaves/cocos2d/external/recast/DetourCrowd/DetourObstacleAvoidance.cpp */ = {isa = PBXBuildFile; fileRef = 3B11A3C249CA437297534CCC /* /Users/sindre/Documents/projects/BITWaves/cocos2d/external/recast/DetourCrowd/DetourObstacleAvoidance.cpp */; };
-		ABFDF11F0A454DBB8371A05A /* /Users/sindre/Documents/projects/BITWaves/cocos2d/external/recast/fastlz/fastlz.c */ = {isa = PBXBuildFile; fileRef = B409A6843FCC4EF784E94326 /* /Users/sindre/Documents/projects/BITWaves/cocos2d/external/recast/fastlz/fastlz.c */; };
-		BD212C9D202947AF8AE0B492 /* /Users/sindre/Documents/projects/BITWaves/cocos2d/external/recast/DetourCrowd/DetourPathCorridor.cpp */ = {isa = PBXBuildFile; fileRef = C196380A8EAA42729FA78A3C /* /Users/sindre/Documents/projects/BITWaves/cocos2d/external/recast/DetourCrowd/DetourPathCorridor.cpp */; };
-		C5DFE82FF8B041D0B6987B54 /* /Users/sindre/Documents/projects/BITWaves/cocos2d/external/recast/Detour/DetourNavMesh.cpp */ = {isa = PBXBuildFile; fileRef = 940432D51C0D4252B78BD0F1 /* /Users/sindre/Documents/projects/BITWaves/cocos2d/external/recast/Detour/DetourNavMesh.cpp */; };
-		CB90D49389C44B06BAD616F5 /* /Users/sindre/Documents/projects/BITWaves/proj.ios_mac/ios/engine/external/recast/CMakeFiles/ext_recast.dir/Info.plist */ = {isa = PBXBuildFile; fileRef = 2D85736529AC4022B1EAEDC7 /* /Users/sindre/Documents/projects/BITWaves/proj.ios_mac/ios/engine/external/recast/CMakeFiles/ext_recast.dir/Info.plist */; };
-		CC5D4C3A343E411DAAC96727 /* /Users/sindre/Documents/projects/BITWaves/cocos2d/external/recast/Detour/DetourAlloc.cpp */ = {isa = PBXBuildFile; fileRef = 0DC2F1F13B6D4A0B84F29060 /* /Users/sindre/Documents/projects/BITWaves/cocos2d/external/recast/Detour/DetourAlloc.cpp */; };
-		D37FE6EF092E4198A65D83F2 /* /Users/sindre/Documents/projects/BITWaves/cocos2d/external/recast/DebugUtils/DebugDraw.cpp */ = {isa = PBXBuildFile; fileRef = E6BFAAEC3F854CDB926F8152 /* /Users/sindre/Documents/projects/BITWaves/cocos2d/external/recast/DebugUtils/DebugDraw.cpp */; };
-		DABD051FC9FA40F298F9DA2D /* /Users/sindre/Documents/projects/BITWaves/cocos2d/external/recast/DetourCrowd/DetourCrowd.cpp */ = {isa = PBXBuildFile; fileRef = 55FEBDF66A0545B2AC29EE2C /* /Users/sindre/Documents/projects/BITWaves/cocos2d/external/recast/DetourCrowd/DetourCrowd.cpp */; };
-		F476CB5BE39D4DEB8A099849 /* /Users/sindre/Documents/projects/BITWaves/cocos2d/external/recast/DetourCrowd/DetourLocalBoundary.cpp */ = {isa = PBXBuildFile; fileRef = 78022F174C334B4C818A644F /* /Users/sindre/Documents/projects/BITWaves/cocos2d/external/recast/DetourCrowd/DetourLocalBoundary.cpp */; };
+		0F2F55ECB8A64FF39719842C /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/recast/fastlz/fastlz.c */ = {isa = PBXBuildFile; fileRef = B528730C9AB04D97A05578DF /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/recast/fastlz/fastlz.c */; };
+		1A50E8E7E5914A00A5F0A17E /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/recast/DebugUtils/DebugDraw.cpp */ = {isa = PBXBuildFile; fileRef = 35A367F3CFF645D1BDBF8A70 /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/recast/DebugUtils/DebugDraw.cpp */; };
+		37C2FE61F9EE4B24B22C4824 /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/recast/DetourCrowd/DetourLocalBoundary.cpp */ = {isa = PBXBuildFile; fileRef = 58C1FD0B7F17477B8CCDA0FD /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/recast/DetourCrowd/DetourLocalBoundary.cpp */; };
+		4B83F101AAF34124B8C47BD1 /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/recast/DebugUtils/DetourDebugDraw.cpp */ = {isa = PBXBuildFile; fileRef = 69FE764D4E68441FB750546F /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/recast/DebugUtils/DetourDebugDraw.cpp */; };
+		4EABE92C56AB48A296EFDA1D /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/recast/DetourCrowd/DetourProximityGrid.cpp */ = {isa = PBXBuildFile; fileRef = 84C76C78FDB04FFAA549F804 /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/recast/DetourCrowd/DetourProximityGrid.cpp */; };
+		63157CD309924382A9FB6D0D /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/recast/Detour/DetourNode.cpp */ = {isa = PBXBuildFile; fileRef = F0A6AFD7D5F04021AF3CD9A5 /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/recast/Detour/DetourNode.cpp */; };
+		6A35E16673B34E84B3463005 /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/recast/DetourTileCache/DetourTileCache.cpp */ = {isa = PBXBuildFile; fileRef = 5D781F6D4BE84060B3EE2A9C /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/recast/DetourTileCache/DetourTileCache.cpp */; };
+		7545D790C7A0477BA34D4410 /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/recast/Detour/DetourCommon.cpp */ = {isa = PBXBuildFile; fileRef = A67A6F587EBB47C59CD0E209 /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/recast/Detour/DetourCommon.cpp */; };
+		75AC20463EA04857AC5C742A /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/proj.ios_mac/ios/engine/external/recast/CMakeFiles/ext_recast.dir/Info.plist */ = {isa = PBXBuildFile; fileRef = 252B9125FCFD417D99F87E23 /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/proj.ios_mac/ios/engine/external/recast/CMakeFiles/ext_recast.dir/Info.plist */; };
+		8D0F7798729A4232A8E8F417 /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/recast/DetourCrowd/DetourPathCorridor.cpp */ = {isa = PBXBuildFile; fileRef = 3929CE41E3A24599BE75457B /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/recast/DetourCrowd/DetourPathCorridor.cpp */; };
+		92883B8819EF43FD8AB46F15 /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/recast/Detour/DetourNavMeshQuery.cpp */ = {isa = PBXBuildFile; fileRef = C6F04F6CA7A942E39F7568C8 /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/recast/Detour/DetourNavMeshQuery.cpp */; };
+		9718320FE185462BAFF8952E /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/recast/Detour/DetourNavMeshBuilder.cpp */ = {isa = PBXBuildFile; fileRef = 429AF7D5B8A04F26B1464196 /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/recast/Detour/DetourNavMeshBuilder.cpp */; };
+		BB8AF03C101941C684177859 /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/recast/DetourCrowd/DetourPathQueue.cpp */ = {isa = PBXBuildFile; fileRef = 9876B8172E534B788FDB58B1 /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/recast/DetourCrowd/DetourPathQueue.cpp */; };
+		BC5301E66CEB4606A02866D0 /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/recast/Detour/DetourAlloc.cpp */ = {isa = PBXBuildFile; fileRef = 0214031844624DDC8123C982 /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/recast/Detour/DetourAlloc.cpp */; };
+		D2E296AC185B4454A6FEB0AD /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/recast/DetourCrowd/DetourCrowd.cpp */ = {isa = PBXBuildFile; fileRef = 7360139851D74ECE86CC53B0 /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/recast/DetourCrowd/DetourCrowd.cpp */; };
+		D3C8BDB1BB7049C2A8336E80 /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/recast/CMakeLists.txt */ = {isa = PBXBuildFile; fileRef = 75075709AA6C48C2AD356073 /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/recast/CMakeLists.txt */; };
+		DD049103EDC148FE9B8F0A51 /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/recast/Detour/DetourNavMesh.cpp */ = {isa = PBXBuildFile; fileRef = 8841AB8745694B3CB4B4E580 /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/recast/Detour/DetourNavMesh.cpp */; };
+		E02FCBD7AFA843EA9836171F /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/recast/DetourTileCache/DetourTileCacheBuilder.cpp */ = {isa = PBXBuildFile; fileRef = E58CD9E4040F45B1B1E08F2D /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/recast/DetourTileCache/DetourTileCacheBuilder.cpp */; };
+		FD3AB60929B94F3C8487A1A3 /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/recast/DetourCrowd/DetourObstacleAvoidance.cpp */ = {isa = PBXBuildFile; fileRef = 990AEE948F794C358B0F298C /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/recast/DetourCrowd/DetourObstacleAvoidance.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXBuildStyle section */
-		2CFF4C140EEB41348A77BC33 /* Debug */ = {
-			isa = PBXBuildStyle;
-			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-			};
-			name = Debug;
-		};
-		2F0350FA7A814874B8762CB7 /* RelWithDebInfo */ = {
-			isa = PBXBuildStyle;
-			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-			};
-			name = RelWithDebInfo;
-		};
-		7A012546431F417E896B1770 /* Release */ = {
-			isa = PBXBuildStyle;
-			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-			};
-			name = Release;
-		};
-		9BEE9CBD70F442139D924F33 /* MinSizeRel */ = {
+		430C771F581542D2B9B738B9 /* MinSizeRel */ = {
 			isa = PBXBuildStyle;
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
 			};
 			name = MinSizeRel;
 		};
+		617E2597317841479D82882D /* Release */ = {
+			isa = PBXBuildStyle;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+			};
+			name = Release;
+		};
+		87339AC4CF5A45A884586D2E /* RelWithDebInfo */ = {
+			isa = PBXBuildStyle;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+			};
+			name = RelWithDebInfo;
+		};
+		92E9446530CD4ABFB171AC33 /* Debug */ = {
+			isa = PBXBuildStyle;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+			};
+			name = Debug;
+		};
 /* End PBXBuildStyle section */
 
 /* Begin PBXContainerItemProxy section */
-		0C0440B375B14540AC6962DD /* PBXContainerItemProxy */ = {
+		8539599171034834AE7B47AA /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 38954FDBA5C14D2D870F2932 /* Project object */;
+			containerPortal = 6E7F0DB1DCCC425DBBED2F36 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 3181D9B993894A9DAAB5280D;
-			remoteInfo = ZERO_CHECK;
-		};
-		9499F13457CE46269CC3ADA7 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 38954FDBA5C14D2D870F2932 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 3181D9B993894A9DAAB5280D;
-			remoteInfo = ZERO_CHECK;
-		};
-		FF637176E17F40BE96B1D874 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 38954FDBA5C14D2D870F2932 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = A8431FB98B4A412CA19559F3;
+			remoteGlobalIDString = 0EE7C3C5291E42FCA900EA58;
 			remoteInfo = ext_recast;
+		};
+		982B4FDDE2D6433FA509273F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6E7F0DB1DCCC425DBBED2F36 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D5584806EABE489EBF612B34;
+			remoteInfo = ZERO_CHECK;
+		};
+		A3758EC0170E4F27A5212556 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6E7F0DB1DCCC425DBBED2F36 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D5584806EABE489EBF612B34;
+			remoteInfo = ZERO_CHECK;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0DC2F1F13B6D4A0B84F29060 /* /Users/sindre/Documents/projects/BITWaves/cocos2d/external/recast/Detour/DetourAlloc.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = DetourAlloc.cpp; path = Detour/DetourAlloc.cpp; sourceTree = SOURCE_ROOT; };
-		2D85736529AC4022B1EAEDC7 /* /Users/sindre/Documents/projects/BITWaves/proj.ios_mac/ios/engine/external/recast/CMakeFiles/ext_recast.dir/Info.plist */ = {isa = PBXFileReference; explicitFileType = sourcecode.text.plist; fileEncoding = 4; name = Info.plist; path = ../../../proj.ios_mac/ios/engine/external/recast/CMakeFiles/ext_recast.dir/Info.plist; sourceTree = SOURCE_ROOT; };
-		3B11A3C249CA437297534CCC /* /Users/sindre/Documents/projects/BITWaves/cocos2d/external/recast/DetourCrowd/DetourObstacleAvoidance.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = DetourObstacleAvoidance.cpp; path = DetourCrowd/DetourObstacleAvoidance.cpp; sourceTree = SOURCE_ROOT; };
-		42094C4BE5CD441E83BBBA21 /* /Users/sindre/Documents/projects/BITWaves/cocos2d/external/recast/DetourTileCache/DetourTileCacheBuilder.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = DetourTileCacheBuilder.cpp; path = DetourTileCache/DetourTileCacheBuilder.cpp; sourceTree = SOURCE_ROOT; };
-		55FEBDF66A0545B2AC29EE2C /* /Users/sindre/Documents/projects/BITWaves/cocos2d/external/recast/DetourCrowd/DetourCrowd.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = DetourCrowd.cpp; path = DetourCrowd/DetourCrowd.cpp; sourceTree = SOURCE_ROOT; };
-		78022F174C334B4C818A644F /* /Users/sindre/Documents/projects/BITWaves/cocos2d/external/recast/DetourCrowd/DetourLocalBoundary.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = DetourLocalBoundary.cpp; path = DetourCrowd/DetourLocalBoundary.cpp; sourceTree = SOURCE_ROOT; };
-		940432D51C0D4252B78BD0F1 /* /Users/sindre/Documents/projects/BITWaves/cocos2d/external/recast/Detour/DetourNavMesh.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = DetourNavMesh.cpp; path = Detour/DetourNavMesh.cpp; sourceTree = SOURCE_ROOT; };
-		9FB6ADF0B8254621BC65E51F /* /Users/sindre/Documents/projects/BITWaves/cocos2d/external/recast/Detour/DetourNavMeshBuilder.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = DetourNavMeshBuilder.cpp; path = Detour/DetourNavMeshBuilder.cpp; sourceTree = SOURCE_ROOT; };
-		A51B6F5C179B4E2995486FAF /* /Users/sindre/Documents/projects/BITWaves/cocos2d/external/recast/CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = sourcecode.text; fileEncoding = 4; name = CMakeLists.txt; path = CMakeLists.txt; sourceTree = SOURCE_ROOT; };
-		A9C5EF5B7D7D46D8949C0F85 /* /Users/sindre/Documents/projects/BITWaves/cocos2d/external/recast/CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = sourcecode.text; fileEncoding = 4; name = CMakeLists.txt; path = CMakeLists.txt; sourceTree = SOURCE_ROOT; };
-		B409A6843FCC4EF784E94326 /* /Users/sindre/Documents/projects/BITWaves/cocos2d/external/recast/fastlz/fastlz.c */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.c; fileEncoding = 4; name = fastlz.c; path = fastlz/fastlz.c; sourceTree = SOURCE_ROOT; };
-		BF0A59FA63864CA2925966C6 /* /Users/sindre/Documents/projects/BITWaves/cocos2d/external/recast/Detour/DetourNode.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = DetourNode.cpp; path = Detour/DetourNode.cpp; sourceTree = SOURCE_ROOT; };
-		C196380A8EAA42729FA78A3C /* /Users/sindre/Documents/projects/BITWaves/cocos2d/external/recast/DetourCrowd/DetourPathCorridor.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = DetourPathCorridor.cpp; path = DetourCrowd/DetourPathCorridor.cpp; sourceTree = SOURCE_ROOT; };
-		C74BC5C6029C4CE0A76CC300 /* /Users/sindre/Documents/projects/BITWaves/cocos2d/external/recast/DebugUtils/DetourDebugDraw.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = DetourDebugDraw.cpp; path = DebugUtils/DetourDebugDraw.cpp; sourceTree = SOURCE_ROOT; };
-		C80F47B910294AC38D048645 /* /Users/sindre/Documents/projects/BITWaves/cocos2d/external/recast/DetourCrowd/DetourPathQueue.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = DetourPathQueue.cpp; path = DetourCrowd/DetourPathQueue.cpp; sourceTree = SOURCE_ROOT; };
-		CA79B8F0D391402188A38DCB /* /Users/sindre/Documents/projects/BITWaves/cocos2d/external/recast/Detour/DetourCommon.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = DetourCommon.cpp; path = Detour/DetourCommon.cpp; sourceTree = SOURCE_ROOT; };
-		DFE7D242638840F0AA52AD69 /* ext_recast */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libext_recast.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		E65B93481C4D4888972DC262 /* /Users/sindre/Documents/projects/BITWaves/cocos2d/external/recast/DetourCrowd/DetourProximityGrid.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = DetourProximityGrid.cpp; path = DetourCrowd/DetourProximityGrid.cpp; sourceTree = SOURCE_ROOT; };
-		E6BFAAEC3F854CDB926F8152 /* /Users/sindre/Documents/projects/BITWaves/cocos2d/external/recast/DebugUtils/DebugDraw.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = DebugDraw.cpp; path = DebugUtils/DebugDraw.cpp; sourceTree = SOURCE_ROOT; };
-		F86BC367768541E280B8F3B8 /* /Users/sindre/Documents/projects/BITWaves/cocos2d/external/recast/DetourTileCache/DetourTileCache.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = DetourTileCache.cpp; path = DetourTileCache/DetourTileCache.cpp; sourceTree = SOURCE_ROOT; };
-		FF86B33B1409478BBFA04EEC /* /Users/sindre/Documents/projects/BITWaves/cocos2d/external/recast/Detour/DetourNavMeshQuery.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = DetourNavMeshQuery.cpp; path = Detour/DetourNavMeshQuery.cpp; sourceTree = SOURCE_ROOT; };
+		0214031844624DDC8123C982 /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/recast/Detour/DetourAlloc.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = DetourAlloc.cpp; path = Detour/DetourAlloc.cpp; sourceTree = SOURCE_ROOT; };
+		252B9125FCFD417D99F87E23 /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/proj.ios_mac/ios/engine/external/recast/CMakeFiles/ext_recast.dir/Info.plist */ = {isa = PBXFileReference; explicitFileType = sourcecode.text.plist; fileEncoding = 4; name = Info.plist; path = ../../../proj.ios_mac/ios/engine/external/recast/CMakeFiles/ext_recast.dir/Info.plist; sourceTree = SOURCE_ROOT; };
+		35A367F3CFF645D1BDBF8A70 /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/recast/DebugUtils/DebugDraw.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = DebugDraw.cpp; path = DebugUtils/DebugDraw.cpp; sourceTree = SOURCE_ROOT; };
+		3929CE41E3A24599BE75457B /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/recast/DetourCrowd/DetourPathCorridor.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = DetourPathCorridor.cpp; path = DetourCrowd/DetourPathCorridor.cpp; sourceTree = SOURCE_ROOT; };
+		429AF7D5B8A04F26B1464196 /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/recast/Detour/DetourNavMeshBuilder.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = DetourNavMeshBuilder.cpp; path = Detour/DetourNavMeshBuilder.cpp; sourceTree = SOURCE_ROOT; };
+		58C1FD0B7F17477B8CCDA0FD /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/recast/DetourCrowd/DetourLocalBoundary.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = DetourLocalBoundary.cpp; path = DetourCrowd/DetourLocalBoundary.cpp; sourceTree = SOURCE_ROOT; };
+		5AB5C0571F92404B927B6315 /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/recast/CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = sourcecode.text; fileEncoding = 4; name = CMakeLists.txt; path = CMakeLists.txt; sourceTree = SOURCE_ROOT; };
+		5D781F6D4BE84060B3EE2A9C /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/recast/DetourTileCache/DetourTileCache.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = DetourTileCache.cpp; path = DetourTileCache/DetourTileCache.cpp; sourceTree = SOURCE_ROOT; };
+		69FE764D4E68441FB750546F /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/recast/DebugUtils/DetourDebugDraw.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = DetourDebugDraw.cpp; path = DebugUtils/DetourDebugDraw.cpp; sourceTree = SOURCE_ROOT; };
+		7360139851D74ECE86CC53B0 /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/recast/DetourCrowd/DetourCrowd.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = DetourCrowd.cpp; path = DetourCrowd/DetourCrowd.cpp; sourceTree = SOURCE_ROOT; };
+		75075709AA6C48C2AD356073 /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/recast/CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = sourcecode.text; fileEncoding = 4; name = CMakeLists.txt; path = CMakeLists.txt; sourceTree = SOURCE_ROOT; };
+		84C76C78FDB04FFAA549F804 /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/recast/DetourCrowd/DetourProximityGrid.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = DetourProximityGrid.cpp; path = DetourCrowd/DetourProximityGrid.cpp; sourceTree = SOURCE_ROOT; };
+		8841AB8745694B3CB4B4E580 /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/recast/Detour/DetourNavMesh.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = DetourNavMesh.cpp; path = Detour/DetourNavMesh.cpp; sourceTree = SOURCE_ROOT; };
+		9876B8172E534B788FDB58B1 /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/recast/DetourCrowd/DetourPathQueue.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = DetourPathQueue.cpp; path = DetourCrowd/DetourPathQueue.cpp; sourceTree = SOURCE_ROOT; };
+		990AEE948F794C358B0F298C /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/recast/DetourCrowd/DetourObstacleAvoidance.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = DetourObstacleAvoidance.cpp; path = DetourCrowd/DetourObstacleAvoidance.cpp; sourceTree = SOURCE_ROOT; };
+		A67A6F587EBB47C59CD0E209 /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/recast/Detour/DetourCommon.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = DetourCommon.cpp; path = Detour/DetourCommon.cpp; sourceTree = SOURCE_ROOT; };
+		B528730C9AB04D97A05578DF /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/recast/fastlz/fastlz.c */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.c; fileEncoding = 4; name = fastlz.c; path = fastlz/fastlz.c; sourceTree = SOURCE_ROOT; };
+		C6F04F6CA7A942E39F7568C8 /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/recast/Detour/DetourNavMeshQuery.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = DetourNavMeshQuery.cpp; path = Detour/DetourNavMeshQuery.cpp; sourceTree = SOURCE_ROOT; };
+		D5224BAB92C947418C1C732C /* ext_recast */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libext_recast.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		E58CD9E4040F45B1B1E08F2D /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/recast/DetourTileCache/DetourTileCacheBuilder.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = DetourTileCacheBuilder.cpp; path = DetourTileCache/DetourTileCacheBuilder.cpp; sourceTree = SOURCE_ROOT; };
+		F0A6AFD7D5F04021AF3CD9A5 /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/recast/Detour/DetourNode.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = DetourNode.cpp; path = Detour/DetourNode.cpp; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
-		2A96C0A0E99640D8BA7BCA42 /* ext_recast */ = {
+		4BEBD0C735214AEC8CB9A363 /* Source Files */ = {
 			isa = PBXGroup;
 			children = (
-				904D80D150EB43B0A80363BB /* Source Files */,
-				34E3BCD44A34456BAA565A6D /* Resources */,
-				A9C5EF5B7D7D46D8949C0F85 /* /Users/sindre/Documents/projects/BITWaves/cocos2d/external/recast/CMakeLists.txt */,
-			);
-			name = ext_recast;
-			sourceTree = "<group>";
-		};
-		34E3BCD44A34456BAA565A6D /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				2D85736529AC4022B1EAEDC7 /* /Users/sindre/Documents/projects/BITWaves/proj.ios_mac/ios/engine/external/recast/CMakeFiles/ext_recast.dir/Info.plist */,
-			);
-			name = Resources;
-			sourceTree = "<group>";
-		};
-		36227B07FFD6429AB8F04CE5 = {
-			isa = PBXGroup;
-			children = (
-				85E082E0864648B89E9B62C7 /* External */,
-				DC1AFA9D11D641DC9E3A61D4 /* ALL_BUILD */,
-				D20F92977EC84084983CB9F0 /* Products */,
-			);
-			sourceTree = "<group>";
-		};
-		85E082E0864648B89E9B62C7 /* External */ = {
-			isa = PBXGroup;
-			children = (
-				2A96C0A0E99640D8BA7BCA42 /* ext_recast */,
-			);
-			name = External;
-			sourceTree = "<group>";
-		};
-		904D80D150EB43B0A80363BB /* Source Files */ = {
-			isa = PBXGroup;
-			children = (
-				E6BFAAEC3F854CDB926F8152 /* /Users/sindre/Documents/projects/BITWaves/cocos2d/external/recast/DebugUtils/DebugDraw.cpp */,
-				C74BC5C6029C4CE0A76CC300 /* /Users/sindre/Documents/projects/BITWaves/cocos2d/external/recast/DebugUtils/DetourDebugDraw.cpp */,
-				0DC2F1F13B6D4A0B84F29060 /* /Users/sindre/Documents/projects/BITWaves/cocos2d/external/recast/Detour/DetourAlloc.cpp */,
-				CA79B8F0D391402188A38DCB /* /Users/sindre/Documents/projects/BITWaves/cocos2d/external/recast/Detour/DetourCommon.cpp */,
-				940432D51C0D4252B78BD0F1 /* /Users/sindre/Documents/projects/BITWaves/cocos2d/external/recast/Detour/DetourNavMesh.cpp */,
-				9FB6ADF0B8254621BC65E51F /* /Users/sindre/Documents/projects/BITWaves/cocos2d/external/recast/Detour/DetourNavMeshBuilder.cpp */,
-				FF86B33B1409478BBFA04EEC /* /Users/sindre/Documents/projects/BITWaves/cocos2d/external/recast/Detour/DetourNavMeshQuery.cpp */,
-				BF0A59FA63864CA2925966C6 /* /Users/sindre/Documents/projects/BITWaves/cocos2d/external/recast/Detour/DetourNode.cpp */,
-				55FEBDF66A0545B2AC29EE2C /* /Users/sindre/Documents/projects/BITWaves/cocos2d/external/recast/DetourCrowd/DetourCrowd.cpp */,
-				78022F174C334B4C818A644F /* /Users/sindre/Documents/projects/BITWaves/cocos2d/external/recast/DetourCrowd/DetourLocalBoundary.cpp */,
-				3B11A3C249CA437297534CCC /* /Users/sindre/Documents/projects/BITWaves/cocos2d/external/recast/DetourCrowd/DetourObstacleAvoidance.cpp */,
-				C196380A8EAA42729FA78A3C /* /Users/sindre/Documents/projects/BITWaves/cocos2d/external/recast/DetourCrowd/DetourPathCorridor.cpp */,
-				C80F47B910294AC38D048645 /* /Users/sindre/Documents/projects/BITWaves/cocos2d/external/recast/DetourCrowd/DetourPathQueue.cpp */,
-				E65B93481C4D4888972DC262 /* /Users/sindre/Documents/projects/BITWaves/cocos2d/external/recast/DetourCrowd/DetourProximityGrid.cpp */,
-				F86BC367768541E280B8F3B8 /* /Users/sindre/Documents/projects/BITWaves/cocos2d/external/recast/DetourTileCache/DetourTileCache.cpp */,
-				42094C4BE5CD441E83BBBA21 /* /Users/sindre/Documents/projects/BITWaves/cocos2d/external/recast/DetourTileCache/DetourTileCacheBuilder.cpp */,
-				B409A6843FCC4EF784E94326 /* /Users/sindre/Documents/projects/BITWaves/cocos2d/external/recast/fastlz/fastlz.c */,
+				35A367F3CFF645D1BDBF8A70 /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/recast/DebugUtils/DebugDraw.cpp */,
+				69FE764D4E68441FB750546F /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/recast/DebugUtils/DetourDebugDraw.cpp */,
+				0214031844624DDC8123C982 /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/recast/Detour/DetourAlloc.cpp */,
+				A67A6F587EBB47C59CD0E209 /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/recast/Detour/DetourCommon.cpp */,
+				8841AB8745694B3CB4B4E580 /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/recast/Detour/DetourNavMesh.cpp */,
+				429AF7D5B8A04F26B1464196 /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/recast/Detour/DetourNavMeshBuilder.cpp */,
+				C6F04F6CA7A942E39F7568C8 /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/recast/Detour/DetourNavMeshQuery.cpp */,
+				F0A6AFD7D5F04021AF3CD9A5 /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/recast/Detour/DetourNode.cpp */,
+				7360139851D74ECE86CC53B0 /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/recast/DetourCrowd/DetourCrowd.cpp */,
+				58C1FD0B7F17477B8CCDA0FD /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/recast/DetourCrowd/DetourLocalBoundary.cpp */,
+				990AEE948F794C358B0F298C /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/recast/DetourCrowd/DetourObstacleAvoidance.cpp */,
+				3929CE41E3A24599BE75457B /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/recast/DetourCrowd/DetourPathCorridor.cpp */,
+				9876B8172E534B788FDB58B1 /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/recast/DetourCrowd/DetourPathQueue.cpp */,
+				84C76C78FDB04FFAA549F804 /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/recast/DetourCrowd/DetourProximityGrid.cpp */,
+				5D781F6D4BE84060B3EE2A9C /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/recast/DetourTileCache/DetourTileCache.cpp */,
+				E58CD9E4040F45B1B1E08F2D /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/recast/DetourTileCache/DetourTileCacheBuilder.cpp */,
+				B528730C9AB04D97A05578DF /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/recast/fastlz/fastlz.c */,
 			);
 			name = "Source Files";
 			sourceTree = "<group>";
 		};
-		CE3F61F593E14C27A0B7D149 /* CMake Rules */ = {
+		59B15A6062C64792BFFA4D40 /* External */ = {
+			isa = PBXGroup;
+			children = (
+				8847DA897D524931A2414606 /* ext_recast */,
+			);
+			name = External;
+			sourceTree = "<group>";
+		};
+		878DA34F35BB41EC8123DCA7 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D5224BAB92C947418C1C732C /* ext_recast */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		8847DA897D524931A2414606 /* ext_recast */ = {
+			isa = PBXGroup;
+			children = (
+				4BEBD0C735214AEC8CB9A363 /* Source Files */,
+				E4748740F77A4370AFF0A143 /* Resources */,
+				75075709AA6C48C2AD356073 /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/recast/CMakeLists.txt */,
+			);
+			name = ext_recast;
+			sourceTree = "<group>";
+		};
+		8C67678021AD4B2D8284535B = {
+			isa = PBXGroup;
+			children = (
+				59B15A6062C64792BFFA4D40 /* External */,
+				E654ADB1865D4F49BDDCC8DF /* ALL_BUILD */,
+				878DA34F35BB41EC8123DCA7 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		D3A622090E84421AB8B3A0FD /* CMake Rules */ = {
 			isa = PBXGroup;
 			children = (
 			);
 			name = "CMake Rules";
 			sourceTree = "<group>";
 		};
-		D20F92977EC84084983CB9F0 /* Products */ = {
+		E4748740F77A4370AFF0A143 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				DFE7D242638840F0AA52AD69 /* ext_recast */,
+				252B9125FCFD417D99F87E23 /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/proj.ios_mac/ios/engine/external/recast/CMakeFiles/ext_recast.dir/Info.plist */,
 			);
-			name = Products;
+			name = Resources;
 			sourceTree = "<group>";
 		};
-		DC1AFA9D11D641DC9E3A61D4 /* ALL_BUILD */ = {
+		E654ADB1865D4F49BDDCC8DF /* ALL_BUILD */ = {
 			isa = PBXGroup;
 			children = (
-				CE3F61F593E14C27A0B7D149 /* CMake Rules */,
-				A51B6F5C179B4E2995486FAF /* /Users/sindre/Documents/projects/BITWaves/cocos2d/external/recast/CMakeLists.txt */,
+				D3A622090E84421AB8B3A0FD /* CMake Rules */,
+				5AB5C0571F92404B927B6315 /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/recast/CMakeLists.txt */,
 			);
 			name = ALL_BUILD;
 			sourceTree = "<group>";
@@ -221,55 +221,55 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		A8431FB98B4A412CA19559F3 /* ext_recast */ = {
+		0EE7C3C5291E42FCA900EA58 /* ext_recast */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 4A26ED882A524A3095021509 /* Build configuration list for PBXNativeTarget "ext_recast" */;
+			buildConfigurationList = A2F882A1482045E4BA216462 /* Build configuration list for PBXNativeTarget "ext_recast" */;
 			buildPhases = (
-				C820160FC5DB496A97B77348 /* Sources */,
+				7CAEF8BAFAE54C61A3D2558C /* Sources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				BB2C7DAD37E1454D9824D59E /* PBXTargetDependency */,
+				BC31AFFD1C8147D9AC5632B8 /* PBXTargetDependency */,
 			);
 			name = ext_recast;
 			productName = ext_recast;
-			productReference = DFE7D242638840F0AA52AD69 /* ext_recast */;
+			productReference = D5224BAB92C947418C1C732C /* ext_recast */;
 			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		38954FDBA5C14D2D870F2932 /* Project object */ = {
+		6E7F0DB1DCCC425DBBED2F36 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				LastUpgradeCheck = 1200;
 			};
-			buildConfigurationList = 8752F2B5F9844B8EB4DD9CE5 /* Build configuration list for PBXProject "recast" */;
+			buildConfigurationList = 0400AAB93C414FE6852CDFAB /* Build configuration list for PBXProject "recast" */;
 			buildSettings = {
 			};
 			buildStyles = (
-				2CFF4C140EEB41348A77BC33 /* Debug */,
-				7A012546431F417E896B1770 /* Release */,
-				9BEE9CBD70F442139D924F33 /* MinSizeRel */,
-				2F0350FA7A814874B8762CB7 /* RelWithDebInfo */,
+				92E9446530CD4ABFB171AC33 /* Debug */,
+				617E2597317841479D82882D /* Release */,
+				430C771F581542D2B9B738B9 /* MinSizeRel */,
+				87339AC4CF5A45A884586D2E /* RelWithDebInfo */,
 			);
 			compatibilityVersion = "Xcode 3.2";
 			hasScannedForEncodings = 0;
-			mainGroup = 36227B07FFD6429AB8F04CE5;
+			mainGroup = 8C67678021AD4B2D8284535B;
 			projectDirPath = ../../../../../cocos2d/external/recast;
 			projectRoot = "";
 			targets = (
-				94D9557E0C5E4FA9800C4337 /* ALL_BUILD */,
-				3181D9B993894A9DAAB5280D /* ZERO_CHECK */,
-				A8431FB98B4A412CA19559F3 /* ext_recast */,
+				AA42B9083F594B09804DF236 /* ALL_BUILD */,
+				D5584806EABE489EBF612B34 /* ZERO_CHECK */,
+				0EE7C3C5291E42FCA900EA58 /* ext_recast */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		31ACB8D83DAF495393013AB7 /* CMake Rules */ = {
+		5253EA85494141B5BDB6CC6A /* CMake Rules */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -277,10 +277,10 @@
 			name = "CMake Rules";
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "make -C /Users/sindre/Documents/projects/BITWaves/proj.ios_mac/ios/engine/external/recast -f /Users/sindre/Documents/projects/BITWaves/proj.ios_mac/ios/engine/external/recast/CMakeScripts/ZERO_CHECK_cmakeRulesBuildPhase.make$CONFIGURATION OBJDIR=$(basename \"$OBJECT_FILE_DIR_normal\") all";
+			shellScript = "make -C /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/proj.ios_mac/ios/engine/external/recast -f /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/proj.ios_mac/ios/engine/external/recast/CMakeScripts/ALL_BUILD_cmakeRulesBuildPhase.make$CONFIGURATION OBJDIR=$(basename \"$OBJECT_FILE_DIR_normal\") all";
 			showEnvVarsInLog = 0;
 		};
-		5CB2830ECCC34763AEF90654 = {
+		84EF2DF377874F45B54A43F2 = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -295,7 +295,7 @@
 exit 0";
 			showEnvVarsInLog = 0;
 		};
-		7CA03ACE3D7B4ECB9F49B0CD = {
+		CFF41FC45210480680F7DCFE = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -310,7 +310,7 @@ exit 0";
 exit 0";
 			showEnvVarsInLog = 0;
 		};
-		838E2B9B6B6E48F5A27F6DAA /* CMake Rules */ = {
+		EBFD48AC2B124560B32ED214 /* CMake Rules */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -318,58 +318,58 @@ exit 0";
 			name = "CMake Rules";
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "make -C /Users/sindre/Documents/projects/BITWaves/proj.ios_mac/ios/engine/external/recast -f /Users/sindre/Documents/projects/BITWaves/proj.ios_mac/ios/engine/external/recast/CMakeScripts/ALL_BUILD_cmakeRulesBuildPhase.make$CONFIGURATION OBJDIR=$(basename \"$OBJECT_FILE_DIR_normal\") all";
+			shellScript = "make -C /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/proj.ios_mac/ios/engine/external/recast -f /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/proj.ios_mac/ios/engine/external/recast/CMakeScripts/ZERO_CHECK_cmakeRulesBuildPhase.make$CONFIGURATION OBJDIR=$(basename \"$OBJECT_FILE_DIR_normal\") all";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		C820160FC5DB496A97B77348 /* Sources */ = {
+		7CAEF8BAFAE54C61A3D2558C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D37FE6EF092E4198A65D83F2 /* /Users/sindre/Documents/projects/BITWaves/cocos2d/external/recast/DebugUtils/DebugDraw.cpp */,
-				9F501F7B186A427AB308C279 /* /Users/sindre/Documents/projects/BITWaves/cocos2d/external/recast/DebugUtils/DetourDebugDraw.cpp */,
-				CC5D4C3A343E411DAAC96727 /* /Users/sindre/Documents/projects/BITWaves/cocos2d/external/recast/Detour/DetourAlloc.cpp */,
-				75F62932889447FB9DEC6388 /* /Users/sindre/Documents/projects/BITWaves/cocos2d/external/recast/Detour/DetourCommon.cpp */,
-				C5DFE82FF8B041D0B6987B54 /* /Users/sindre/Documents/projects/BITWaves/cocos2d/external/recast/Detour/DetourNavMesh.cpp */,
-				203E65F7FF3548D5B4464202 /* /Users/sindre/Documents/projects/BITWaves/cocos2d/external/recast/Detour/DetourNavMeshBuilder.cpp */,
-				57E0EC496AB842FE942CD44E /* /Users/sindre/Documents/projects/BITWaves/cocos2d/external/recast/Detour/DetourNavMeshQuery.cpp */,
-				16BD5992AE55489CAE8E0879 /* /Users/sindre/Documents/projects/BITWaves/cocos2d/external/recast/Detour/DetourNode.cpp */,
-				DABD051FC9FA40F298F9DA2D /* /Users/sindre/Documents/projects/BITWaves/cocos2d/external/recast/DetourCrowd/DetourCrowd.cpp */,
-				F476CB5BE39D4DEB8A099849 /* /Users/sindre/Documents/projects/BITWaves/cocos2d/external/recast/DetourCrowd/DetourLocalBoundary.cpp */,
-				A5C91E55F1E14746A714D5EB /* /Users/sindre/Documents/projects/BITWaves/cocos2d/external/recast/DetourCrowd/DetourObstacleAvoidance.cpp */,
-				BD212C9D202947AF8AE0B492 /* /Users/sindre/Documents/projects/BITWaves/cocos2d/external/recast/DetourCrowd/DetourPathCorridor.cpp */,
-				5A0FCA9F3DCF4C1F82E39651 /* /Users/sindre/Documents/projects/BITWaves/cocos2d/external/recast/DetourCrowd/DetourPathQueue.cpp */,
-				83211192CA454143B6EBAE8B /* /Users/sindre/Documents/projects/BITWaves/cocos2d/external/recast/DetourCrowd/DetourProximityGrid.cpp */,
-				723FDBAA3AB0467DB7798813 /* /Users/sindre/Documents/projects/BITWaves/cocos2d/external/recast/DetourTileCache/DetourTileCache.cpp */,
-				A275277B0A0142A089EB7EE1 /* /Users/sindre/Documents/projects/BITWaves/cocos2d/external/recast/DetourTileCache/DetourTileCacheBuilder.cpp */,
-				ABFDF11F0A454DBB8371A05A /* /Users/sindre/Documents/projects/BITWaves/cocos2d/external/recast/fastlz/fastlz.c */,
+				1A50E8E7E5914A00A5F0A17E /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/recast/DebugUtils/DebugDraw.cpp */,
+				4B83F101AAF34124B8C47BD1 /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/recast/DebugUtils/DetourDebugDraw.cpp */,
+				BC5301E66CEB4606A02866D0 /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/recast/Detour/DetourAlloc.cpp */,
+				7545D790C7A0477BA34D4410 /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/recast/Detour/DetourCommon.cpp */,
+				DD049103EDC148FE9B8F0A51 /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/recast/Detour/DetourNavMesh.cpp */,
+				9718320FE185462BAFF8952E /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/recast/Detour/DetourNavMeshBuilder.cpp */,
+				92883B8819EF43FD8AB46F15 /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/recast/Detour/DetourNavMeshQuery.cpp */,
+				63157CD309924382A9FB6D0D /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/recast/Detour/DetourNode.cpp */,
+				D2E296AC185B4454A6FEB0AD /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/recast/DetourCrowd/DetourCrowd.cpp */,
+				37C2FE61F9EE4B24B22C4824 /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/recast/DetourCrowd/DetourLocalBoundary.cpp */,
+				FD3AB60929B94F3C8487A1A3 /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/recast/DetourCrowd/DetourObstacleAvoidance.cpp */,
+				8D0F7798729A4232A8E8F417 /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/recast/DetourCrowd/DetourPathCorridor.cpp */,
+				BB8AF03C101941C684177859 /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/recast/DetourCrowd/DetourPathQueue.cpp */,
+				4EABE92C56AB48A296EFDA1D /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/recast/DetourCrowd/DetourProximityGrid.cpp */,
+				6A35E16673B34E84B3463005 /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/recast/DetourTileCache/DetourTileCache.cpp */,
+				E02FCBD7AFA843EA9836171F /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/recast/DetourTileCache/DetourTileCacheBuilder.cpp */,
+				0F2F55ECB8A64FF39719842C /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/recast/fastlz/fastlz.c */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		4686504BD1E5497EA070D135 /* PBXTargetDependency */ = {
+		8681DB51304840BF9FD9D041 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = A8431FB98B4A412CA19559F3 /* ext_recast */;
-			targetProxy = FF637176E17F40BE96B1D874 /* PBXContainerItemProxy */;
+			target = 0EE7C3C5291E42FCA900EA58 /* ext_recast */;
+			targetProxy = 8539599171034834AE7B47AA /* PBXContainerItemProxy */;
 		};
-		BB2C7DAD37E1454D9824D59E /* PBXTargetDependency */ = {
+		BC31AFFD1C8147D9AC5632B8 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 3181D9B993894A9DAAB5280D /* ZERO_CHECK */;
-			targetProxy = 0C0440B375B14540AC6962DD /* PBXContainerItemProxy */;
+			target = D5584806EABE489EBF612B34 /* ZERO_CHECK */;
+			targetProxy = 982B4FDDE2D6433FA509273F /* PBXContainerItemProxy */;
 		};
-		E63A58E612134ECFB6DAC8F8 /* PBXTargetDependency */ = {
+		F64A231B83C54F0EBE554F99 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 3181D9B993894A9DAAB5280D /* ZERO_CHECK */;
-			targetProxy = 9499F13457CE46269CC3ADA7 /* PBXContainerItemProxy */;
+			target = D5584806EABE489EBF612B34 /* ZERO_CHECK */;
+			targetProxy = A3758EC0170E4F27A5212556 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		0658FC0E382D4A1C92BCEFC9 /* Release */ = {
+		0294AB4A7A2045028E927E60 /* RelWithDebInfo */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
@@ -381,38 +381,28 @@ exit 0";
 				INSTALL_PATH = "";
 				OTHER_LDFLAGS = " ";
 				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = ZERO_CHECK;
+				PRODUCT_NAME = ALL_BUILD;
 				SECTORDER_FLAGS = "";
-				SYMROOT = /Users/sindre/Documents/projects/BITWaves/proj.ios_mac/ios/engine/external/recast;
+				SYMROOT = "/Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/proj.ios_mac/ios/engine/external/recast";
 				USE_HEADERMAP = NO;
 				WARNING_CFLAGS = ("$(inherited)");
 			};
-			name = Release;
+			name = RelWithDebInfo;
 		};
-		0D38D1D76E3B4833ACAB67C2 /* MinSizeRel */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = iphoneos;
-				SYMROOT = /Users/sindre/Documents/projects/BITWaves/proj.ios_mac/ios/engine/external/recast/build;
-			};
-			name = MinSizeRel;
-		};
-		15638F945488475CB742056D /* MinSizeRel */ = {
+		099549602BF34318B7815D11 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
-				CONFIGURATION_BUILD_DIR = /Users/sindre/Documents/projects/BITWaves/proj.ios_mac/ios/lib/MinSizeRel;
+				CONFIGURATION_BUILD_DIR = "/Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/proj.ios_mac/ios/lib/Release";
 				ENABLE_BITCODE = NO;
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_OPTIMIZATION_LEVEL = s;
+				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				HEADER_SEARCH_PATHS = (/Users/sindre/Documents/projects/BITWaves/cocos2d/external/recast/..);
+				HEADER_SEARCH_PATHS = ("/Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/recast/..");
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
 				ONLY_ACTIVE_ARCH = YES;
@@ -422,23 +412,13 @@ exit 0";
 				OTHER_REZFLAGS = "";
 				PRODUCT_NAME = ext_recast;
 				SECTORDER_FLAGS = "";
-				SYMROOT = /Users/sindre/Documents/projects/BITWaves/proj.ios_mac/ios/engine/external/recast;
+				SYMROOT = "/Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/proj.ios_mac/ios/engine/external/recast";
 				USE_HEADERMAP = NO;
 				WARNING_CFLAGS = ("$(inherited)");
 			};
-			name = MinSizeRel;
-		};
-		273C67B53D6344E6822FE740 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = iphoneos;
-				SYMROOT = /Users/sindre/Documents/projects/BITWaves/proj.ios_mac/ios/engine/external/recast/build;
-			};
 			name = Release;
 		};
-		2900A754754045D1A116E34F /* RelWithDebInfo */ = {
+		191CA54200A0402DB0F1A5EA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
@@ -452,17 +432,56 @@ exit 0";
 				OTHER_REZFLAGS = "";
 				PRODUCT_NAME = ZERO_CHECK;
 				SECTORDER_FLAGS = "";
-				SYMROOT = /Users/sindre/Documents/projects/BITWaves/proj.ios_mac/ios/engine/external/recast;
+				SYMROOT = "/Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/proj.ios_mac/ios/engine/external/recast";
 				USE_HEADERMAP = NO;
 				WARNING_CFLAGS = ("$(inherited)");
 			};
+			name = Release;
+		};
+		1AEBFB634BEA4229A433A0E8 /* RelWithDebInfo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SYMROOT = "/Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/proj.ios_mac/ios/engine/external/recast/build";
+			};
 			name = RelWithDebInfo;
 		};
-		3D925B476A64411886F6FEF7 /* RelWithDebInfo */ = {
+		2B1EF23874764A399C2617D2 /* MinSizeRel */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
-				CONFIGURATION_BUILD_DIR = /Users/sindre/Documents/projects/BITWaves/proj.ios_mac/ios/lib/RelWithDebInfo;
+				CONFIGURATION_BUILD_DIR = "/Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/proj.ios_mac/ios/lib/MinSizeRel";
+				ENABLE_BITCODE = NO;
+				EXECUTABLE_PREFIX = lib;
+				EXECUTABLE_SUFFIX = .a;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = s;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = ("/Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/recast/..");
+				INSTALL_PATH = "";
+				LIBRARY_STYLE = STATIC;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_CFLAGS = "    -DNDEBUG '-std=gnu99' ";
+				OTHER_CPLUSPLUSFLAGS = "    -DNDEBUG '-std=c++11' ";
+				OTHER_LIBTOOLFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ext_recast;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/proj.ios_mac/ios/engine/external/recast";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("$(inherited)");
+			};
+			name = MinSizeRel;
+		};
+		50C68E90058C4B7087E9D124 /* RelWithDebInfo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				CONFIGURATION_BUILD_DIR = "/Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/proj.ios_mac/ios/lib/RelWithDebInfo";
 				ENABLE_BITCODE = NO;
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
@@ -471,7 +490,7 @@ exit 0";
 				GCC_OPTIMIZATION_LEVEL = 2;
 				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				HEADER_SEARCH_PATHS = (/Users/sindre/Documents/projects/BITWaves/cocos2d/external/recast/..);
+				HEADER_SEARCH_PATHS = ("/Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/recast/..");
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
 				ONLY_ACTIVE_ARCH = YES;
@@ -481,13 +500,13 @@ exit 0";
 				OTHER_REZFLAGS = "";
 				PRODUCT_NAME = ext_recast;
 				SECTORDER_FLAGS = "";
-				SYMROOT = /Users/sindre/Documents/projects/BITWaves/proj.ios_mac/ios/engine/external/recast;
+				SYMROOT = "/Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/proj.ios_mac/ios/engine/external/recast";
 				USE_HEADERMAP = NO;
 				WARNING_CFLAGS = ("$(inherited)");
 			};
 			name = RelWithDebInfo;
 		};
-		5842C5B66F66428C8013BBD4 /* Debug */ = {
+		513F88C638A14FC88CC710E7 /* MinSizeRel */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
@@ -501,33 +520,23 @@ exit 0";
 				OTHER_REZFLAGS = "";
 				PRODUCT_NAME = ZERO_CHECK;
 				SECTORDER_FLAGS = "";
-				SYMROOT = /Users/sindre/Documents/projects/BITWaves/proj.ios_mac/ios/engine/external/recast;
-				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = ("$(inherited)");
-			};
-			name = Debug;
-		};
-		741D343AB08249BF89977AA5 /* MinSizeRel */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				INSTALL_PATH = "";
-				OTHER_LDFLAGS = " ";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = ALL_BUILD;
-				SECTORDER_FLAGS = "";
-				SYMROOT = /Users/sindre/Documents/projects/BITWaves/proj.ios_mac/ios/engine/external/recast;
+				SYMROOT = "/Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/proj.ios_mac/ios/engine/external/recast";
 				USE_HEADERMAP = NO;
 				WARNING_CFLAGS = ("$(inherited)");
 			};
 			name = MinSizeRel;
 		};
-		8B3D25D7CBCC4EB48516A6DB /* RelWithDebInfo */ = {
+		6EBE1355EAA24A24B3E8A089 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SYMROOT = "/Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/proj.ios_mac/ios/engine/external/recast/build";
+			};
+			name = Release;
+		};
+		788C9FCCC36D4B399270F314 /* MinSizeRel */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
@@ -541,17 +550,47 @@ exit 0";
 				OTHER_REZFLAGS = "";
 				PRODUCT_NAME = ALL_BUILD;
 				SECTORDER_FLAGS = "";
-				SYMROOT = /Users/sindre/Documents/projects/BITWaves/proj.ios_mac/ios/engine/external/recast;
+				SYMROOT = "/Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/proj.ios_mac/ios/engine/external/recast";
 				USE_HEADERMAP = NO;
 				WARNING_CFLAGS = ("$(inherited)");
 			};
-			name = RelWithDebInfo;
+			name = MinSizeRel;
 		};
-		993088DAABF54604A645E3BD /* Debug */ = {
+		8E7B41F5035C48DC8EB9A9C0 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
-				CONFIGURATION_BUILD_DIR = /Users/sindre/Documents/projects/BITWaves/proj.ios_mac/ios/lib/Debug;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ALL_BUILD;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/proj.ios_mac/ios/engine/external/recast";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("$(inherited)");
+			};
+			name = Release;
+		};
+		9AC66C6E11EA44CE8703D86B /* MinSizeRel */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SYMROOT = "/Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/proj.ios_mac/ios/engine/external/recast/build";
+			};
+			name = MinSizeRel;
+		};
+		9D52A7910FE94F7D94BF341C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				CONFIGURATION_BUILD_DIR = "/Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/proj.ios_mac/ios/lib/Debug";
 				ENABLE_BITCODE = NO;
 				EXECUTABLE_PREFIX = lib;
 				EXECUTABLE_SUFFIX = .a;
@@ -560,7 +599,7 @@ exit 0";
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				HEADER_SEARCH_PATHS = (/Users/sindre/Documents/projects/BITWaves/cocos2d/external/recast/..);
+				HEADER_SEARCH_PATHS = ("/Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/recast/..");
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
 				ONLY_ACTIVE_ARCH = YES;
@@ -570,13 +609,43 @@ exit 0";
 				OTHER_REZFLAGS = "";
 				PRODUCT_NAME = ext_recast;
 				SECTORDER_FLAGS = "";
-				SYMROOT = /Users/sindre/Documents/projects/BITWaves/proj.ios_mac/ios/engine/external/recast;
+				SYMROOT = "/Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/proj.ios_mac/ios/engine/external/recast";
 				USE_HEADERMAP = NO;
 				WARNING_CFLAGS = ("$(inherited)");
 			};
 			name = Debug;
 		};
-		99409DF2E17E4BFFA5B31FBF /* MinSizeRel */ = {
+		B03DC3CE8614456D9A3DF38E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SYMROOT = "/Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/proj.ios_mac/ios/engine/external/recast/build";
+			};
+			name = Debug;
+		};
+		BC68F6E6BF3440CDBDF5EE67 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ALL_BUILD;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/proj.ios_mac/ios/engine/external/recast";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("$(inherited)");
+			};
+			name = Debug;
+		};
+		D7D1D20DB93642E2B6C5AA8E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
@@ -590,23 +659,13 @@ exit 0";
 				OTHER_REZFLAGS = "";
 				PRODUCT_NAME = ZERO_CHECK;
 				SECTORDER_FLAGS = "";
-				SYMROOT = /Users/sindre/Documents/projects/BITWaves/proj.ios_mac/ios/engine/external/recast;
+				SYMROOT = "/Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/proj.ios_mac/ios/engine/external/recast";
 				USE_HEADERMAP = NO;
 				WARNING_CFLAGS = ("$(inherited)");
 			};
-			name = MinSizeRel;
-		};
-		A7ED4A07DFF146DEB1E73AB6 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = iphoneos;
-				SYMROOT = /Users/sindre/Documents/projects/BITWaves/proj.ios_mac/ios/engine/external/recast/build;
-			};
 			name = Debug;
 		};
-		C2C01F26F4A34FCDB0C7444A /* Release */ = {
+		DC1E194FC02A47CFBD233546 /* RelWithDebInfo */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
@@ -618,121 +677,62 @@ exit 0";
 				INSTALL_PATH = "";
 				OTHER_LDFLAGS = " ";
 				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = ALL_BUILD;
+				PRODUCT_NAME = ZERO_CHECK;
 				SECTORDER_FLAGS = "";
-				SYMROOT = /Users/sindre/Documents/projects/BITWaves/proj.ios_mac/ios/engine/external/recast;
+				SYMROOT = "/Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/proj.ios_mac/ios/engine/external/recast";
 				USE_HEADERMAP = NO;
 				WARNING_CFLAGS = ("$(inherited)");
-			};
-			name = Release;
-		};
-		DE162E7B41744A7BB5F4F5F5 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
-				CONFIGURATION_BUILD_DIR = /Users/sindre/Documents/projects/BITWaves/proj.ios_mac/ios/lib/Release;
-				ENABLE_BITCODE = NO;
-				EXECUTABLE_PREFIX = lib;
-				EXECUTABLE_SUFFIX = .a;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_OPTIMIZATION_LEVEL = 3;
-				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				HEADER_SEARCH_PATHS = (/Users/sindre/Documents/projects/BITWaves/cocos2d/external/recast/..);
-				INSTALL_PATH = "";
-				LIBRARY_STYLE = STATIC;
-				ONLY_ACTIVE_ARCH = YES;
-				OTHER_CFLAGS = "    -DNDEBUG '-std=gnu99' ";
-				OTHER_CPLUSPLUSFLAGS = "    -DNDEBUG '-std=c++11' ";
-				OTHER_LIBTOOLFLAGS = " ";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = ext_recast;
-				SECTORDER_FLAGS = "";
-				SYMROOT = /Users/sindre/Documents/projects/BITWaves/proj.ios_mac/ios/engine/external/recast;
-				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = ("$(inherited)");
-			};
-			name = Release;
-		};
-		E434BE1FA51D4C92A5F76227 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				INSTALL_PATH = "";
-				OTHER_LDFLAGS = " ";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = ALL_BUILD;
-				SECTORDER_FLAGS = "";
-				SYMROOT = /Users/sindre/Documents/projects/BITWaves/proj.ios_mac/ios/engine/external/recast;
-				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = ("$(inherited)");
-			};
-			name = Debug;
-		};
-		E43A5BCF47904713B4BC3063 /* RelWithDebInfo */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = iphoneos;
-				SYMROOT = /Users/sindre/Documents/projects/BITWaves/proj.ios_mac/ios/engine/external/recast/build;
 			};
 			name = RelWithDebInfo;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		46472A1A9DCC4F6F949AA887 /* Build configuration list for PBXAggregateTarget "ZERO_CHECK" */ = {
+		0400AAB93C414FE6852CDFAB /* Build configuration list for PBXProject "recast" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				5842C5B66F66428C8013BBD4 /* Debug */,
-				0658FC0E382D4A1C92BCEFC9 /* Release */,
-				99409DF2E17E4BFFA5B31FBF /* MinSizeRel */,
-				2900A754754045D1A116E34F /* RelWithDebInfo */,
+				B03DC3CE8614456D9A3DF38E /* Debug */,
+				6EBE1355EAA24A24B3E8A089 /* Release */,
+				9AC66C6E11EA44CE8703D86B /* MinSizeRel */,
+				1AEBFB634BEA4229A433A0E8 /* RelWithDebInfo */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		4A26ED882A524A3095021509 /* Build configuration list for PBXNativeTarget "ext_recast" */ = {
+		9CBA8F789C2C4F2A824FBD0D /* Build configuration list for PBXAggregateTarget "ZERO_CHECK" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				993088DAABF54604A645E3BD /* Debug */,
-				DE162E7B41744A7BB5F4F5F5 /* Release */,
-				15638F945488475CB742056D /* MinSizeRel */,
-				3D925B476A64411886F6FEF7 /* RelWithDebInfo */,
+				D7D1D20DB93642E2B6C5AA8E /* Debug */,
+				191CA54200A0402DB0F1A5EA /* Release */,
+				513F88C638A14FC88CC710E7 /* MinSizeRel */,
+				DC1E194FC02A47CFBD233546 /* RelWithDebInfo */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		5125EFD22AF0485B808C22DF /* Build configuration list for PBXAggregateTarget "ALL_BUILD" */ = {
+		A2F882A1482045E4BA216462 /* Build configuration list for PBXNativeTarget "ext_recast" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				E434BE1FA51D4C92A5F76227 /* Debug */,
-				C2C01F26F4A34FCDB0C7444A /* Release */,
-				741D343AB08249BF89977AA5 /* MinSizeRel */,
-				8B3D25D7CBCC4EB48516A6DB /* RelWithDebInfo */,
+				9D52A7910FE94F7D94BF341C /* Debug */,
+				099549602BF34318B7815D11 /* Release */,
+				2B1EF23874764A399C2617D2 /* MinSizeRel */,
+				50C68E90058C4B7087E9D124 /* RelWithDebInfo */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		8752F2B5F9844B8EB4DD9CE5 /* Build configuration list for PBXProject "recast" */ = {
+		EE3166795A09422E8E2830D5 /* Build configuration list for PBXAggregateTarget "ALL_BUILD" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				A7ED4A07DFF146DEB1E73AB6 /* Debug */,
-				273C67B53D6344E6822FE740 /* Release */,
-				0D38D1D76E3B4833ACAB67C2 /* MinSizeRel */,
-				E43A5BCF47904713B4BC3063 /* RelWithDebInfo */,
+				BC68F6E6BF3440CDBDF5EE67 /* Debug */,
+				8E7B41F5035C48DC8EB9A9C0 /* Release */,
+				788C9FCCC36D4B399270F314 /* MinSizeRel */,
+				0294AB4A7A2045028E927E60 /* RelWithDebInfo */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 38954FDBA5C14D2D870F2932 /* Project object */;
+	rootObject = 6E7F0DB1DCCC425DBBED2F36 /* Project object */;
 }

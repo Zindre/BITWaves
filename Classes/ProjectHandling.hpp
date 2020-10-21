@@ -24,7 +24,7 @@ public:
     void createNewProject();
     void showSaveOverlay();
     void showBrowseOverlay();
-    void openKeyboard();
+    void openKeyboard_save();
     void closeSaveOverlay();
     void closeBrowseOverlay();
     void setSelectedProjectName( std::string projectName );
@@ -49,6 +49,9 @@ public:
     void checkIfNameExists();
     void closeNameExistsPrompt();
     void showRenameTextField( std::string projectName );
+    void openKeyboard_rename();
+    void cancelRename();
+    void renameProject( std::string selectedProjectName );
     
     cocos2d::Sprite *closeCross;
     cocos2d::TextFieldTTF *textField_save;
@@ -59,6 +62,7 @@ public:
     //cocos2d::ui::ScrollView *scrollView;
     cocos2d::Sprite *arrowRight;
     cocos2d::Sprite *arrowLeft;
+    cocos2d::Sprite *renameTextFieldBg;
     
 private:
     
@@ -98,6 +102,7 @@ private:
     cocos2d::Label *label_warning;
     bool _nameExists;
     cocos2d::TextFieldTTF *textField_rename;
+    
     
 
 
