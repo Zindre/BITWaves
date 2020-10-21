@@ -7,102 +7,102 @@
 	objects = {
 
 /* Begin PBXAggregateTarget section */
-		3181D9B993894A9DAAB5280D /* ZERO_CHECK */ = {
+		AA42B9083F594B09804DF236 /* ALL_BUILD */ = {
 			isa = PBXAggregateTarget;
-			buildConfigurationList = 81303B5954964AE091990B40 /* Build configuration list for PBXAggregateTarget "ZERO_CHECK" */;
+			buildConfigurationList = 8C0D8D7545D74015BF6E1608 /* Build configuration list for PBXAggregateTarget "ALL_BUILD" */;
 			buildPhases = (
-				E1BBC209A84740F2A82A452B /* CMake Rules */,
+				03BCBA3490FE4521AD4557DF /* CMake Rules */,
+			);
+			dependencies = (
+				7BFE8FA9036D42219FD921B9 /* PBXTargetDependency */,
+			);
+			name = ALL_BUILD;
+			productName = ALL_BUILD;
+		};
+		D5584806EABE489EBF612B34 /* ZERO_CHECK */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 9605CD74A3C546BF8756F678 /* Build configuration list for PBXAggregateTarget "ZERO_CHECK" */;
+			buildPhases = (
+				CB25F7B97844468799F6AA16 /* CMake Rules */,
 			);
 			dependencies = (
 			);
 			name = ZERO_CHECK;
 			productName = ZERO_CHECK;
 		};
-		94D9557E0C5E4FA9800C4337 /* ALL_BUILD */ = {
-			isa = PBXAggregateTarget;
-			buildConfigurationList = 1D2D9182966040FA942EDE63 /* Build configuration list for PBXAggregateTarget "ALL_BUILD" */;
-			buildPhases = (
-				85127F88DED94E93B817DDB4 /* CMake Rules */,
-			);
-			dependencies = (
-				9BF343BB0A1C4267953A1ECF /* PBXTargetDependency */,
-			);
-			name = ALL_BUILD;
-			productName = ALL_BUILD;
-		};
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildStyle section */
-		1F292B3C09C7479BB872FE97 /* MinSizeRel */ = {
-			isa = PBXBuildStyle;
-			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-			};
-			name = MinSizeRel;
-		};
-		676EEC5F0FFA444AAFDBD7AD /* Debug */ = {
-			isa = PBXBuildStyle;
-			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-			};
-			name = Debug;
-		};
-		6C42B3D7C891418CA5A411A7 /* RelWithDebInfo */ = {
-			isa = PBXBuildStyle;
-			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-			};
-			name = RelWithDebInfo;
-		};
-		E24FE8C70345433B8ECE2ADC /* Release */ = {
+		0E6F6E808D2647DEA249F62D /* Release */ = {
 			isa = PBXBuildStyle;
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
 			};
 			name = Release;
 		};
+		630465A994344CC2834FDE95 /* Debug */ = {
+			isa = PBXBuildStyle;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+			};
+			name = Debug;
+		};
+		A803DBC1BD4E4F97917D630B /* RelWithDebInfo */ = {
+			isa = PBXBuildStyle;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+			};
+			name = RelWithDebInfo;
+		};
+		F2D58663C4CA49119A1D38BC /* MinSizeRel */ = {
+			isa = PBXBuildStyle;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+			};
+			name = MinSizeRel;
+		};
 /* End PBXBuildStyle section */
 
 /* Begin PBXContainerItemProxy section */
-		F180EF4A72B04CBF91AADEC0 /* PBXContainerItemProxy */ = {
+		29B83F5F076E438686F62032 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = FAEEBCC6FF344242A8979411 /* Project object */;
+			containerPortal = 3C3A6B5FD9394C4BA7C1B3CF /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 3181D9B993894A9DAAB5280D;
+			remoteGlobalIDString = D5584806EABE489EBF612B34;
 			remoteInfo = ZERO_CHECK;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		8CE118A793184037B8175E25 /* /Users/sindre/Documents/projects/BITWaves/cocos2d/external/Box2D/CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = sourcecode.text; fileEncoding = 4; name = CMakeLists.txt; path = CMakeLists.txt; sourceTree = SOURCE_ROOT; };
+		87B07F1BBDC741E9BF50FB6A /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/Box2D/CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = sourcecode.text; fileEncoding = 4; name = CMakeLists.txt; path = CMakeLists.txt; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
-		2A4B09C7CD454C71A5D6A0F8 /* Products */ = {
+		3C0BC0FE8E6F4EC89F0BB070 = {
+			isa = PBXGroup;
+			children = (
+				886842A52CA44EB48B99AD62 /* ALL_BUILD */,
+				5CD018B4CC8B4CEE98DFA2B3 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		5CD018B4CC8B4CEE98DFA2B3 /* Products */ = {
 			isa = PBXGroup;
 			children = (
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		59FBC585E2494BB1BEF0417C /* ALL_BUILD */ = {
+		886842A52CA44EB48B99AD62 /* ALL_BUILD */ = {
 			isa = PBXGroup;
 			children = (
-				F41712EE47A44AA98A579DAE /* CMake Rules */,
-				8CE118A793184037B8175E25 /* /Users/sindre/Documents/projects/BITWaves/cocos2d/external/Box2D/CMakeLists.txt */,
+				DAF37AB2FCB94A9CBB462797 /* CMake Rules */,
+				87B07F1BBDC741E9BF50FB6A /* /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/cocos2d/external/Box2D/CMakeLists.txt */,
 			);
 			name = ALL_BUILD;
 			sourceTree = "<group>";
 		};
-		8F12CCA5C1C44DCEAF9AF0FD = {
-			isa = PBXGroup;
-			children = (
-				59FBC585E2494BB1BEF0417C /* ALL_BUILD */,
-				2A4B09C7CD454C71A5D6A0F8 /* Products */,
-			);
-			sourceTree = "<group>";
-		};
-		F41712EE47A44AA98A579DAE /* CMake Rules */ = {
+		DAF37AB2FCB94A9CBB462797 /* CMake Rules */ = {
 			isa = PBXGroup;
 			children = (
 			);
@@ -112,35 +112,46 @@
 /* End PBXGroup section */
 
 /* Begin PBXProject section */
-		FAEEBCC6FF344242A8979411 /* Project object */ = {
+		3C3A6B5FD9394C4BA7C1B3CF /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				LastUpgradeCheck = 1200;
 			};
-			buildConfigurationList = 9F62043E030748409EC3763E /* Build configuration list for PBXProject "box2d" */;
+			buildConfigurationList = 30D339BF11BA40B88BF1169F /* Build configuration list for PBXProject "box2d" */;
 			buildSettings = {
 			};
 			buildStyles = (
-				676EEC5F0FFA444AAFDBD7AD /* Debug */,
-				E24FE8C70345433B8ECE2ADC /* Release */,
-				1F292B3C09C7479BB872FE97 /* MinSizeRel */,
-				6C42B3D7C891418CA5A411A7 /* RelWithDebInfo */,
+				630465A994344CC2834FDE95 /* Debug */,
+				0E6F6E808D2647DEA249F62D /* Release */,
+				F2D58663C4CA49119A1D38BC /* MinSizeRel */,
+				A803DBC1BD4E4F97917D630B /* RelWithDebInfo */,
 			);
 			compatibilityVersion = "Xcode 3.2";
 			hasScannedForEncodings = 0;
-			mainGroup = 8F12CCA5C1C44DCEAF9AF0FD;
+			mainGroup = 3C0BC0FE8E6F4EC89F0BB070;
 			projectDirPath = ../../../../../cocos2d/external/Box2D;
 			projectRoot = "";
 			targets = (
-				94D9557E0C5E4FA9800C4337 /* ALL_BUILD */,
-				3181D9B993894A9DAAB5280D /* ZERO_CHECK */,
+				AA42B9083F594B09804DF236 /* ALL_BUILD */,
+				D5584806EABE489EBF612B34 /* ZERO_CHECK */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		295AFB3CAB9648119A8B8AA9 = {
+		03BCBA3490FE4521AD4557DF /* CMake Rules */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			name = "CMake Rules";
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "make -C /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/proj.ios_mac/ios/engine/external/Box2D -f /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/proj.ios_mac/ios/engine/external/Box2D/CMakeScripts/ALL_BUILD_cmakeRulesBuildPhase.make$CONFIGURATION OBJDIR=$(basename \"$OBJECT_FILE_DIR_normal\") all";
+			showEnvVarsInLog = 0;
+		};
+		0AB5E33B6B6F42FEA4E847E5 = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -155,7 +166,7 @@
 exit 0";
 			showEnvVarsInLog = 0;
 		};
-		642BD95C5028439B9DC8E9BC = {
+		C2AE2BA159054C06A8F8EAD2 = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -170,7 +181,7 @@ exit 0";
 exit 0";
 			showEnvVarsInLog = 0;
 		};
-		85127F88DED94E93B817DDB4 /* CMake Rules */ = {
+		CB25F7B97844468799F6AA16 /* CMake Rules */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -178,52 +189,21 @@ exit 0";
 			name = "CMake Rules";
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "make -C /Users/sindre/Documents/projects/BITWaves/proj.ios_mac/ios/engine/external/Box2D -f /Users/sindre/Documents/projects/BITWaves/proj.ios_mac/ios/engine/external/Box2D/CMakeScripts/ALL_BUILD_cmakeRulesBuildPhase.make$CONFIGURATION OBJDIR=$(basename \"$OBJECT_FILE_DIR_normal\") all";
-			showEnvVarsInLog = 0;
-		};
-		E1BBC209A84740F2A82A452B /* CMake Rules */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			name = "CMake Rules";
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "make -C /Users/sindre/Documents/projects/BITWaves/proj.ios_mac/ios/engine/external/Box2D -f /Users/sindre/Documents/projects/BITWaves/proj.ios_mac/ios/engine/external/Box2D/CMakeScripts/ZERO_CHECK_cmakeRulesBuildPhase.make$CONFIGURATION OBJDIR=$(basename \"$OBJECT_FILE_DIR_normal\") all";
+			shellScript = "make -C /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/proj.ios_mac/ios/engine/external/Box2D -f /Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/proj.ios_mac/ios/engine/external/Box2D/CMakeScripts/ZERO_CHECK_cmakeRulesBuildPhase.make$CONFIGURATION OBJDIR=$(basename \"$OBJECT_FILE_DIR_normal\") all";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		9BF343BB0A1C4267953A1ECF /* PBXTargetDependency */ = {
+		7BFE8FA9036D42219FD921B9 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 3181D9B993894A9DAAB5280D /* ZERO_CHECK */;
-			targetProxy = F180EF4A72B04CBF91AADEC0 /* PBXContainerItemProxy */;
+			target = D5584806EABE489EBF612B34 /* ZERO_CHECK */;
+			targetProxy = 29B83F5F076E438686F62032 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		05FA9A0EBD4B4608B43F8195 /* RelWithDebInfo */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				INSTALL_PATH = "";
-				OTHER_LDFLAGS = " ";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = ALL_BUILD;
-				SECTORDER_FLAGS = "";
-				SYMROOT = /Users/sindre/Documents/projects/BITWaves/proj.ios_mac/ios/engine/external/Box2D;
-				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = ("$(inherited)");
-			};
-			name = RelWithDebInfo;
-		};
-		1188155FA2854202B0211B8D /* Debug */ = {
+		00F51D19C32140F9BFCF186D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
@@ -237,53 +217,13 @@ exit 0";
 				OTHER_REZFLAGS = "";
 				PRODUCT_NAME = ZERO_CHECK;
 				SECTORDER_FLAGS = "";
-				SYMROOT = /Users/sindre/Documents/projects/BITWaves/proj.ios_mac/ios/engine/external/Box2D;
-				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = ("$(inherited)");
-			};
-			name = Debug;
-		};
-		1F8BF96DEE874AAF98066163 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = iphoneos;
-				SYMROOT = /Users/sindre/Documents/projects/BITWaves/proj.ios_mac/ios/engine/external/Box2D/build;
-			};
-			name = Release;
-		};
-		2B15D55EA2D042939AD52890 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = iphoneos;
-				SYMROOT = /Users/sindre/Documents/projects/BITWaves/proj.ios_mac/ios/engine/external/Box2D/build;
-			};
-			name = Debug;
-		};
-		4A43BC8A3D7D46A7A95DD46F /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				INSTALL_PATH = "";
-				OTHER_LDFLAGS = " ";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = ZERO_CHECK;
-				SECTORDER_FLAGS = "";
-				SYMROOT = /Users/sindre/Documents/projects/BITWaves/proj.ios_mac/ios/engine/external/Box2D;
+				SYMROOT = "/Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/proj.ios_mac/ios/engine/external/Box2D";
 				USE_HEADERMAP = NO;
 				WARNING_CFLAGS = ("$(inherited)");
 			};
 			name = Release;
 		};
-		4FF5D06DA46A47C1BF0CCB2A /* MinSizeRel */ = {
+		1E540DC527AA4E35AF63D151 /* MinSizeRel */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
@@ -297,43 +237,23 @@ exit 0";
 				OTHER_REZFLAGS = "";
 				PRODUCT_NAME = ALL_BUILD;
 				SECTORDER_FLAGS = "";
-				SYMROOT = /Users/sindre/Documents/projects/BITWaves/proj.ios_mac/ios/engine/external/Box2D;
+				SYMROOT = "/Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/proj.ios_mac/ios/engine/external/Box2D";
 				USE_HEADERMAP = NO;
 				WARNING_CFLAGS = ("$(inherited)");
 			};
 			name = MinSizeRel;
 		};
-		734B4CDFE7B041EBB42A81DD /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				INSTALL_PATH = "";
-				OTHER_LDFLAGS = " ";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = ALL_BUILD;
-				SECTORDER_FLAGS = "";
-				SYMROOT = /Users/sindre/Documents/projects/BITWaves/proj.ios_mac/ios/engine/external/Box2D;
-				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = ("$(inherited)");
-			};
-			name = Debug;
-		};
-		80EF4D229F9A475BA9E6C342 /* RelWithDebInfo */ = {
+		2BB40FDA93AC4BEC82913EE4 /* MinSizeRel */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
-				SYMROOT = /Users/sindre/Documents/projects/BITWaves/proj.ios_mac/ios/engine/external/Box2D/build;
+				SYMROOT = "/Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/proj.ios_mac/ios/engine/external/Box2D/build";
 			};
-			name = RelWithDebInfo;
+			name = MinSizeRel;
 		};
-		9C3F294E0FEE4F1986FDC172 /* Release */ = {
+		2C252F21597D4BC5A3813004 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
@@ -347,23 +267,43 @@ exit 0";
 				OTHER_REZFLAGS = "";
 				PRODUCT_NAME = ALL_BUILD;
 				SECTORDER_FLAGS = "";
-				SYMROOT = /Users/sindre/Documents/projects/BITWaves/proj.ios_mac/ios/engine/external/Box2D;
+				SYMROOT = "/Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/proj.ios_mac/ios/engine/external/Box2D";
 				USE_HEADERMAP = NO;
 				WARNING_CFLAGS = ("$(inherited)");
 			};
 			name = Release;
 		};
-		B03736F44B1349E0A5C2F781 /* MinSizeRel */ = {
+		5961C48E50A0461CAFE8207B /* RelWithDebInfo */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
-				SYMROOT = /Users/sindre/Documents/projects/BITWaves/proj.ios_mac/ios/engine/external/Box2D/build;
+				SYMROOT = "/Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/proj.ios_mac/ios/engine/external/Box2D/build";
 			};
-			name = MinSizeRel;
+			name = RelWithDebInfo;
 		};
-		C3253D11120341BB80DB811B /* RelWithDebInfo */ = {
+		608EBB696CAF40CBB6572D6B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SYMROOT = "/Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/proj.ios_mac/ios/engine/external/Box2D/build";
+			};
+			name = Release;
+		};
+		99B491F24C564E6BAAFC64DA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SYMROOT = "/Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/proj.ios_mac/ios/engine/external/Box2D/build";
+			};
+			name = Debug;
+		};
+		A563B7EADF964A7F9ACB95F2 /* RelWithDebInfo */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
@@ -375,15 +315,15 @@ exit 0";
 				INSTALL_PATH = "";
 				OTHER_LDFLAGS = " ";
 				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = ZERO_CHECK;
+				PRODUCT_NAME = ALL_BUILD;
 				SECTORDER_FLAGS = "";
-				SYMROOT = /Users/sindre/Documents/projects/BITWaves/proj.ios_mac/ios/engine/external/Box2D;
+				SYMROOT = "/Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/proj.ios_mac/ios/engine/external/Box2D";
 				USE_HEADERMAP = NO;
 				WARNING_CFLAGS = ("$(inherited)");
 			};
 			name = RelWithDebInfo;
 		};
-		FA279D07C5AF46E1859D2502 /* MinSizeRel */ = {
+		B9C51FB5DA4B42A4B6A5DB72 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
@@ -397,49 +337,109 @@ exit 0";
 				OTHER_REZFLAGS = "";
 				PRODUCT_NAME = ZERO_CHECK;
 				SECTORDER_FLAGS = "";
-				SYMROOT = /Users/sindre/Documents/projects/BITWaves/proj.ios_mac/ios/engine/external/Box2D;
+				SYMROOT = "/Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/proj.ios_mac/ios/engine/external/Box2D";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("$(inherited)");
+			};
+			name = Debug;
+		};
+		BA66ADB973404A33BD3C2E69 /* MinSizeRel */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ZERO_CHECK;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/proj.ios_mac/ios/engine/external/Box2D";
 				USE_HEADERMAP = NO;
 				WARNING_CFLAGS = ("$(inherited)");
 			};
 			name = MinSizeRel;
+		};
+		E532C3BDD1B24C9A9F3C3878 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ALL_BUILD;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/proj.ios_mac/ios/engine/external/Box2D";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("$(inherited)");
+			};
+			name = Debug;
+		};
+		ECE9B0A412B646FB94889154 /* RelWithDebInfo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ZERO_CHECK;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/proj.ios_mac/ios/engine/external/Box2D";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("$(inherited)");
+			};
+			name = RelWithDebInfo;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1D2D9182966040FA942EDE63 /* Build configuration list for PBXAggregateTarget "ALL_BUILD" */ = {
+		30D339BF11BA40B88BF1169F /* Build configuration list for PBXProject "box2d" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				734B4CDFE7B041EBB42A81DD /* Debug */,
-				9C3F294E0FEE4F1986FDC172 /* Release */,
-				4FF5D06DA46A47C1BF0CCB2A /* MinSizeRel */,
-				05FA9A0EBD4B4608B43F8195 /* RelWithDebInfo */,
+				99B491F24C564E6BAAFC64DA /* Debug */,
+				608EBB696CAF40CBB6572D6B /* Release */,
+				2BB40FDA93AC4BEC82913EE4 /* MinSizeRel */,
+				5961C48E50A0461CAFE8207B /* RelWithDebInfo */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		81303B5954964AE091990B40 /* Build configuration list for PBXAggregateTarget "ZERO_CHECK" */ = {
+		8C0D8D7545D74015BF6E1608 /* Build configuration list for PBXAggregateTarget "ALL_BUILD" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				1188155FA2854202B0211B8D /* Debug */,
-				4A43BC8A3D7D46A7A95DD46F /* Release */,
-				FA279D07C5AF46E1859D2502 /* MinSizeRel */,
-				C3253D11120341BB80DB811B /* RelWithDebInfo */,
+				E532C3BDD1B24C9A9F3C3878 /* Debug */,
+				2C252F21597D4BC5A3813004 /* Release */,
+				1E540DC527AA4E35AF63D151 /* MinSizeRel */,
+				A563B7EADF964A7F9ACB95F2 /* RelWithDebInfo */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		9F62043E030748409EC3763E /* Build configuration list for PBXProject "box2d" */ = {
+		9605CD74A3C546BF8756F678 /* Build configuration list for PBXAggregateTarget "ZERO_CHECK" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				2B15D55EA2D042939AD52890 /* Debug */,
-				1F8BF96DEE874AAF98066163 /* Release */,
-				B03736F44B1349E0A5C2F781 /* MinSizeRel */,
-				80EF4D229F9A475BA9E6C342 /* RelWithDebInfo */,
+				B9C51FB5DA4B42A4B6A5DB72 /* Debug */,
+				00F51D19C32140F9BFCF186D /* Release */,
+				BA66ADB973404A33BD3C2E69 /* MinSizeRel */,
+				ECE9B0A412B646FB94889154 /* RelWithDebInfo */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = FAEEBCC6FF344242A8979411 /* Project object */;
+	rootObject = 3C3A6B5FD9394C4BA7C1B3CF /* Project object */;
 }

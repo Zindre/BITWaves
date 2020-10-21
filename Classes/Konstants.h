@@ -15,11 +15,12 @@
 #define kLayer_ProjectHandling_NameBg 14
 #define kLayer_ProjectHandling_NameLabel 15
 #define kLayer_ProjectHandling_Prompt 16
-#define kLayer_BounceAndShare 17
-#define kLayer_BounceAndShare_Prompt 18
-#define kLayer_HelpOverlayBorder 19
-#define kLayer_HelpOverlay 20
-#define kLayer_CurrentProjectName 21
+#define kLayer_ProjectHandling_RenameTextField 17
+#define kLayer_BounceAndShare 18
+#define kLayer_BounceAndShare_Prompt 19
+#define kLayer_HelpOverlayBorder 20
+#define kLayer_HelpOverlay 21
+#define kLayer_CurrentProjectName 22
 
 #define kTouch_NumOfTouchesAllowed 11
 #define kPitchMin 0.1f
@@ -68,7 +69,7 @@
 
 #define kNumOfChannels 32
 
-#define kButtons_ProjectHandling_NumOf 12
+#define kButtons_ProjectHandling_NumOf 14
 #define kButtons_ProjectHandling_Index_Save 0
 #define kButtons_ProjectHandling_Index_Browse 1
 #define kButtons_ProjectHandling_Index_New 2
@@ -81,6 +82,8 @@
 #define kButtons_ProjectHandling_Index_CloseExistPrompt 9
 #define kButtons_ProjectHandling_Index_CancelBrowse 10
 #define kButtons_ProjectHandling_Index_Rename 11
+#define kButtons_ProjectHandling_Index_CancelRename 12
+#define kButtons_ProjectHandling_Index_ConfirmRename 13
 
 
 
@@ -89,10 +92,11 @@
 #define kProjectHandling_State_Closed 1
 #define kProjectHandling_State_MainScreen 2
 #define kProjectHandling_State_BrowseOverlay 3
-#define kProjectHandling_State_SaveOverlay 4
-#define kProjectHandling_State_SaveOverlay_KeyboardOpen 5
-#define kProjectHandling_State_DeletePrompt 6
-#define kProjectHandling_State_NameExistPrompt 7
+#define kProjectHandling_State_BrowseOverlay_Rename 4
+#define kProjectHandling_State_SaveOverlay 5
+#define kProjectHandling_State_SaveOverlay_KeyboardOpen 6
+#define kProjectHandling_State_DeletePrompt 7
+#define kProjectHandling_State_NameExistPrompt 8
 
 #define kFontSize_Buttons 9
 #define kFontSize_ProjectNames 7

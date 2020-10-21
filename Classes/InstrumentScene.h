@@ -8,6 +8,7 @@
 #include "SequencerScene.h"
 #include "CircleEmitter.hpp"
 #include "ProjectHandling.hpp"
+#include "iosPreferences.h"
 
 #define kMinimumRecordTime 0.1f
 

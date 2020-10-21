@@ -12,6 +12,17 @@ MainMenu::MainMenu( Layer *layer, unsigned int whatScene ) {
     this->whatScene = whatScene;
     
     
+    if ( projectHandlingIsActivatedInIosPreferences() ) {
+        log( "project handling is activated" );
+    } else {
+        log( "project handling is NOT activated" );
+    }
+    
+    if ( bounceAndShareIsActivatedInIosPreferences() ) {
+        log( "bounce and share is activated" );
+    } else {
+        log( "bounce and share is NOT activated" );
+    }
 
     
     std::string currentProjectName = UserDefault::getInstance()->getStringForKey( "currentProjectName" );
@@ -82,7 +93,11 @@ MainMenu::MainMenu( Layer *layer, unsigned int whatScene ) {
     }
     
     
-    
+    if ( whatScene == kScene_Instrument ) {
+        if ( ! projectHandlingIsActivatedInIosPreferences() ) {
+            buttons_image[kButtons_ArrayNum_Projects]->setVisible( false );
+        }
+    }
     
     
     for ( int i = 0; i < kNumOfSoundObjects; i++ ) {

@@ -65,7 +65,6 @@ bool InstrumentScene::init()
     mainMenu->buttons_image[kButtons_ArrayNum_Rec]->setOpacity( 100 );
     
     
-    
     this->scheduleUpdate();
     
     return true;
@@ -183,7 +182,7 @@ void InstrumentScene::onTouchesBegan( const std::vector<Touch*>& touches, Event*
                         
                         // TEXT FIELD
                         if ( projectHandling->textFieldArea->getBoundingBox().containsPoint( touch->getLocation() ) ) {
-                            projectHandling->openKeyboard();
+                            projectHandling->openKeyboard_save();
                         }
                         
                         // CONFIRM SAVE
@@ -295,6 +294,23 @@ void InstrumentScene::onTouchesBegan( const std::vector<Touch*>& touches, Event*
                             projectHandling->setButtonTouchHasBegun( true, kButtons_ProjectHandling_Index_CloseExistPrompt );
                         }
                         
+                    } else if ( projectHandling->getState() == kProjectHandling_State_BrowseOverlay_Rename ) {
+                        
+                        // OPEN RENAME TEXT FIELD
+                        if ( projectHandling->renameTextFieldBg->getBoundingBox().containsPoint( touch->getLocation() ) ) {
+                            projectHandling->openKeyboard_rename();
+                        }
+                        
+                        // CANCEL RENAME BUTTON
+                        if ( projectHandling->buttonBg[kButtons_ProjectHandling_Index_CancelRename]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
+                            projectHandling->setButtonTouchHasBegun( true, kButtons_ProjectHandling_Index_CancelRename );
+                        }
+                        
+                        // CONFIRM RENAME BUTTON
+                        if ( projectHandling->buttonBg[kButtons_ProjectHandling_Index_ConfirmRename]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
+                            projectHandling->setButtonTouchHasBegun( true, kButtons_ProjectHandling_Index_ConfirmRename );
+                        }
+                        
                     }
                     
                     
@@ -358,8 +374,10 @@ void InstrumentScene::onTouchesBegan( const std::vector<Touch*>& touches, Event*
                                     }
                                     
                                     if ( mainMenu->buttons_image[kButtons_ArrayNum_Projects]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
-                                        mainMenu->buttons_image[kButtons_ArrayNum_Projects]->setScale( kButtons_ScaleValue );
-                                        mainMenu->setTouchHasBegun( true, kButtons_ArrayNum_Projects );
+                                        if ( projectHandlingIsActivatedInIosPreferences() ) {
+                                            mainMenu->buttons_image[kButtons_ArrayNum_Projects]->setScale( kButtons_ScaleValue );
+                                            mainMenu->setTouchHasBegun( true, kButtons_ArrayNum_Projects );
+                                        }
                                     }
                                     
                                 }
@@ -560,6 +578,18 @@ void InstrumentScene::onTouchesEnded( const std::vector<Touch*> &touches, Event*
                         // CLOSE NAME EXIST PROMPT
                         if ( projectHandling->buttonTouchHasBegun( kButtons_ProjectHandling_Index_CloseExistPrompt ) ) {
                             projectHandling->closeNameExistsPrompt();
+                        }
+                        
+                    } else if ( projectHandling->getState() == kProjectHandling_State_BrowseOverlay_Rename ) {
+                        
+                        // CANCEL RENAME BUTTON
+                        if ( projectHandling->buttonTouchHasBegun( kButtons_ProjectHandling_Index_CancelRename ) ) {
+                            projectHandling->cancelRename();
+                        }
+                        
+                        // CONFIRM RENAME BUTTON
+                        if ( projectHandling->buttonTouchHasBegun( kButtons_ProjectHandling_Index_ConfirmRename ) ) {
+                            projectHandling->renameProject( projectHandling->getSelectedProjectName() );
                         }
                         
                     }
