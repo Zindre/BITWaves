@@ -4,6 +4,8 @@
 //
 //  Created by Sindre Sørensen on 10/10/2020.
 //
+
+
 #include "cocos2d.h"
 #include "Functions.h"
 #include "stdio.h"
@@ -11,6 +13,9 @@
 #include "network/HttpClient.h"
 #include "tuple"
 #include "BounceAndShare.hpp"
+#include "json/document.h"
+#include "json/writer.h"
+#include "json/stringbuffer.h"
 
 #ifndef Uploader_hpp
 #define Uploader_hpp

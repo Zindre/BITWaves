@@ -103,6 +103,7 @@ list(APPEND GAME_SOURCE
         Classes/ProjectHandling.cpp
         Classes/ProjectNamesLabel.cpp
         Classes/Uploader.cpp
+	Classes/iosPreferences.mm
 )
 list(APPEND GAME_HEADER
         Classes/AppDelegate.h
@@ -121,6 +122,7 @@ list(APPEND GAME_HEADER
         Classes/ProjectHandling.hpp
         Classes/ProjectNamesLabel.hpp
         Classes/Uploader.hpp
+	Classes/iosPreferences.h
      )
 endif()
 
