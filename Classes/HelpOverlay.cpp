@@ -139,6 +139,7 @@ HelpOverlay::HelpOverlay( cocos2d::Layer *layer, unsigned int whatScene ) {
         helpLabel[2]->setTexture( "help_lock.png" );
         helpLabel[5]->setTexture( "help_comp.png" );
         helpLabel[6]->setTexture( "help_help.png" );
+        helpLabel[4]->setTexture( "help_projects.png" );
     }
     
 }
@@ -173,7 +174,6 @@ void HelpOverlay::show() {
     if ( whatScene == kScene_Instrument ) {
         helpLabel[1]->setVisible( false );
         helpLabel[3]->setVisible( false );
-        helpLabel[4]->setVisible( false );
     }
     
     border->setVisible( true );

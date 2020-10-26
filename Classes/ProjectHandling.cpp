@@ -577,79 +577,85 @@ void ProjectHandling::loadSavedProject() {
     
     saveCurrentToOpenProject();
     
-    UserDefault::getInstance()->deleteValueForKey( "current_posX" );
-    UserDefault::getInstance()->deleteValueForKey( "current_posY" );
-    UserDefault::getInstance()->deleteValueForKey( "current_whatSound" );
     
-    currentPos.clear();
-    currentWhatSound.clear();
+    if ( currentPos.size() != 0 ) {
+        
+        // ----------------------------------------------------------------------------------
+        std::string projectName_X = selectedProjectName + "_" + "pos_X";
+        log( "load saved project name (posX): %s", projectName_X.c_str() );
+        Data data_pos_X = UserDefault::getInstance()->getDataForKey( projectName_X.c_str() );
+        float*  buffer_X = (float*) data_pos_X.getBytes();
+        ssize_t length_X = data_pos_X.getSize() / sizeof(float);
+        
+        std::ostringstream ss_X;
+        ss_X << std::setprecision(2) << std::fixed;
+        for (int i = 0; i < length_X; i++) {
+            ss_X << buffer_X[i] << " ";
+        }
+        CCLOG("PH load %s is %s", "pos_X", ss_X.str().c_str());
+        // ----------------------------------------------------------------------------------
+        
+        
+        // ----------------------------------------------------------------------------------
+        std::string projectName_Y = selectedProjectName + "_" + "pos_Y";
+        log( "load saved project name (posY): %s", projectName_Y.c_str() );
+        Data data_pos_Y = UserDefault::getInstance()->getDataForKey( projectName_Y.c_str() );
+        float*  buffer_Y = (float*) data_pos_Y.getBytes();
+        ssize_t length_Y = data_pos_Y.getSize() / sizeof(float);
+        
+        std::ostringstream ss_Y;
+        ss_Y << std::setprecision(2) << std::fixed;
+        for (int i = 0; i < length_Y; i++) {
+            ss_Y << buffer_Y[i] << " ";
+        }
+        CCLOG("PH load %s is %s", "pos_Y", ss_Y.str().c_str());
+        // ----------------------------------------------------------------------------------
+        
+        
+        // ----------------------------------------------------------------------------------
+        std::string projectName_whatSound = selectedProjectName + "_" + "whatSound";
+        log( "load saved project name (whatSound): %s", projectName_whatSound.c_str() );
+        Data data_whatSound = UserDefault::getInstance()->getDataForKey( projectName_whatSound.c_str() );
+        int* buffer_whatSound = (int*) data_whatSound.getBytes();
+        ssize_t length_whatSound = data_whatSound.getSize() / sizeof(int);
+        
+        std::ostringstream ss_whatSound;
+        ss_whatSound << std::setprecision(2) << std::fixed;
+        for ( int i = 0; i < length_whatSound; i++ ) {
+            ss_whatSound << buffer_whatSound[i] << " ";
+        }
+        log( "PH load %s is %s", "current_whatSound", ss_whatSound.str().c_str() );
+        // ----------------------------------------------------------------------------------
     
     
-    // ----------------------------------------------------------------------------------
-    std::string projectName_X = selectedProjectName + "_" + "pos_X";
-    log( "load saved project name (posX): %s", projectName_X.c_str() );
-    Data data_pos_X = UserDefault::getInstance()->getDataForKey( projectName_X.c_str() );
-    float*  buffer_X = (float*) data_pos_X.getBytes();
-    ssize_t length_X = data_pos_X.getSize() / sizeof(float);
-    
-    std::ostringstream ss_X;
-    ss_X << std::setprecision(2) << std::fixed;
-    for (int i = 0; i < length_X; i++) {
-        ss_X << buffer_X[i] << " ";
-    }
-    CCLOG("PH load %s is %s", "pos_X", ss_X.str().c_str());
-    // ----------------------------------------------------------------------------------
-    
-    
-    // ----------------------------------------------------------------------------------
-    std::string projectName_Y = selectedProjectName + "_" + "pos_Y";
-    log( "load saved project name (posY): %s", projectName_Y.c_str() );
-    Data data_pos_Y = UserDefault::getInstance()->getDataForKey( projectName_Y.c_str() );
-    float*  buffer_Y = (float*) data_pos_Y.getBytes();
-    ssize_t length_Y = data_pos_Y.getSize() / sizeof(float);
-    
-    std::ostringstream ss_Y;
-    ss_Y << std::setprecision(2) << std::fixed;
-    for (int i = 0; i < length_Y; i++) {
-        ss_Y << buffer_Y[i] << " ";
-    }
-    CCLOG("PH load %s is %s", "pos_Y", ss_Y.str().c_str());
-    // ----------------------------------------------------------------------------------
-    
-    
-    // ----------------------------------------------------------------------------------
-    std::string projectName_whatSound = selectedProjectName + "_" + "whatSound";
-    log( "load saved project name (whatSound): %s", projectName_whatSound.c_str() );
-    Data data_whatSound = UserDefault::getInstance()->getDataForKey( projectName_whatSound.c_str() );
-    int* buffer_whatSound = (int*) data_whatSound.getBytes();
-    ssize_t length_whatSound = data_whatSound.getSize() / sizeof(int);
-    
-    std::ostringstream ss_whatSound;
-    ss_whatSound << std::setprecision(2) << std::fixed;
-    for ( int i = 0; i < length_whatSound; i++ ) {
-        ss_whatSound << buffer_whatSound[i] << " ";
-    }
-    log( "PH load %s is %s", "current_whatSound", ss_whatSound.str().c_str() );
-    // ----------------------------------------------------------------------------------
-    
+        UserDefault::getInstance()->deleteValueForKey( "current_posX" );
+        UserDefault::getInstance()->deleteValueForKey( "current_posY" );
+        UserDefault::getInstance()->deleteValueForKey( "current_whatSound" );
+        
+        currentPos.clear();
+        currentWhatSound.clear();
 
-    
-    for ( int i = 0; i < length_X; i++ ) {
-        currentPos.push_back( Vec2( buffer_X[i], buffer_Y[i] ) );
+        
+        for ( int i = 0; i < length_X; i++ ) {
+            currentPos.push_back( Vec2( buffer_X[i], buffer_Y[i] ) );
+        }
+        
+        for ( int i = 0; i < length_whatSound; i++ ) {
+            currentWhatSound.push_back( buffer_whatSound[i] );
+        }
+        
+        for ( int i = 0; i < currentPos.size(); i++ ) {
+            log( "PH current pos X: %f", currentPos[i].x );
+            log( "PH current pos Y: %f", currentPos[i].y );
+        }
+        
+        for ( int i = 0; i < currentWhatSound.size(); i++ ) {
+            log( "PH current what sound: %i", currentWhatSound[i] );
+        }
+        
     }
     
-    for ( int i = 0; i < length_whatSound; i++ ) {
-        currentWhatSound.push_back( buffer_whatSound[i] );
-    }
     
-    for ( int i = 0; i < currentPos.size(); i++ ) {
-        log( "PH current pos X: %f", currentPos[i].x );
-        log( "PH current pos Y: %f", currentPos[i].y );
-    }
-    
-    for ( int i = 0; i < currentWhatSound.size(); i++ ) {
-        log( "PH current what sound: %i", currentWhatSound[i] );
-    }
     
     if ( currentPos.size() != 0 ) {
         Data data_current_pos_X;
@@ -1146,14 +1152,13 @@ void ProjectHandling::showNameExistPrompt( std::string textFieldString ) {
     label_prompt->setString( textFieldString + "\n\nfinnes fra før,\nvennligst velg et annet navn" );
     buttonBg[kButtons_ProjectHandling_Index_CloseExistPrompt]->setVisible( true );
     label_buttons[kButtons_ProjectHandling_Index_CloseExistPrompt]->setVisible( true );
-    _whatState = kProjectHandling_State_NameExistPrompt;
 }
 
 bool ProjectHandling::nameExists() {
     return _nameExists;
 }
 
-void ProjectHandling::checkIfNameExists( std::string projectName ) {
+void ProjectHandling::checkIfNameExists( std::string projectName, int whatState ) {
     
     for ( int i = 0; i < savedProjectNames.size(); i++ ) {
         if ( savedProjectNames[i].compare( projectName ) == 0 ) {
@@ -1215,9 +1220,6 @@ void ProjectHandling::cancelRename() {
 
 void ProjectHandling::renameProject( std::string selectedProjectName ) {
     
-    // Check for existing project name
-    // !!!!!!!!!!!!!!!!!!!
-    
     // Rename folder
     FileUtils *fileUtils = FileUtils::getInstance();
     std::string writablePath = fileUtils->getWritablePath();
@@ -1276,4 +1278,8 @@ void ProjectHandling::renameProject( std::string selectedProjectName ) {
         decideWhichProjectNamesToShow();
     }
     
+}
+
+void ProjectHandling::setState( int whatState ) {
+    _whatState = whatState;
 }

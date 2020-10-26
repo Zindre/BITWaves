@@ -47,13 +47,14 @@ public:
     void closeDeletePrompt();
     void showNameExistPrompt( std::string textFieldString );
     bool nameExists();
-    void checkIfNameExists( std::string projectName );
+    void checkIfNameExists( std::string projectName, int whatState );
     void closeNameExistsPrompt_save();
     void closeNameExistsPrompt_rename();
     void showRenameTextField( std::string projectName );
     void openKeyboard_rename();
     void cancelRename();
     void renameProject( std::string selectedProjectName );
+    void setState( int whatState );
     
     cocos2d::Sprite *closeCross;
     cocos2d::TextFieldTTF *textField_save;

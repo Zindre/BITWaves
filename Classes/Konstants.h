@@ -96,7 +96,8 @@
 #define kProjectHandling_State_SaveOverlay 5
 #define kProjectHandling_State_SaveOverlay_KeyboardOpen 6
 #define kProjectHandling_State_DeletePrompt 7
-#define kProjectHandling_State_NameExistPrompt 8
+#define kProjectHandling_State_NameExistPrompt_Save 8
+#define kProjectHandling_State_NameExistPrompt_Rename 9
 
 #define kFontSize_Buttons 9
 #define kFontSize_ProjectNames 7

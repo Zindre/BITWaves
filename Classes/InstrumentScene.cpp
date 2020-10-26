@@ -286,13 +286,7 @@ void InstrumentScene::onTouchesBegan( const std::vector<Touch*>& touches, Event*
                         if ( projectHandling->buttonBg[kButtons_ProjectHandling_Index_CancelDelete]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
                             projectHandling->setButtonTouchHasBegun( true, kButtons_ProjectHandling_Index_CancelDelete );
                         }
-                        
-                    } else if ( projectHandling->getState() == kProjectHandling_State_NameExistPrompt ) {
-                        
-                        // CLOSE NAME EXISTS PROMPT
-                        if ( projectHandling->buttonBg[kButtons_ProjectHandling_Index_CloseExistPrompt]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
-                            projectHandling->setButtonTouchHasBegun( true, kButtons_ProjectHandling_Index_CloseExistPrompt );
-                        }
+                    
                         
                     } else if ( projectHandling->getState() == kProjectHandling_State_BrowseOverlay_Rename ) {
                         
@@ -309,6 +303,15 @@ void InstrumentScene::onTouchesBegan( const std::vector<Touch*>& touches, Event*
                         // CONFIRM RENAME BUTTON
                         if ( projectHandling->buttonBg[kButtons_ProjectHandling_Index_ConfirmRename]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
                             projectHandling->setButtonTouchHasBegun( true, kButtons_ProjectHandling_Index_ConfirmRename );
+                        }
+                        
+                    }
+                    
+                    if ( projectHandling->getState() == kProjectHandling_State_NameExistPrompt_Save || projectHandling->getState() == kProjectHandling_State_NameExistPrompt_Rename ) {
+                        
+                        // CLOSE NAME EXISTS PROMPT
+                        if ( projectHandling->buttonBg[kButtons_ProjectHandling_Index_CloseExistPrompt]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
+                            projectHandling->setButtonTouchHasBegun( true, kButtons_ProjectHandling_Index_CloseExistPrompt );
                         }
                         
                     }
@@ -517,7 +520,8 @@ void InstrumentScene::onTouchesEnded( const std::vector<Touch*> &touches, Event*
                         // CONFIRM SAVE
                         if ( projectHandling->buttonTouchHasBegun( kButtons_ProjectHandling_Index_ConfirmSave ) ) {
                             
-                            projectHandling->checkIfNameExists( projectHandling->getTextField_save_string() );
+                            projectHandling->checkIfNameExists( projectHandling->getTextField_save_string(), kProjectHandling_State_SaveOverlay );
+                            projectHandling->setState( kProjectHandling_State_NameExistPrompt_Save );
                             
                             if ( ! projectHandling->nameExists() ) {
                                 projectHandling->saveNewProject();
@@ -573,13 +577,6 @@ void InstrumentScene::onTouchesEnded( const std::vector<Touch*> &touches, Event*
                             projectHandling->closeDeletePrompt();
                         }
                         
-                    } else if ( projectHandling->getState() == kProjectHandling_State_NameExistPrompt ) {
-                        
-                        // CLOSE NAME EXIST PROMPT
-                        if ( projectHandling->buttonTouchHasBegun( kButtons_ProjectHandling_Index_CloseExistPrompt ) ) {
-                            projectHandling->closeNameExistsPrompt_save();
-                        }
-                        
                     } else if ( projectHandling->getState() == kProjectHandling_State_BrowseOverlay_Rename ) {
                         
                         // CANCEL RENAME BUTTON
@@ -590,12 +587,27 @@ void InstrumentScene::onTouchesEnded( const std::vector<Touch*> &touches, Event*
                         // CONFIRM RENAME BUTTON
                         if ( projectHandling->buttonTouchHasBegun( kButtons_ProjectHandling_Index_ConfirmRename ) ) {
                             
-                            projectHandling->checkIfNameExists( projectHandling->getTextField_rename_string() );
+                            projectHandling->checkIfNameExists( projectHandling->getTextField_rename_string(), kProjectHandling_State_BrowseOverlay_Rename );
+                            projectHandling->setState( kProjectHandling_State_NameExistPrompt_Rename );
                             
                             if ( ! projectHandling->nameExists() ) {
                                 projectHandling->renameProject( projectHandling->getSelectedProjectName() );
                             }
                             
+                        }
+                        
+                    } else if ( projectHandling->getState() == kProjectHandling_State_NameExistPrompt_Save ) {
+                        
+                        // CLOSE NAME EXIST PROMPT SAVE
+                        if ( projectHandling->buttonTouchHasBegun( kButtons_ProjectHandling_Index_CloseExistPrompt ) ) {
+                            projectHandling->closeNameExistsPrompt_save();
+                        }
+                        
+                    } else if ( projectHandling->getState() == kProjectHandling_State_NameExistPrompt_Rename ) {
+                        
+                        // CLOSE NAME EXIST PROMPT RENAME
+                        if ( projectHandling->buttonTouchHasBegun( kButtons_ProjectHandling_Index_CloseExistPrompt ) ) {
+                            projectHandling->closeNameExistsPrompt_rename();
                         }
                         
                     }
