@@ -14,8 +14,8 @@
 #define kLayer_ProjectHandling_BrowseOverlay 13
 #define kLayer_ProjectHandling_NameBg 14
 #define kLayer_ProjectHandling_NameLabel 15
-#define kLayer_ProjectHandling_Prompt 16
-#define kLayer_ProjectHandling_RenameTextField 17
+#define kLayer_ProjectHandling_RenameOverlay 16
+#define kLayer_ProjectHandling_Prompt 17
 #define kLayer_BounceAndShare 18
 #define kLayer_BounceAndShare_Prompt 19
 #define kLayer_HelpOverlayBorder 20
@@ -100,8 +100,8 @@
 
 #define kFontSize_Buttons 9
 #define kFontSize_ProjectNames 7
-#define kFontSize_BigText 12
-#define kFontSize_SmallText 8
+#define kFontSize_BigText 11
+#define kFontSize_SmallText 7
 
 #define kProjectHandling_Browse_FileListBgColor 74
 

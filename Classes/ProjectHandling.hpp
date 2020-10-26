@@ -20,7 +20,8 @@ public:
     bool isShowing();
     void saveNewProject();
     void loadSavedProject();
-    std::string getTextFieldString();
+    std::string getTextField_save_string();
+    std::string getTextField_rename_string();
     void createNewProject();
     void showSaveOverlay();
     void showBrowseOverlay();
@@ -46,8 +47,9 @@ public:
     void closeDeletePrompt();
     void showNameExistPrompt( std::string textFieldString );
     bool nameExists();
-    void checkIfNameExists();
-    void closeNameExistsPrompt();
+    void checkIfNameExists( std::string projectName );
+    void closeNameExistsPrompt_save();
+    void closeNameExistsPrompt_rename();
     void showRenameTextField( std::string projectName );
     void openKeyboard_rename();
     void cancelRename();
@@ -99,9 +101,9 @@ private:
     cocos2d::Vec2 _touchStartPos;
     cocos2d::Sprite *overlayPrompt;
     cocos2d::Label *label_prompt;
-    cocos2d::Label *label_warning;
     bool _nameExists;
     cocos2d::TextFieldTTF *textField_rename;
+    cocos2d::Sprite *overlayRename;
     
     
 

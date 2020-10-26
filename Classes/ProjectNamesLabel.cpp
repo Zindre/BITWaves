@@ -3,7 +3,9 @@
 ProjectNamesLabel::ProjectNamesLabel( cocos2d::Layer *layer, std::string projectName, int index, unsigned int myPageNr, unsigned int pageIndex, cocos2d::Size overlayBrowseSize, cocos2d::Vec2 overlayBrowsePos ) {
     
     visibleSize = Director::getInstance()->getSafeAreaRect().size;
+    //visibleSize = Director::getInstance()->getVisibleSize();
     origin = Director::getInstance()->getSafeAreaRect().origin;
+    //origin = Director::getInstance()->getVisibleOrigin();
     
     _myPageNr = myPageNr;
     _pageIndex = pageIndex;

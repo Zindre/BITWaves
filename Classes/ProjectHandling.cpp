@@ -6,7 +6,9 @@ ProjectHandling::ProjectHandling( Layer *layer ) {
     this->_layer = layer;
     
     visibleSize = Director::getInstance()->getSafeAreaRect().size;
+    //visibleSize = Director::getInstance()->getVisibleSize();
     origin = Director::getInstance()->getSafeAreaRect().origin;
+    //origin = Director::getInstance()->getVisibleOrigin();
     
     _whatState = kProjectHandling_State_Closed;
     
@@ -103,19 +105,25 @@ ProjectHandling::ProjectHandling( Layer *layer ) {
     label_prompt->setAlignment( TextHAlignment::CENTER );
     layer->addChild( label_prompt, kLayer_ProjectHandling_Prompt );
     
+    // RENAME
+    overlayRename = Sprite::create( "square1px.png" );
+    overlayRename->setTextureRect( Rect( 0, 0, overlayBrowse->getBoundingBox().size.width * 0.8, overlayBrowse->getBoundingBox().size.height * 0.6 ) );
+    overlayRename->setVisible( false );
+    overlayRename->setPosition( Vec2( origin.x + visibleSize.width * 0.5, origin.y + visibleSize.height * 0.5 ) );
+    layer->addChild( overlayRename, kLayer_ProjectHandling_RenameOverlay );
     
     renameTextFieldBg = Sprite::create( "square1px.png" );
     renameTextFieldBg->setPosition( Vec2( overlayPrompt->getPosition().x, overlayPrompt->getPosition().y + (overlayPrompt->getBoundingBox().size.height * 0.25) ) );
     renameTextFieldBg->setVisible( false );
     renameTextFieldBg->setColor( Color3B::BLACK );
-    layer->addChild( renameTextFieldBg, kLayer_ProjectHandling_RenameTextField );
+    layer->addChild( renameTextFieldBg, kLayer_ProjectHandling_RenameOverlay );
     
     textField_rename = cocos2d::TextFieldTTF::textFieldWithPlaceHolder( "Text", "fonts/arial.ttf", kFontSize_ProjectNames );
     textField_rename->setPosition( renameTextFieldBg->getPosition() );
     textField_rename->setVisible( false );
     textField_rename->setCursorEnabled( true );
     textField_rename->setTextColor( Color4B( 255, 255, 255, 255 ) );
-    layer->addChild( textField_rename, kLayer_ProjectHandling_RenameTextField );
+    layer->addChild( textField_rename, kLayer_ProjectHandling_RenameOverlay );
     
     renameTextFieldBg->setTextureRect( Rect( 0, 0, overlayPrompt->getBoundingBox().size.width * 0.8, textField_rename->getBoundingBox().size.height * 1.5 ) );
     
@@ -139,25 +147,25 @@ ProjectHandling::ProjectHandling( Layer *layer ) {
     
     
     // ---------- BROWSE BUTTONS ----------
-    buttonBg[kButtons_ProjectHandling_Index_Open]->setPosition( Vec2( overlayBrowse->getPosition().x + buttonBgSize.width, overlayBrowse->getPosition().y + (buttonBgSize.height * 3) ) );
+    buttonBg[kButtons_ProjectHandling_Index_Open]->setPosition( Vec2( overlayBrowse->getPosition().x + buttonBgSize.width, overlayBrowse->getPosition().y + (buttonBgSize.height * 2.1) ) );
     label_buttons[kButtons_ProjectHandling_Index_Open]->setPosition( buttonBg[kButtons_ProjectHandling_Index_Open]->getPosition() );
     buttonBg[kButtons_ProjectHandling_Index_Open]->setLocalZOrder( kLayer_ProjectHandling_BrowseOverlay );
     label_buttons[kButtons_ProjectHandling_Index_Open]->setLocalZOrder( kLayer_ProjectHandling_BrowseOverlay );
     buttonBg[kButtons_ProjectHandling_Index_Open]->setOpacity( kProjectHandling_Button_TransparantValue );
     
-    buttonBg[kButtons_ProjectHandling_Index_Delete]->setPosition( Vec2( overlayBrowse->getPosition().x + buttonBgSize.width, overlayBrowse->getPosition().y + (buttonBgSize.height) ) );
+    buttonBg[kButtons_ProjectHandling_Index_Delete]->setPosition( Vec2( overlayBrowse->getPosition().x + buttonBgSize.width, overlayBrowse->getPosition().y + (buttonBgSize.height * 0.7) ) );
     label_buttons[kButtons_ProjectHandling_Index_Delete]->setPosition( buttonBg[kButtons_ProjectHandling_Index_Delete]->getPosition() );
     buttonBg[kButtons_ProjectHandling_Index_Delete]->setLocalZOrder( kLayer_ProjectHandling_BrowseOverlay );
     label_buttons[kButtons_ProjectHandling_Index_Delete]->setLocalZOrder( kLayer_ProjectHandling_BrowseOverlay );
     buttonBg[kButtons_ProjectHandling_Index_Delete]->setOpacity( kProjectHandling_Button_TransparantValue );
     
-    buttonBg[kButtons_ProjectHandling_Index_Rename]->setPosition( Vec2( overlayBrowse->getPosition().x + buttonBgSize.width, overlayBrowse->getPosition().y - (buttonBgSize.height) ) );
+    buttonBg[kButtons_ProjectHandling_Index_Rename]->setPosition( Vec2( overlayBrowse->getPosition().x + buttonBgSize.width, overlayBrowse->getPosition().y - (buttonBgSize.height * 0.7) ) );
     label_buttons[kButtons_ProjectHandling_Index_Rename]->setPosition( buttonBg[kButtons_ProjectHandling_Index_Rename]->getPosition() );
     buttonBg[kButtons_ProjectHandling_Index_Rename]->setLocalZOrder( kLayer_ProjectHandling_BrowseOverlay );
     label_buttons[kButtons_ProjectHandling_Index_Rename]->setLocalZOrder( kLayer_ProjectHandling_BrowseOverlay );
     buttonBg[kButtons_ProjectHandling_Index_Rename]->setOpacity( kProjectHandling_Button_TransparantValue );
     
-    buttonBg[kButtons_ProjectHandling_Index_CancelBrowse]->setPosition( Vec2( overlayBrowse->getPosition().x + buttonBgSize.width, overlayBrowse->getPosition().y - (buttonBgSize.height * 3) ) );
+    buttonBg[kButtons_ProjectHandling_Index_CancelBrowse]->setPosition( Vec2( overlayBrowse->getPosition().x + buttonBgSize.width, overlayBrowse->getPosition().y - (buttonBgSize.height * 2.1) ) );
     label_buttons[kButtons_ProjectHandling_Index_CancelBrowse]->setPosition( buttonBg[kButtons_ProjectHandling_Index_CancelBrowse]->getPosition() );
     buttonBg[kButtons_ProjectHandling_Index_CancelBrowse]->setLocalZOrder( kLayer_ProjectHandling_BrowseOverlay );
     label_buttons[kButtons_ProjectHandling_Index_CancelBrowse]->setLocalZOrder( kLayer_ProjectHandling_BrowseOverlay );
@@ -172,13 +180,13 @@ ProjectHandling::ProjectHandling( Layer *layer ) {
     
     buttonBg[kButtons_ProjectHandling_Index_CancelRename]->setPosition( Vec2( overlayPrompt->getPosition().x + (buttonBgSize.width * 0.5) + padding, overlayPrompt->getPosition().y - buttonBgSize.height ) );
     label_buttons[kButtons_ProjectHandling_Index_CancelRename]->setPosition( buttonBg[kButtons_ProjectHandling_Index_CancelRename]->getPosition() );
-    buttonBg[kButtons_ProjectHandling_Index_CancelRename]->setLocalZOrder( kLayer_ProjectHandling_Prompt );
-    label_buttons[kButtons_ProjectHandling_Index_CancelRename]->setLocalZOrder( kLayer_ProjectHandling_Prompt );
+    buttonBg[kButtons_ProjectHandling_Index_CancelRename]->setLocalZOrder( kLayer_ProjectHandling_RenameOverlay );
+    label_buttons[kButtons_ProjectHandling_Index_CancelRename]->setLocalZOrder( kLayer_ProjectHandling_RenameOverlay );
     
     buttonBg[kButtons_ProjectHandling_Index_ConfirmRename]->setPosition( Vec2( overlayPrompt->getPosition().x - (buttonBgSize.width * 0.5) - padding, overlayPrompt->getPosition().y - buttonBgSize.height ) );
     label_buttons[kButtons_ProjectHandling_Index_ConfirmRename]->setPosition( buttonBg[kButtons_ProjectHandling_Index_ConfirmRename]->getPosition() );
-    buttonBg[kButtons_ProjectHandling_Index_ConfirmRename]->setLocalZOrder( kLayer_ProjectHandling_Prompt );
-    label_buttons[kButtons_ProjectHandling_Index_ConfirmRename]->setLocalZOrder( kLayer_ProjectHandling_Prompt );
+    buttonBg[kButtons_ProjectHandling_Index_ConfirmRename]->setLocalZOrder( kLayer_ProjectHandling_RenameOverlay );
+    label_buttons[kButtons_ProjectHandling_Index_ConfirmRename]->setLocalZOrder( kLayer_ProjectHandling_RenameOverlay );
     
     
     
@@ -673,8 +681,12 @@ void ProjectHandling::loadSavedProject() {
     
 }
 
-std::string ProjectHandling::getTextFieldString() {
+std::string ProjectHandling::getTextField_save_string() {
     return textField_save->getString();
+}
+
+std::string ProjectHandling::getTextField_rename_string() {
+    return textField_rename->getString();
 }
 
 void ProjectHandling::createNewProject() {
@@ -1141,21 +1153,19 @@ bool ProjectHandling::nameExists() {
     return _nameExists;
 }
 
-void ProjectHandling::checkIfNameExists() {
-    
-    std::string newFileName = textField_save->getString();
+void ProjectHandling::checkIfNameExists( std::string projectName ) {
     
     for ( int i = 0; i < savedProjectNames.size(); i++ ) {
-        if ( savedProjectNames[i].compare( textField_save->getString() ) == 0 ) {
+        if ( savedProjectNames[i].compare( projectName ) == 0 ) {
             log( "filename exist!" );
-            showNameExistPrompt( newFileName );
+            showNameExistPrompt( projectName );
             _nameExists = true;
         }
     }
     
 }
 
-void ProjectHandling::closeNameExistsPrompt() {
+void ProjectHandling::closeNameExistsPrompt_save() {
     _nameExists = false;
     _whatState = kProjectHandling_State_SaveOverlay;
     label_prompt->setVisible( false );
@@ -1165,13 +1175,23 @@ void ProjectHandling::closeNameExistsPrompt() {
     textField_save->attachWithIME();
 }
 
+void ProjectHandling::closeNameExistsPrompt_rename() {
+    _nameExists = false;
+    _whatState = kProjectHandling_State_BrowseOverlay_Rename;
+    label_prompt->setVisible( false );
+    overlayPrompt->setVisible ( false );
+    buttonBg[kButtons_ProjectHandling_Index_CloseExistPrompt]->setVisible( false );
+    label_buttons[kButtons_ProjectHandling_Index_CloseExistPrompt]->setVisible( false );
+    textField_rename->attachWithIME();
+}
+
 void ProjectHandling::showRenameTextField( std::string projectName ) {
     _whatState = kProjectHandling_State_BrowseOverlay_Rename;
     textField_rename->attachWithIME();
     textField_rename->setVisible( true );
     textField_rename->setString( projectName );
     renameTextFieldBg->setVisible( true );
-    overlayPrompt->setVisible( true );
+    overlayRename->setVisible( true );
     buttonBg[kButtons_ProjectHandling_Index_CancelRename]->setVisible( true );
     label_buttons[kButtons_ProjectHandling_Index_CancelRename]->setVisible( true );
     buttonBg[kButtons_ProjectHandling_Index_ConfirmRename]->setVisible( true );
@@ -1186,7 +1206,7 @@ void ProjectHandling::cancelRename() {
     _whatState = kProjectHandling_State_BrowseOverlay;
     textField_rename->setVisible( false );
     renameTextFieldBg->setVisible( false );
-    overlayPrompt->setVisible( false );
+    overlayRename->setVisible( false );
     buttonBg[kButtons_ProjectHandling_Index_CancelRename]->setVisible( false );
     label_buttons[kButtons_ProjectHandling_Index_CancelRename]->setVisible( false );
     buttonBg[kButtons_ProjectHandling_Index_ConfirmRename]->setVisible( false );
@@ -1231,7 +1251,7 @@ void ProjectHandling::renameProject( std::string selectedProjectName ) {
     _whatState = kProjectHandling_State_BrowseOverlay;
     textField_rename->setVisible( false );
     renameTextFieldBg->setVisible( false );
-    overlayPrompt->setVisible( false );
+    overlayRename->setVisible( false );
     buttonBg[kButtons_ProjectHandling_Index_CancelRename]->setVisible( false );
     label_buttons[kButtons_ProjectHandling_Index_CancelRename]->setVisible( false );
     buttonBg[kButtons_ProjectHandling_Index_ConfirmRename]->setVisible( false );

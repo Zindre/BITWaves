@@ -6380,7 +6380,7 @@
 				);
 				INFOPLIST_FILE = "/Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/proj.ios_mac/ios/Info.plist";
 				INSTALL_PATH = "";
-				LIBRARY_SEARCH_PATHS = "";
+				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/fmodLib/ios/release\"";
 				MARKETING_VERSION = 2.4;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = (
@@ -6460,6 +6460,10 @@
 					Metal,
 					/usr/lib/libz.dylib,
 					/usr/lib/libiconv.dylib,
+					"\"$(SRCROOT)/fmodLib/ios/release/libfmod_iphoneos.a\"",
+					"\"$(SRCROOT)/fmodLib/ios/release/libfmod_iphonesimulator.a\"",
+					"\"$(SRCROOT)/fmodLib/ios/release/libfmodstudio_iphonesimulator.a\"",
+					"\"$(SRCROOT)/fmodLib/ios/release/libfmodstudio_iphoneos.a\"",
 				);
 				OTHER_REZFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.stianremvik.bitwaves2;
@@ -7006,7 +7010,7 @@
 				);
 				INFOPLIST_FILE = "/Users/stianremvik/Development/Cocos2d-x/cocos2d-x-4.0_Games/BITWaves/proj.ios_mac/ios/Info.plist";
 				INSTALL_PATH = "";
-				LIBRARY_SEARCH_PATHS = "";
+				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/fmodLib/ios/debug\"";
 				MARKETING_VERSION = 2.4;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "   '-std=gnu99' ";
@@ -7080,6 +7084,10 @@
 					Metal,
 					/usr/lib/libz.dylib,
 					/usr/lib/libiconv.dylib,
+					"\"$(SRCROOT)/fmodLib/ios/debug/libfmodL_iphonesimulator.a\"",
+					"\"$(SRCROOT)/fmodLib/ios/debug/libfmodstudioL_iphonesimulator.a\"",
+					"\"$(SRCROOT)/fmodLib/ios/debug/libfmodL_iphoneos.a\"",
+					"\"$(SRCROOT)/fmodLib/ios/debug/libfmodstudioL_iphoneos.a\"",
 				);
 				OTHER_REZFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.stianremvik.bitwaves2;

@@ -4,10 +4,10 @@
 
 MainMenu::MainMenu( Layer *layer, unsigned int whatScene ) {
     
-    //visibleSize = Director::getInstance()->getVisibleSize();
     visibleSize = Director::getInstance()->getSafeAreaRect().size;
-    //origin = Director::getInstance()->getVisibleOrigin();
+    //visibleSize = Director::getInstance()->getVisibleSize();
     origin = Director::getInstance()->getSafeAreaRect().origin;
+    //origin = Director::getInstance()->getVisibleOrigin();
     
     this->whatScene = whatScene;
     
@@ -96,6 +96,12 @@ MainMenu::MainMenu( Layer *layer, unsigned int whatScene ) {
     if ( whatScene == kScene_Instrument ) {
         if ( ! projectHandlingIsActivatedInIosPreferences() ) {
             buttons_image[kButtons_ArrayNum_Projects]->setVisible( false );
+        }
+    }
+    
+    if ( whatScene == kScene_Sequencer ) {
+        if ( ! bounceAndShareIsActivatedInIosPreferences() ) {
+            buttons_image[kButtons_ArrayNum_Bounce]->setVisible( false );
         }
     }
     
@@ -319,7 +325,7 @@ void MainMenu::bombTimer( float dt ) {
     if ( !bRemoveAllSeqRects ) {
     
         fBombTimer += dt;
-        log( "bomb timer: %f", fBombTimer );
+        //log( "bomb timer: %f", fBombTimer );
         if ( fBombTimer >= kBombBlowTime ) {
             bRemoveAllSeqRects = true;
             blowFlame->resetSystem();

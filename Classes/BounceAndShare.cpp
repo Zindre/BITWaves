@@ -5,10 +5,12 @@ using namespace cocos2d;
 BounceAndShare::BounceAndShare( cocos2d::Layer *layer ) {
     
     visibleSize = Director::getInstance()->getSafeAreaRect().size;
+    //visibleSize = Director::getInstance()->getVisibleSize();
     origin = Director::getInstance()->getSafeAreaRect().origin;
+    //origin = Director::getInstance()->getVisibleOrigin();
     
     background = Sprite::create( "square1px.png" );
-    background->setTextureRect( Rect( 0, 0, visibleSize.width * 0.6, visibleSize.height * 0.6 ) );
+    background->setTextureRect( Rect( 0, 0, visibleSize.width * 0.6, visibleSize.height * 0.8 ) );
     background->setPosition( Vec2( origin.x + visibleSize.width * 0.5, origin.y + visibleSize.height * 0.5 ) );
     background->setColor( Color3B::GRAY );
     layer->addChild( background, kLayer_BounceAndShare );
@@ -21,14 +23,14 @@ BounceAndShare::BounceAndShare( cocos2d::Layer *layer ) {
     
     
     label_bounceSuccess = Label::createWithTTF( "Lagring av lydfilen var vellykket!", "fonts/arial.ttf", kFontSize_BigText );
-    label_bounceSuccess->setPosition( Vec2( background->getPosition().x, background->getPosition().y + (background->getBoundingBox().size.height * 0.3) ) );
+    label_bounceSuccess->setPosition( Vec2( background->getPosition().x, background->getPosition().y + (background->getBoundingBox().size.height * 0.35) ) );
     label_bounceSuccess->setColor( Color3B::BLACK );
     layer->addChild( label_bounceSuccess, kLayer_BounceAndShare );
     
     float padding = label_bounceSuccess->getBoundingBox().size.height;
     float lineHeightSmallText = kFontSize_SmallText * 6;
     
-    label_whereToFind = Label::createWithTTF( "Lydfilen finner du i appen «Filer» under BITWaves\nog katalogen til dette prosjektet.", "fonts/arial.ttf", kFontSize_SmallText );
+    label_whereToFind = Label::createWithTTF( "Lydfilen «bounce.wav» finner du i appen «Filer» under BITWaves\nog katalogen til dette prosjektet.", "fonts/arial.ttf", kFontSize_SmallText );
     label_whereToFind->setPosition( Vec2( background->getPosition().x, label_bounceSuccess->getPosition().y - label_bounceSuccess->getBoundingBox().size.height - padding ) );
     label_whereToFind->setColor( Color3B::BLACK );
     label_whereToFind->setAlignment( TextHAlignment::CENTER );

@@ -3,10 +3,10 @@
 
 SeqSoundRect::SeqSoundRect( Layer *layer, Vec2 startPos, unsigned int whatSoundObject, unsigned int soundLengthMS, float instrumentAreaWidth, std::string currentProjectName ) {
 
-    //visibleSize = Director::getInstance()->getVisibleSize();
     visibleSize = Director::getInstance()->getSafeAreaRect().size;
-    //origin = Director::getInstance()->getVisibleOrigin();
+    //visibleSize = Director::getInstance()->getVisibleSize();
     origin = Director::getInstance()->getSafeAreaRect().origin;
+    //origin = Director::getInstance()->getVisibleOrigin();
     
     this->whatSoundObject = whatSoundObject;
     this->layer = layer;
@@ -135,7 +135,7 @@ void SeqSoundRect::setWidth() {
     log( "-------------------------" );
     log( "screen height: %f", Director::getInstance()->getVisibleSize().height );
     log( "safe area height: %f", Director::getInstance()->getSafeAreaRect().size.height );
-    log( "pos Y: %f", sprite->getPosition().y );
+    log( "sprite pos Y: %f", sprite->getPosition().y );
     log( "midline pos Y: %f", visibleSize.height * kMidLine_Height_Multiplier );
     log( "min Y pos: %f", visibleSize.height * kSequencer_MinYpos_height_multiplier );
     float pitch = scaleValue( sprite->getPosition().y, visibleSize.height * kSequencer_MinYpos_height_multiplier, visibleSize.height * kMidLine_Height_Multiplier, kPitchMin, kPitchMax, true );

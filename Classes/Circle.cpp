@@ -3,10 +3,10 @@
 
 Circle::Circle( cocos2d::Layer *layer, cocos2d::Vec2 startPos, unsigned int activeSoundObject, int spectrum ) {
     
-    //visibleSize = Director::getInstance()->getVisibleSize();
     visibleSize = Director::getInstance()->getSafeAreaRect().size;
-    //origin = Director::getInstance()->getVisibleOrigin();
+    //visibleSize = Director::getInstance()->getVisibleSize();
     origin = Director::getInstance()->getSafeAreaRect().origin;
+    //origin = Director::getInstance()->getVisibleOrigin();
     
     opacity = 255;
     

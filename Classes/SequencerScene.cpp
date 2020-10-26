@@ -28,10 +28,10 @@ bool SequencerScene::init() {
         return false;
     }
     
-    //visibleSize = Director::getInstance()->getVisibleSize();
     visibleSize = Director::getInstance()->getSafeAreaRect().size;
-    //origin = Director::getInstance()->getVisibleOrigin();
+    //visibleSize = Director::getInstance()->getVisibleSize();
     origin = Director::getInstance()->getSafeAreaRect().origin;
+    //origin = Director::getInstance()->getVisibleOrigin();
     
     auto dispatcher = Director::getInstance()->getEventDispatcher();
     auto listener = EventListenerTouchAllAtOnce::create();
@@ -161,7 +161,7 @@ void SequencerScene::onTouchesBegan( const std::vector<Touch*>& touches, Event* 
                     
                     // BOMB BUTTON
                     if ( mainMenu->buttons_image[kButtons_ArrayNum_Bomb]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
-                        //mainMenu->setBombIsPressed( true );
+                        mainMenu->setBombIsPressed( true );
                         mainMenu->animateBomb();
                         mainMenu->buttons_image[kButtons_ArrayNum_Bomb]->setScale( kButtons_ScaleValue );
                         whatState = kSequencerScene_State_BombIsPressed;
@@ -262,8 +262,10 @@ void SequencerScene::onTouchesBegan( const std::vector<Touch*>& touches, Event* 
                     
                     // BOUNCE AND SHARE BUTTON
                     if ( mainMenu->buttons_image[kButtons_ArrayNum_Bounce]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
-                        mainMenu->setTouchHasBegun( true, kButtons_ArrayNum_Bounce );
-                        mainMenu->buttons_image[kButtons_ArrayNum_Bounce]->setScale( kButtons_ScaleValue );
+                        if ( bounceAndShareIsActivatedInIosPreferences() ) {
+                            mainMenu->setTouchHasBegun( true, kButtons_ArrayNum_Bounce );
+                            mainMenu->buttons_image[kButtons_ArrayNum_Bounce]->setScale( kButtons_ScaleValue );
+                        }
                     }
                     
                 }
@@ -283,12 +285,12 @@ void SequencerScene::onTouchesMoved( const std::vector<Touch*> &touches, Event* 
         if ( touch != nullptr ) {
             if ( touch->getID() == 0 ) {
                 
-                //log( "moved - touch->getLocation().y: %f", touch->getLocation().y );
-                //log( "moved - touch->getLocation().x: %f", touch->getLocation().x );
-            
+                log( "moved - touch->getLocation().y: %f", touch->getLocation().y );
+                log( "moved - touch->getLocation().x: %f", touch->getLocation().x );
+                
+                mainMenu->abortWithTouchMove( touch->getLocation() );
+                
                 if ( whatState == kSequencerScene_State_Normal ) {
-                    
-                    mainMenu->abortWithTouchMove( touch->getLocation() );
                     
                     if ( playHeadIsPressed ) {
                         playHeadHandle->setPositionX( touch->getLocation().x );
@@ -345,8 +347,8 @@ void SequencerScene::onTouchesEnded( const std::vector<Touch*> &touches, Event* 
         if ( touch != nullptr ) {
             if ( touch->getID() == 0 ) {
                 
-                //log( "ended - touch->getLocation().y: %f", touch->getLocation().y );
-                //log( "ended - touch->getLocation().x: %f", touch->getLocation().x );
+                log( "ended - touch->getLocation().y: %f", touch->getLocation().y );
+                log( "ended - touch->getLocation().x: %f", touch->getLocation().x );
             
                 if ( whatState == kSequencerScene_State_Normal ) {
                     
@@ -410,20 +412,14 @@ void SequencerScene::onTouchesEnded( const std::vector<Touch*> &touches, Event* 
                         
                         // SHARE BUTTON
                         if ( bounceAndShare->buttonTouchHasBegun( kBounceAndShare_Buttons_Index_Share ) ) {
-                            log( "share button pressed" );
                             std::string currentProjectName = UserDefault::getInstance()->getStringForKey( "currentProjectName" );
                             std::string bounceFileFullPath = FMODAudioEngine::bounceFileFullPath(currentProjectName);
                             Uploader* ul = new Uploader(bounceAndShare);
                             ul->upload_bounce_file(bounceFileFullPath, currentProjectName);
-                            //bounceAndShare->showPrompt("Laster opp til BIT20");
-                            //bounceAndShare->showPrompt( "Kunne ikke kontakte server. Vennligst prøv igjen når du har tid. Eller går ikke dette bra." );
-                            //whatState = kSequencerScene_State_BounceAndShare_Prompt;
+                            whatState = kSequencerScene_State_BounceAndShare_Prompt;
                         }
                         
-                        // Touch bagan to false
-                        for ( int i = 0; i < kBounceAndShare_Buttons_NumOf; i++ ) {
-                            bounceAndShare->setButtonTouchHasBegun( false, i );
-                        }
+                        
                         
                 } else if ( whatState == kSequencerScene_State_BounceAndShare_Prompt ) {
                     
@@ -508,7 +504,10 @@ void SequencerScene::onTouchesEnded( const std::vector<Touch*> &touches, Event* 
             }
             
             
-            
+            // Touch bagan to false
+            for ( int i = 0; i < kBounceAndShare_Buttons_NumOf; i++ ) {
+                bounceAndShare->setButtonTouchHasBegun( false, i );
+            }
             
             
             mainMenu->buttons_image[kButtons_ArrayNum_Play]->setScale( 1.0f );

@@ -49,7 +49,7 @@ void Uploader::onHttpRequestCompleted(cocos2d::network::HttpClient *sender, coco
     char message[50];
     if (!response)
     {
-        sprintf(message, "Feil: Ingen respons ved forsøk på opplasting.");
+        sprintf(message, "Feil: Ingen respons ved forsøk på opplasting");
         notifyUser(message);
         return;
     }
@@ -66,7 +66,7 @@ void Uploader::onHttpRequestCompleted(cocos2d::network::HttpClient *sender, coco
 }
 
 void Uploader::upload_bounce_file(std::string sourcePath, std::string destinationPath) {
-    char message[256] = "Laster opp fil til BIT20.";
+    char message[256] = "Laster opp fil til BIT20";
     notifyUser(message);
     char* datab64;
     unsigned int datab64size;

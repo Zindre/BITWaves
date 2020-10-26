@@ -8,10 +8,10 @@ CircleEmitter::CircleEmitter( Layer *layer, unsigned int touchID, Vec2 startPos,
     
     whatSoundObject = activeSoundObject;
     
-    //visibleSize = Director::getInstance()->getVisibleSize();
     visibleSize = Director::getInstance()->getSafeAreaRect().size;
-    //origin = Director::getInstance()->getVisibleOrigin();
+    //visibleSize = Director::getInstance()->getVisibleSize();
     origin = Director::getInstance()->getSafeAreaRect().origin;
+    //origin = Director::getInstance()->getVisibleOrigin();
     
     spawnTimer = 0.0f;
     bDestroy = false;

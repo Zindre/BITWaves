@@ -29,10 +29,10 @@ bool InstrumentScene::init()
     
     this->setName( "mainLayer" );
     
-    //visibleSize = Director::getInstance()->getVisibleSize();
     visibleSize = Director::getInstance()->getSafeAreaRect().size;
-    //origin = Director::getInstance()->getVisibleOrigin();
+    //visibleSize = Director::getInstance()->getVisibleSize();
     origin = Director::getInstance()->getSafeAreaRect().origin;
+    //origin = Director::getInstance()->getVisibleOrigin();
     
     auto dispatcher = Director::getInstance()->getEventDispatcher();
     auto listener = EventListenerTouchAllAtOnce::create();
@@ -517,12 +517,12 @@ void InstrumentScene::onTouchesEnded( const std::vector<Touch*> &touches, Event*
                         // CONFIRM SAVE
                         if ( projectHandling->buttonTouchHasBegun( kButtons_ProjectHandling_Index_ConfirmSave ) ) {
                             
-                            projectHandling->checkIfNameExists();
+                            projectHandling->checkIfNameExists( projectHandling->getTextField_save_string() );
                             
                             if ( ! projectHandling->nameExists() ) {
                                 projectHandling->saveNewProject();
-                                UserDefault::getInstance()->setStringForKey( "currentProjectName", projectHandling->getTextFieldString() );
-                                mainMenu->updateCurrentProjectNameLabel( projectHandling->getTextFieldString() );
+                                UserDefault::getInstance()->setStringForKey( "currentProjectName", projectHandling->getTextField_save_string() );
+                                mainMenu->updateCurrentProjectNameLabel( projectHandling->getTextField_save_string() );
                                 projectHandling->closeSaveOverlay();
                             }
                             
@@ -577,7 +577,7 @@ void InstrumentScene::onTouchesEnded( const std::vector<Touch*> &touches, Event*
                         
                         // CLOSE NAME EXIST PROMPT
                         if ( projectHandling->buttonTouchHasBegun( kButtons_ProjectHandling_Index_CloseExistPrompt ) ) {
-                            projectHandling->closeNameExistsPrompt();
+                            projectHandling->closeNameExistsPrompt_save();
                         }
                         
                     } else if ( projectHandling->getState() == kProjectHandling_State_BrowseOverlay_Rename ) {
@@ -589,7 +589,13 @@ void InstrumentScene::onTouchesEnded( const std::vector<Touch*> &touches, Event*
                         
                         // CONFIRM RENAME BUTTON
                         if ( projectHandling->buttonTouchHasBegun( kButtons_ProjectHandling_Index_ConfirmRename ) ) {
-                            projectHandling->renameProject( projectHandling->getSelectedProjectName() );
+                            
+                            projectHandling->checkIfNameExists( projectHandling->getTextField_rename_string() );
+                            
+                            if ( ! projectHandling->nameExists() ) {
+                                projectHandling->renameProject( projectHandling->getSelectedProjectName() );
+                            }
+                            
                         }
                         
                     }
