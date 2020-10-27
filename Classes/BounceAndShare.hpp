@@ -37,5 +37,6 @@ private:
     cocos2d::Label *label_useRights;
     cocos2d::Label *label_prompt;
     cocos2d::Sprite *promptBg;
+    cocos2d::Sprite *uploadAnim;
     
 };

@@ -75,7 +75,7 @@ BounceAndShare::BounceAndShare( cocos2d::Layer *layer ) {
     promptBg->setVisible( false );
     layer->addChild( promptBg, kLayer_BounceAndShare );
     
-    label_prompt = Label::createWithTTF( "Dette er en beskjed til bruker", "fonts/arial.ttf", kFontSize_SmallText );
+    label_prompt = Label::createWithTTF( "Dette er en beskjed til bruker", "fonts/arial.ttf", kFontSize_BigText );
     label_prompt->setPosition( Vec2( promptBg->getPosition().x, promptBg->getPosition().y + (promptBg->getBoundingBox().size.height * 0.25) ) );
     label_prompt->setColor( Color3B::BLACK );
     label_prompt->setVisible( false );
@@ -90,6 +90,11 @@ BounceAndShare::BounceAndShare( cocos2d::Layer *layer ) {
     label_buttons[kBounceAndShare_Buttons_Index_PromptConfirm]->setString( "Ok" );
     buttonBg[kBounceAndShare_Buttons_Index_PromptConfirm]->setLocalZOrder( kLayer_BounceAndShare_Prompt );
     label_buttons[kBounceAndShare_Buttons_Index_PromptConfirm]->setLocalZOrder( kLayer_BounceAndShare_Prompt );
+    
+    uploadAnim = Sprite::create( "uploadAnim.png" );
+    uploadAnim->setPosition( promptBg->getPosition() );
+    uploadAnim->setVisible( false );
+    layer->addChild( uploadAnim, kLayer_BounceAndShare_Prompt );
     
     
     hide();
@@ -122,7 +127,6 @@ void BounceAndShare::hide() {
     label_whereToFind->setVisible( false );
     label_wantToShare->setVisible( false );
     label_useRights->setVisible( false );
-    hidePrompt();
 }
 
 bool BounceAndShare::buttonTouchHasBegun( int whatButton ) {
@@ -171,8 +175,19 @@ void BounceAndShare::showPrompt( std::string message ) {
     promptBg->setVisible( true );
     label_prompt->setVisible( true );
     label_prompt->setString( message );
-    buttonBg[kBounceAndShare_Buttons_Index_PromptConfirm]->setVisible( true );
-    label_buttons[kBounceAndShare_Buttons_Index_PromptConfirm]->setVisible( true );
+    if ( message.compare( "Laster opp fil til BIT20..." ) == 0 ) {
+        buttonBg[kBounceAndShare_Buttons_Index_PromptConfirm]->setVisible( false );
+        label_buttons[kBounceAndShare_Buttons_Index_PromptConfirm]->setVisible( false );
+        uploadAnim->setVisible( true );
+        auto rotate = RotateBy::create( 5, 360 );
+        auto repeatRotate = RepeatForever::create( rotate );
+        uploadAnim->runAction( repeatRotate );
+    } else {
+        buttonBg[kBounceAndShare_Buttons_Index_PromptConfirm]->setVisible( true );
+        label_buttons[kBounceAndShare_Buttons_Index_PromptConfirm]->setVisible( true );
+        uploadAnim->setVisible( false );
+        uploadAnim->stopAllActions();
+    }
 }
 
 void BounceAndShare::hidePrompt() {
@@ -180,4 +195,6 @@ void BounceAndShare::hidePrompt() {
     label_prompt->setVisible( false );
     buttonBg[kBounceAndShare_Buttons_Index_PromptConfirm]->setVisible( false );
     label_buttons[kBounceAndShare_Buttons_Index_PromptConfirm]->setVisible( false );
+    uploadAnim->setVisible( false );
+    uploadAnim->stopAllActions();
 }

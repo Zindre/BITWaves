@@ -205,6 +205,7 @@ void SequencerScene::onTouchesBegan( const std::vector<Touch*>& touches, Event* 
                     // CLOSE CROSS
                     if ( bounceAndShare->closeCross->getBoundingBox().containsPoint( touch->getLocation() ) ) {
                         bounceAndShare->hide();
+                        bounceAndShare->hidePrompt();
                         whatState = kSequencerScene_State_Normal;
                     }
                     
@@ -419,6 +420,7 @@ void SequencerScene::onTouchesEnded( const std::vector<Touch*> &touches, Event* 
                             Uploader* ul = new Uploader(bounceAndShare);
                             ul->upload_bounce_file(bounceFileFullPath, currentProjectName);
                             whatState = kSequencerScene_State_BounceAndShare_Prompt;
+                            bounceAndShare->hide();
                         }
                         
                         
@@ -426,9 +428,11 @@ void SequencerScene::onTouchesEnded( const std::vector<Touch*> &touches, Event* 
                 } else if ( whatState == kSequencerScene_State_BounceAndShare_Prompt ) {
                     
                     // BOUNCE AND SHARE PROMPT
-                    if ( bounceAndShare->buttonTouchHasBegun( kBounceAndShare_Buttons_Index_PromptConfirm ) ) {
-                        bounceAndShare->hidePrompt();
-                        whatState = kSequencerScene_State_BounceAndShare;
+                    if ( bounceAndShare->buttonBg[kBounceAndShare_Buttons_Index_PromptConfirm]->isVisible() ) {
+                        if ( bounceAndShare->buttonTouchHasBegun( kBounceAndShare_Buttons_Index_PromptConfirm ) ) {
+                            bounceAndShare->hidePrompt();
+                            whatState = kSequencerScene_State_Normal;
+                        }
                     }
                     
                 }

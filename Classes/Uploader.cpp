@@ -105,10 +105,10 @@ void Uploader::onHttpRequestCompleted(cocos2d::network::HttpClient *sender, coco
     }
     long responseCode = response->getResponseCode();
     if (responseCode == 200 or responseCode == 302  ) {
-        sprintf(message, "Lydklippet er lastet opp");
+        sprintf(message, "Lydklippet er lastet opp!");
     }
     else {
-        sprintf(message,"Feil ved opplasting.");
+        sprintf(message,"Feil ved opplasting");
         log("Feil ved opplasting, kode %lu", response->getResponseCode());
     }
     notifyUser(message);
@@ -118,7 +118,7 @@ void Uploader::upload_bounce_file(std::string sourcePath, std::string destinatio
     /**
      * Uploads a file to a web service, currently Google Apps
      */
-    char message[256] = "Laster opp fil til BIT20.";
+    char message[256] = "Laster opp fil til BIT20...";
     notifyUser(message);
     char* datab64;
     unsigned int datab64size;
