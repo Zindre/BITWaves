@@ -101,15 +101,18 @@ bool CircleEmitter::touchHasEnded() {
 }
 
 float CircleEmitter::getPitch( Vec2 touchPos ) {
-    float pitch;
     
-    if ( touchPos.y < visibleSize.height * kMidLine_Height_Multiplier ) {
-        pitch = scaleValue( touchPos.y, 0, visibleSize.height * kMidLine_Height_Multiplier, kPitchMin, kPitchMax, true );
+    float pitch;
+    float midLinePosY = (visibleSize.height * kMidLine_Height_Multiplier) + origin.y;
+    
+    if ( touchPos.y < midLinePosY ) {
+        pitch = scaleValue( touchPos.y, 0, midLinePosY, kPitchMin, kPitchMax, true );
     } else {
         pitch = kPitchMax;
     }
     
     return pitch;
+    
 }
 
 void CircleEmitter::setPitch( Vec2 touchPos ) {

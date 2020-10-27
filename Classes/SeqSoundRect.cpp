@@ -136,16 +136,21 @@ void SeqSoundRect::setWidth() {
     log( "screen height: %f", Director::getInstance()->getVisibleSize().height );
     log( "safe area height: %f", Director::getInstance()->getSafeAreaRect().size.height );
     log( "sprite pos Y: %f", sprite->getPosition().y );
-    log( "midline pos Y: %f", visibleSize.height * kMidLine_Height_Multiplier );
-    log( "min Y pos: %f", visibleSize.height * kSequencer_MinYpos_height_multiplier );
-    float pitch = scaleValue( sprite->getPosition().y, visibleSize.height * kSequencer_MinYpos_height_multiplier, visibleSize.height * kMidLine_Height_Multiplier, kPitchMin, kPitchMax, true );
-    log( "pitch: %f", pitch );
-    float multiplier = 1/pitch;
-    log( "multiplier: %f", multiplier );
-    float stretchedWidth = normalWidth * multiplier;
-    log( "stretched width: %f", stretchedWidth );
-    sprite->setContentSize( Size( stretchedWidth, height ) );
-    log( "-------------------------" );
+    float minPosY = (visibleSize.height * kSequencer_MinYpos_height_multiplier) + origin.y;
+    float midLinePosY = (visibleSize.height * kMidLine_Height_Multiplier) + origin.y;
+    log( "midline pos Y: %f", midLinePosY );
+    log( "min Y pos: %f", minPosY );
+    
+    if ( sprite->getPosition().y > minPosY ) {
+        float pitch = scaleValue( sprite->getPosition().y, minPosY, midLinePosY, kPitchMin, kPitchMax, true );
+        log( "pitch: %f", pitch );
+        float multiplier = 1/pitch;
+        log( "multiplier: %f", multiplier );
+        float stretchedWidth = normalWidth * multiplier;
+        log( "stretched width: %f", stretchedWidth );
+        sprite->setContentSize( Size( stretchedWidth, height ) );
+        log( "-------------------------" );
+    }
 }
 
 void SeqSoundRect::updateBorder() {

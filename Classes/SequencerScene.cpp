@@ -97,7 +97,9 @@ void SequencerScene::update( float dt ) {
                     
                     if ( CheckBoxCollision( seqSoundRect[i].collisionSprite, playHead ) ) {
                         FMODAudioEngine::playSound( seqSoundRect[i].getWhatSoundObject() );
-                        float pitch  = scaleValue( seqSoundRect[i].sprite->getPosition().y, visibleSize.height * kSequencer_MinYpos_height_multiplier, visibleSize.height * kMidLine_Height_Multiplier, kPitchMin, kPitchMax, true );
+                        float minPosY = (visibleSize.height * kSequencer_MinYpos_height_multiplier) + origin.y;
+                        float midLinePosY = (visibleSize.height * kMidLine_Height_Multiplier) + origin.y;
+                        float pitch  = scaleValue( seqSoundRect[i].sprite->getPosition().y, minPosY, midLinePosY, kPitchMin, kPitchMax, true );
                         log( "fmod pitch: %f", pitch );
                         //log( "pitch UPDATE: %f", pitch );
                         FMODAudioEngine::setPitch( pitch, FMODAudioEngine::getChannelID() );
