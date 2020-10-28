@@ -137,6 +137,18 @@ static AppDelegate s_sharedApplication;
     
     
     
+    // INIT IOS SETTINGS BUNDLE
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSDictionary *default_projectHandling = [NSDictionary dictionaryWithObject:@"YES"
+                                              forKey:@"preference_projectHandling"];
+    NSDictionary *default_bounceAndShare = [NSDictionary dictionaryWithObject:@"YES"
+                                              forKey:@"preference_bounceAndShare"];
+    [defaults registerDefaults:default_projectHandling];
+    [defaults registerDefaults:default_bounceAndShare];
+    [defaults synchronize];
+    
+    
+    
     //run the cocos2d-x game scene
     app->run();
 

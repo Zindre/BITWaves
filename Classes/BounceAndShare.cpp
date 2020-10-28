@@ -80,7 +80,7 @@ BounceAndShare::BounceAndShare( cocos2d::Layer *layer ) {
     label_prompt->setColor( Color3B::BLACK );
     label_prompt->setVisible( false );
     label_prompt->setMaxLineWidth( promptBg->getBoundingBox().size.width * 0.8 );
-    float lineHeight = kFontSize_SmallText * 6;
+    float lineHeight = kFontSize_BigText * 6;
     label_prompt->setLineHeight( lineHeight );
     label_prompt->setAlignment( TextHAlignment::CENTER );
     layer->addChild( label_prompt, kLayer_BounceAndShare );
@@ -96,8 +96,14 @@ BounceAndShare::BounceAndShare( cocos2d::Layer *layer ) {
     uploadAnim->setVisible( false );
     layer->addChild( uploadAnim, kLayer_BounceAndShare_Prompt );
     
+    label_webLink = Label::createWithTTF( "Hør din egen og andre sine komposisjoner her!", "fonts/arial.ttf", kFontSize_SmallText );
+    label_webLink->setPosition( Vec2( label_prompt->getPosition().x, label_prompt->getPosition().y - (label_prompt->getBoundingBox().size.height * 1.5) ) );
+    label_webLink->setColor( Color3B::BLACK );
+    label_webLink->enableUnderline();
+    layer->addChild( label_webLink, kLayer_BounceAndShare_Prompt );
     
-    hide();
+    
+    hideAll();
     
 }
 
@@ -116,7 +122,7 @@ void BounceAndShare::show() {
     label_useRights->setVisible( true );
 }
 
-void BounceAndShare::hide() {
+void BounceAndShare::hideAll() {
     background->setVisible( false );
     closeCross->setVisible( false );
     for ( int i = 0; i < kBounceAndShare_Buttons_NumOf; i++ ) {
@@ -127,6 +133,7 @@ void BounceAndShare::hide() {
     label_whereToFind->setVisible( false );
     label_wantToShare->setVisible( false );
     label_useRights->setVisible( false );
+    label_webLink->setVisible( false );
 }
 
 bool BounceAndShare::buttonTouchHasBegun( int whatButton ) {
@@ -182,11 +189,17 @@ void BounceAndShare::showPrompt( std::string message ) {
         auto rotate = RotateBy::create( 5, 360 );
         auto repeatRotate = RepeatForever::create( rotate );
         uploadAnim->runAction( repeatRotate );
+    } else if ( message.compare( "Vennligst lagre prosjektet før du laster opp" ) == 0 ) {
+        buttonBg[kBounceAndShare_Buttons_Index_PromptConfirm]->setVisible( true );
+        label_buttons[kBounceAndShare_Buttons_Index_PromptConfirm]->setVisible( true );
+        uploadAnim->setVisible( false );
+        uploadAnim->stopAllActions();
     } else {
         buttonBg[kBounceAndShare_Buttons_Index_PromptConfirm]->setVisible( true );
         label_buttons[kBounceAndShare_Buttons_Index_PromptConfirm]->setVisible( true );
         uploadAnim->setVisible( false );
         uploadAnim->stopAllActions();
+        label_webLink->setVisible( true );
     }
 }
 
@@ -197,4 +210,20 @@ void BounceAndShare::hidePrompt() {
     label_buttons[kBounceAndShare_Buttons_Index_PromptConfirm]->setVisible( false );
     uploadAnim->setVisible( false );
     uploadAnim->stopAllActions();
+    label_webLink->setVisible( false );
+}
+
+void BounceAndShare::hideBounceWindow() {
+    background->setVisible( false );
+    closeCross->setVisible( false );
+    buttonBg[kBounceAndShare_Buttons_Index_Share]->setVisible( false );
+    label_buttons[kBounceAndShare_Buttons_Index_Share]->setVisible( false );
+    label_bounceSuccess->setVisible( false );
+    label_whereToFind->setVisible( false );
+    label_wantToShare->setVisible( false );
+    label_useRights->setVisible( false );
+}
+
+void BounceAndShare::openWebLink() {
+    Application::getInstance()->openURL( "https://drive.google.com/drive/folders/1M_omBEdSD3CaBACU7hOE1463YxnqMZBv?usp=sharing" );
 }

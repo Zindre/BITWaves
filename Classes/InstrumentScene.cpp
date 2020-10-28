@@ -509,6 +509,7 @@ void InstrumentScene::onTouchesEnded( const std::vector<Touch*> &touches, Event*
                         if ( projectHandling->buttonTouchHasBegun( kButtons_ProjectHandling_Index_New ) ) {
                             projectHandling->createNewProject();
                             UserDefault::getInstance()->setStringForKey( "currentProjectName", "Uten tittel" );
+                            UserDefault::getInstance()->flush();
                             mainMenu->updateCurrentProjectNameLabel( "Uten tittel" );
                             auto scene = InstrumentScene::createScene();
                             Director::getInstance()->replaceScene( scene );
@@ -526,6 +527,7 @@ void InstrumentScene::onTouchesEnded( const std::vector<Touch*> &touches, Event*
                             if ( ! projectHandling->nameExists() ) {
                                 projectHandling->saveNewProject();
                                 UserDefault::getInstance()->setStringForKey( "currentProjectName", projectHandling->getTextField_save_string() );
+                                UserDefault::getInstance()->flush();
                                 mainMenu->updateCurrentProjectNameLabel( projectHandling->getTextField_save_string() );
                                 projectHandling->closeSaveOverlay();
                             }
@@ -544,6 +546,7 @@ void InstrumentScene::onTouchesEnded( const std::vector<Touch*> &touches, Event*
                         if ( projectHandling->buttonTouchHasBegun( kButtons_ProjectHandling_Index_Open ) ) {
                             projectHandling->loadSavedProject();
                             UserDefault::getInstance()->setStringForKey( "currentProjectName", projectHandling->getSelectedProjectName() );
+                            UserDefault::getInstance()->flush();
                             mainMenu->updateCurrentProjectNameLabel( projectHandling->getSelectedProjectName()  );
                             auto scene = InstrumentScene::createScene();
                             Director::getInstance()->replaceScene( scene );
@@ -729,6 +732,7 @@ void InstrumentScene::onTouchesEnded( const std::vector<Touch*> &touches, Event*
                 mainMenu->helpOverlay->hide();
                 if ( ! UserDefault::getInstance()->getBoolForKey( "helpOverlayHasShownOnFirstBoot" ) ) {
                     UserDefault::getInstance()->setBoolForKey( "helpOverlayHasShownOnFirstBoot", true );
+                    UserDefault::getInstance()->flush();
                 }
                 
             }

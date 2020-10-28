@@ -29,7 +29,7 @@
 	<key>LSSupportsOpeningDocumentsInPlace</key>
 	<true/>
 	<key>NSHumanReadableCopyright</key>
-	<string>Copyright © 2019. All rights reserved.</string>
+	<string>Copyright © 2020. All rights reserved.</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Uses mic to record sound</string>
 	<key>UIAppFonts</key>

@@ -259,6 +259,7 @@ ProjectHandling::ProjectHandling( Layer *layer ) {
     log( "temp proj name: %s", tempProjName.c_str() );
     if ( tempProjName == "" ) {
         UserDefault::getInstance()->setStringForKey( "currentProjectName", "Uten tittel" );
+        UserDefault::getInstance()->flush();
     } else {
         currentProjectName = UserDefault::getInstance()->getStringForKey( "currentProjectName" );
     }
@@ -491,6 +492,8 @@ void ProjectHandling::saveNewProject() {
             UserDefault::getInstance()->setDataForKey( projectName_whatSound.c_str(), data_whatSound );
             // ----------------------------------------------------------------------------------
             
+            UserDefault::getInstance()->flush();
+            
         }
         
         FileUtils *fileUtils = FileUtils::getInstance();
@@ -568,6 +571,8 @@ void ProjectHandling::saveCurrentToOpenProject() {
         UserDefault::getInstance()->deleteValueForKey( projectName_whatSound.c_str() );
         UserDefault::getInstance()->setDataForKey( projectName_whatSound.c_str(), data_whatSound );
         // ----------------------------------------------------------------------------------
+        
+        UserDefault::getInstance()->flush();
         
     }
     
@@ -683,6 +688,8 @@ void ProjectHandling::loadSavedProject() {
         }
         data_current_whatSound.copy((unsigned char*) whatSound.data(), whatSound.size() * sizeof(int));
         UserDefault::getInstance()->setDataForKey( "current_whatSound", data_current_whatSound );
+        
+        UserDefault::getInstance()->flush();
     }
     
 }
@@ -1244,11 +1251,16 @@ void ProjectHandling::renameProject( std::string selectedProjectName ) {
     UserDefault::getInstance()->setDataForKey( newProjectName_key_X.c_str(), prevDataX );
     UserDefault::getInstance()->setDataForKey( newProjectName_key_Y.c_str(), prevDataY );
     UserDefault::getInstance()->setDataForKey( newProjectName_key_whatSound.c_str(), prevDataWhatSound );
+    UserDefault::getInstance()->flush();
     
     UserDefault::getInstance()->deleteValueForKey( selectedProjectName_key_X.c_str() );
     UserDefault::getInstance()->deleteValueForKey( selectedProjectName_key_Y.c_str() );
     UserDefault::getInstance()->deleteValueForKey( selectedProjectName_key_whatSound.c_str() );
+        
     
+    
+    
+
     // Close prompt
     _whatState = kProjectHandling_State_BrowseOverlay;
     textField_rename->setVisible( false );

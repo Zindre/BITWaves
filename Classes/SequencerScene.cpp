@@ -146,9 +146,6 @@ void SequencerScene::onTouchesBegan( const std::vector<Touch*>& touches, Event* 
     for ( auto &touch : touches ) {
         if ( touch != nullptr ) {
             if ( touch->getID() == 0 ) {
-                
-                //log( "began - touch->getLocation().y: %f", touch->getLocation().y );
-                //log( "began - touch->getLocation().x: %f", touch->getLocation().x );
             
                 if ( whatState == kSequencerScene_State_Normal ) {
                     
@@ -204,8 +201,7 @@ void SequencerScene::onTouchesBegan( const std::vector<Touch*>& touches, Event* 
                     
                     // CLOSE CROSS
                     if ( bounceAndShare->closeCross->getBoundingBox().containsPoint( touch->getLocation() ) ) {
-                        bounceAndShare->hide();
-                        bounceAndShare->hidePrompt();
+                        bounceAndShare->hideAll();
                         whatState = kSequencerScene_State_Normal;
                     }
                     
@@ -219,6 +215,13 @@ void SequencerScene::onTouchesBegan( const std::vector<Touch*>& touches, Event* 
                     // BOUNCE AND SHARE PROMPT
                     if ( bounceAndShare->buttonBg[kBounceAndShare_Buttons_Index_PromptConfirm]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
                         bounceAndShare->setButtonTouchHasBegun( true, kBounceAndShare_Buttons_Index_PromptConfirm );
+                    }
+                    
+                    // WEB LINK
+                    if ( bounceAndShare->label_webLink->isVisible() ) {
+                        if ( bounceAndShare->label_webLink->getBoundingBox().containsPoint( touch->getLocation() ) ) {
+                            bounceAndShare->openWebLink();
+                        }
                     }
                     
                 }
@@ -288,9 +291,6 @@ void SequencerScene::onTouchesMoved( const std::vector<Touch*> &touches, Event* 
         if ( touch != nullptr ) {
             if ( touch->getID() == 0 ) {
                 
-                log( "moved - touch->getLocation().y: %f", touch->getLocation().y );
-                log( "moved - touch->getLocation().x: %f", touch->getLocation().x );
-                
                 mainMenu->abortWithTouchMove( touch->getLocation() );
                 
                 if ( whatState == kSequencerScene_State_Normal ) {
@@ -349,9 +349,6 @@ void SequencerScene::onTouchesEnded( const std::vector<Touch*> &touches, Event* 
     for ( auto touch : touches ) {
         if ( touch != nullptr ) {
             if ( touch->getID() == 0 ) {
-                
-                log( "ended - touch->getLocation().y: %f", touch->getLocation().y );
-                log( "ended - touch->getLocation().x: %f", touch->getLocation().x );
             
                 if ( whatState == kSequencerScene_State_Normal ) {
                     
@@ -415,12 +412,19 @@ void SequencerScene::onTouchesEnded( const std::vector<Touch*> &touches, Event* 
                         
                         // SHARE BUTTON
                         if ( bounceAndShare->buttonTouchHasBegun( kBounceAndShare_Buttons_Index_Share ) ) {
+                            
                             std::string currentProjectName = UserDefault::getInstance()->getStringForKey( "currentProjectName" );
-                            std::string bounceFileFullPath = FMODAudioEngine::bounceFileFullPath(currentProjectName);
-                            Uploader* ul = new Uploader(bounceAndShare);
-                            ul->upload_bounce_file(bounceFileFullPath, currentProjectName);
-                            whatState = kSequencerScene_State_BounceAndShare_Prompt;
-                            bounceAndShare->hide();
+                            if ( currentProjectName.compare( "Uten tittel" ) == 0 ) {
+                                bounceAndShare->showPrompt( "Vennligst lagre prosjektet før du laster opp" );
+                                whatState = kSequencerScene_State_BounceAndShare_Prompt;
+                                bounceAndShare->hideBounceWindow();
+                            } else {
+                                std::string bounceFileFullPath = FMODAudioEngine::bounceFileFullPath(currentProjectName);
+                                Uploader* ul = new Uploader(bounceAndShare);
+                                ul->upload_bounce_file(bounceFileFullPath, currentProjectName);
+                                whatState = kSequencerScene_State_BounceAndShare_Prompt;
+                                bounceAndShare->hideBounceWindow();
+                            }
                         }
                         
                         
@@ -734,6 +738,8 @@ void SequencerScene::saveData() {
     }
     // ----------------------------------------------------------------------------------
     
+    UserDefault::getInstance()->flush();
+    
     
 }
 
@@ -750,6 +756,7 @@ void SequencerScene::loadData() {
         UserDefault::getInstance()->setDataForKey( "current_posX", prevX );
         UserDefault::getInstance()->setDataForKey( "current_posY", prevY );
         UserDefault::getInstance()->setDataForKey( "current_whatSound", prevWhatSound );
+        UserDefault::getInstance()->flush();
         
         UserDefault::getInstance()->deleteValueForKey( "savePos_X" );
         UserDefault::getInstance()->deleteValueForKey( "savePos_Y" );

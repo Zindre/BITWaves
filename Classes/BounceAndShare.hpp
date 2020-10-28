@@ -12,18 +12,21 @@ public:
     BounceAndShare( cocos2d::Layer *layer );
     
     void show();
-    void hide();
+    void hideAll();
+    void hideBounceWindow();
     bool buttonTouchHasBegun( int whatButton );
     void setButtonTouchHasBegun( bool touchHasBegun, int whatButton );
     void abortWithTouchMove( cocos2d::Vec2 touchPos );
     void setTouchStartPos( cocos2d::Vec2 touchPos );
     void showPrompt( std::string message );
     void hidePrompt();
+    void openWebLink();
     
     cocos2d::Sprite *closeCross;
     cocos2d::Sprite *buttonBg[kBounceAndShare_Buttons_NumOf];
     cocos2d::Label *label_buttons[kBounceAndShare_Buttons_NumOf];
     cocos2d::Sprite *background;
+    cocos2d::Label *label_webLink;
     
 private:
     
@@ -38,5 +41,6 @@ private:
     cocos2d::Label *label_prompt;
     cocos2d::Sprite *promptBg;
     cocos2d::Sprite *uploadAnim;
+    
     
 };
