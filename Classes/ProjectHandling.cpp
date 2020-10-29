@@ -951,7 +951,11 @@ void ProjectHandling::updateProjectList() {
     log( "leftover: %i", leftover );
     log( "groups: %i", groups );
     
-    _totalNrOfPages = groups;
+    if ( groups == 0 ) {
+        _totalNrOfPages = 1;
+    } else {
+        _totalNrOfPages = groups;
+    }
     log( "total nr of pages: %i", _totalNrOfPages );
     label_projectNamesPageNr->setString( to_string( _currentPageNr ) + " / " + to_string( _totalNrOfPages ) );
 
