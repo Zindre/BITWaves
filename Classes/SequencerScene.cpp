@@ -691,8 +691,6 @@ void SequencerScene::saveData() {
         
         data_pos_X.copy((unsigned char*) pos_X.data(), pos_X.size() * sizeof(float));
         UserDefault::getInstance()->setDataForKey( "current_posX", data_pos_X );
-        
-        //UserDefault::getInstance()->setDataForKey( "savePos_X", data_pos_X );
     }
     // ----------------------------------------------------------------------------------
     
@@ -712,8 +710,6 @@ void SequencerScene::saveData() {
         
         data_pos_Y.copy((unsigned char*) pos_Y.data(), pos_Y.size() * sizeof(float));
         UserDefault::getInstance()->setDataForKey( "current_posY", data_pos_Y );
-        
-        //UserDefault::getInstance()->setDataForKey( "savePos_Y", data_pos_Y );
     }
     // ----------------------------------------------------------------------------------
     
@@ -733,8 +729,6 @@ void SequencerScene::saveData() {
         
         data_whatSound.copy((unsigned char*) whatSound.data(), whatSound.size() * sizeof(int));
         UserDefault::getInstance()->setDataForKey( "current_whatSound", data_whatSound );
-        
-        //UserDefault::getInstance()->setDataForKey( "saveWhatSound", data_whatSound );
     }
     // ----------------------------------------------------------------------------------
     

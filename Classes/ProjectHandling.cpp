@@ -583,7 +583,7 @@ void ProjectHandling::loadSavedProject() {
     saveCurrentToOpenProject();
     
     
-    if ( currentPos.size() != 0 ) {
+    //if ( currentPos.size() != 0 ) {
         
         // ----------------------------------------------------------------------------------
         std::string projectName_X = selectedProjectName + "_" + "pos_X";
@@ -658,7 +658,7 @@ void ProjectHandling::loadSavedProject() {
             log( "PH current what sound: %i", currentWhatSound[i] );
         }
         
-    }
+    //}
     
     
     
@@ -703,6 +703,8 @@ std::string ProjectHandling::getTextField_rename_string() {
 }
 
 void ProjectHandling::createNewProject() {
+    
+    saveCurrentToOpenProject();
     
     FileUtils *fileUtils = FileUtils::getInstance();
     std::string writablePath = fileUtils->getWritablePath();
@@ -896,22 +898,26 @@ void ProjectHandling::updateProjectList() {
         if ( savedProjectNames[i].compare( noTitleString ) == 0 ) {
             savedProjectNames.erase( savedProjectNames.begin() + i );
         }
-        
+    }
+    for ( int i = 0; i < savedProjectNames.size(); i++ ) {
         std::string dotString = ".";
         if ( savedProjectNames[i].compare( dotString ) == 0 ) {
             savedProjectNames.erase( savedProjectNames.begin() + i );
         }
-        
+    }
+    for ( int i = 0; i < savedProjectNames.size(); i++ ) {
         std::string dotdotString = "..";
         if ( savedProjectNames[i].compare( dotdotString ) == 0 ) {
             savedProjectNames.erase( savedProjectNames.begin() + i );
         }
-        
+    }
+    for ( int i = 0; i < savedProjectNames.size(); i++ ) {
         std::string trashString = ".Trash";
         if ( savedProjectNames[i].compare( trashString ) == 0 ) {
             savedProjectNames.erase( savedProjectNames.begin() + i );
         }
     }
+    
     
     log( "savedProjectNames.size() after: %lu", savedProjectNames.size() );
     for ( int i = 0; i < savedProjectNames.size(); i++ ) {
