@@ -15,15 +15,12 @@ BounceAndShare::BounceAndShare( cocos2d::Layer *layer ) {
     background->setColor( Color3B::GRAY );
     layer->addChild( background, kLayer_BounceAndShare );
     
-    Size bgSize = background->getBoundingBox().size;
-    
     closeCross = Sprite::create( "closeCross.png" );
-    closeCross->setPosition( Vec2( background->getPosition().x - (bgSize.width/2) + closeCross->getBoundingBox().size.width, background->getPosition().y + (bgSize.height/2) - closeCross->getBoundingBox().size.height ) );
     layer->addChild( closeCross, kLayer_BounceAndShare );
     
+    Size bgSize = background->getBoundingBox().size;
     
     label_bounceSuccess = Label::createWithTTF( "Lagring av lydfilen var vellykket!", "fonts/arial.ttf", kFontSize_BigText );
-    label_bounceSuccess->setPosition( Vec2( background->getPosition().x, background->getPosition().y + (background->getBoundingBox().size.height * 0.35) ) );
     label_bounceSuccess->setColor( Color3B::BLACK );
     layer->addChild( label_bounceSuccess, kLayer_BounceAndShare );
     
@@ -31,19 +28,16 @@ BounceAndShare::BounceAndShare( cocos2d::Layer *layer ) {
     float lineHeightSmallText = kFontSize_SmallText * 6;
     
     label_whereToFind = Label::createWithTTF( "Lydfilen «bounce.wav» finner du i appen «Filer» under BITWaves\nog katalogen til dette prosjektet.", "fonts/arial.ttf", kFontSize_SmallText );
-    label_whereToFind->setPosition( Vec2( background->getPosition().x, label_bounceSuccess->getPosition().y - label_bounceSuccess->getBoundingBox().size.height - padding ) );
     label_whereToFind->setColor( Color3B::BLACK );
     label_whereToFind->setAlignment( TextHAlignment::CENTER );
     label_whereToFind->setLineHeight( lineHeightSmallText );
     layer->addChild( label_whereToFind, kLayer_BounceAndShare );
     
     label_wantToShare = Label::createWithTTF( "Vil du dele lydfilen med BIT20?", "fonts/arial.ttf", kFontSize_BigText );
-    label_wantToShare->setPosition( Vec2( background->getPosition().x, label_whereToFind->getPosition().y - label_whereToFind->getBoundingBox().size.height - padding ) );
     label_wantToShare->setColor( Color3B::BLACK );
     layer->addChild( label_wantToShare, kLayer_BounceAndShare );
     
-    label_useRights= Label::createWithTTF( "Ved å dele lydfilen med BIT20\ngir du samtidig all bruksrett til BIT20.", "fonts/arial.ttf", kFontSize_SmallText );
-    label_useRights->setPosition( Vec2( background->getPosition().x, label_wantToShare->getPosition().y - label_wantToShare->getBoundingBox().size.height - padding ) );
+    label_useRights = Label::createWithTTF( "Ved å dele lydfilen med BIT20\ngir du samtidig all bruksrett til BIT20.", "fonts/arial.ttf", kFontSize_SmallText );
     label_useRights->setColor( Color3B::BLACK );
     label_useRights->setAlignment( TextHAlignment::CENTER );
     label_useRights->setLineHeight( lineHeightSmallText );
@@ -62,9 +56,19 @@ BounceAndShare::BounceAndShare( cocos2d::Layer *layer ) {
     }
     
     Size buttonBgSize = buttonBg[0]->getBoundingBox().size;
+    label_buttons[kBounceAndShare_Buttons_Index_Share]->setString( "Dele med BIT20" );
+    
+    float bgHeight = label_bounceSuccess->getBoundingBox().size.height + padding + label_whereToFind->getBoundingBox().size.height + padding + label_wantToShare->getBoundingBox().size.height + padding + label_useRights->getBoundingBox().size.height + buttonBgSize.height + (padding * 4);
+    background->setTextureRect( Rect( 0, 0, visibleSize.width * 0.6, bgHeight ) );
+    
+    // SET POSITIONS
+    closeCross->setPosition( Vec2( background->getPosition().x - (bgSize.width/2) + closeCross->getBoundingBox().size.width, background->getPosition().y + (bgHeight/2) - closeCross->getBoundingBox().size.height ) );
+    label_bounceSuccess->setPosition( Vec2( background->getPosition().x, closeCross->getPosition().y - closeCross->getBoundingBox().size.height ) );
+    label_whereToFind->setPosition( Vec2( background->getPosition().x, label_bounceSuccess->getPosition().y - label_bounceSuccess->getBoundingBox().size.height - padding ) );
+    label_wantToShare->setPosition( Vec2( background->getPosition().x, label_whereToFind->getPosition().y - label_whereToFind->getBoundingBox().size.height - padding ) );
+    label_useRights->setPosition( Vec2( background->getPosition().x, label_wantToShare->getPosition().y - label_wantToShare->getBoundingBox().size.height - padding ) );
     buttonBg[kBounceAndShare_Buttons_Index_Share]->setPosition( Vec2( background->getPosition().x, label_useRights->getPosition().y - label_useRights->getBoundingBox().size.height - padding ) );
     label_buttons[kBounceAndShare_Buttons_Index_Share]->setPosition( buttonBg[kBounceAndShare_Buttons_Index_Share]->getPosition() );
-    label_buttons[kBounceAndShare_Buttons_Index_Share]->setString( "Dele med BIT20" );
     
     
     
