@@ -602,6 +602,7 @@ void SequencerScene::stopBounce() {
     FMODAudioEngine::stopSound();
     stopPlayHead();
     playHeadHandle->setVisible( true );
+    playHead->setPosition( Vec2( mainMenu->getPlayHeadStartPosX(), visibleSize.height * 0.5 + origin.y ) );
     setPlayHeadHandlePos();
     FMODAudioEngine::STOP_outputToWaveWriter();
     for ( int i = 0; i < kNumOfSoundObjects; i++ ) {
@@ -638,15 +639,19 @@ void SequencerScene::resetWhenStop() {
 }
 
 void SequencerScene::resetWhenReachEnd() {
+    
     FMODAudioEngine::stopSound();
+    
     for ( int i = 0; i < seqSoundRect.size(); i++ ) {
         seqSoundRect[i].setIsPlaying( false );
         seqSoundRect[i].sprite->setOpacity( kSeqSoundRect_Opacity_Low );
         seqSoundRect[i].border->setOpacity( kSeqSoundRect_Opacity_Low );
     }
+    
+    playHead->setPosition( Vec2( mainMenu->getPlayHeadStartPosX(), visibleSize.height * 0.5 + origin.y ) );
+    setPlayHeadHandlePos();
+    
     if ( mainMenu->getIsLoopOn() ) {
-        playHead->setPosition( Vec2( mainMenu->getPlayHeadStartPosX(), visibleSize.height * 0.5 + origin.y ) );
-        playHeadHandle->setPositionX( playHead->getPosition().x );
         movePlayHead();
     } else {
         mainMenu->buttons_image[kButtons_ArrayNum_Stop]->setTexture( "backButton.png" );
