@@ -808,12 +808,15 @@ void InstrumentScene::captureWaveform() {
     Size designSize = Director::getInstance()->getWinSize();
     Size winPixelSize = Director::getInstance()->getWinSizeInPixels();
     float startX = mainMenu->getPlayHeadStartPosX();
+    float captureRectHeight = mainMenu->buttons_gray[kButtons_ArrayNum_Rec]->getBoundingBox().size.height;
     
-    RenderTexture *rend = RenderTexture::create( waveFormPosX - startX, ((visibleSize.height * kRecordWaveForm_height_multiplier_MAX) * 2) + origin.y, backend::PixelFormat::RGBA8888 );
+    //RenderTexture *rend = RenderTexture::create( waveFormPosX - startX, ((visibleSize.height * kRecordWaveForm_height_multiplier_MAX) * 2) + origin.y, backend::PixelFormat::RGBA8888 );
+    RenderTexture *rend = RenderTexture::create( waveFormPosX - startX, captureRectHeight, backend::PixelFormat::RGBA8888 );
     rend->retain();
     rend->setKeepMatrix( true );
 
-    rend->setVirtualViewport( Vec2( startX, mainMenu->buttons_gray[kButtons_ArrayNum_Rec]->getPosition().y - (visibleSize.height * kRecordWaveForm_height_multiplier_MAX) ), Rect( 0, 0, designSize.width, designSize.height ), Rect( 0, 0, winPixelSize.width, winPixelSize.height ) );
+    //rend->setVirtualViewport( Vec2( startX, mainMenu->buttons_gray[kButtons_ArrayNum_Rec]->getPosition().y - (visibleSize.height * kRecordWaveForm_height_multiplier_MAX) ), Rect( 0, 0, designSize.width, designSize.height ), Rect( 0, 0, winPixelSize.width, winPixelSize.height ) );
+    rend->setVirtualViewport( Vec2( startX, mainMenu->buttons_gray[kButtons_ArrayNum_Rec]->getPosition().y - (captureRectHeight/2) ), Rect( 0, 0, designSize.width, designSize.height ), Rect( 0, 0, winPixelSize.width, winPixelSize.height ) );
     
     rend->beginWithClear( 0.0f, 0.0f, 0.0f, 0.0f );
     auto renderer = Director::getInstance()->getRenderer();

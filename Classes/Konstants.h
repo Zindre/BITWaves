@@ -37,13 +37,13 @@
 
 #define kButtons_ArrayNum_Rec 0
 #define kButtons_ArrayNum_Stop 1
-#define kButtons_ArrayNum_Seq 5
+#define kButtons_ArrayNum_Seq 6
 #define kButtons_ArrayNum_Play 0
 #define kButtons_ArrayNum_Loop 2
 #define kButtons_ArrayNum_Bounce 3
 #define kButtons_ArrayNum_Bomb 4
-#define kButtons_ArrayNum_Mic 5
-#define kButtons_ArrayNum_Help 6
+#define kButtons_ArrayNum_Mic 6
+#define kButtons_ArrayNum_Help 5
 #define kButtons_ArrayNum_Lock 2
 #define kButtons_ArrayNum_Projects 4
 

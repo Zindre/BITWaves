@@ -68,6 +68,10 @@ list(APPEND GAME_SOURCE
         Classes/FMODAudioEngine.cpp
         Classes/CircleEmitter.cpp
         Classes/HelpOverlay.cpp
+        Classes/BounceAndShare.cpp
+        Classes/ProjectHandling.cpp
+        Classes/ProjectNamesLabel.cpp
+        Classes/Uploader.cpp
 
      )
 list(APPEND GAME_HEADER
@@ -83,6 +87,10 @@ list(APPEND GAME_HEADER
         Classes/CircleEmitter.hpp
         Classes/HelpOverlay.h
         Classes/Konstants.h
+        Classes/BounceAndShare.hpp
+        Classes/ProjectHandling.hpp
+        Classes/ProjectNamesLabel.hpp
+        Classes/Uploader.hpp
      )
 endif()
 

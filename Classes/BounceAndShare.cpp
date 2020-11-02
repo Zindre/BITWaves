@@ -33,7 +33,7 @@ BounceAndShare::BounceAndShare( cocos2d::Layer *layer ) {
     label_whereToFind->setLineHeight( lineHeightSmallText );
     layer->addChild( label_whereToFind, kLayer_BounceAndShare );
     
-    label_wantToShare = Label::createWithTTF( "Vil du dele lydfilen med BIT20?", "fonts/arial.ttf", kFontSize_BigText );
+    label_wantToShare = Label::createWithTTF( "Vil du dele lydfilen med BIT20 Ensemble?", "fonts/arial.ttf", kFontSize_BigText );
     label_wantToShare->setColor( Color3B::BLACK );
     layer->addChild( label_wantToShare, kLayer_BounceAndShare );
     

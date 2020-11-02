@@ -46,7 +46,7 @@ HelpOverlay::HelpOverlay( cocos2d::Layer *layer, unsigned int whatScene ) {
 
     helpText_instrument_string = std::string( "- Start med å låse opp for opptak ved å trykke på hengelåsen.\n\n- Trykk på opptaksknappen for å gjøre opptak.\n\n- Spill av lydene ved å trykke på det sorte området på skjermen. Du kan bruke flere fingre samtidig, og dra fingrene over skjermen.\n\n- På toppen av skjermen over linjen, spilles lyden av i originalt tempo og tonehøyde. Nedover på skjermen blir lyden langsommere og mørkere.\n\n- Lag et nytt opptak ved å velge en annen farge til høyre på skjermen.\n\n- Trykk på komposisjonsknappen for å bytte til komposisjonsmodus." );
 
-    helpText_sequencer_string = std::string( "- Hvis du har laget innspillinger i opptak- og instumentmodus, kan du dra lyder inn på skjermen fra de fargede boksene til høyre.\n\n- Avspillingen av lydene vil endre tempo og tone i forhold til hvor på skjermen de er plassert. Lydene spilles av i originalt tempo og tonehøyde øverst på skjermen. Lydene blir mørkere og langsommere jo lengre ned på skjermen de er.\n\n- For å starte en ny komposisjon, trykk og hold på bombeknappen. Alt vil slettes og det kan ikke angres.\n\n- Trykk på mikrofonknappen for å gå tilbake til opptak- og instrumentmodus." );
+    helpText_sequencer_string = std::string( "- Hvis du har laget innspillinger i opptak- og instrumentmodus, kan du dra lyder inn på skjermen fra de fargede boksene til høyre.\n\n- Avspillingen av lydene vil endre tempo og tone i forhold til hvor på skjermen de er plassert. Lydene spilles av i originalt tempo og tonehøyde øverst på skjermen. Lydene blir mørkere og langsommere jo lengre ned på skjermen de er.\n\n- For å starte en ny komposisjon, trykk og hold på bombeknappen. Alt vil slettes og det kan ikke angres.\n\n- Trykk på mikrofonknappen for å gå tilbake til opptak- og instrumentmodus." );
 
     helpText = Label::createWithTTF( helpText_instrument_string, "fonts/arial.ttf", fontSize_Text );
     helpText->setAnchorPoint( Vec2( 0.0f, 1.0f ) );
@@ -132,13 +132,13 @@ HelpOverlay::HelpOverlay( cocos2d::Layer *layer, unsigned int whatScene ) {
         helpLabel[2]->setTexture( "help_loop.png" );
         helpLabel[3]->setTexture( "help_share.png" );
         helpLabel[4]->setTexture( "help_delete.png" );
-        helpLabel[5]->setTexture( "help_instrument.png" );
-        helpLabel[6]->setTexture( "help_help.png" );
+        helpLabel[5]->setTexture( "help_help.png" );
+        helpLabel[6]->setTexture( "help_instrument.png" );
     } else {
         helpLabel[0]->setTexture( "help_rec.png" );
         helpLabel[2]->setTexture( "help_lock.png" );
-        helpLabel[5]->setTexture( "help_comp.png" );
-        helpLabel[6]->setTexture( "help_help.png" );
+        helpLabel[5]->setTexture( "help_help.png" );
+        helpLabel[6]->setTexture( "help_comp.png" );
         helpLabel[4]->setTexture( "help_projects.png" );
     }
     

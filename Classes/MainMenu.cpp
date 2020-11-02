@@ -74,6 +74,7 @@ MainMenu::MainMenu( Layer *layer, unsigned int whatScene ) {
     }
     
     
+    
     if ( whatScene == kScene_Instrument ) {
         buttons_image[kButtons_ArrayNum_Rec]->setTexture( "recButton.png" );
         buttons_image[kButtons_ArrayNum_Seq]->setTexture( "sequencerButton.png" );
@@ -82,6 +83,7 @@ MainMenu::MainMenu( Layer *layer, unsigned int whatScene ) {
         buttons_image[kButtons_ArrayNum_Lock]->setTexture( "lockButton.png" );
         buttons_image[kButtons_ArrayNum_Projects]->setTexture( "projectsButton.png" );
         buttons_image[kButtons_ArrayNum_Help]->setTexture( "helpButton.png" );
+        buttons_gray[kButtons_ArrayNum_Seq]->setColor( Color3B( 50, 50, 50 ) );
     } else {
         buttons_image[kButtons_ArrayNum_Mic]->setTexture( "micButton.png" );
         buttons_image[kButtons_ArrayNum_Play]->setTexture( "playButton.png" );
@@ -90,6 +92,7 @@ MainMenu::MainMenu( Layer *layer, unsigned int whatScene ) {
         buttons_image[kButtons_ArrayNum_Bomb]->setTexture( "bombButton.png" );
         buttons_image[kButtons_ArrayNum_Stop]->setTexture( "backButton.png" );
         buttons_image[kButtons_ArrayNum_Help]->setTexture( "helpButtonDark.png" );
+        buttons_gray[kButtons_ArrayNum_Mic]->setColor( Color3B( 20, 20, 20 ) );
     }
     
     
