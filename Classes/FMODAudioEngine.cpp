@@ -119,6 +119,20 @@ void playSound( unsigned int whatSoundObject ) {
     }
 }
 
+unsigned int getPosition( int channelid ) {
+    
+    FMOD_RESULT result;
+    
+    result = system->getChannel( channelid, &channel );
+    ERRCHECK( result );
+    
+    unsigned int pos = 0.0;
+    result = channel->getPosition( &pos, FMOD_TIMEUNIT_MS );
+    
+    return pos;
+        
+}
+
 bool channelisPlaying( int channelid ) {
     FMOD_RESULT result;
     

@@ -40,5 +40,6 @@ namespace FMODAudioEngine {
     void delayPlayWhenRec();
     bool systemIsInitialized();
     std::string bounceFileFullPath( std::string currentProjectName );
+    unsigned int getPosition( int channelid );
     
 }

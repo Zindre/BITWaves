@@ -258,12 +258,14 @@ void SequencerScene::onTouchesBegan( const std::vector<Touch*>& touches, Event* 
                     }
                     
                     // SOUND BOXES ON CANVAS
-                    for ( unsigned long i = seqSoundRect.size(); i-- > 0; ) {
-                        if ( ! seqSoundRect[i].getIsHeld() && ! someoneIsHeld ) {
-                            if ( seqSoundRect[i].sprite->getBoundingBox().containsPoint( touch->getLocation() ) || seqSoundRect[i].touchArea->getBoundingBox().containsPoint( touch->getLocation() ) ) {
-                                seqSoundRect[i].setIsHeld( true );
-                                someoneIsHeld = true;
-                                seqSoundRect[i].setOffsetPos( touch->getLocation() );
+                    if ( ! playHeadIsPressed ) {
+                        for ( unsigned long i = seqSoundRect.size(); i-- > 0; ) {
+                            if ( ! seqSoundRect[i].getIsHeld() && ! someoneIsHeld ) {
+                                if ( seqSoundRect[i].sprite->getBoundingBox().containsPoint( touch->getLocation() ) || seqSoundRect[i].touchArea->getBoundingBox().containsPoint( touch->getLocation() ) ) {
+                                    seqSoundRect[i].setIsHeld( true );
+                                    someoneIsHeld = true;
+                                    seqSoundRect[i].setOffsetPos( touch->getLocation() );
+                                }
                             }
                         }
                     }

@@ -44,9 +44,9 @@ HelpOverlay::HelpOverlay( cocos2d::Layer *layer, unsigned int whatScene ) {
     padding = visibleSize.height * 0.03f;
     float maxLineWidth = boxSize.width - (padding * 2.5f);
 
-    helpText_instrument_string = std::string( "- Start med å låse opp for opptak ved å trykke på hengelåsen.\n\n- Trykk på opptaksknappen for å gjøre opptak.\n\n- Spill av lydene ved å trykke på det sorte området på skjermen. Du kan bruke flere fingre samtidig, og dra fingrene over skjermen.\n\n- På toppen av skjermen over linjen, spilles lyden av i originalt tempo og tonehøyde. Nedover på skjermen blir lyden langsommere og mørkere.\n\n- Lag et nytt opptak ved å velge en annen farge til høyre på skjermen.\n\n- Trykk på komposisjonsknappen for å bytte til komposisjonsmodus." );
+    helpText_instrument_string = std::string( "- Start med å låse opp for opptak ved å trykke på hengelåsen.\n\n- Trykk på opptaksknappen for å gjøre opptak.\n\n- Spill av lydene ved å trykke på det sorte området på skjermen. Du kan bruke flere fingre samtidig, og dra fingrene over skjermen.\n\n- På toppen av skjermen over linjen, spilles lyden av i originalt tempo og tonehøyde. Nedover på skjermen blir lyden langsommere og mørkere.\n\n- Lag et nytt opptak ved å velge en annen farge til høyre på skjermen.\n\n- Trykk på bytte-modus-knappen for å bytte til komposisjonsmodus." );
 
-    helpText_sequencer_string = std::string( "- Hvis du har laget innspillinger i opptak- og instrumentmodus, kan du dra lyder inn på skjermen fra de fargede boksene til høyre.\n\n- Avspillingen av lydene vil endre tempo og tone i forhold til hvor på skjermen de er plassert. Lydene spilles av i originalt tempo og tonehøyde øverst på skjermen. Lydene blir mørkere og langsommere jo lengre ned på skjermen de er.\n\n- For å starte en ny komposisjon, trykk og hold på bombeknappen. Alt vil slettes og det kan ikke angres.\n\n- Trykk på mikrofonknappen for å gå tilbake til opptak- og instrumentmodus." );
+    helpText_sequencer_string = std::string( "- Hvis du har laget innspillinger i opptak- og instrumentmodus, kan du dra lyder inn på skjermen fra de fargede boksene til høyre.\n\n- Avspillingen av lydene vil endre tempo og tone i forhold til hvor på skjermen de er plassert. Lydene spilles av i originalt tempo og tonehøyde øverst på skjermen. Lydene blir mørkere og langsommere jo lengre ned på skjermen de er.\n\n- For å starte en ny komposisjon, trykk og hold på bombeknappen. Alt vil slettes og det kan ikke angres.\n\n- Trykk på bytte-modus-knappen for å gå tilbake til opptak- og instrumentmodus." );
 
     helpText = Label::createWithTTF( helpText_instrument_string, "fonts/arial.ttf", fontSize_Text );
     helpText->setAnchorPoint( Vec2( 0.0f, 1.0f ) );
@@ -79,7 +79,7 @@ HelpOverlay::HelpOverlay( cocos2d::Layer *layer, unsigned int whatScene ) {
     
     helpHeading->setPosition( Vec2( scrollView->getInnerContainerPosition().x + padding, scrollView->getInnerContainerSize().height - padding ) );
     helpText->setPosition( Vec2( helpHeading->getPosition().x, helpHeading->getPosition().y - helpHeading->getBoundingBox().size.height - padding ) );
-    aboutHeading->setPosition( Vec2( helpText->getPosition().x, helpText->getPosition().y - helpText->getBoundingBox().size.height - padding ) );
+    aboutHeading->setPosition( Vec2( helpText->getPosition().x, helpText->getPosition().y - helpText->getBoundingBox().size.height - (padding * 4) ) );
     aboutText->setPosition( Vec2( aboutHeading->getPosition().x, aboutHeading->getPosition().y - aboutHeading->getBoundingBox().size.height - padding ) );
     
     // LOGO BOX
