@@ -152,11 +152,11 @@ void SequencerScene::onTouchesBegan( const std::vector<Touch*>& touches, Event* 
     for ( auto &touch : touches ) {
         if ( touch != nullptr ) {
             if ( touch->getID() == 0 ) {
+                
+                // MAIN MENU
+                mainMenu->setStartPos( touch->getLocation() );
             
                 if ( whatState == kSequencerScene_State_Normal ) {
-                    
-                    // MAIN MENU
-                    mainMenu->setStartPos( touch->getLocation() );
                     
                     // BACK BUTTON
                     if ( mainMenu->buttons_image[kButtons_ArrayNum_Stop]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
@@ -214,6 +214,13 @@ void SequencerScene::onTouchesBegan( const std::vector<Touch*>& touches, Event* 
                     // SHARE BUTTON
                     if ( bounceAndShare->buttonBg[kBounceAndShare_Buttons_Index_Share]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
                         bounceAndShare->setButtonTouchHasBegun( true, kBounceAndShare_Buttons_Index_Share );
+                    }
+                    
+                    // WEB LINK
+                    if ( bounceAndShare->label_webLink->isVisible() ) {
+                        if ( bounceAndShare->label_webLink->getBoundingBox().containsPoint( touch->getLocation() ) ) {
+                            bounceAndShare->openWebLink();
+                        }
                     }
             
                 } else if ( whatState == kSequencerScene_State_BounceAndShare_Prompt ) {

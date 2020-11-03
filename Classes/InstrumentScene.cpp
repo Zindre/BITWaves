@@ -40,6 +40,12 @@ bool InstrumentScene::init()
     listener->onTouchesMoved = CC_CALLBACK_2( InstrumentScene::onTouchesMoved, this );
     listener->onTouchesEnded = CC_CALLBACK_2( InstrumentScene::onTouchesEnded, this );
     dispatcher->addEventListenerWithSceneGraphPriority( listener, this );
+    
+    cocos2d::Sprite *background = Sprite::create( "square1px.png" );
+    background->setTextureRect( Rect( 0, 0, visibleSize.width, visibleSize.height ) );
+    background->setPosition( Vec2( origin.x + visibleSize.width * 0.5, origin.y + visibleSize.height * 0.5 ) );
+    background->setColor( Color3B( 20, 20, 20 ) );
+    this->addChild( background, 0 );
 
     
     for ( int i = 0; i < kTouch_NumOfTouchesAllowed; i++ ) {

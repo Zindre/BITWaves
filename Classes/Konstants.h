@@ -16,11 +16,12 @@
 #define kLayer_ProjectHandling_NameLabel 15
 #define kLayer_ProjectHandling_RenameOverlay 16
 #define kLayer_ProjectHandling_Prompt 17
-#define kLayer_BounceAndShare 18
-#define kLayer_BounceAndShare_Prompt 19
-#define kLayer_HelpOverlayBorder 20
-#define kLayer_HelpOverlay 21
-#define kLayer_CurrentProjectName 22
+#define kLayer_CurrentProjectName 18
+#define kLayer_BounceAndShare 19
+#define kLayer_BounceAndShare_Prompt 20
+#define kLayer_HelpOverlayBorder 21
+#define kLayer_HelpOverlay 22
+
 
 #define kTouch_NumOfTouchesAllowed 11
 #define kPitchMin 0.1f

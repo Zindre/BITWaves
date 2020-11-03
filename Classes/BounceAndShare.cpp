@@ -12,7 +12,7 @@ BounceAndShare::BounceAndShare( cocos2d::Layer *layer ) {
     background = Sprite::create( "square1px.png" );
     background->setTextureRect( Rect( 0, 0, visibleSize.width * 0.6, visibleSize.height * 0.8 ) );
     background->setPosition( Vec2( origin.x + visibleSize.width * 0.5, origin.y + visibleSize.height * 0.5 ) );
-    background->setColor( Color3B::GRAY );
+    background->setColor( Color3B::WHITE );
     layer->addChild( background, kLayer_BounceAndShare );
     
     closeCross = Sprite::create( "closeCross.png" );
@@ -42,6 +42,11 @@ BounceAndShare::BounceAndShare( cocos2d::Layer *layer ) {
     label_useRights->setAlignment( TextHAlignment::CENTER );
     label_useRights->setLineHeight( lineHeightSmallText );
     layer->addChild( label_useRights, kLayer_BounceAndShare );
+
+    label_webLink = Label::createWithTTF( "Hør din egen og andre sine komposisjoner her!", "fonts/arial.ttf", kFontSize_SmallText );
+    label_webLink->setColor( Color3B::BLACK );
+    label_webLink->enableUnderline();
+    layer->addChild( label_webLink, kLayer_BounceAndShare_Prompt );
     
     
     for ( int i = 0; i < kBounceAndShare_Buttons_NumOf; i++ ) {
@@ -58,8 +63,9 @@ BounceAndShare::BounceAndShare( cocos2d::Layer *layer ) {
     Size buttonBgSize = buttonBg[0]->getBoundingBox().size;
     label_buttons[kBounceAndShare_Buttons_Index_Share]->setString( "Dele med BIT20" );
     
-    float bgHeight = label_bounceSuccess->getBoundingBox().size.height + padding + label_whereToFind->getBoundingBox().size.height + padding + label_wantToShare->getBoundingBox().size.height + padding + label_useRights->getBoundingBox().size.height + buttonBgSize.height + (padding * 4);
+    float bgHeight = label_bounceSuccess->getBoundingBox().size.height + padding + label_whereToFind->getBoundingBox().size.height + padding + label_wantToShare->getBoundingBox().size.height + padding + label_useRights->getBoundingBox().size.height + label_webLink->getBoundingBox().size.height + padding + buttonBgSize.height + (padding * 4);
     background->setTextureRect( Rect( 0, 0, visibleSize.width * 0.6, bgHeight ) );
+    
     
     // SET POSITIONS
     closeCross->setPosition( Vec2( background->getPosition().x - (bgSize.width/2) + closeCross->getBoundingBox().size.width, background->getPosition().y + (bgHeight/2) - closeCross->getBoundingBox().size.height ) );
@@ -67,7 +73,8 @@ BounceAndShare::BounceAndShare( cocos2d::Layer *layer ) {
     label_whereToFind->setPosition( Vec2( background->getPosition().x, label_bounceSuccess->getPosition().y - label_bounceSuccess->getBoundingBox().size.height - padding ) );
     label_wantToShare->setPosition( Vec2( background->getPosition().x, label_whereToFind->getPosition().y - label_whereToFind->getBoundingBox().size.height - padding ) );
     label_useRights->setPosition( Vec2( background->getPosition().x, label_wantToShare->getPosition().y - label_wantToShare->getBoundingBox().size.height - padding ) );
-    buttonBg[kBounceAndShare_Buttons_Index_Share]->setPosition( Vec2( background->getPosition().x, label_useRights->getPosition().y - label_useRights->getBoundingBox().size.height - padding ) );
+    label_webLink->setPosition( Vec2( background->getPosition().x, label_useRights->getPosition().y - label_useRights->getBoundingBox().size.height ) );
+    buttonBg[kBounceAndShare_Buttons_Index_Share]->setPosition( Vec2( background->getPosition().x, label_webLink->getPosition().y - label_webLink->getBoundingBox().size.height - (padding * 2) ) );
     label_buttons[kBounceAndShare_Buttons_Index_Share]->setPosition( buttonBg[kBounceAndShare_Buttons_Index_Share]->getPosition() );
     
     
@@ -100,11 +107,7 @@ BounceAndShare::BounceAndShare( cocos2d::Layer *layer ) {
     uploadAnim->setVisible( false );
     layer->addChild( uploadAnim, kLayer_BounceAndShare_Prompt );
     
-    label_webLink = Label::createWithTTF( "Hør din egen og andre sine komposisjoner her!", "fonts/arial.ttf", kFontSize_SmallText );
-    label_webLink->setPosition( Vec2( label_prompt->getPosition().x, label_prompt->getPosition().y - (label_prompt->getBoundingBox().size.height * 1.5) ) );
-    label_webLink->setColor( Color3B::BLACK );
-    label_webLink->enableUnderline();
-    layer->addChild( label_webLink, kLayer_BounceAndShare_Prompt );
+    
     
     
     hideAll();
@@ -124,6 +127,9 @@ void BounceAndShare::show() {
     label_whereToFind->setVisible( true );
     label_wantToShare->setVisible( true );
     label_useRights->setVisible( true );
+    label_webLink->setVisible( true );
+    label_webLink->setString( "Hør komposisjoner delt med BIT20 her!" );
+    label_webLink->setPosition( Vec2( background->getPosition().x, label_useRights->getPosition().y - label_useRights->getBoundingBox().size.height ) );
 }
 
 void BounceAndShare::hideAll() {
@@ -204,6 +210,8 @@ void BounceAndShare::showPrompt( std::string message ) {
         uploadAnim->setVisible( false );
         uploadAnim->stopAllActions();
         label_webLink->setVisible( true );
+        label_webLink->setString( "Hør din egen og andre sine komposisjoner her!" );
+        label_webLink->setPosition( Vec2( label_prompt->getPosition().x, label_prompt->getPosition().y - (label_prompt->getBoundingBox().size.height * 1.5) ) );
     }
 }
 
@@ -226,6 +234,7 @@ void BounceAndShare::hideBounceWindow() {
     label_whereToFind->setVisible( false );
     label_wantToShare->setVisible( false );
     label_useRights->setVisible( false );
+    label_webLink->setVisible( false );
 }
 
 void BounceAndShare::openWebLink() {

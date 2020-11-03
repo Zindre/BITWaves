@@ -187,7 +187,6 @@ MainMenu::MainMenu( Layer *layer, unsigned int whatScene ) {
     instrumentArea->setTextureRect( Rect( 0.0f, 0.0f, instrumentAreaWidth, visibleSize.height ) );
     instrumentArea->setAnchorPoint( Vec2( 1.0f, 1.0f ) );
     instrumentArea->setPosition( Vec2( soundSquare[0]->getPosition().x - soundSquare[0]->getBoundingBox().size.width, soundSquare[0]->getPosition().y ) );
-    instrumentArea->setOpacity( 100 );
     instrumentArea->setVisible( false );
     layer->addChild( instrumentArea, kLayer_InstrumentArea );
 
@@ -397,7 +396,8 @@ void MainMenu::abortWithTouchMove( Vec2 touchPos ) {
     Vec2 stopPos = touchPos;
     float distX = startPos.x - stopPos.x;
     float distY = startPos.y - stopPos.y;
-    float touchMoveTolerance = visibleSize.width * 0.05f;
+    //float touchMoveTolerance = visibleSize.width * 0.05f;
+    float touchMoveTolerance = buttons_gray[0]->getBoundingBox().size.width/2;
     
     if ( abs( distX ) + abs( distY ) > touchMoveTolerance ) {
         for ( int i = 0; i < kNumOfButtons; i++ ) {
