@@ -41,8 +41,8 @@ private:
     
     
     
-    cocos2d::Vec2 origin;
-    cocos2d::Size visibleSize;
+    cocos2d::Vec2 safeAreaOrigin;
+    cocos2d::Size safeAreaRect;
     
     bool bIsPlaying;
     int whatSoundObject;

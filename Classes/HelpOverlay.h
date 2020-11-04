@@ -18,8 +18,8 @@ public:
     
 private:
     
-    cocos2d::Vec2 origin;
-    cocos2d::Size visibleSize;
+    cocos2d::Vec2 safeAreaOrigin;
+    cocos2d::Size safeAreaRect;
     cocos2d::ui::ScrollView *scrollView;
     
     cocos2d::Label *helpHeading;

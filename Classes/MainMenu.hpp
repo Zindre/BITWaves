@@ -68,8 +68,8 @@ private:
     void layoutOnLeft();
     
     
-    cocos2d::Vec2 origin;
-    cocos2d::Size visibleSize;
+    cocos2d::Vec2 safeAreaOrigin;
+    cocos2d::Size safeAreaRect;
     unsigned int whatScene;
     unsigned int activeSoundObject;
     bool loopIsOn;

@@ -30,8 +30,8 @@ public:
     
 private:
     
-    cocos2d::Size visibleSize;
-    cocos2d::Vec2 origin;
+    cocos2d::Vec2 safeAreaOrigin;
+    cocos2d::Size safeAreaRect;
     bool _buttonTouchHasBegun[kBounceAndShare_Buttons_NumOf];
     cocos2d::Vec2 _touchStartPos;
     cocos2d::Label *label_bounceSuccess;

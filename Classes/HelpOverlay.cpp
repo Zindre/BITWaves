@@ -5,18 +5,16 @@ HelpOverlay::HelpOverlay( cocos2d::Layer *layer, unsigned int whatScene ) {
     
     this->whatScene = whatScene;
     
-    visibleSize = Director::getInstance()->getSafeAreaRect().size;
-    //visibleSize = Director::getInstance()->getVisibleSize();
-    origin = Director::getInstance()->getSafeAreaRect().origin;
-    //origin = Director::getInstance()->getVisibleOrigin();
+    safeAreaRect = Director::getInstance()->getSafeAreaRect().size;
+    safeAreaOrigin = Director::getInstance()->getSafeAreaRect().origin;
     
     // SCROLL BOX
     scrollView = ui::ScrollView::create();
-    cocos2d::Size boxSize = cocos2d::Size( visibleSize.width * 0.5f, visibleSize.height * 0.7f );
+    cocos2d::Size boxSize = cocos2d::Size( safeAreaRect.width * 0.5f, safeAreaRect.height * 0.7f );
     scrollView->setContentSize( boxSize );
     scrollView->setDirection( ui::ScrollView::Direction::VERTICAL );
     scrollView->setAnchorPoint( Vec2( 0.5f, 0.5f ) );
-    scrollView->setPosition( Vec2( visibleSize.width * 0.7f + origin.x, visibleSize.height * 0.57f + origin.y ) );
+    scrollView->setPosition( Vec2( safeAreaRect.width * 0.7f + safeAreaOrigin.x, safeAreaRect.height * 0.57f + safeAreaOrigin.y ) );
     scrollView->setBounceEnabled( true );
     scrollView->setScrollBarAutoHideEnabled( false );
     scrollView->setScrollBarPositionFromCornerForVertical( Vec2( scrollView->getScrollBarWidth() * 2, scrollView->getScrollBarWidth() * 2 ) );
@@ -27,9 +25,9 @@ HelpOverlay::HelpOverlay( cocos2d::Layer *layer, unsigned int whatScene ) {
     //scrollView->setBackGroundColorOpacity( 0 );
     layer->addChild( scrollView, kLayer_HelpOverlay );
     
-    //unsigned int fontSize_heading = visibleSize.width * 0.03f;
-    //unsigned int fontSize_Text = visibleSize.width * 0.019f;
-    //float lineHeightMultiplier = visibleSize.height/45.7f;
+    //unsigned int fontSize_heading = safeAreaRect.width * 0.03f;
+    //unsigned int fontSize_Text = safeAreaRect.width * 0.019f;
+    //float lineHeightMultiplier = safeAreaRect.height/45.7f;
     unsigned int fontSize_heading = 12;
     unsigned int fontSize_Text = 9;
     float lineHeight_Text = fontSize_Text * 6;
@@ -41,7 +39,7 @@ HelpOverlay::HelpOverlay( cocos2d::Layer *layer, unsigned int whatScene ) {
     helpHeading->setColor( Color3B::WHITE );
     scrollView->addChild( helpHeading, kLayer_HelpOverlay );
     
-    padding = visibleSize.height * 0.03f;
+    padding = safeAreaRect.height * 0.03f;
     float maxLineWidth = boxSize.width - (padding * 2.5f);
 
     helpText_instrument_string = std::string( "- Start med å låse opp for opptak ved å trykke på hengelåsen.\n\n- Trykk på opptaksknappen for å gjøre opptak.\n\n- Spill av lydene ved å trykke på det sorte området på skjermen. Du kan bruke flere fingre samtidig, og dra fingrene over skjermen.\n\n- På toppen av skjermen over linjen, spilles lyden av i originalt tempo og tonehøyde. Nedover på skjermen blir lyden langsommere og mørkere.\n\n- Lag et nytt opptak ved å velge en annen farge til høyre på skjermen.\n\n- Trykk på prosjekter-knappen for å lagre flere prosjekter.\n\n- Trykk på bytte-modus-knappen for å bytte til komposisjonsmodus." );
@@ -84,7 +82,7 @@ HelpOverlay::HelpOverlay( cocos2d::Layer *layer, unsigned int whatScene ) {
     
     // LOGO BOX
     logoBoxBgBox = Sprite::create( "square1px.png" );
-    logoBoxBgBox->setTextureRect( Rect( 0, 0, scrollView->getBoundingBox().size.width, visibleSize.height * 0.15f ) );
+    logoBoxBgBox->setTextureRect( Rect( 0, 0, scrollView->getBoundingBox().size.width, safeAreaRect.height * 0.15f ) );
     logoBoxBgBox->setAnchorPoint( Vec2( 0.5f, 1.0f ) );
     logoBoxBgBox->setPosition( Vec2( scrollView->getPosition().x, scrollView->getPosition().y - (scrollView->getBoundingBox().size.height/2.0f) ) );
     logoBoxBgBox->setColor( Color3B::BLACK );
@@ -106,14 +104,14 @@ HelpOverlay::HelpOverlay( cocos2d::Layer *layer, unsigned int whatScene ) {
     
     
     // HELP LABELS
-    float soundSquareHeight = visibleSize.height / kNumOfSoundObjects;
+    float soundSquareHeight = safeAreaRect.height / kNumOfSoundObjects;
     
     // Using container to spread out the buttons evenly on Y-axis
     for ( int i = 0; i < kNumOfButtons; i++ ) {
         helpLabelContainer[i] = Sprite::create( "square1px.png" );
         helpLabelContainer[i]->setAnchorPoint( Vec2( 0.0f, 1.0f ) );
         helpLabelContainer[i]->setTextureRect( Rect( 0, 0, soundSquareHeight, soundSquareHeight ) );
-        helpLabelContainer[i]->setPosition( Vec2( soundSquareHeight + origin.x, visibleSize.height - (helpLabelContainer[i]->getBoundingBox().size.height * i) + origin.y ) );
+        helpLabelContainer[i]->setPosition( Vec2( soundSquareHeight + safeAreaOrigin.x, safeAreaRect.height - (helpLabelContainer[i]->getBoundingBox().size.height * i) + safeAreaOrigin.y ) );
         helpLabelContainer[i]->setColor( Color3B( 255, 0, 0 ) );
         helpLabelContainer[i]->setVisible( false );
         layer->addChild( helpLabelContainer[i], kLayer_HelpOverlay );

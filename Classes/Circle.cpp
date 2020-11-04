@@ -3,14 +3,12 @@
 
 Circle::Circle( cocos2d::Layer *layer, cocos2d::Vec2 startPos, unsigned int activeSoundObject, int spectrum ) {
     
-    visibleSize = Director::getInstance()->getSafeAreaRect().size;
-    //visibleSize = Director::getInstance()->getVisibleSize();
-    origin = Director::getInstance()->getSafeAreaRect().origin;
-    //origin = Director::getInstance()->getVisibleOrigin();
+    safeAreaRect = Director::getInstance()->getSafeAreaRect().size;
+    safeAreaOrigin = Director::getInstance()->getSafeAreaRect().origin;
     
     opacity = 255;
     
-    float startScale = scaleValue( startPos.y, visibleSize.height, 0, 0.05f, 0.3f, true );
+    float startScale = scaleValue( startPos.y, safeAreaRect.height, 0, 0.05f, 0.3f, true );
     
     if ( spectrum > kSpectrum_MinValue ) {
         willGrow = true;
@@ -26,8 +24,8 @@ Circle::Circle( cocos2d::Layer *layer, cocos2d::Vec2 startPos, unsigned int acti
         
     destroy = false;
     this->startPos = startPos;
-    scaleIncValue = scaleValue( startPos.y, 0, visibleSize.height, 0.0025f, 0.005f, true );
-    opacityDecValue = scaleValue( startPos.y, 0, visibleSize.height, 2, 6, true );
+    scaleIncValue = scaleValue( startPos.y, 0, safeAreaRect.height, 0.0025f, 0.005f, true );
+    opacityDecValue = scaleValue( startPos.y, 0, safeAreaRect.height, 2, 6, true );
     
     sprite = Sprite::create( "circle.png" );
     sprite->setPosition( startPos );

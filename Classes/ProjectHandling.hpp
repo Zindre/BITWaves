@@ -77,8 +77,8 @@ private:
     
     
     
-    cocos2d::Size visibleSize;
-    cocos2d::Vec2 origin;
+    cocos2d::Vec2 safeAreaOrigin;
+    cocos2d::Size safeAreaRect;
     cocos2d::Sprite *blackLayer;
     cocos2d::Sprite *background;
     bool _isShowing;

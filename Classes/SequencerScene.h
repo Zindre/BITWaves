@@ -46,8 +46,8 @@ private:
 
     
     MainMenu *mainMenu;
-    cocos2d::Size visibleSize;
-    cocos2d::Vec2 origin;
+    cocos2d::Vec2 safeAreaOrigin;
+    cocos2d::Size safeAreaRect;
     cocos2d::Sprite *playHead;
     cocos2d::Sprite *playHeadHandle;
     std::vector<SeqSoundRect> seqSoundRect;

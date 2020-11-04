@@ -2,10 +2,8 @@
 
 ProjectNamesLabel::ProjectNamesLabel( cocos2d::Layer *layer, std::string projectName, int index, unsigned int myPageNr, unsigned int pageIndex, cocos2d::Size overlayBrowseSize, cocos2d::Vec2 overlayBrowsePos ) {
     
-    visibleSize = Director::getInstance()->getSafeAreaRect().size;
-    //visibleSize = Director::getInstance()->getVisibleSize();
-    origin = Director::getInstance()->getSafeAreaRect().origin;
-    //origin = Director::getInstance()->getVisibleOrigin();
+    safeAreaRect = Director::getInstance()->getSafeAreaRect().size;
+    safeAreaOrigin = Director::getInstance()->getSafeAreaRect().origin;
     
     _myPageNr = myPageNr;
     _pageIndex = pageIndex;
@@ -86,7 +84,7 @@ unsigned int ProjectNamesLabel::getMyPageNr() {
 
 void ProjectNamesLabel::setPosToTop( cocos2d::Size overlayBrowseSize, cocos2d::Vec2 overlayBrowsePos ) {
     label->setPosition( Vec2( overlayBrowsePos.x - (overlayBrowseSize.width * 0.5) + (_padding * 2), (overlayBrowsePos.y + (overlayBrowseSize.height * 0.5) - (_padding * 2)) - ((label->getBoundingBox().size.height + _padding) * _pageIndex ) ) );
-    squareBg->setPosition( Vec2( label->getPosition().x - visibleSize.width * 0.01, label->getPosition().y ) );
+    squareBg->setPosition( Vec2( label->getPosition().x - safeAreaRect.width * 0.01, label->getPosition().y ) );
 }
 
 std::string ProjectNamesLabel::getFullString() {

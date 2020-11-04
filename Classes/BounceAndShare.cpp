@@ -4,14 +4,12 @@ using namespace cocos2d;
 
 BounceAndShare::BounceAndShare( cocos2d::Layer *layer ) {
     
-    visibleSize = Director::getInstance()->getSafeAreaRect().size;
-    //visibleSize = Director::getInstance()->getVisibleSize();
-    origin = Director::getInstance()->getSafeAreaRect().origin;
-    //origin = Director::getInstance()->getVisibleOrigin();
+    safeAreaRect = Director::getInstance()->getSafeAreaRect().size;
+    safeAreaOrigin = Director::getInstance()->getSafeAreaRect().origin;
     
     background = Sprite::create( "square1px.png" );
-    background->setTextureRect( Rect( 0, 0, visibleSize.width * 0.6, visibleSize.height * 0.8 ) );
-    background->setPosition( Vec2( origin.x + visibleSize.width * 0.5, origin.y + visibleSize.height * 0.5 ) );
+    background->setTextureRect( Rect( 0, 0, safeAreaRect.width * 0.6, safeAreaRect.height * 0.8 ) );
+    background->setPosition( Vec2( safeAreaOrigin.x + safeAreaRect.width * 0.5, safeAreaOrigin.y + safeAreaRect.height * 0.5 ) );
     background->setColor( Color3B::WHITE );
     layer->addChild( background, kLayer_BounceAndShare );
     
@@ -64,7 +62,7 @@ BounceAndShare::BounceAndShare( cocos2d::Layer *layer ) {
     label_buttons[kBounceAndShare_Buttons_Index_Share]->setString( "Dele med BIT20" );
     
     float bgHeight = label_bounceSuccess->getBoundingBox().size.height + padding + label_whereToFind->getBoundingBox().size.height + padding + label_wantToShare->getBoundingBox().size.height + padding + label_useRights->getBoundingBox().size.height + label_webLink->getBoundingBox().size.height + padding + buttonBgSize.height + (padding * 4);
-    background->setTextureRect( Rect( 0, 0, visibleSize.width * 0.6, bgHeight ) );
+    background->setTextureRect( Rect( 0, 0, safeAreaRect.width * 0.6, bgHeight ) );
     
     
     // SET POSITIONS
@@ -173,7 +171,7 @@ void BounceAndShare::abortWithTouchMove( Vec2 touchPos ) {
     Vec2 stopPos = touchPos;
     float distX = _touchStartPos.x - stopPos.x;
     float distY = _touchStartPos.y - stopPos.y;
-    float touchMoveTolerance = visibleSize.width * 0.05f;
+    float touchMoveTolerance = safeAreaRect.width * 0.05f;
     
     float offsetAbs = abs( distX ) + abs( distY );
     

@@ -26,8 +26,8 @@ public:
 
 private:
     
-    cocos2d::Size visibleSize;
-    cocos2d::Vec2 origin;
+    cocos2d::Vec2 safeAreaOrigin;
+    cocos2d::Size safeAreaRect;
     unsigned int _myPageNr;
     float _padding;
     unsigned int _pageIndex;

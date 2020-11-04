@@ -1,26 +1,27 @@
-
+#define kLayer_GrayBackground 0
 #define kLayer_Circles 1
 #define kLayer_Midline 2
 #define kLayer_SeqSoundRect_Under 3
-#define kLayer_RecordWaveForm 4
-#define kLayer_MainMenu 5
-#define kLayer_SeqSoundRect_Over 6
-#define kLayer_PlayHead 7
-#define kLayer_BombAnim 8
-#define kLayer_InstrumentArea 9
-#define kLayer_ConfirmRec 10
-#define kLayer_ProjectHandling 11
-#define kLayer_ProjectHandling_SaveOverlay 12
-#define kLayer_ProjectHandling_BrowseOverlay 13
-#define kLayer_ProjectHandling_NameBg 14
-#define kLayer_ProjectHandling_NameLabel 15
-#define kLayer_ProjectHandling_RenameOverlay 16
-#define kLayer_ProjectHandling_Prompt 17
-#define kLayer_CurrentProjectName 18
-#define kLayer_BounceAndShare 19
-#define kLayer_BounceAndShare_Prompt 20
-#define kLayer_HelpOverlayBorder 21
-#define kLayer_HelpOverlay 22
+#define kLayer_OutsideSafeAreaCover 4
+#define kLayer_RecordWaveForm 5
+#define kLayer_MainMenu 6
+#define kLayer_SeqSoundRect_Over 7
+#define kLayer_PlayHead 8
+#define kLayer_BombAnim 9
+#define kLayer_InstrumentArea 10
+#define kLayer_ConfirmRec 11
+#define kLayer_ProjectHandling 12
+#define kLayer_ProjectHandling_SaveOverlay 13
+#define kLayer_ProjectHandling_BrowseOverlay 14
+#define kLayer_ProjectHandling_NameBg 15
+#define kLayer_ProjectHandling_NameLabel 16
+#define kLayer_ProjectHandling_RenameOverlay 17
+#define kLayer_ProjectHandling_Prompt 18
+#define kLayer_CurrentProjectName 19
+#define kLayer_BounceAndShare 20
+#define kLayer_BounceAndShare_Prompt 21
+#define kLayer_HelpOverlayBorder 22
+#define kLayer_HelpOverlay 23
 
 
 #define kTouch_NumOfTouchesAllowed 11

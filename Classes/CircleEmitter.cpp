@@ -8,10 +8,8 @@ CircleEmitter::CircleEmitter( Layer *layer, unsigned int touchID, Vec2 startPos,
     
     whatSoundObject = activeSoundObject;
     
-    visibleSize = Director::getInstance()->getSafeAreaRect().size;
-    //visibleSize = Director::getInstance()->getVisibleSize();
-    origin = Director::getInstance()->getSafeAreaRect().origin;
-    //origin = Director::getInstance()->getVisibleOrigin();
+    safeAreaRect = Director::getInstance()->getSafeAreaRect().size;
+    safeAreaOrigin = Director::getInstance()->getSafeAreaRect().origin;
     
     spawnTimer = 0.0f;
     bDestroy = false;
@@ -103,7 +101,7 @@ bool CircleEmitter::touchHasEnded() {
 float CircleEmitter::getPitch( Vec2 touchPos ) {
     
     float pitch;
-    float midLinePosY = (visibleSize.height * kMidLine_Height_Multiplier) + origin.y;
+    float midLinePosY = (safeAreaRect.height * kMidLine_Height_Multiplier) + safeAreaOrigin.y;
     
     if ( touchPos.y < midLinePosY ) {
         pitch = scaleValue( touchPos.y, 0, midLinePosY, kPitchMin, kPitchMax, true );
@@ -122,8 +120,8 @@ void CircleEmitter::setPitch( Vec2 touchPos ) {
 void CircleEmitter::fadeOut() {
     
     if ( ! hasStartedFadeOut ) {
-        float soundSquareHeight = visibleSize.height / kNumOfSoundObjects;
-        float fadeTime = scaleValue( pos.x, soundSquareHeight, visibleSize.width - soundSquareHeight, 0.1f, 2.0f, true );
+        float soundSquareHeight = safeAreaRect.height / kNumOfSoundObjects;
+        float fadeTime = scaleValue( pos.x, soundSquareHeight, safeAreaRect.width - soundSquareHeight, 0.1f, 2.0f, true );
         
         if ( ! FMODAudioEngine::isRecording() ) {
             if ( FMODAudioEngine::hasRecordWav( whatSoundObject ) ) {

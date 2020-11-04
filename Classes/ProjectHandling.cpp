@@ -5,28 +5,26 @@ ProjectHandling::ProjectHandling( Layer *layer ) {
     
     this->_layer = layer;
     
-    visibleSize = Director::getInstance()->getSafeAreaRect().size;
-    //visibleSize = Director::getInstance()->getVisibleSize();
-    origin = Director::getInstance()->getSafeAreaRect().origin;
-    //origin = Director::getInstance()->getVisibleOrigin();
+    safeAreaRect = Director::getInstance()->getSafeAreaRect().size;
+    safeAreaOrigin = Director::getInstance()->getSafeAreaRect().origin;
     
     _whatState = kProjectHandling_State_Closed;
     
     blackLayer = Sprite::create( "square1px.png" );
-    blackLayer->setTextureRect( Rect( 0, 0, visibleSize.width, visibleSize.height ) );
-    blackLayer->setPosition( Vec2( visibleSize.width * 0.5 + origin.x, visibleSize.height * 0.5 + origin.y ) );
+    blackLayer->setTextureRect( Rect( 0, 0, safeAreaRect.width, safeAreaRect.height ) );
+    blackLayer->setPosition( Vec2( safeAreaRect.width * 0.5 + safeAreaOrigin.x, safeAreaRect.height * 0.5 + safeAreaOrigin.y ) );
     blackLayer->setColor( Color3B::BLACK );
     blackLayer->setOpacity( 200 );
     layer->addChild( blackLayer, kLayer_ProjectHandling );
     
     background = Sprite::create( "square1px.png" );
-    background->setTextureRect( Rect( 0, 0, visibleSize.width, visibleSize.height ) );
-    background->setPosition( Vec2( visibleSize.width * 0.5 + origin.x, visibleSize.height * 0.5 + origin.y ) );
+    background->setTextureRect( Rect( 0, 0, safeAreaRect.width, safeAreaRect.height ) );
+    background->setPosition( Vec2( safeAreaRect.width * 0.5 + safeAreaOrigin.x, safeAreaRect.height * 0.5 + safeAreaOrigin.y ) );
     layer->addChild( background, kLayer_ProjectHandling );
     
     closeCross = Sprite::create( "closeCross.png" );
     closeCross->setAnchorPoint( Vec2( 0, 1 ) );
-    closeCross->setPosition( Vec2( origin.x + (closeCross->getBoundingBox().size.width * 0.5), visibleSize.height - (closeCross->getBoundingBox().size.height * 0.5) + origin.y ) );
+    closeCross->setPosition( Vec2( safeAreaOrigin.x + (closeCross->getBoundingBox().size.width * 0.5), safeAreaRect.height - (closeCross->getBoundingBox().size.height * 0.5) + safeAreaOrigin.y ) );
     layer->addChild( closeCross, kLayer_ProjectHandling );
     
     for ( int i = 0; i < kButtons_ProjectHandling_NumOf; i++ ) {
@@ -59,14 +57,14 @@ ProjectHandling::ProjectHandling( Layer *layer ) {
     
     overlaySave = Sprite::create( "square1px.png" );
     overlaySave->setTextureRect( Rect( 0, 0, background->getBoundingBox().size.width * 0.8, background->getBoundingBox().size.height * 0.7 ) );
-    overlaySave->setPosition( Vec2( origin.x + visibleSize.width * 0.5, origin.y + visibleSize.height * 0.5 ) );
+    overlaySave->setPosition( Vec2( safeAreaOrigin.x + safeAreaRect.width * 0.5, safeAreaOrigin.y + safeAreaRect.height * 0.5 ) );
     overlaySave->setColor( Color3B::GRAY );
     overlaySave->setVisible( false );
     layer->addChild( overlaySave, kLayer_ProjectHandling_SaveOverlay );
     
     overlayBrowse = Sprite::create( "square1px.png" );
     overlayBrowse->setTextureRect( Rect( 0, 0, background->getBoundingBox().size.width * 0.8, background->getBoundingBox().size.height * 0.8 ) );
-    overlayBrowse->setPosition( Vec2( origin.x + visibleSize.width * 0.5, origin.y + visibleSize.height * 0.5 ) );
+    overlayBrowse->setPosition( Vec2( safeAreaOrigin.x + safeAreaRect.width * 0.5, safeAreaOrigin.y + safeAreaRect.height * 0.5 ) );
     overlayBrowse->setColor( Color3B::GRAY );
     overlayBrowse->setVisible( false );
     layer->addChild( overlayBrowse, kLayer_ProjectHandling_BrowseOverlay );
@@ -93,7 +91,7 @@ ProjectHandling::ProjectHandling( Layer *layer ) {
     
     overlayPrompt = Sprite::create( "square1px.png" );
     overlayPrompt->setTextureRect( Rect( 0, 0, overlayBrowse->getBoundingBox().size.width * 0.8, overlayBrowse->getBoundingBox().size.height * 0.6 ) );
-    overlayPrompt->setPosition( Vec2( origin.x + visibleSize.width * 0.5, origin.y + visibleSize.height * 0.5 ) );
+    overlayPrompt->setPosition( Vec2( safeAreaOrigin.x + safeAreaRect.width * 0.5, safeAreaOrigin.y + safeAreaRect.height * 0.5 ) );
     overlayPrompt->setColor( Color3B::WHITE );
     overlayPrompt->setVisible( false );
     layer->addChild( overlayPrompt, kLayer_ProjectHandling_Prompt );
@@ -109,7 +107,7 @@ ProjectHandling::ProjectHandling( Layer *layer ) {
     overlayRename = Sprite::create( "square1px.png" );
     overlayRename->setTextureRect( Rect( 0, 0, overlayBrowse->getBoundingBox().size.width * 0.8, overlayBrowse->getBoundingBox().size.height * 0.6 ) );
     overlayRename->setVisible( false );
-    overlayRename->setPosition( Vec2( origin.x + visibleSize.width * 0.5, origin.y + visibleSize.height * 0.5 ) );
+    overlayRename->setPosition( Vec2( safeAreaOrigin.x + safeAreaRect.width * 0.5, safeAreaOrigin.y + safeAreaRect.height * 0.5 ) );
     layer->addChild( overlayRename, kLayer_ProjectHandling_RenameOverlay );
     
     renameTextFieldBg = Sprite::create( "square1px.png" );
@@ -233,13 +231,13 @@ ProjectHandling::ProjectHandling( Layer *layer ) {
     
     
     // SCROLL BOX
-    /*scrollViewSize = cocos2d::Size( visibleSize.width * 0.5f, visibleSize.height * 0.7f );
+    /*scrollViewSize = cocos2d::Size( safeAreaRect.width * 0.5f, safeAreaRect.height * 0.7f );
     
     scrollView = ui::ScrollView::create();
     scrollView->setContentSize( scrollViewSize );
     scrollView->setDirection( ui::ScrollView::Direction::VERTICAL );
     scrollView->setAnchorPoint( Vec2( 0.5f, 0.5f ) );
-    scrollView->setPosition( Vec2( visibleSize.width * 0.3 + origin.x, visibleSize.height * 0.5 + origin.y ) );
+    scrollView->setPosition( Vec2( safeAreaRect.width * 0.3 + safeAreaOrigin.x, safeAreaRect.height * 0.5 + safeAreaOrigin.y ) );
     scrollView->setBounceEnabled( true );
     scrollView->setScrollBarAutoHideEnabled( false );
     scrollView->setScrollBarPositionFromCornerForVertical( Vec2( scrollView->getScrollBarWidth() * 2, scrollView->getScrollBarWidth() * 2 ) );
@@ -1135,7 +1133,7 @@ void ProjectHandling::abortWithTouchMove( Vec2 touchPos ) {
     Vec2 stopPos = touchPos;
     float distX = _touchStartPos.x - stopPos.x;
     float distY = _touchStartPos.y - stopPos.y;
-    float touchMoveTolerance = visibleSize.width * 0.05f;
+    float touchMoveTolerance = safeAreaRect.width * 0.05f;
     
     float offsetAbs = abs( distX ) + abs( distY );
     

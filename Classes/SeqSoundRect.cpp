@@ -3,10 +3,8 @@
 
 SeqSoundRect::SeqSoundRect( Layer *layer, Vec2 startPos, unsigned int whatSoundObject, unsigned int soundLengthMS, float instrumentAreaWidth, std::string currentProjectName ) {
 
-    visibleSize = Director::getInstance()->getSafeAreaRect().size;
-    //visibleSize = Director::getInstance()->getVisibleSize();
-    origin = Director::getInstance()->getSafeAreaRect().origin;
-    //origin = Director::getInstance()->getVisibleOrigin();
+    safeAreaRect = Director::getInstance()->getSafeAreaRect().size;
+    safeAreaOrigin = Director::getInstance()->getSafeAreaRect().origin;
     
     this->whatSoundObject = whatSoundObject;
     this->layer = layer;
@@ -18,7 +16,7 @@ SeqSoundRect::SeqSoundRect( Layer *layer, Vec2 startPos, unsigned int whatSoundO
     std::string imageFile = "waveForm" + to_string( whatSoundObject ) + ".png" ;
     std::string imageFileFullPath = writablePath + projectFolder + "/" + imageFile;
 
-    height = visibleSize.height * 0.1f;
+    height = safeAreaRect.height * 0.1f;
     log( "sound length MS: %d", soundLengthMS );
     normalWidth = scaleValue( soundLengthMS, 0, kSequenceLengthInMS, 0, instrumentAreaWidth, true );
     sprite = Sprite::create( imageFileFullPath );
@@ -30,7 +28,7 @@ SeqSoundRect::SeqSoundRect( Layer *layer, Vec2 startPos, unsigned int whatSoundO
     layer->addChild( sprite, kLayer_SeqSoundRect_Over );
     
     touchArea = Sprite::create( "square1px.png" );
-    touchArea->setTextureRect( Rect( 0, 0, visibleSize.width * 0.05f, sprite->getBoundingBox().size.height ) );
+    touchArea->setTextureRect( Rect( 0, 0, safeAreaRect.width * 0.05f, sprite->getBoundingBox().size.height ) );
     touchArea->setPosition( sprite->getPosition() );
     touchArea->setOpacity( 50 );
     touchArea->setVisible( false );
@@ -136,8 +134,8 @@ void SeqSoundRect::setWidth() {
     log( "screen height: %f", Director::getInstance()->getVisibleSize().height );
     log( "safe area height: %f", Director::getInstance()->getSafeAreaRect().size.height );
     log( "sprite pos Y: %f", sprite->getPosition().y );
-    float minPosY = (visibleSize.height * kSequencer_MinYpos_height_multiplier) + origin.y;
-    float midLinePosY = (visibleSize.height * kMidLine_Height_Multiplier) + origin.y;
+    float minPosY = (safeAreaRect.height * kSequencer_MinYpos_height_multiplier) + safeAreaOrigin.y;
+    float midLinePosY = (safeAreaRect.height * kMidLine_Height_Multiplier) + safeAreaOrigin.y;
     log( "midline pos Y: %f", midLinePosY );
     log( "min Y pos: %f", minPosY );
     float pitch = scaleValue( sprite->getPosition().y, minPosY, midLinePosY, kPitchMin, kPitchMax, true );

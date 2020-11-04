@@ -42,8 +42,8 @@ private:
     std::vector<CircleEmitter> circleEmitter;
     ProjectHandling *projectHandling;
     
-    cocos2d::Size visibleSize;
-    cocos2d::Vec2 origin;
+    cocos2d::Vec2 safeAreaOrigin;
+    cocos2d::Size safeAreaRect;
     float recordTimer;
     unsigned int playingSoundObject[kTouch_NumOfTouchesAllowed];
     cocos2d::DrawNode *waveFormRect;

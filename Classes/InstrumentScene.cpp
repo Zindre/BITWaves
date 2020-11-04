@@ -29,10 +29,8 @@ bool InstrumentScene::init()
     
     this->setName( "mainLayer" );
     
-    visibleSize = Director::getInstance()->getSafeAreaRect().size;
-    //visibleSize = Director::getInstance()->getVisibleSize();
-    origin = Director::getInstance()->getSafeAreaRect().origin;
-    //origin = Director::getInstance()->getVisibleOrigin();
+    safeAreaRect = Director::getInstance()->getSafeAreaRect().size;
+    safeAreaOrigin = Director::getInstance()->getSafeAreaRect().origin;
     
     auto dispatcher = Director::getInstance()->getEventDispatcher();
     auto listener = EventListenerTouchAllAtOnce::create();
@@ -42,10 +40,10 @@ bool InstrumentScene::init()
     dispatcher->addEventListenerWithSceneGraphPriority( listener, this );
     
     cocos2d::Sprite *background = Sprite::create( "square1px.png" );
-    background->setTextureRect( Rect( 0, 0, visibleSize.width, visibleSize.height ) );
-    background->setPosition( Vec2( origin.x + visibleSize.width * 0.5, origin.y + visibleSize.height * 0.5 ) );
-    background->setColor( Color3B( 20, 20, 20 ) );
-    this->addChild( background, 0 );
+    background->setTextureRect( Rect( 0, 0, safeAreaRect.width, safeAreaRect.height ) );
+    background->setPosition( Vec2( safeAreaOrigin.x + safeAreaRect.width * 0.5, safeAreaOrigin.y + safeAreaRect.height * 0.5 ) );
+    background->setColor( Color3B( 15, 15, 15 ) );
+    this->addChild( background, kLayer_GrayBackground );
 
     
     for ( int i = 0; i < kTouch_NumOfTouchesAllowed; i++ ) {
@@ -787,10 +785,10 @@ void InstrumentScene::drawWaveForm() {
     
     float recordWaveForm_height_multiplier = scaleValue( FMODAudioEngine::getSpectrum( FMODAudioEngine::getRecPlayChannel() ), kSpectrum_MinValue, kSpectrum_MaxValue, 0.001f, kRecordWaveForm_height_multiplier_MAX, true );
     float posY = mainMenu->buttons_gray[kButtons_ArrayNum_Rec]->getPosition().y;
-    float rectWidth = visibleSize.width * 0.008f;
+    float rectWidth = safeAreaRect.width * 0.008f;
     
-    Vec2 originPos = Vec2( waveFormPosX - rectWidth, posY + visibleSize.height * recordWaveForm_height_multiplier );
-    Vec2 destinationPos = Vec2( waveFormPosX, posY - visibleSize.height * recordWaveForm_height_multiplier );
+    Vec2 originPos = Vec2( waveFormPosX - rectWidth, posY + safeAreaRect.height * recordWaveForm_height_multiplier );
+    Vec2 destinationPos = Vec2( waveFormPosX, posY - safeAreaRect.height * recordWaveForm_height_multiplier );
     
     waveFormRect->drawSolidRect( originPos, destinationPos, Color4F( Color3B(mainMenu->soundSquare[mainMenu->getActiveSoundObject()]->getColor()) ) );
 }
@@ -816,12 +814,12 @@ void InstrumentScene::captureWaveform() {
     float startX = mainMenu->getPlayHeadStartPosX();
     float captureRectHeight = mainMenu->buttons_gray[kButtons_ArrayNum_Rec]->getBoundingBox().size.height;
     
-    //RenderTexture *rend = RenderTexture::create( waveFormPosX - startX, ((visibleSize.height * kRecordWaveForm_height_multiplier_MAX) * 2) + origin.y, backend::PixelFormat::RGBA8888 );
+    //RenderTexture *rend = RenderTexture::create( waveFormPosX - startX, ((safeAreaRect.height * kRecordWaveForm_height_multiplier_MAX) * 2) + safeAreaOrigin.y, backend::PixelFormat::RGBA8888 );
     RenderTexture *rend = RenderTexture::create( waveFormPosX - startX, captureRectHeight, backend::PixelFormat::RGBA8888 );
     rend->retain();
     rend->setKeepMatrix( true );
 
-    //rend->setVirtualViewport( Vec2( startX, mainMenu->buttons_gray[kButtons_ArrayNum_Rec]->getPosition().y - (visibleSize.height * kRecordWaveForm_height_multiplier_MAX) ), Rect( 0, 0, designSize.width, designSize.height ), Rect( 0, 0, winPixelSize.width, winPixelSize.height ) );
+    //rend->setVirtualViewport( Vec2( startX, mainMenu->buttons_gray[kButtons_ArrayNum_Rec]->getPosition().y - (safeAreaRect.height * kRecordWaveForm_height_multiplier_MAX) ), Rect( 0, 0, designSize.width, designSize.height ), Rect( 0, 0, winPixelSize.width, winPixelSize.height ) );
     rend->setVirtualViewport( Vec2( startX, mainMenu->buttons_gray[kButtons_ArrayNum_Rec]->getPosition().y - (captureRectHeight/2) ), Rect( 0, 0, designSize.width, designSize.height ), Rect( 0, 0, winPixelSize.width, winPixelSize.height ) );
     
     rend->beginWithClear( 0.0f, 0.0f, 0.0f, 0.0f );

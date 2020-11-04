@@ -4,10 +4,8 @@
 
 MainMenu::MainMenu( Layer *layer, unsigned int whatScene ) {
     
-    visibleSize = Director::getInstance()->getSafeAreaRect().size;
-    //visibleSize = Director::getInstance()->getVisibleSize();
-    origin = Director::getInstance()->getSafeAreaRect().origin;
-    //origin = Director::getInstance()->getVisibleOrigin();
+    safeAreaRect = Director::getInstance()->getSafeAreaRect().size;
+    safeAreaOrigin = Director::getInstance()->getSafeAreaRect().origin;
     
     this->whatScene = whatScene;
     
@@ -30,7 +28,7 @@ MainMenu::MainMenu( Layer *layer, unsigned int whatScene ) {
     log( "Main Menu - current project name: %s", currentProjectName.c_str() );
     
     label_currentProjectName = Label::createWithTTF( currentProjectName.c_str(), "fonts/arial.ttf", 9 );
-    label_currentProjectName->setPosition( Vec2( visibleSize.width * 0.5 + origin.x, visibleSize.height * 0.95 + origin.y ) );
+    label_currentProjectName->setPosition( Vec2( safeAreaRect.width * 0.5 + safeAreaOrigin.x, safeAreaRect.height * 0.95 + safeAreaOrigin.y ) );
     label_currentProjectName->setColor( Color3B( 50, 50, 50 ) );
     layer->addChild( label_currentProjectName, kLayer_CurrentProjectName );
     
@@ -42,21 +40,21 @@ MainMenu::MainMenu( Layer *layer, unsigned int whatScene ) {
     }
     
     
-    padding = visibleSize.height * 0.05;
+    padding = safeAreaRect.height * 0.05;
     
-    float soundSquareHeight = visibleSize.height / kNumOfSoundObjects;
-    float instrumentAreaWidth = visibleSize.width - (soundSquareHeight * 2.0f);
+    float soundSquareHeight = safeAreaRect.height / kNumOfSoundObjects;
+    float instrumentAreaWidth = safeAreaRect.width - (soundSquareHeight * 2.0f);
     
     for ( int i = 0; i < kNumOfButtons; i++ ) {
         buttons_black[i] = Sprite::create( "square1px.png" );
         buttons_black[i]->setAnchorPoint( Vec2( 0.0f, 1.0f ) );
         buttons_black[i]->setTextureRect( Rect( 0, 0, soundSquareHeight, soundSquareHeight ) );
-        buttons_black[i]->setPosition( Vec2( origin.x, visibleSize.height - (buttons_black[i]->getBoundingBox().size.height * i) + origin.y ) );
+        buttons_black[i]->setPosition( Vec2( safeAreaOrigin.x, safeAreaRect.height - (buttons_black[i]->getBoundingBox().size.height * i) + safeAreaOrigin.y ) );
         buttons_black[i]->setColor( Color3B( 0, 0, 0 ) );
         layer->addChild( buttons_black[i], kLayer_MainMenu );
         
         buttons_gray[i] = Sprite::create( "square1px.png" );
-        buttons_gray[i]->setTextureRect( Rect( 0, 0, soundSquareHeight - (visibleSize.height * 0.005f), soundSquareHeight - (visibleSize.height * 0.005f) ) );
+        buttons_gray[i]->setTextureRect( Rect( 0, 0, soundSquareHeight - (safeAreaRect.height * 0.005f), soundSquareHeight - (safeAreaRect.height * 0.005f) ) );
         buttons_gray[i]->setPosition( Vec2( buttons_black[i]->getPosition().x + (buttons_black[i]->getBoundingBox().size.width/2.0f), buttons_black[i]->getPosition().y - (buttons_black[i]->getBoundingBox().size.height/2.0f) ) );
         if ( whatScene == kScene_Instrument ) {
             buttons_gray[i]->setColor( Color3B( 20, 20, 20 ) );
@@ -112,14 +110,14 @@ MainMenu::MainMenu( Layer *layer, unsigned int whatScene ) {
         blackBack[i] = Sprite::create( "square1px.png" );
         blackBack[i]->setTextureRect( Rect( 0, 0, soundSquareHeight, soundSquareHeight ) );
         blackBack[i]->setAnchorPoint( Vec2( 1.0f, 1.0f ) );
-        blackBack[i]->setPosition( Vec2( visibleSize.width + origin.x, (visibleSize.height - (blackBack[i]->getBoundingBox().size.height ) * i ) + origin.y ) );
+        blackBack[i]->setPosition( Vec2( safeAreaRect.width + safeAreaOrigin.x, (safeAreaRect.height - (blackBack[i]->getBoundingBox().size.height ) * i ) + safeAreaOrigin.y ) );
         blackBack[i]->setColor( Color3B::BLACK );
         layer->addChild( blackBack[i], kLayer_MainMenu );
         
         soundSquare[i] = Sprite::create( "square1px.png" );
         soundSquare[i]->setTextureRect( Rect( 0, 0, soundSquareHeight, soundSquareHeight ) );
         soundSquare[i]->setAnchorPoint( Vec2( 1.0f, 1.0f ) );
-        soundSquare[i]->setPosition( Vec2( visibleSize.width + origin.x, (visibleSize.height - (soundSquare[i]->getBoundingBox().size.height ) * i ) + origin.y ) );
+        soundSquare[i]->setPosition( Vec2( safeAreaRect.width + safeAreaOrigin.x, (safeAreaRect.height - (soundSquare[i]->getBoundingBox().size.height ) * i ) + safeAreaOrigin.y ) );
         layer->addChild( soundSquare[i], kLayer_MainMenu );
     
         std::string imageFile = "waveForm" + to_string( i ) + ".png";
@@ -184,7 +182,7 @@ MainMenu::MainMenu( Layer *layer, unsigned int whatScene ) {
     setActiveSoundObject( activeSoundObject );
     
     instrumentArea = Sprite::create( "square1px.png" );
-    instrumentArea->setTextureRect( Rect( 0.0f, 0.0f, instrumentAreaWidth, visibleSize.height ) );
+    instrumentArea->setTextureRect( Rect( 0.0f, 0.0f, instrumentAreaWidth, safeAreaRect.height ) );
     instrumentArea->setAnchorPoint( Vec2( 1.0f, 1.0f ) );
     instrumentArea->setPosition( Vec2( soundSquare[0]->getPosition().x - soundSquare[0]->getBoundingBox().size.width, soundSquare[0]->getPosition().y ) );
     instrumentArea->setVisible( false );
@@ -192,15 +190,15 @@ MainMenu::MainMenu( Layer *layer, unsigned int whatScene ) {
 
     
     midLine = Sprite::create( "square1px.png" );
-    midLine->setTextureRect( Rect( 0.0f, 0.0f, visibleSize.width - soundSquare[0]->getBoundingBox().size.width, 1 ) );
-    midLine->setPosition( Vec2( origin.x, visibleSize.height * kMidLine_Height_Multiplier + origin.y ) );
+    midLine->setTextureRect( Rect( 0.0f, 0.0f, safeAreaRect.width - soundSquare[0]->getBoundingBox().size.width, 1 ) );
+    midLine->setPosition( Vec2( safeAreaOrigin.x, safeAreaRect.height * kMidLine_Height_Multiplier + safeAreaOrigin.y ) );
     midLine->setAnchorPoint( Vec2( 0.0f, 0.5f ) );
     midLine->setOpacity( 20 );
     layer->addChild( midLine, kLayer_Midline );
     
     
     bombAnim = Sprite::create( "Bomb1.png" );
-    bombAnim->setPosition( Vec2( visibleSize.width * 0.5f + origin.x, visibleSize.height * 0.5f + origin.y ) );
+    bombAnim->setPosition( Vec2( safeAreaRect.width * 0.5f + safeAreaOrigin.x, safeAreaRect.height * 0.5f + safeAreaOrigin.y ) );
     bombAnim->setVisible( false );
     layer->addChild( bombAnim, kLayer_BombAnim );
     fBombTimer = 0;
@@ -220,7 +218,7 @@ MainMenu::MainMenu( Layer *layer, unsigned int whatScene ) {
     
     bBounceWavIsOn = false;
     playHead_startPosX = instrumentArea->getPosition().x - instrumentArea->getBoundingBox().size.width - 1;
-    playHead_endPosX = visibleSize.width - soundSquare[0]->getBoundingBox().size.width + origin.x;
+    playHead_endPosX = safeAreaRect.width - soundSquare[0]->getBoundingBox().size.width + safeAreaOrigin.x;
     loopIsOn = false;
     
     
@@ -229,7 +227,7 @@ MainMenu::MainMenu( Layer *layer, unsigned int whatScene ) {
     } else {
         helpOverlay = Sprite::create( "helpOverlay@2x.png" );
     }
-    helpOverlay->setPosition( Vec2( visibleSize.width * 0.5f + origin.x, visibleSize.height * 0.5f + origin.y ) );
+    helpOverlay->setPosition( Vec2( safeAreaRect.width * 0.5f + safeAreaOrigin.x, safeAreaRect.height * 0.5f + safeAreaOrigin.y ) );
     layer->addChild( helpOverlay, kLayer_HelpOverlay );
     */
 
@@ -248,6 +246,36 @@ MainMenu::MainMenu( Layer *layer, unsigned int whatScene ) {
     }
     
     startPos = cocos2d::Vec2( 0.0f, 0.0f );
+    
+    
+    // To cover long seqRects that goes beyond right menu outside safe rect
+    cocos2d::Size visSize = Director::getInstance()->getVisibleSize();
+    cocos2d::Vec2 orig = Director::getInstance()->getVisibleOrigin();
+    
+    cocos2d::Sprite *coverRight = Sprite::create( "square1px.png" );
+    coverRight->setAnchorPoint( Vec2( 0.0, 0.5 ) );
+    coverRight->setTextureRect( Rect( 0, 0, blackBack[0]->getBoundingBox().size.width * 3, visSize.height ) );
+    coverRight->setPosition( Vec2( blackBack[0]->getPosition().x, orig.y + (visSize.height/2) ) );
+    coverRight->setColor( Color3B( 0, 0, 0 ) );
+    layer->addChild( coverRight, kLayer_OutsideSafeAreaCover );
+    
+    // To cover the bottom area
+    cocos2d::Sprite *coverBottom = Sprite::create( "square1px.png" );
+    coverBottom->setAnchorPoint( Vec2( 0.5, 1.0 ) );
+    coverBottom->setTextureRect( Rect( 0, 0, visSize.width, blackBack[0]->getBoundingBox().size.height * 3 ) );
+    coverBottom->setPosition( Vec2( orig.x + (visSize.width/2), safeAreaOrigin.y ) );
+    coverBottom->setColor( Color3B( 0, 0, 0 ) );
+    layer->addChild( coverBottom, kLayer_OutsideSafeAreaCover );
+    
+    // To cover the left area
+    cocos2d::Sprite *coverLeft = Sprite::create( "square1px.png" );
+    coverLeft->setAnchorPoint( Vec2( 1.0, 1.0 ) );
+    coverLeft->setTextureRect( Rect( 0, 0, blackBack[0]->getBoundingBox().size.width * 3, visSize.height ) );
+    coverLeft->setPosition( Vec2( buttons_black[0]->getPosition().x, orig.y + visSize.height ) );
+    coverLeft->setColor( Color3B( 0, 0, 0 ) );
+    layer->addChild( coverLeft, kLayer_OutsideSafeAreaCover );
+    
+    
     
     
 
@@ -396,7 +424,7 @@ void MainMenu::abortWithTouchMove( Vec2 touchPos ) {
     Vec2 stopPos = touchPos;
     float distX = startPos.x - stopPos.x;
     float distY = startPos.y - stopPos.y;
-    //float touchMoveTolerance = visibleSize.width * 0.05f;
+    //float touchMoveTolerance = safeAreaRect.width * 0.05f;
     float touchMoveTolerance = buttons_gray[0]->getBoundingBox().size.width/2;
     
     if ( abs( distX ) + abs( distY ) > touchMoveTolerance ) {

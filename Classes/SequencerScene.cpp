@@ -28,10 +28,8 @@ bool SequencerScene::init() {
         return false;
     }
     
-    visibleSize = Director::getInstance()->getSafeAreaRect().size;
-    //visibleSize = Director::getInstance()->getVisibleSize();
-    origin = Director::getInstance()->getSafeAreaRect().origin;
-    //origin = Director::getInstance()->getVisibleOrigin();
+    safeAreaRect = Director::getInstance()->getSafeAreaRect().size;
+    safeAreaOrigin = Director::getInstance()->getSafeAreaRect().origin;
     
     auto dispatcher = Director::getInstance()->getEventDispatcher();
     auto listener = EventListenerTouchAllAtOnce::create();
@@ -41,17 +39,17 @@ bool SequencerScene::init() {
     dispatcher->addEventListenerWithSceneGraphPriority( listener, this );
     
     cocos2d::Sprite *background = Sprite::create( "square1px.png" );
-    background->setTextureRect( Rect( 0, 0, visibleSize.width, visibleSize.height ) );
-    background->setPosition( Vec2( origin.x + visibleSize.width * 0.5, origin.y + visibleSize.height * 0.5 ) );
+    background->setTextureRect( Rect( 0, 0, safeAreaRect.width, safeAreaRect.height ) );
+    background->setPosition( Vec2( safeAreaOrigin.x + safeAreaRect.width * 0.5, safeAreaOrigin.y + safeAreaRect.height * 0.5 ) );
     background->setColor( Color3B( 30, 30, 30 ) );
-    this->addChild( background, 0 );
+    this->addChild( background, kLayer_GrayBackground );
 
     mainMenu = new MainMenu( this, kScene_Sequencer );
     
     playHead = Sprite::create( "square1px.png" );
-    playHead->setTextureRect( Rect( 0, 0, 1, visibleSize.height ) );
+    playHead->setTextureRect( Rect( 0, 0, 1, safeAreaRect.height ) );
     playHead->setAnchorPoint( Vec2( 0.5f, 0.5f ) );
-    playHead->setPosition( Vec2( mainMenu->getPlayHeadStartPosX(), visibleSize.height * 0.5f + origin.y ) );
+    playHead->setPosition( Vec2( mainMenu->getPlayHeadStartPosX(), safeAreaRect.height * 0.5f + safeAreaOrigin.y ) );
     this->addChild( playHead, kLayer_PlayHead );
     someoneIsHeld = false;
     playHeadIsMoving = false;
@@ -103,8 +101,8 @@ void SequencerScene::update( float dt ) {
                     
                     if ( CheckBoxCollision( seqSoundRect[i].collisionSprite, playHead ) ) {
                         FMODAudioEngine::playSound( seqSoundRect[i].getWhatSoundObject() );
-                        float minPosY = (visibleSize.height * kSequencer_MinYpos_height_multiplier) + origin.y;
-                        float midLinePosY = (visibleSize.height * kMidLine_Height_Multiplier) + origin.y;
+                        float minPosY = (safeAreaRect.height * kSequencer_MinYpos_height_multiplier) + safeAreaOrigin.y;
+                        float midLinePosY = (safeAreaRect.height * kMidLine_Height_Multiplier) + safeAreaOrigin.y;
                         float pitch  = scaleValue( seqSoundRect[i].sprite->getPosition().y, minPosY, midLinePosY, kPitchMin, kPitchMax, true );
                         log( "fmod pitch: %f", pitch );
                         //log( "pitch UPDATE: %f", pitch );
@@ -399,7 +397,7 @@ void SequencerScene::onTouchesEnded( const std::vector<Touch*> &touches, Event* 
                     // BACK BUTTON
                     if ( mainMenu->buttons_image[kButtons_ArrayNum_Stop]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
                         if ( mainMenu->getTouchHasBegun( kButtons_ArrayNum_Stop ) ) {
-                            playHead->setPosition( Vec2( mainMenu->getPlayHeadStartPosX(), visibleSize.height * 0.5 + origin.y ) );
+                            playHead->setPosition( Vec2( mainMenu->getPlayHeadStartPosX(), safeAreaRect.height * 0.5 + safeAreaOrigin.y ) );
                             playHeadHandle->setPositionX( playHead->getPosition().x );
                         }
                     }
@@ -592,7 +590,7 @@ void SequencerScene::movePlayHead() {
     float duration = distance / speed;
     log( "duration: %f", duration );
     
-    auto moveRight = MoveTo::create( duration, Vec2( mainMenu->getPlayHeadEndPosX(), visibleSize.height * 0.5 + origin.y ) );
+    auto moveRight = MoveTo::create( duration, Vec2( mainMenu->getPlayHeadEndPosX(), safeAreaRect.height * 0.5 + safeAreaOrigin.y ) );
     
     auto stopBounce = CallFunc::create( CC_CALLBACK_0( SequencerScene::stopBounce, this ) );
     auto seqBounce = Sequence::create( moveRight, stopBounce, NULL );
@@ -617,7 +615,7 @@ void SequencerScene::stopBounce() {
     FMODAudioEngine::stopSound();
     stopPlayHead();
     playHeadHandle->setVisible( true );
-    playHead->setPosition( Vec2( mainMenu->getPlayHeadStartPosX(), visibleSize.height * 0.5 + origin.y ) );
+    playHead->setPosition( Vec2( mainMenu->getPlayHeadStartPosX(), safeAreaRect.height * 0.5 + safeAreaOrigin.y ) );
     setPlayHeadHandlePos();
     FMODAudioEngine::STOP_outputToWaveWriter();
     for ( int i = 0; i < kNumOfSoundObjects; i++ ) {
@@ -663,7 +661,7 @@ void SequencerScene::resetWhenReachEnd() {
         seqSoundRect[i].border->setOpacity( kSeqSoundRect_Opacity_Low );
     }
     
-    playHead->setPosition( Vec2( mainMenu->getPlayHeadStartPosX(), visibleSize.height * 0.5 + origin.y ) );
+    playHead->setPosition( Vec2( mainMenu->getPlayHeadStartPosX(), safeAreaRect.height * 0.5 + safeAreaOrigin.y ) );
     setPlayHeadHandlePos();
     
     if ( mainMenu->getIsLoopOn() ) {
@@ -837,7 +835,7 @@ void SequencerScene::keepSeqSoundRectInArea() {
     
     for ( int i = 0; i < seqSoundRect.size(); i++ ) {
 
-        float minPosY = (visibleSize.height * kSequencer_MinYpos_height_multiplier) + origin.y;
+        float minPosY = (safeAreaRect.height * kSequencer_MinYpos_height_multiplier) + safeAreaOrigin.y;
         if ( seqSoundRect[i].sprite->getPositionY() <= minPosY ) {
             seqSoundRect[i].sprite->setPositionY( minPosY );
             seqSoundRect[i].updateBorder();
@@ -848,7 +846,7 @@ void SequencerScene::keepSeqSoundRectInArea() {
             seqSoundRect[i].updateBorder();
         }
         
-        float maxPosY = (visibleSize.height - (seqSoundRect[i].sprite->getBoundingBox().size.height/2.0f) ) + origin.y;
+        float maxPosY = (safeAreaRect.height - (seqSoundRect[i].sprite->getBoundingBox().size.height/2.0f) ) + safeAreaOrigin.y;
         if ( seqSoundRect[i].sprite->getPositionY() >=  maxPosY ) {
             seqSoundRect[i].sprite->setPositionY( maxPosY );
             seqSoundRect[i].updateBorder();

@@ -36,8 +36,8 @@ private:
     
     std::vector<Circle> circle;
     cocos2d::Layer *layer;
-    cocos2d::Size visibleSize;
-    cocos2d::Vec2 origin;
+    cocos2d::Vec2 safeAreaOrigin;
+    cocos2d::Size safeAreaRect;
     float spawnTimer;
     unsigned int touchID;
     bool bDestroy;
