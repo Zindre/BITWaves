@@ -194,7 +194,7 @@ void BounceAndShare::showPrompt( std::string message ) {
         buttonBg[kBounceAndShare_Buttons_Index_PromptConfirm]->setVisible( false );
         label_buttons[kBounceAndShare_Buttons_Index_PromptConfirm]->setVisible( false );
         uploadAnim->setVisible( true );
-        auto rotate = RotateBy::create( 5, 360 );
+        auto rotate = RotateBy::create( 1, 360 );
         auto repeatRotate = RepeatForever::create( rotate );
         uploadAnim->runAction( repeatRotate );
     } else if ( message.compare( "Vennligst lagre prosjektet før du laster opp" ) == 0 ) {

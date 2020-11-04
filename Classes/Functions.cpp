@@ -69,7 +69,7 @@ cocos2d::Color3B color_soundObject4() {
     return color;
 }
 cocos2d::Color3B color_soundObject5() {
-    cocos2d::Color3B color = cocos2d::Color3B( 0, 0, 255 );
+    cocos2d::Color3B color = cocos2d::Color3B( 0, 100, 255 );
     return color;
 }
 cocos2d::Color3B color_soundObject6() {
