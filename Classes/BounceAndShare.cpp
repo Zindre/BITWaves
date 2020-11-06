@@ -236,5 +236,5 @@ void BounceAndShare::hideBounceWindow() {
 }
 
 void BounceAndShare::openWebLink() {
-    Application::getInstance()->openURL( "https://drive.google.com/drive/folders/1M_omBEdSD3CaBACU7hOE1463YxnqMZBv?usp=sharing" );
+    Application::getInstance()->openURL( "https://drive.google.com/drive/folders/11xHq_TCO1xAIWQjC_1YD2pKzgaaVjnzw" );
 }

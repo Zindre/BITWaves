@@ -10,34 +10,10 @@
 USING_NS_CC;
 //using namespace network;
 
-// This uploads to script.google.com, something like this:
-
+//// This script receives a file from the BITWaves mobile app and saves it on a Google Drive
 //function doPost(e) {
-//
 //  var folder, folders = DriveApp.getFoldersByName("BITWaves");
-//  Logger = BetterLog.useSpreadsheet('1NNU8RtoXNy35WjHUKRLafeWGP17TYRX5GwPHqNtjWlM');
-//  Logger.log(folders);
-//  Logger.log(e);
-//  if (folders.hasNext()) {
-//    folder = folders.next();
-//  } else {
-//    folder = DriveApp.createFolder("BITWaves");
-//  }
-//  var data = Utilities.base64Decode(e.postData.contents.split("data=")[1]);
-//  var blob = Utilities.newBlob(data, e.parameter.mimetype, e.parameter.filename);
-//  Logger.log(blob);
-//  var id = "Your File Download Link: https://drive.google.com/uc?id="+folder.createFile(blob).getId();
-//  return ContentService.createTextOutput(id);
-//}
-
-// And new json version:
-
-//function doPost(e) {
-//
-//  var folder, folders = DriveApp.getFoldersByName("BITWaves");
-//  Logger = BetterLog.useSpreadsheet('1NNU8RtoXNy35WjHUKRLafeWGP17TYRX5GwPHqNtjWlM');
-//  Logger.log(folders);
-//  Logger.log(e);
+//  Logger = BetterLog.useSpreadsheet('1lb1NSfPYMeI6ENsBCcbw9_SpFyhUi5dTXHe0TtBrjjc');
 //  if (folders.hasNext()) {
 //    folder = folders.next();
 //  } else {
@@ -45,13 +21,16 @@ USING_NS_CC;
 //  }
 //  var json = JSON.parse(e.postData.contents);
 //  //Logger.log(e.postData.contents);
-//  Logger.log(json);
+//  Logger.log("File being uploaded: " + json['filename']);
 //  var fileData = Utilities.base64Decode(json['data']);
 //  var blob = Utilities.newBlob(fileData, "audio/wav", json['filename']);
-//  Logger.log(blob);
+//  //Logger.log("Blob: " + blob.getName());
 //  var id = "Your File Download Link: https://drive.google.com/uc?id="+folder.createFile(blob).getId();
 //  return ContentService.createTextOutput(id);
 //}
+
+const char* Uploader::URL_BASE = "https://script.google.com/macros/s/AKfycbzbRIxOS0Z35D89AQWBM3vJwo5Sn_PqSbxioeYyvdCXpwMxE5jF/exec";
+
 
 Uploader::Uploader(){
     bounceAndShare = nullptr;
@@ -62,7 +41,7 @@ Uploader::Uploader(BounceAndShare* bas) {
     bounceAndShare = bas;
 }
 
-std::tuple<char*, int> Uploader::file_to_base64(std::string path) {
+std::pair<char*, int> Uploader::file_to_base64(std::string path) {
     /** Converts a file to base64
      * @param path the path to a binary file
      * @return a tuple, a char*, a pointer to the output base64 string and an int, the length of the output string
@@ -123,7 +102,7 @@ void Uploader::upload_bounce_file(std::string sourcePath, std::string destinatio
     char* datab64;
     unsigned int datab64size;
     std::tie (datab64, datab64size) = Uploader::file_to_base64(sourcePath);
-    const char *url_base = "https://script.google.com/macros/s/AKfycbzajQuBAyi8T_xY--iqoP5Ns1nqhmmzd2RvtKgTy8rkGQ3xl1d7/exec";
+    
     rapidjson::Document jsonDoc;
     jsonDoc.SetObject();
     Value o(rapidjson::kObjectType);
@@ -138,9 +117,9 @@ void Uploader::upload_bounce_file(std::string sourcePath, std::string destinatio
     jsonDoc.Accept(writer);
     std::string jsonString = sb.GetString();
     network::HttpRequest* request = new (std :: nothrow) network::HttpRequest();
-    log("Payload: %s", jsonString.c_str());
+    //log("Payload: %s", jsonString.c_str());
     request->setRequestType(network::HttpRequest::Type::POST);
-    request->setUrl(url_base);
+    request->setUrl(Uploader::URL_BASE);
     request->setRequestData(jsonString.c_str(), jsonString.length());
     request->setResponseCallback(CC_CALLBACK_2(Uploader::onHttpRequestCompleted, this));
     network::HttpClient::getInstance()->send(request);
