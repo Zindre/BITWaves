@@ -404,8 +404,13 @@ void SequencerScene::onTouchesEnded( const std::vector<Touch*> &touches, Event* 
           
                 } else if ( whatState == kSequencerScene_State_HelpOverlay ) {
                     
-                    mainMenu->helpOverlay->hide();
-                    whatState = kSequencerScene_State_Normal;
+                    if ( mainMenu->helpOverlay->webLinkBg->getBoundingBox().containsPoint( touch->getLocation() ) ) {
+                        // Web Link
+                        mainMenu->helpOverlay->openWebLink();
+                    } else {
+                        mainMenu->helpOverlay->hide();
+                        whatState = kSequencerScene_State_Normal;
+                    }
                     
                 } else if ( whatState == kSequencerScene_State_PlayHeadIsMoving ) {
                     

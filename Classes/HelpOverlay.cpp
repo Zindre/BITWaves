@@ -10,11 +10,11 @@ HelpOverlay::HelpOverlay( cocos2d::Layer *layer, unsigned int whatScene ) {
     
     // SCROLL BOX
     scrollView = ui::ScrollView::create();
-    cocos2d::Size boxSize = cocos2d::Size( safeAreaRect.width * 0.5f, safeAreaRect.height * 0.7f );
+    cocos2d::Size boxSize = cocos2d::Size( safeAreaRect.width * 0.5f, safeAreaRect.height * 0.65f );
     scrollView->setContentSize( boxSize );
     scrollView->setDirection( ui::ScrollView::Direction::VERTICAL );
     scrollView->setAnchorPoint( Vec2( 0.5f, 0.5f ) );
-    scrollView->setPosition( Vec2( safeAreaRect.width * 0.7f + safeAreaOrigin.x, safeAreaRect.height * 0.57f + safeAreaOrigin.y ) );
+    scrollView->setPosition( Vec2( safeAreaRect.width * 0.7f + safeAreaOrigin.x, safeAreaRect.height * 0.53f + safeAreaOrigin.y ) );
     scrollView->setBounceEnabled( true );
     scrollView->setScrollBarAutoHideEnabled( false );
     scrollView->setScrollBarPositionFromCornerForVertical( Vec2( scrollView->getScrollBarWidth() * 2, scrollView->getScrollBarWidth() * 2 ) );
@@ -39,7 +39,7 @@ HelpOverlay::HelpOverlay( cocos2d::Layer *layer, unsigned int whatScene ) {
     helpHeading->setColor( Color3B::WHITE );
     scrollView->addChild( helpHeading, kLayer_HelpOverlay );
     
-    padding = safeAreaRect.height * 0.03f;
+    padding = helpHeading->getBoundingBox().size.height;
     float maxLineWidth = boxSize.width - (padding * 2.5f);
 
     helpText_instrument_string = std::string( "- Start med å låse opp for opptak ved å trykke på hengelåsen.\n\n- Trykk på opptaksknappen for å gjøre opptak.\n\n- Spill av lydene ved å trykke på det sorte området på skjermen. Du kan bruke flere fingre samtidig, og dra fingrene over skjermen.\n\n- På toppen av skjermen over linjen, spilles lyden av i originalt tempo og tonehøyde. Nedover på skjermen blir lyden langsommere og mørkere.\n\n- Lag et nytt opptak ved å velge en annen farge til høyre på skjermen.\n\n- Trykk på prosjekter-knappen for å lagre flere prosjekter.\n\n- Trykk på bytte-modus-knappen for å bytte til komposisjonsmodus." );
@@ -73,11 +73,11 @@ HelpOverlay::HelpOverlay( cocos2d::Layer *layer, unsigned int whatScene ) {
     aboutText->setColor( Color3B::WHITE );
     scrollView->addChild( aboutText, kLayer_HelpOverlay );
     
-    scrollView->setInnerContainerSize( Size( maxLineWidth, helpHeading->getBoundingBox().size.height + helpText->getBoundingBox().size.height + aboutHeading->getBoundingBox().size.height + aboutText->getBoundingBox().size.height + (padding * 5) ) );
+    scrollView->setInnerContainerSize( Size( maxLineWidth, helpHeading->getBoundingBox().size.height + helpText->getBoundingBox().size.height + aboutHeading->getBoundingBox().size.height + aboutText->getBoundingBox().size.height + (padding * 6) ) );
     
     helpHeading->setPosition( Vec2( scrollView->getInnerContainerPosition().x + padding, scrollView->getInnerContainerSize().height - padding ) );
     helpText->setPosition( Vec2( helpHeading->getPosition().x, helpHeading->getPosition().y - helpHeading->getBoundingBox().size.height - padding ) );
-    aboutHeading->setPosition( Vec2( helpText->getPosition().x, helpText->getPosition().y - helpText->getBoundingBox().size.height - (padding * 4) ) );
+    aboutHeading->setPosition( Vec2( helpText->getPosition().x, helpText->getPosition().y - helpText->getBoundingBox().size.height - (padding * 3) ) );
     aboutText->setPosition( Vec2( aboutHeading->getPosition().x, aboutHeading->getPosition().y - aboutHeading->getBoundingBox().size.height - padding ) );
     
     // LOGO BOX
@@ -140,6 +140,18 @@ HelpOverlay::HelpOverlay( cocos2d::Layer *layer, unsigned int whatScene ) {
         helpLabel[4]->setTexture( "help_projects.png" );
     }
     
+    webLinkBg = Sprite::create( "square1px.png" );
+    webLinkBg->setTextureRect( Rect( 0, 0, border->getBoundingBox().size.width, padding ) );
+    webLinkBg->setColor( Color3B( 170, 170, 170 ) );
+    webLinkBg->setPosition( Vec2( border->getPosition().x, border->getPosition().y + (border->getBoundingBox().size.height/2) + padding ) );
+    layer->addChild( webLinkBg, kLayer_HelpOverlay );
+    
+    label_webLink = Label::createWithTTF( "Her kan du høre komposisjoner laget med BITWaves!", "fonts/arial.ttf", kFontSize_SmallText );
+    label_webLink->setPosition( webLinkBg->getPosition() );
+    label_webLink->setColor( Color3B::BLACK );
+    label_webLink->enableUnderline();
+    layer->addChild( label_webLink, kLayer_HelpOverlay );
+    
 }
 
 void HelpOverlay::hide() {
@@ -154,6 +166,9 @@ void HelpOverlay::hide() {
         helpLabel[i]->setVisible( false );
     }
     border->setVisible( false );
+    
+    label_webLink->setVisible( false );
+    webLinkBg->setVisible( false );
     
 }
 
@@ -176,4 +191,11 @@ void HelpOverlay::show() {
     
     border->setVisible( true );
     
+    label_webLink->setVisible( true );
+    webLinkBg->setVisible( true );
+    
+}
+
+void HelpOverlay::openWebLink() {
+    Application::getInstance()->openURL( "https://drive.google.com/drive/folders/11xHq_TCO1xAIWQjC_1YD2pKzgaaVjnzw" );
 }

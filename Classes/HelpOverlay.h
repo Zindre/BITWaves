@@ -15,6 +15,9 @@ public:
     HelpOverlay( cocos2d::Layer *layer, unsigned int whatScene );
     void show();
     void hide();
+    void openWebLink();
+    
+    cocos2d::Sprite *webLinkBg;
     
 private:
     
@@ -44,6 +47,6 @@ private:
     unsigned int whatScene;
     
     cocos2d::Sprite *border;
-    
+    cocos2d::Label *label_webLink;
     
 };

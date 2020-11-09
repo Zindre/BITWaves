@@ -420,7 +420,6 @@ void InstrumentScene::onTouchesBegan( const std::vector<Touch*>& touches, Event*
                 }
             
                 
-                
             }
         }
     }
@@ -731,12 +730,18 @@ void InstrumentScene::onTouchesEnded( const std::vector<Touch*> &touches, Event*
                 
             } else {
                 
-                mainMenu->helpOverlayIsVisible = false;
-                //mainMenu->helpOverlay->setVisible( false );
-                mainMenu->helpOverlay->hide();
-                if ( ! UserDefault::getInstance()->getBoolForKey( "helpOverlayHasShownOnFirstBoot" ) ) {
-                    UserDefault::getInstance()->setBoolForKey( "helpOverlayHasShownOnFirstBoot", true );
-                    UserDefault::getInstance()->flush();
+                
+                if ( mainMenu->helpOverlay->webLinkBg->getBoundingBox().containsPoint( touch->getLocation() ) ) {
+                    // Web Link
+                    mainMenu->helpOverlay->openWebLink();
+                } else {
+                    mainMenu->helpOverlayIsVisible = false;
+                    //mainMenu->helpOverlay->setVisible( false );
+                    mainMenu->helpOverlay->hide();
+                    if ( ! UserDefault::getInstance()->getBoolForKey( "helpOverlayHasShownOnFirstBoot" ) ) {
+                        UserDefault::getInstance()->setBoolForKey( "helpOverlayHasShownOnFirstBoot", true );
+                        UserDefault::getInstance()->flush();
+                    }
                 }
                 
             }
