@@ -381,9 +381,18 @@ void InstrumentScene::onTouchesBegan( const std::vector<Touch*>& touches, Event*
                                     }
                                     
                                     if ( mainMenu->buttons_image[kButtons_ArrayNum_Projects]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
-                                        if ( projectHandlingIsActivatedInIosPreferences() ) {
-                                            mainMenu->buttons_image[kButtons_ArrayNum_Projects]->setScale( kButtons_ScaleValue );
-                                            mainMenu->setTouchHasBegun( true, kButtons_ArrayNum_Projects );
+                                        if ( CC_TARGET_PLATFORM == CC_PLATFORM_IOS ) {
+                                            if (projectHandlingIsActivatedInIosPreferences()) {
+                                                mainMenu->buttons_image[kButtons_ArrayNum_Projects]->setScale(
+                                                        kButtons_ScaleValue);
+                                                mainMenu->setTouchHasBegun(true,
+                                                                           kButtons_ArrayNum_Projects);
+                                            }
+                                        } else {
+                                            mainMenu->buttons_image[kButtons_ArrayNum_Projects]->setScale(
+                                                    kButtons_ScaleValue);
+                                            mainMenu->setTouchHasBegun(true,
+                                                                       kButtons_ArrayNum_Projects);
                                         }
                                     }
                                     

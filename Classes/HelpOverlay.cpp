@@ -77,7 +77,7 @@ HelpOverlay::HelpOverlay( cocos2d::Layer *layer, unsigned int whatScene ) {
     
     helpHeading->setPosition( Vec2( scrollView->getInnerContainerPosition().x + padding, scrollView->getInnerContainerSize().height - padding ) );
     helpText->setPosition( Vec2( helpHeading->getPosition().x, helpHeading->getPosition().y - helpHeading->getBoundingBox().size.height - padding ) );
-    aboutHeading->setPosition( Vec2( helpText->getPosition().x, helpText->getPosition().y - helpText->getBoundingBox().size.height - (padding * 3) ) );
+    aboutHeading->setPosition( Vec2( helpText->getPosition().x, helpText->getPosition().y - helpText->getBoundingBox().size.height - (padding * 3   ) ) );
     aboutText->setPosition( Vec2( aboutHeading->getPosition().x, aboutHeading->getPosition().y - aboutHeading->getBoundingBox().size.height - padding ) );
     
     // LOGO BOX

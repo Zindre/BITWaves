@@ -9,17 +9,18 @@ MainMenu::MainMenu( Layer *layer, unsigned int whatScene ) {
     
     this->whatScene = whatScene;
     
-    
-    if ( projectHandlingIsActivatedInIosPreferences() ) {
-        log( "project handling is activated" );
-    } else {
-        log( "project handling is NOT activated" );
-    }
-    
-    if ( bounceAndShareIsActivatedInIosPreferences() ) {
-        log( "bounce and share is activated" );
-    } else {
-        log( "bounce and share is NOT activated" );
+    if ( CC_TARGET_PLATFORM == CC_PLATFORM_IOS ) {
+        if ( projectHandlingIsActivatedInIosPreferences() ) {
+            log( "project handling is activated" );
+        } else {
+            log( "project handling is NOT activated" );
+        }
+        
+        if ( bounceAndShareIsActivatedInIosPreferences() ) {
+            log( "bounce and share is activated" );
+        } else {
+            log( "bounce and share is NOT activated" );
+        }
     }
 
     
@@ -90,17 +91,18 @@ MainMenu::MainMenu( Layer *layer, unsigned int whatScene ) {
         buttons_image[kButtons_ArrayNum_Stop]->setTexture( "backButton.png" );
         buttons_image[kButtons_ArrayNum_Help]->setTexture( "helpButtonDark.png" );
     }
-    
-    
-    if ( whatScene == kScene_Instrument ) {
-        if ( ! projectHandlingIsActivatedInIosPreferences() ) {
-            buttons_image[kButtons_ArrayNum_Projects]->setVisible( false );
+
+
+    if ( CC_TARGET_PLATFORM == CC_PLATFORM_IOS ) {
+        if ( whatScene == kScene_Instrument ) {
+            if ( ! projectHandlingIsActivatedInIosPreferences() ) {
+                buttons_image[kButtons_ArrayNum_Projects]->setVisible( false );
+            }
         }
-    }
-    
-    if ( whatScene == kScene_Sequencer ) {
-        if ( ! bounceAndShareIsActivatedInIosPreferences() ) {
-            buttons_image[kButtons_ArrayNum_Bounce]->setVisible( false );
+        if ( whatScene == kScene_Sequencer ) {
+            if ( ! bounceAndShareIsActivatedInIosPreferences() ) {
+                buttons_image[kButtons_ArrayNum_Bounce]->setVisible( false );
+            }
         }
     }
     

@@ -30,6 +30,9 @@ BounceAndShare::BounceAndShare( cocos2d::Layer *layer ) {
     label_whereToFind->setAlignment( TextHAlignment::CENTER );
     label_whereToFind->setLineHeight( lineHeightSmallText );
     layer->addChild( label_whereToFind, kLayer_BounceAndShare );
+    if ( CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID ) {
+        label_whereToFind->setColor( Color3B::WHITE );
+    }
     
     label_wantToShare = Label::createWithTTF( "Vil du dele lydfilen med BIT20 Ensemble?", "fonts/arial.ttf", kFontSize_BigText );
     label_wantToShare->setColor( Color3B::BLACK );

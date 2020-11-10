@@ -9,7 +9,7 @@ android {
         applicationId "com.stianremvik.bitwaves2"
         minSdkVersion PROP_MIN_SDK_VERSION
         targetSdkVersion PROP_TARGET_SDK_VERSION
-        versionCode 1
+        versionCode 30
         versionName "2.4"
 
         externalNativeBuild {

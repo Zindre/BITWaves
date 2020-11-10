@@ -47,18 +47,19 @@ std::pair<char*, int> Uploader::file_to_base64(std::string path) {
      * @return a tuple, a char*, a pointer to the output base64 string and an int, the length of the output string
      */
     FILE * file = std::fopen(path.c_str(), "r+");
-    if (file == NULL) return;
-    fseek(file, 0, SEEK_END);
-    long int size = ftell(file);
-    fclose(file);
-    // Reading data to array of unsigned chars
-    file = std::fopen(path.c_str(), "r+");
-    unsigned char * in = (unsigned char *) malloc(size);
-    long int bytes_read = fread(in, sizeof(unsigned char), size, file);
-    fclose(file);
-    char* out;
-    unsigned int outlength = cocos2d::base64Encode(in, (int) size, &out);
-    return {out, outlength};
+    if (file != NULL) {
+        fseek(file, 0, SEEK_END);
+        long int size = ftell(file);
+        fclose(file);
+        // Reading data to array of unsigned chars
+        file = std::fopen(path.c_str(), "r+");
+        unsigned char *in = (unsigned char *) malloc(size);
+        long int bytes_read = fread(in, sizeof(unsigned char), size, file);
+        fclose(file);
+        char *out;
+        unsigned int outlength = cocos2d::base64Encode(in, (int) size, &out);
+        return {out, outlength};
+    }
 }
 
 void Uploader::notifyUser(char message[]) {

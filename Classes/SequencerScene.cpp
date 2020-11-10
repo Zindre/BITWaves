@@ -281,7 +281,12 @@ void SequencerScene::onTouchesBegan( const std::vector<Touch*>& touches, Event* 
                     
                     // BOUNCE AND SHARE BUTTON
                     if ( mainMenu->buttons_image[kButtons_ArrayNum_Bounce]->getBoundingBox().containsPoint( touch->getLocation() ) ) {
-                        if ( bounceAndShareIsActivatedInIosPreferences() ) {
+                        if ( CC_TARGET_PLATFORM == CC_PLATFORM_IOS ) {
+                            if ( bounceAndShareIsActivatedInIosPreferences() ) {
+                                mainMenu->setTouchHasBegun( true, kButtons_ArrayNum_Bounce );
+                                mainMenu->buttons_image[kButtons_ArrayNum_Bounce]->setScale( kButtons_ScaleValue );
+                            }
+                        } else {
                             mainMenu->setTouchHasBegun( true, kButtons_ArrayNum_Bounce );
                             mainMenu->buttons_image[kButtons_ArrayNum_Bounce]->setScale( kButtons_ScaleValue );
                         }
