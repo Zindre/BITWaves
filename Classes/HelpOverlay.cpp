@@ -64,7 +64,7 @@ HelpOverlay::HelpOverlay( cocos2d::Layer *layer, unsigned int whatScene ) {
     aboutHeading->setColor( Color3B::WHITE );
     scrollView->addChild( aboutHeading, kLayer_HelpOverlay );
 
-    about_string = std::string( "BIT20 Ensemble ble stiftet i 1989 og er et samtidsmusikkorkester. Orkesteret gjør innspillinger av norske og utenlandske komponister, har konserter over hele verden og står bak flere spennende deltakerprosjekt med barn, ungdom og voksne i alle aldre. BITWaves ble utviklet av Stian Remvik ved BEK (Bergen Senter For Elektronisk Kunst) i 2015 som en musikkapp for BIT20 Ensemble. App-en kan brukes i komposisjonsprosjekter og i musikkproduksjon. BITWaves er finansiert av BIT20 Ensemble med støtte fra Norsk Kulturråd og Bergen Kommune. App-en brukes primært i undervisning og formidling rettet mot barn og unge.\n\nIdé: Ole André Farstad\nDesign og programmering: Stian Remvik\nProgrammering: Sindre Sørensen\n\n v. 2.4\n\n" );
+    about_string = std::string( "BIT20 Ensemble ble stiftet i 1989 og er et samtidsmusikkorkester. Orkesteret gjør innspillinger av norske og utenlandske komponister, har konserter over hele verden og står bak flere spennende deltakerprosjekt med barn, ungdom og voksne i alle aldre. BITWaves ble utviklet av Stian Remvik ved BEK (Bergen Senter For Elektronisk Kunst) i 2015 som en musikkapp for BIT20 Ensemble. App-en kan brukes i komposisjonsprosjekter og i musikkproduksjon. BITWaves er finansiert av BIT20 Ensemble med støtte fra Norsk Kulturråd og Bergen Kommune. App-en brukes primært i undervisning og formidling rettet mot barn og unge.\n\nIdé: Ole André Farstad\nDesign og programmering: Stian Remvik\nProgrammering: Sindre Sørensen\n\n v. 2.5\n\n" );
 
     aboutText = Label::createWithTTF( about_string, "fonts/arial.ttf", fontSize_Text );
     aboutText->setAnchorPoint( Vec2( 0.0f, 1.0f ) );
@@ -151,6 +151,45 @@ HelpOverlay::HelpOverlay( cocos2d::Layer *layer, unsigned int whatScene ) {
     label_webLink->setColor( Color3B::BLACK );
     label_webLink->enableUnderline();
     layer->addChild( label_webLink, kLayer_HelpOverlay );
+    
+    
+    
+    /* Privacy Statement */
+    privacyBgBlack = Sprite::create( "square1px.png" );
+    privacyBgBlack->setTextureRect( Rect( 0, 0, safeAreaRect.width, safeAreaRect.height ) );
+    privacyBgBlack->setPosition( Vec2( safeAreaRect.width * 0.5 + safeAreaOrigin.x, safeAreaRect.height * 0.5 + safeAreaOrigin.y ) );
+    privacyBgBlack->setColor( Color3B::BLACK );
+    privacyBgBlack->setOpacity( 200 );
+    layer->addChild( privacyBgBlack, kLayer_HelpOverlay );
+    
+    privacyBgWhite = Sprite::create( "square1px.png" );
+    privacyBgWhite->setTextureRect( Rect( 0, 0, safeAreaRect.width * 0.7, safeAreaRect.height * 0.75 ) );
+    privacyBgWhite->setPosition( Vec2( safeAreaRect.width * 0.5 + safeAreaOrigin.x, safeAreaRect.height * 0.5 + safeAreaOrigin.y ) );
+    layer->addChild( privacyBgWhite, kLayer_HelpOverlay );
+    
+    privacyText = Label::createWithTTF( "BITWaves bruker mikrofonen i enheten din for å gjøre opptak. Lydene kan spilles av i instrumentmodusen, eller settes sammen til komposisjoner i komposisjonsmodusen. Lydene blir ikke delt med noen uten at du selv aktivt velger å laste opp lyder til BIT20 Ensemble.", "fonts/arial.ttf", kFontSize_SmallText );
+    privacyText->setPosition( Vec2( privacyBgWhite->getPosition() ) );
+    privacyText->setColor( Color3B::BLACK );
+    privacyText->setMaxLineWidth( privacyBgWhite->getBoundingBox().size.width * 0.8 );
+    privacyText->setLineHeight( lineHeight_Text );
+    layer->addChild( privacyText, kLayer_HelpOverlay );
+    
+    privacyHeader = Label::createWithTTF( "Personvernerklæring", "fonts/arial.ttf", kFontSize_BigText );
+    privacyHeader->setPosition( Vec2( privacyText->getPosition().x, privacyText->getPosition().y + (privacyText->getBoundingBox().size.height/2) + (padding * 2) ) );
+    privacyHeader->setColor( Color3B::BLACK );
+    layer->addChild( privacyHeader, kLayer_HelpOverlay );
+    
+    privacyButtonBg = Sprite::create( "buttonBg.png" );
+    privacyButtonBg->setColor( Color3B::BLACK );
+    privacyButtonBg->setPosition( Vec2( privacyText->getPosition().x, privacyText->getPosition().y - (privacyText->getBoundingBox().size.height/2) - (padding * 2) ) );
+    layer->addChild( privacyButtonBg, kLayer_HelpOverlay );
+    
+    privacyButtonText = Label::createWithTTF( "Jeg aksepterer", "fonts/arial.ttf", kFontSize_Buttons );
+    privacyButtonText->setColor( Color3B::WHITE );
+    privacyButtonText->setPosition( Vec2( privacyButtonBg->getPosition() ) );
+    layer->addChild( privacyButtonText, kLayer_HelpOverlay );
+    
+    
     
 }
 

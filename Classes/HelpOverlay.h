@@ -49,4 +49,11 @@ private:
     cocos2d::Sprite *border;
     cocos2d::Label *label_webLink;
     
+    cocos2d::Sprite *privacyBgWhite;
+    cocos2d::Sprite *privacyBgBlack;
+    cocos2d::Label *privacyHeader;
+    cocos2d::Label *privacyText;
+    cocos2d::Sprite *privacyButtonBg;
+    cocos2d::Label *privacyButtonText;
+    
 };
