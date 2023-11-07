@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "org.stianremvik.BITWaves"
+    namespace = "com.stianremvik.bitwaves2"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "org.stianremvik.BITWaves"
+        applicationId = "com.stianremvik.bitwaves2"
         minSdk = 24
         targetSdk = 33
         versionCode = 1
