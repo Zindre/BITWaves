@@ -152,9 +152,10 @@ HelpOverlay::HelpOverlay( cocos2d::Layer *layer, unsigned int whatScene ) {
     label_webLink->enableUnderline();
     layer->addChild( label_webLink, kLayer_HelpOverlay );
     
-    
+
     
     /* Privacy Statement */
+    /*
     privacyBgBlack = Sprite::create( "square1px.png" );
     privacyBgBlack->setTextureRect( Rect( 0, 0, safeAreaRect.width, safeAreaRect.height ) );
     privacyBgBlack->setPosition( Vec2( safeAreaRect.width * 0.5 + safeAreaOrigin.x, safeAreaRect.height * 0.5 + safeAreaOrigin.y ) );
@@ -189,7 +190,7 @@ HelpOverlay::HelpOverlay( cocos2d::Layer *layer, unsigned int whatScene ) {
     privacyButtonText->setPosition( Vec2( privacyButtonBg->getPosition() ) );
     layer->addChild( privacyButtonText, kLayer_HelpOverlay );
     
-    
+    */
     
 }
 
