@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.stianremvik.bitwaves2"
     android:installLocation="auto">
 
     <uses-permission android:name="android.permission.INTERNET"/>
@@ -28,8 +29,7 @@
                    android:value="MyGame" />
 
         <activity
-            android:name=".AppActivity"
-            android:exported="false"
+            android:name="org.cocos2dx.cpp.AppActivity"
             android:screenOrientation="landscape"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/app_name"
