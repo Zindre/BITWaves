@@ -62,7 +62,7 @@ BounceAndShare::BounceAndShare( cocos2d::Layer *layer ) {
     }
     
     Size buttonBgSize = buttonBg[0]->getBoundingBox().size;
-    label_buttons[kBounceAndShare_Buttons_Index_Share]->setString( "Dele med BIT20" );
+    label_buttons[kBounceAndShare_Buttons_Index_Share]->setString( "Del med BIT20" );
     
     float bgHeight = label_bounceSuccess->getBoundingBox().size.height + padding + label_whereToFind->getBoundingBox().size.height + padding + label_wantToShare->getBoundingBox().size.height + padding + label_useRights->getBoundingBox().size.height + label_webLink->getBoundingBox().size.height + padding + buttonBgSize.height + (padding * 4);
     background->setTextureRect( Rect( 0, 0, safeAreaRect.width * 0.6, bgHeight ) );
