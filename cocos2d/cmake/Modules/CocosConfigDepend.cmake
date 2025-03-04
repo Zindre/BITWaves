@@ -81,8 +81,8 @@ macro(cocos2dx_depend)
                  ${AV_FOUNDATION_LIBRARY}
                  ${WEBKIT_LIBRARY}
                  ${COCOS_APPLE_LIBS}
-                 "/usr/lib/libz.dylib"
-                 "/usr/lib/libiconv.dylib"
+                 # "/usr/lib/libz.dylib"
+                 # "/usr/lib/libiconv.dylib"
                  )
         endif()
     endif()

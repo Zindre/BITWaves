@@ -243,6 +243,9 @@ if(APPLE)
 
     # For code-signing, set the DEVELOPMENT_TEAM:
     #set_xcode_property(${APP_NAME} DEVELOPMENT_TEAM "GRLXXXX2K9")
+    find_library(ZLIB_LIBRARY z)
+    find_library(ICONV_LIBRARY iconv)
+    target_link_libraries(${PROJECT_NAME} ${ZLIB_LIBRARY} ${ICONV_LIBRARY})
 elseif(WINDOWS)
     cocos_copy_target_dll(${APP_NAME})
 endif()
