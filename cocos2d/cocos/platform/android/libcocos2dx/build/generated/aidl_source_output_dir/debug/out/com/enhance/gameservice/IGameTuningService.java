@@ -1,5 +1,6 @@
 /*
  * This file is auto-generated.  DO NOT MODIFY.
+ * Using: /Users/sindresorensen/Library/Android/sdk/build-tools/35.0.0/aidl -p/Users/sindresorensen/Library/Android/sdk/platforms/android-34/framework.aidl -o/Users/sindresorensen/projects/BITWaves-git/cocos2d/cocos/platform/android/libcocos2dx/build/generated/aidl_source_output_dir/debug/out -I/Users/sindresorensen/projects/BITWaves-git/cocos2d/cocos/platform/android/libcocos2dx/src/main/aidl -I/Users/sindresorensen/projects/BITWaves-git/cocos2d/cocos/platform/android/java/src -I/Users/sindresorensen/projects/BITWaves-git/cocos2d/cocos/platform/android/libcocos2dx/src/debug/aidl -d/var/folders/1c/nhhndxyj69z7n26hr6tlbxl00000gn/T/aidl14942323929770576820.d /Users/sindresorensen/projects/BITWaves-git/cocos2d/cocos/platform/android/java/src/com/enhance/gameservice/IGameTuningService.aidl
  */
 package com.enhance.gameservice;
 public interface IGameTuningService extends android.os.IInterface
@@ -36,6 +37,7 @@ public interface IGameTuningService extends android.os.IInterface
   public static abstract class Stub extends android.os.Binder implements com.enhance.gameservice.IGameTuningService
   {
     /** Construct the stub at attach it to the interface. */
+    @SuppressWarnings("this-escape")
     public Stub()
     {
       this.attachInterface(this, DESCRIPTOR);
@@ -65,13 +67,9 @@ public interface IGameTuningService extends android.os.IInterface
       if (code >= android.os.IBinder.FIRST_CALL_TRANSACTION && code <= android.os.IBinder.LAST_CALL_TRANSACTION) {
         data.enforceInterface(descriptor);
       }
-      switch (code)
-      {
-        case INTERFACE_TRANSACTION:
-        {
-          reply.writeString(descriptor);
-          return true;
-        }
+      if (code == INTERFACE_TRANSACTION) {
+        reply.writeString(descriptor);
+        return true;
       }
       switch (code)
       {
@@ -236,6 +234,7 @@ public interface IGameTuningService extends android.os.IInterface
     static final int TRANSACTION_getAbstractTemperature = (android.os.IBinder.FIRST_CALL_TRANSACTION + 3);
     static final int TRANSACTION_setGamePowerSaving = (android.os.IBinder.FIRST_CALL_TRANSACTION + 4);
   }
+  /** @hide */
   public static final java.lang.String DESCRIPTOR = "com.enhance.gameservice.IGameTuningService";
   public int setPreferredResolution(int resolution) throws android.os.RemoteException;
   public int setFramePerSecond(int fps) throws android.os.RemoteException;
